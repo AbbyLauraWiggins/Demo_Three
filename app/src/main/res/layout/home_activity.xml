@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_linear"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/top_linear"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:src="@drawable/team_photo_nobg" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_linear"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/next_game_home_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/next_game_day_text"
+            android:textStyle="bold"
+            android:textSize="35sp"
+            android:paddingLeft="5dp"/>
+
+        <TextView
+            android:id="@+id/next_training_home_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/next_training_day_text"
+            android:textStyle="bold"
+            android:textSize="35sp"/>
+
+        <TextView
+            android:id="@+id/next_social_home_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="14dp"
+            android:text="@string/next_social_day_text"
+            android:textStyle="bold"
+            android:textSize="35sp"
+            android:paddingRight="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/next_game_month_home_tv"
+            android:text="@string/next_game_month_text"
+            android:layout_below="@+id/next_game_home_tv"
+            android:layout_alignParentStart="true"
+            android:paddingLeft="15dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/next_training_month_home_tv"
+            android:text="@string/next_training_month_text"
+            android:layout_below="@+id/next_training_home_tv"
+            android:layout_centerInParent="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/next_social_month_home_tv"
+            android:text="@string/next_social_month_text"
+            android:layout_below="@+id/next_social_home_tv"
+            android:layout_alignParentEnd="true"
+            android:paddingRight="25dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/game_label"
+            android:text="GAME"
+            android:layout_below="@+id/next_game_month_home_tv"
+            android:layout_alignParentStart="true"
+            android:paddingLeft="0dp"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/training_label"
+            android:text="TRAINING"
+            android:layout_below="@+id/next_training_month_home_tv"
+            android:layout_centerInParent="true"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/social_label"
+            android:text="SOCIAL"
+            android:layout_below="@+id/next_social_month_home_tv"
+            android:layout_alignParentEnd="true"
+            android:textSize="20sp"
+            android:textStyle=""
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/relativeLayout2"
+        android:paddingHorizontal="30dp"
+        android:paddingBottom="10dp">
+
+        <!-- SIZES TO BE CHANGED -->
+        <Button
+            android:id="@+id/notice_home_button"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_above="@+id/members_home_button"
+            android:layout_alignParentLeft="true"
+            android:onClick="onGoToNotices"
+            android:text="Notices" />
+
+        <Button
+            android:id="@+id/stats_home_button"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_above="@+id/gallery_home_button"
+            android:layout_centerHorizontal="true"
+            android:onClick="onGoToStats"
+            android:text="Statistics" />
+
+        <Button
+            android:id="@+id/log_home_button"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_above="@+id/members_home_button"
+            android:layout_alignParentRight="true"
+            android:onClick="onGoToLog"
+            android:text="Log" />
+
+        <Button
+            android:id="@+id/calendar_home_button"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_below="@+id/notice_home_button"
+            android:layout_alignParentStart="true"
+            android:onClick="onGoToCalendar"
+            android:text="Calendar" />
+
+        <Button
+            android:id="@+id/gallery_home_button"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignBottom="@+id/members_home_button"
+            android:layout_centerHorizontal="true"
+            android:onClick="onGoToGallery"
+            android:text="Gallery" />
+
+        <Button
+            android:id="@+id/members_home_button"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="onGoToMembers"
+            android:text="Members" />
+    </RelativeLayout>
+
+</RelativeLayout>
