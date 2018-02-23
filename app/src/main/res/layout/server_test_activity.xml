@@ -6,29 +6,47 @@
     android:padding="10dp">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/message_from_server_text"
         android:id="@+id/message_from_server"
-        android:textSize="30sp"
-        android:paddingBottom="20dp"/>
+        android:textSize="20sp"
+        android:paddingBottom="40dp"/>
+
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/message_to_server_text"
-        android:id="@+id/message_to_server"
-        android:textSize="30sp"
-        android:paddingTop="20dp"
-        android:paddingBottom="40dp"/>
+        android:textSize="20sp"
+        android:id="@+id/message_to_server"/>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send"
-        android:textSize="30sp"
-        android:id="@+id/button_send"
-        android:onClick="onSendClick"
-        />
+        android:text="@string/send_button_text"
+        android:id="@+id/send_button"
+        android:onClick="onSendClick"/>
+
+
+    <TextView
+        android:paddingTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emailTV"
+        android:text="@string/emailtvtext"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/passTV"
+        android:text="@string/passwordTVtext"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emailbtn"
+        android:onClick="onTest"/>
+
 
 </LinearLayout>

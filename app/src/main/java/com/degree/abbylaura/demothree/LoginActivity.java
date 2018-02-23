@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.Intent;
 
 import com.degree.abbylaura.demothree.Client.Client;
+import com.degree.abbylaura.demothree.Client.ClientHelper;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -142,6 +143,13 @@ public class LoginActivity extends Activity {
         //if valid then save login and go to home
         //if not valid then TOAST error message
 
+        Intent intent = new Intent(this, ServerTestActivity.class);
+        intent.putExtra("email", emailEditText.getText().toString());
+        intent.putExtra("password", passwordEditText.getText().toString());
+        startActivity(intent);
+
+
+
     }
 
 
@@ -150,11 +158,6 @@ public class LoginActivity extends Activity {
         startActivity(goToHome);
     }
 
-    public void onSkipForServer(View view) {
-        Client myClient = new Client();
-        Intent goToServerTester = new Intent(this, ServerTestActivity.class);
-        goToServerTester.putExtra("Client", myClient);
-        startActivity(goToServerTester);
-    }
+
 }
 

@@ -7,6 +7,13 @@ package com.degree.abbylaura.demothree.Server;
  *
  */
 
-public class ServerRequests {
+class ServerRequests {
+
+    public Boolean validateLogin(String email, String password){ //maybe make this protected??
+
+        //TODO valid email and password with database
+
+        return true;
+    }
 
 }

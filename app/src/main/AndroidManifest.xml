@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <application
         android:allowBackup="true"
@@ -56,10 +58,19 @@
             android:theme="@style/AppTheme"/>
 
 
-
         <activity
             android:name=".RegisterActivity"
             android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".ServerTestActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".Database"
+            android:theme="@style/AppTheme"/>
+
+        <service android:name=".Client.BoundService"/>
     </application>
 
 </manifest>

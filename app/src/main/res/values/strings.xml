@@ -28,5 +28,8 @@
     <!-- Server test strings -->
     <string name="message_to_server_text">MESSAGE TO SERVER</string>
     <string name="message_from_server_text">MESSAGE FROM SERVER</string>
+    <string name="send_button_text">Send</string>
+    <string name="emailtvtext">email</string>
+    <string name="passwordTVtext">password</string>
 
 </resources>

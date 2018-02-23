@@ -17,7 +17,7 @@ public class Server {
         ServerSocket serverSocket = null;
         Socket clientSocket = null;
 
-        int portNumber = 8888; //TO BE CHANGED
+        int portNumber = 9000; //TO BE CHANGED
 
 
         //setup server socket
@@ -35,12 +35,11 @@ public class Server {
 
                     //connection accepted
                     clientSocket = serverSocket.accept();
-                    System.out.println("client accepted");
+                    //System.out.println("client accepted");
 
                     //create a new multi-server-thread object to handle new client
                     //pass it the socket returned from the accept and start the thread
                     new ServerThreads(clientSocket).start();
-
 
                     //carry on listening for new connections forever
 

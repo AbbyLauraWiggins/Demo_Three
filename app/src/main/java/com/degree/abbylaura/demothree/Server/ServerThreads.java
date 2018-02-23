@@ -19,11 +19,18 @@ public class ServerThreads extends Thread{
     public ServerThreads(Socket clientSocket){
         super();
         this.clientSocket = clientSocket;
+
+        System.out.println("in server threads constructor");
     }
 
     public void run(){
 
+        System.out.println("in ST run");
+
         try {
+            ServerRequests requests = new ServerRequests();
+
+
             BufferedReader inFromClient = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()));
 
@@ -32,39 +39,37 @@ public class ServerThreads extends Thread{
 
 
             Boolean communicating = true;
-            String response = null;
+            outToClient.println("Connection accepted");
+            System.out.println("Connection accepted");
 
-            String myresponse = "FIRST TO CLIENT"; //debugging
-
-            //send over to ServerRequests
-            ServerRequests request = new ServerRequests();
-
+            String fromClient = null;
+            int count = 0;
 
             while(communicating){
 
 
+                fromClient = inFromClient.readLine();
+                System.out.println(fromClient);
 
-                /*
-                outToClient.println("FIRST TO CLIENT");
-                response = inFromClient.readLine();
-                System.out.println(myresponse + " : " + response);
+                if(fromClient.equals("Request Login")){
+                    outToClient.println("Send email");
+                    String email = inFromClient.readLine();
+                    outToClient.print("Send password");
+                    String password = inFromClient.readLine();
+
+                    if(requests.validateLogin(email, password)){
+                        outToClient.println("Login valid");
+                    }else{
+                        outToClient.println("Login invalid");
+                    }
+                } else if(fromClient.equals("OTHERWISE")){
+                    outToClient.println("OTHERWISE RECIEVED");
+                } else{
+                    outToClient.print("FINAL");
+                }
 
 
-                if(response.equals("FIRST TO SERVER")){
-                    myresponse = "SECOND TO CLIENT";
-                    outToClient.println("SECOND TO CLIENT");
 
-                }else if(response.equals("SECOND TO SERVER")){
-                    myresponse = "SERVER ENDING COMMUNICATION";
-                    outToClient.println("SERVER ENDING COMMUNICATION");
-
-                }else if(response.equals("CLIENT END")){
-                    communicating = false;
-                } */
-
-
-
-                //if something return a particular value then communicating = false
             }
 
             clientSocket.close();
@@ -85,9 +90,5 @@ public class ServerThreads extends Thread{
                 e.printStackTrace();
             }
         }
-
-
-
-
     }
 }
