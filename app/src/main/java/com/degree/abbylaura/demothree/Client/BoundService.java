@@ -23,7 +23,7 @@ public class BoundService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        client = new Client();
+        client = new Client("1"); //clientID set to 1 for testing
 
     }
 
@@ -32,9 +32,9 @@ public class BoundService extends Service {
     }
 
     public void setMessageToServer(String message){
-
         client.setMessageToServer(message);
     }
+
 
     public class MyBinder extends Binder {
         public BoundService getService(){

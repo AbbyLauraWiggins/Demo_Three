@@ -32,6 +32,11 @@ public class RegisterActivity extends Activity {
         passwordEditText.setText(password);
 
 
+
+        //*****USE MyClientID newID*****
+
+
+
     }
 
     public void onFinishRegistrationClick(View view) {

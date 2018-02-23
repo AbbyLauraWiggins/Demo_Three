@@ -1,4 +1,4 @@
-package com.degree.abbylaura.demothree;
+package com.degree.abbylaura.demothree.Server;
 
 import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;

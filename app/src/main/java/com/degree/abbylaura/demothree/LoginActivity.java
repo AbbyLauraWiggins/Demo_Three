@@ -12,6 +12,7 @@ import android.content.Intent;
 
 import com.degree.abbylaura.demothree.Client.Client;
 import com.degree.abbylaura.demothree.Client.ClientHelper;
+import com.degree.abbylaura.demothree.Client.MyClientID;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -143,10 +144,19 @@ public class LoginActivity extends Activity {
         //if valid then save login and go to home
         //if not valid then TOAST error message
 
+        // Use MyClientID getMyID
+        MyClientID mc = new MyClientID();
+        mc.getMyID(emailEditText.getText().toString(), passwordEditText.getText().toString());
+
+        /* DEBUGGING
         Intent intent = new Intent(this, ServerTestActivity.class);
         intent.putExtra("email", emailEditText.getText().toString());
         intent.putExtra("password", passwordEditText.getText().toString());
         startActivity(intent);
+        */
+
+        Intent goToHome  = new Intent(this, HomeActivity.class);
+        startActivity(goToHome);
 
 
 

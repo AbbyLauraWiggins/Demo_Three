@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Random;
 
 public class ServerThreads extends Thread{
 
@@ -43,29 +44,44 @@ public class ServerThreads extends Thread{
             System.out.println("Connection accepted");
 
             String fromClient = null;
-            int count = 0;
 
             while(communicating){
 
 
-                fromClient = inFromClient.readLine();
-                System.out.println(fromClient);
+                while(communicating){
 
-                if(fromClient.equals("Request Login")){
-                    outToClient.println("Send email");
-                    String email = inFromClient.readLine();
-                    outToClient.print("Send password");
-                    String password = inFromClient.readLine();
+                    String email, password;
 
-                    if(requests.validateLogin(email, password)){
-                        outToClient.println("Login valid");
-                    }else{
-                        outToClient.println("Login invalid");
+                    fromClient = inFromClient.readLine();
+
+                    if(fromClient.equals("login request")){
+                        outToClient.println("send email");
+
                     }
-                } else if(fromClient.equals("OTHERWISE")){
-                    outToClient.println("OTHERWISE RECIEVED");
-                } else{
-                    outToClient.print("FINAL");
+
+                    else if(fromClient.startsWith("EMAIL")){
+                        outToClient.println("send password");
+                        email = fromClient;
+                    }
+
+                    else if(fromClient.startsWith("PASSWORD")){
+                        password = fromClient;
+                        //TODO validate email and password
+                        //for now send random int as string
+                        Random rn = new Random();
+                        int id = rn.nextInt(100);
+                        outToClient.println(String.valueOf(id));
+                    }
+
+                    else if(fromClient.equals("request update to notices")){
+                        outToClient.println(requests.getNotices());
+                    }
+
+                    else if(fromClient.startsWith("NOTICE ADDITION:")){
+                        requests.addToNotices(fromClient.substring(16));
+                    }
+
+
                 }
 
 

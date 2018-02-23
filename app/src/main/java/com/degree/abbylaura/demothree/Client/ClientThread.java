@@ -15,8 +15,7 @@ import java.net.UnknownHostException;
 public class ClientThread extends Thread {
 
     private Socket socket;
-    // private String HOST_NAME = "localhost";
-    //private int PORT_NUMBER = 9000;
+    private static final String TAG = "ClientThread";
 
     String messageFromServer = null;
     String messageToServer = null;
@@ -25,10 +24,12 @@ public class ClientThread extends Thread {
     PrintWriter outToServer = null;
 
 
-    public ClientThread(){
+    public ClientThread(String msg) {
         super();
+        this.messageToServer = msg;
 
     }
+
 
 
     public void run(){
@@ -36,7 +37,7 @@ public class ClientThread extends Thread {
 
         try{
 
-            socket = new Socket("10.0.2.2", 9000);  //current HOSTNAME is for running on emulator
+            socket = new Socket("10.0.2.2", 9000);
 
             inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -45,41 +46,13 @@ public class ClientThread extends Thread {
             Boolean communicating = true;
 
 
+
             while (communicating) {
 
-                /*
-                messageFromServer = inFromServer.readLine();
-                ClientHelper.setMessageFromServer(messageFromServer);
 
-                messageToServer = ClientHelper.messageToServer;
                 outToServer.println(messageToServer);
-                */
 
-                messageToServer = ClientHelper.messageToServer;
-                ClientHelper.setMessageFromServer(messageFromServer);
-
-                messageFromServer = inFromServer.readLine();
-                System.out.println(messageFromServer);
-
-                if(messageFromServer.equals("Connection accepted")){
-                    outToServer.println(messageToServer);
-                }
-
-                else if(messageFromServer.equals("Send email")){
-                    outToServer.println(ClientHelper.clientEmail);
-                }
-
-                else if(messageFromServer.equals("Send password")){
-                    outToServer.println(ClientHelper.clientPassword);
-                }
-
-                else if(messageFromServer.equals("Login valid")){
-                    ClientHelper.setLoginValid(true);
-                }
-
-                else{
-                    outToServer.println("OTHERWISE");
-                }
+                ClientHelper.setMessageFromServer(inFromServer.readLine());
 
             }
 

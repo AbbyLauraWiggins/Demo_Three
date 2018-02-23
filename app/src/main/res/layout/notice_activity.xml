@@ -40,6 +40,14 @@
             android:text="Back"
             android:onClick="onBackButton"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/update_button"
+            android:text="Update"
+            android:layout_centerHorizontal="true"
+            android:onClick="onUpdateButton"/>
+
 
 
 

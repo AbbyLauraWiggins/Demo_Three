@@ -14,27 +14,32 @@ import java.net.UnknownHostException;
 public class Client {
 
     String clientID = null;
+    ClientThread thread;
 
-    public Client() {
+    String msg;
+    //ClientHelper helper;
+
+    public Client(String clientID) {
         super();
         System.out.println("in client constructor");
 
         this.clientID = clientID;
 
-        new ClientThread().start();
-
     }
 
 
     public void setMessageToServer(String message){
-        //System.out.println("in client set message");
 
-        ClientHelper.setMessageToServer(message);
+        thread = new ClientThread(message);
+
+        thread.start();
     }
 
-    public String getMessageFromServer(){
-        //System.out.println("in client getmessage");
 
+
+    public String getMessageFromServer(){
+        //return thread.getMessageFromServer();
+        thread.interrupt();
         return ClientHelper.messageFromServer;
     }
 }

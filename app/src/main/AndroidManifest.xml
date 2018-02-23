@@ -67,7 +67,7 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name=".Database"
+            android:name=".Server.Database"
             android:theme="@style/AppTheme"/>
 
         <service android:name=".Client.BoundService"/>
