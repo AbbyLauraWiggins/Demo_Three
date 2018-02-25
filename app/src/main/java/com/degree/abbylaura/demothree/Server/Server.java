@@ -16,12 +16,14 @@ public class Server {
         //create a server and client sockets
         ServerSocket serverSocket = null;
         Socket clientSocket = null;
+        ServerRequests requests = new ServerRequests(null);
 
         int portNumber = 9000; //TO BE CHANGED
 
 
         //setup server socket
         try{
+
             serverSocket = new ServerSocket(portNumber);
             System.out.println("Socket set up");
 
@@ -39,7 +41,7 @@ public class Server {
 
                     //create a new multi-server-thread object to handle new client
                     //pass it the socket returned from the accept and start the thread
-                    new ServerThreads(clientSocket).start();
+                    new ServerThreads(clientSocket, requests).start();
 
                     //carry on listening for new connections forever
 

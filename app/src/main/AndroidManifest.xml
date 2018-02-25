@@ -71,6 +71,7 @@
             android:theme="@style/AppTheme"/>
 
         <service android:name=".Client.BoundService"/>
+        <service android:name=".ServerService"/>
     </application>
 
 </manifest>

@@ -9,14 +9,16 @@ import java.util.ArrayList;
  *
  */
 
-class ServerRequests {
+public class ServerRequests {
 
-    public static ArrayList<String> notices;
+    //public static ArrayList<String> notices;
+    public String noticeString;
 
-    public ServerRequests(){
+    public ServerRequests(String noticeString){
         super();
 
-        notices = new ArrayList<String>();
+        this.noticeString = noticeString;
+        //notices = new ArrayList<String>();
 
     }
 
@@ -28,11 +30,18 @@ class ServerRequests {
     }
 
     public void addToNotices(String string){
-        notices.add("\n" + string);
+
+        System.out.println("passed to notice string, currently: " + string);
+
+       /// String separator = System.getProperty("line.separator");
+
+        noticeString = noticeString + string;
+
+        System.out.println("added to notice string, currently: " + noticeString);
     }
 
     public String getNotices(){
-        return notices.toString();
+        return noticeString;
     }
 
 }

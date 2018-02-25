@@ -9,7 +9,7 @@
         android:id="@+id/notices_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:text="Notices" />
 
@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         android:text="@string/input_text_view_content"
         android:id="@+id/input_text_view"
-        android:layout_below="@+id/notices_title"/>
+        android:layout_below="@+id/notices_title"
+        android:textSize="20sp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

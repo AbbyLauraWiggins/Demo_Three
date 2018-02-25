@@ -1,12 +1,15 @@
 package com.degree.abbylaura.demothree;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,12 +22,7 @@ import com.degree.abbylaura.demothree.Client.MyClientID;
 
 public class NoticeActivity extends Activity {
 
-    //BoundService boundService;
-    //boolean bound = false;
-
     TextView usersMessage;
-
-    String content = "";
 
 
     @Override
@@ -34,7 +32,67 @@ public class NoticeActivity extends Activity {
         setContentView(R.layout.notice_activity);
         usersMessage = (TextView)
                 findViewById(R.id.input_text_view);
+
+
+
+        // Allows use to track when an intent with the id TRANSACTION_DONE is executed
+        // We can call for an intent to execute something and then tell use when it finishes
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ServerService.TRANSACTION_DONE);
+
+        // Prepare the main thread to receive a broadcast and act on it
+        registerReceiver(clientReceiver, intentFilter);
+
+
+
     }
+
+
+    /**
+     * startFileService starts the Intent to run intent service in background
+     */
+    public void updateContent(String addition) {
+
+        // Create an intent to run the IntentService in the background
+        Intent intent = new Intent(this, ServerService.class);
+
+        // Pass the request that the IntentService will service from
+        intent.putExtra("request", addition);
+
+        // Start the intent service
+        this.startService(intent);
+    }
+
+
+
+    // Is alerted when the IntentService broadcasts TRANSACTION_DONE
+    private BroadcastReceiver clientReceiver = new BroadcastReceiver() {
+
+        // Called when the broadcast is received
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            Log.e("ServerService", "Service Received");
+
+            //response = whole of content
+            String response = intent.getStringExtra("serverResponse");
+
+            updateTextView(response);
+
+        }
+    };
+
+
+    protected void updateTextView(String response){
+        usersMessage.setText(response);
+    }
+
+
+
+
+
+
+
 
     public void onComposeNotice(View view) {
         //when this is clicked, we want to go to D2NoticeComposeActivity
@@ -48,76 +106,32 @@ public class NoticeActivity extends Activity {
         startActivityForResult(getReturnUserInput, result);
     }
 
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         //handle text being sent back to from D2NoticeActivity
-
-
         String composeText = data.getStringExtra("User Input");
 
-        if(composeText.equals(null)){
-            usersMessage.setText(content);
-
-        } else{
-            if(bound){
-                boundService.setMessageToServer("NOTICE ADDITION:" + composeText);
-            }
-            content = (MyClientID.myID + ": " + composeText) + "\n" + content;
-            usersMessage.setText(content);
-
+        if(!composeText.equals(null)){
+            String addition = (MyClientID.myID + ": " + composeText) + "\n";
+            updateContent(addition); //send server the notice addition
         }
     }
+
+
+
 
     public void onUpdateButton(View view) {
-        if(bound){
-            boundService.setMessageToServer("request update to notices");
-            content = boundService.getMessageFromServer();
-            usersMessage.setText(content);
-        } else{
-            System.out.println("SERVICE NOT BOUND");
-        }
+        //boundService.setMessageToServer("request update to notices");
+        //content = boundService.getMessageFromServer();
+        //usersMessage.setText(content);
+
     }
 
-
-
-
-    /*
-        *********SERVICE BINDING********
-     */
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Intent intent = new Intent(this, BoundService.class);
-
-        //startService(intent); //unsure if needed
-
-        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        unbindService(serviceConnection);
-        bound = false;
-    }
-
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            BoundService.MyBinder myBinder = (BoundService.MyBinder) iBinder;
-            boundService = myBinder.getService();
-            bound = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-            bound = false;
-        }
-    };
 
 
 
