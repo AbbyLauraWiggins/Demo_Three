@@ -19,8 +19,8 @@ import com.degree.abbylaura.demothree.Client.MyClientID;
 
 public class NoticeActivity extends Activity {
 
-    BoundService boundService;
-    boolean bound = false;
+    //BoundService boundService;
+    //boolean bound = false;
 
     TextView usersMessage;
 
