@@ -3,6 +3,7 @@ package com.degree.abbylaura.demothree.Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Created by abbylaura on 18/02/2018.
@@ -16,7 +17,7 @@ public class Server {
         //create a server and client sockets
         ServerSocket serverSocket = null;
         Socket clientSocket = null;
-        ServerRequests requests = new ServerRequests(null);
+        ServerRequests requests = new ServerRequests(null, new ArrayList<String>());
 
         int portNumber = 9000; //TO BE CHANGED
 

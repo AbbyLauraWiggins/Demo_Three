@@ -1,5 +1,7 @@
 package com.degree.abbylaura.demothree.Server;
 
+import android.widget.ArrayAdapter;
+
 import java.util.ArrayList;
 
 /**
@@ -11,13 +13,15 @@ import java.util.ArrayList;
 
 public class ServerRequests {
 
-    //public static ArrayList<String> notices;
+    public ArrayList<String> notices;
     public String noticeString;
 
-    public ServerRequests(String noticeString){
+    public ServerRequests(String noticeString, ArrayList<String> notices){
         super();
 
         this.noticeString = noticeString;
+
+        this.notices = notices;
         //notices = new ArrayList<String>();
 
     }
@@ -31,17 +35,20 @@ public class ServerRequests {
 
     public void addToNotices(String string){
 
-        System.out.println("passed to notice string, currently: " + string);
+        //System.out.println("passed to notice string, currently: " + string);
 
-       /// String separator = System.getProperty("line.separator");
+        //noticeString = noticeString + string;
 
-        noticeString = noticeString + string;
-
-        System.out.println("added to notice string, currently: " + noticeString);
+        //System.out.println("added to notice string, currently: " + noticeString);
+        notices.add(string);
     }
 
     public String getNotices(){
         return noticeString;
+    }
+
+    public ArrayList<String> getNoticeArray(){
+        return notices;
     }
 
 }

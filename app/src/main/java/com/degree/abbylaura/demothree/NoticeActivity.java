@@ -49,7 +49,7 @@ public class NoticeActivity extends Activity {
 
 
     /**
-     * startFileService starts the Intent to run intent service in background
+     * starts the Intent to run intent service in background
      */
     public void updateContent(String addition) {
 
@@ -88,20 +88,14 @@ public class NoticeActivity extends Activity {
     }
 
 
-
-
-
-
-
-
-    public void onComposeNotice(View view) {
+    protected void onComposeNotice(View view) {
         //when this is clicked, we want to go to D2NoticeComposeActivity
         //should return with activity name and notice content
 
         Intent getReturnUserInput = new Intent(this, NoticeComposeActivity.class);
 
         final int result = 1;
-        getReturnUserInput.putExtra("User Input", "APPLES");
+        //getReturnUserInput.putExtra("User Input", "TEST");
 
         startActivityForResult(getReturnUserInput, result);
     }
@@ -115,6 +109,7 @@ public class NoticeActivity extends Activity {
 
         //handle text being sent back to from D2NoticeActivity
         String composeText = data.getStringExtra("User Input");
+        System.out.println(composeText);
 
         if(!composeText.equals(null)){
             String addition = (MyClientID.myID + ": " + composeText) + "\n";
@@ -125,7 +120,7 @@ public class NoticeActivity extends Activity {
 
 
 
-    public void onUpdateButton(View view) {
+    protected void onUpdateButton(View view) {
         //boundService.setMessageToServer("request update to notices");
         //content = boundService.getMessageFromServer();
         //usersMessage.setText(content);

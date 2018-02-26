@@ -71,6 +71,7 @@ public class ServerService extends IntentService {
 
         public String talkToServer(String passedRequest){
             String response = null;
+            String reply = null;
 
             try{
                 socket = new Socket("10.0.2.2", 9000);
@@ -81,9 +82,23 @@ public class ServerService extends IntentService {
 
                 outToServer.println(passedRequest);
 
-                response = inFromServer.readLine();
+                String in = inFromServer.readLine();
 
-                System.out.println("in nested client: " + response);
+                if(in.startsWith("NOTICE LENGTH")){
+                    String size = in.substring(13);
+                    System.out.println(size);
+                    int length = Integer.valueOf(size);
+
+
+                    for(int i = 0; i < length; i++){
+                        in = inFromServer.readLine();
+                        response = response + "\n" + in;
+                    }
+                }
+
+
+
+                //System.out.println("in nested client: " + response);
 
 
                 socket.close();
