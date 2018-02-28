@@ -1,5 +1,6 @@
 package com.degree.abbylaura.demothree;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.degree.abbylaura.demothree.Client.BoundService;
@@ -42,8 +44,6 @@ public class NoticeActivity extends Activity {
 
         // Prepare the main thread to receive a broadcast and act on it
         registerReceiver(clientReceiver, intentFilter);
-
-
 
     }
 
@@ -83,12 +83,22 @@ public class NoticeActivity extends Activity {
     };
 
 
+    @SuppressLint("ResourceType")
     protected void updateTextView(String response){
-        usersMessage.setText(response);
+        LinearLayout fragContainer = (LinearLayout) findViewById(R.id.fragmentContainer);
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        layout.setId(12345);
+
+        getFragmentManager().beginTransaction().add(layout.getId(), NoticeFragment.newInstance(response), "someTag1").commit();
+
+        fragContainer.addView(layout);
     }
 
 
-    protected void onComposeNotice(View view) {
+    public void onComposeNotice(View view) {
         //when this is clicked, we want to go to D2NoticeComposeActivity
         //should return with activity name and notice content
 

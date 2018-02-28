@@ -22,6 +22,25 @@
         android:layout_below="@+id/notices_title"
         android:textSize="20sp"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/input_text_view">
+
+
+        <LinearLayout
+            android:id="@+id/fragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="19dp"
+            android:orientation="vertical" >
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -31,5 +31,7 @@
     <string name="send_button_text">Send</string>
     <string name="emailtvtext">email</string>
     <string name="passwordTVtext">password</string>
+    <string name="notice_fragment_client_name">NAME</string>
+    <string name="notice_fragment_date">DATE</string>
 
 </resources>
