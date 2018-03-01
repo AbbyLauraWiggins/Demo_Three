@@ -62,15 +62,7 @@
             android:name=".RegisterActivity"
             android:theme="@style/AppTheme" />
 
-        <activity
-            android:name=".ServerTestActivity"
-            android:theme="@style/AppTheme" />
 
-        <activity
-            android:name=".Server.Database"
-            android:theme="@style/AppTheme"/>
-
-        <service android:name=".Client.BoundService"/>
         <service android:name=".ServerService"/>
     </application>
 

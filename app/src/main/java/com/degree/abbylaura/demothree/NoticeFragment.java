@@ -13,12 +13,14 @@ import android.widget.TextView;
 
 public class NoticeFragment extends Fragment {
 
-    public static NoticeFragment newInstance(String text) {
+    public static NoticeFragment newInstance(String text, String clientID, String date) {
 
         NoticeFragment f = new NoticeFragment();
 
         Bundle b = new Bundle();
         b.putString("text", text);
+        b.putString("id", clientID);
+        b.putString("date", date);
         f.setArguments(b);
         return f;
     }
@@ -29,6 +31,10 @@ public class NoticeFragment extends Fragment {
         View v =  inflater.inflate(R.layout.notice_fragment, container, false);
 
         ((TextView) v.findViewById(R.id.noticeFragmentInputText)).setText(getArguments().getString("text"));
+        ((TextView) v.findViewById(R.id.clientNameTextView)).setText(getArguments().getString("id"));
+        ((TextView) v.findViewById(R.id.dateTextView)).setText(getArguments().getString("date"));
+
+
         return v;
     }
 }

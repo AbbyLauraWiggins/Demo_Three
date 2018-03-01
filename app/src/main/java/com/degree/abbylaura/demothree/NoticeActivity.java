@@ -2,21 +2,21 @@ package com.degree.abbylaura.demothree;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.degree.abbylaura.demothree.Client.BoundService;
 import com.degree.abbylaura.demothree.Client.MyClientID;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by abbylaura on 09/02/2018.
@@ -53,11 +53,19 @@ public class NoticeActivity extends Activity {
      */
     public void updateContent(String addition) {
 
+
+        Date date = Calendar.getInstance().getTime();
+
         // Create an intent to run the IntentService in the background
         Intent intent = new Intent(this, ServerService.class);
 
         // Pass the request that the IntentService will service from
-        intent.putExtra("request", addition);
+        intent.putExtra("serviceRequested", "NoticeActivityAddition");
+        intent.putExtra("content", addition);
+        intent.putExtra("clientID", "1"); //*****CLIENT ID = 1 FOR TESTING
+        intent.putExtra("date", String.valueOf(date));
+
+        System.out.println("updatecontent: going to start service");
 
         // Start the intent service
         this.startService(intent);
@@ -74,17 +82,29 @@ public class NoticeActivity extends Activity {
 
             Log.e("ServerService", "Service Received");
 
-            //response = whole of content
-            String response = intent.getStringExtra("serverResponse");
+            String[][] noticesReceived=null;
+            Object[] objectArray = (Object[]) getIntent().getExtras().getSerializable("serverResponse");
+            if(objectArray!=null){
+                noticesReceived = new String[objectArray.length][];
 
-            updateTextView(response);
+                for(int i=0;i<objectArray.length;i++){
+                    noticesReceived[i]=(String[]) objectArray[i];
+                }
+
+            }
+
+
+            for(int i = 0; i > noticesReceived.length; i++){
+                updateTextView(noticesReceived[i][2], noticesReceived[i][1], noticesReceived[i][3]);
+            }
+
 
         }
     };
 
 
     @SuppressLint("ResourceType")
-    protected void updateTextView(String response){
+    protected void updateTextView(String notice, String clientID, String date){
         LinearLayout fragContainer = (LinearLayout) findViewById(R.id.fragmentContainer);
 
         LinearLayout layout = new LinearLayout(this);
@@ -92,7 +112,10 @@ public class NoticeActivity extends Activity {
 
         layout.setId(12345);
 
-        getFragmentManager().beginTransaction().add(layout.getId(), NoticeFragment.newInstance(response), "someTag1").commit();
+        FragmentTransaction ft =  getFragmentManager().beginTransaction();
+        ft.add(layout.getId(), NoticeFragment.newInstance(notice, clientID, date), "someTag1").commit();
+
+
 
         fragContainer.addView(layout);
     }
@@ -119,12 +142,9 @@ public class NoticeActivity extends Activity {
 
         //handle text being sent back to from D2NoticeActivity
         String composeText = data.getStringExtra("User Input");
-        System.out.println(composeText);
+        System.out.println("return from compose: " + composeText);
 
-        if(!composeText.equals(null)){
-            String addition = (MyClientID.myID + ": " + composeText) + "\n";
-            updateContent(addition); //send server the notice addition
-        }
+        updateContent(composeText);
     }
 
 

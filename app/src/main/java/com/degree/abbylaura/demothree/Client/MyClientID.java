@@ -17,16 +17,6 @@ public class MyClientID {
         //TODO recieve clientID from server database based off email and password
 
 
-        Client client = new Client("unknown");
-        client.setMessageToServer("login request");
-        if(client.getMessageFromServer().equals("send email")){
-            client.setMessageToServer("EMAIL:" + email);
-        }
-        if(client.getMessageFromServer().equals("send password")){
-            client.setMessageToServer("PASSWORD:" + password);
-            myID = client.getMessageFromServer();
-        }
-
         return myID;
 
     }

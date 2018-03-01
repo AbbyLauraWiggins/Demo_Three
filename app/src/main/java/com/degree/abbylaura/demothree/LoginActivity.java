@@ -10,11 +10,7 @@ import android.widget.*;
 import android.content.SharedPreferences;
 import android.content.Intent;
 
-import com.degree.abbylaura.demothree.Client.Client;
-import com.degree.abbylaura.demothree.Client.ClientHelper;
 import com.degree.abbylaura.demothree.Client.MyClientID;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.

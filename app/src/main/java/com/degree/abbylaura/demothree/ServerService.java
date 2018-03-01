@@ -2,6 +2,7 @@ package com.degree.abbylaura.demothree;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -35,28 +36,40 @@ public class ServerService extends IntentService {
 
         Log.e("ServerService", "Service Started");
 
-        // Get the URL for the file to download
-        String passedRequest = intent.getStringExtra("request");
-        System.out.println(passedRequest);
+        String serviceRequested = intent.getStringExtra("serviceRequested");
 
-        String response = serviceRequest(passedRequest);
+        System.out.println("in SS - service requested:  " + serviceRequested);
+
+
+        String[][] response = null;
+
+        if(serviceRequested.equals("NoticeActivityAddition")){
+            NestedClient nClient = new NestedClient();
+
+            String clientID = intent.getStringExtra("clientID");
+            String notice = intent.getStringExtra("content");
+            String date = intent.getStringExtra("date");
+
+            //************ get CLIENTSIDE NOTICE DATABASE SIZE
+            int clientsideNoticeDatabaseSize = 0; //0 FOR TESTING
+
+
+            response = nClient.updateNotices(clientID, notice, date,
+                    String.valueOf(clientsideNoticeDatabaseSize));
+        }
+
 
         Log.e("ServerService", "Service Stopped");
 
         // Broadcast an intent back to MainActivity when file is downloaded
         Intent i = new Intent(TRANSACTION_DONE);
-        i.putExtra("serverResponse", response);
+        Bundle mBundle = new Bundle();
+        mBundle.putSerializable("newNotices", response);
+        i.putExtras(mBundle);
         ServerService.this.sendBroadcast(i);
 
     }
 
-    protected String serviceRequest(String passedRequest) {
-
-        NestedClient nClient = new NestedClient();
-
-        return nClient.talkToServer(passedRequest);
-
-    }
 
     public class NestedClient{
         BufferedReader inFromServer = null;
@@ -67,24 +80,57 @@ public class ServerService extends IntentService {
         public NestedClient(){
             super();
 
+            System.out.println("nested client constructor");
+
         }
 
-        public String talkToServer(String passedRequest){
+
+
+
+        public String[][] updateNotices(String clientID, String notice, String date, String myDbSize){
             String response = null;
-            String reply = null;
+            String[][] updateNotices = null;
+
 
             try{
-                socket = new Socket("10.0.2.2", 9000);
+                System.out.println("nclient update try ");
+
+
+
+                socket = new Socket("10.0.2.2", 9002);
 
                 inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
                 outToServer = new PrintWriter(socket.getOutputStream(), true);
 
-                outToServer.println(passedRequest);
+                outToServer.println("sending notice update");
 
-                String in = inFromServer.readLine();
+                if(inFromServer.readLine().equals("send")){
+                    outToServer.println(clientID);
 
-                if(in.startsWith("NOTICE LENGTH")){
+                    outToServer.println(notice);
+
+                    outToServer.println(date);
+
+                    outToServer.println(myDbSize);
+
+                    int inSize = Integer.parseInt(inFromServer.readLine());
+
+                    updateNotices = new String[inSize][4];
+
+                    for(int i = 0; i < inSize; i++){
+                        updateNotices[i][0] = inFromServer.readLine();
+                        updateNotices[i][1] = inFromServer.readLine();
+                        updateNotices[i][2] = inFromServer.readLine();
+                        updateNotices[i][3] = inFromServer.readLine();
+
+                    }
+
+
+                }
+                //String in = inFromServer.readLine();
+
+                /*if(in.startsWith("NOTICE LENGTH")){
                     String size = in.substring(13);
                     System.out.println(size);
                     int length = Integer.valueOf(size);
@@ -94,7 +140,7 @@ public class ServerService extends IntentService {
                         in = inFromServer.readLine();
                         response = response + "\n" + in;
                     }
-                }
+                }*/
 
 
 
@@ -110,7 +156,7 @@ public class ServerService extends IntentService {
                 e.printStackTrace();
             }
 
-            return response;
+            return updateNotices;
         }
     }
 }
