@@ -30,5 +30,9 @@ public class MyClientID {
         this.myID = newID;
     }
 
+    public void setID(String id){
+        myID = id;
+    }
+
 
 }

@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 
 import com.degree.abbylaura.demothree.Database.Data.DatabaseHelper;
-import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 
 /**
  * Created by abbylaura on 02/03/2018.

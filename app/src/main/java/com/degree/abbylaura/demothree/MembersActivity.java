@@ -1,7 +1,10 @@
 package com.degree.abbylaura.demothree;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -24,20 +27,39 @@ public class MembersActivity extends Activity {
 
     }
 
+    @SuppressLint("ResourceType")
     public void showMembers(){
 
         MemberRepo memberRepo = new MemberRepo();
-        String selection = "Name";
-
-        memberRepo.setSelection(selection);
-        memberRepo.setQueryArgs(1);
 
         String[][] result = memberRepo.getMembers(); //String[setQueryArgs][numberOfResults]
 
+        LinearLayout fragContainer = (LinearLayout) findViewById(R.id.member_linear_layout);
+
+        LinearLayout layout = new LinearLayout(this);
+
 
         for(int i = 0; i < result[0].length; i++){
+            layout.setOrientation(LinearLayout.VERTICAL);
+
+            layout.setId(1);
+
+            FragmentTransaction ft =  getFragmentManager().beginTransaction();
+
+            String name = result[1][i];
+            String pos = result[5][i];
+            String res = result[6][i];
+
+            if(res.equals("None")){
+                res = "";
+            }
+
+            ft.add(layout.getId(), MemberFragment.newInstance(name, pos, res, i), "someTag1").commit();
 
         }
+
+        fragContainer.addView(layout);
+
 
 
     }

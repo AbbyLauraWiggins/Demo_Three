@@ -140,6 +140,8 @@ public class NoticeActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
+
         //handle text being sent back to from D2NoticeActivity
         String composeText = data.getStringExtra("User Input");
         System.out.println("return from compose: " + composeText);

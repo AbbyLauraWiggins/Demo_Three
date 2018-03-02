@@ -15,20 +15,42 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/register_email_text"
+        android:hint="@string/register_email_text"
         android:id="@+id/register_email"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/register_password_text"
+        android:hint="@string/register_password_text"
         android:id="@+id/register_password"/>
 
-    <Button
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Name"
+        android:id="@+id/register_name"/>
+
+    <EditText
+        android:id="@+id/register_dob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Date of birth: dd/mm/yyyy"
+        android:inputType="date" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/register_teamID"
+        android:hint="Team ID Number"/>
+
+
+    <Button
         android:id="@+id/finish_registration_button"
-        android:text="Register"
-        android:onClick="onFinishRegistrationClick"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onFinishRegistrationClick"
+        android:text="Register" />
+
 
 </LinearLayout>

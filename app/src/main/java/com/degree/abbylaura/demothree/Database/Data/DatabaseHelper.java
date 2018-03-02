@@ -49,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d(TAG, String.format("SQLiteDatabase.onUpgrade(%d -> %d)", oldVersion, newVersion));
+        Log.d(TAG, String.format("DBHELPER onUpgrade", oldVersion, newVersion));
 
         // Drop table if existed, all data will be gone!!!
         db.execSQL("DROP TABLE IF EXISTS " + Fixture.TABLE);

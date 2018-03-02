@@ -11,6 +11,8 @@ import android.content.SharedPreferences;
 import android.content.Intent;
 
 import com.degree.abbylaura.demothree.Client.MyClientID;
+import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
+import com.degree.abbylaura.demothree.Database.Schema.Member;
 import com.degree.abbylaura.demothree.Test.TestDatabaseActivity;
 
 /**
@@ -84,16 +86,11 @@ public class LoginActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
+        //TODO ensure correct registration rather than just come back
+        emailEditText.setText(data.getStringExtra("Email"));
+        passwordEditText.setText(data.getStringExtra("Password"));
 
-
-        //check that intent with id REG_INFO called here
-        if(requestCode == REG_INFO){
-
-            if(data.getBooleanExtra("ValidReg", true)){
-                //TODO send info to sign in so new user signs in
-
-            }
-        }
+        Toast.makeText(this, "Registration successful, please log in.", Toast.LENGTH_LONG).show();
 
     }
 
@@ -141,19 +138,25 @@ public class LoginActivity extends Activity {
         //if valid then save login and go to home
         //if not valid then TOAST error message
 
-        // Use MyClientID getMyID
-        MyClientID mc = new MyClientID();
-        mc.getMyID(emailEditText.getText().toString(), passwordEditText.getText().toString());
+        MemberRepo memberRepo = new MemberRepo();
 
-        /* DEBUGGING
-        Intent intent = new Intent(this, ServerTestActivity.class);
-        intent.putExtra("email", emailEditText.getText().toString());
-        intent.putExtra("password", passwordEditText.getText().toString());
-        startActivity(intent);
-        */
+        String where = "WHERE Email = '" + emailEditText.getText().toString() + "'" +
+                " AND Password = '" + passwordEditText.getText().toString() + "'";
 
-        Intent goToHome  = new Intent(this, HomeActivity.class);
-        startActivity(goToHome);
+        memberRepo.setWhereClause(where);
+
+        String[][] result = memberRepo.getMembers();
+
+        if(result[0][0].equals(null)){
+            Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
+        }else{
+            MyClientID.myID = result[0][0];
+
+            Intent goToHome  = new Intent(this, HomeActivity.class);
+            startActivity(goToHome);
+        }
+
+
 
 
 

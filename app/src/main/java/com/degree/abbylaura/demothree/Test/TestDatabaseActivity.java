@@ -75,7 +75,7 @@ public class TestDatabaseActivity extends Activity {
         member.setName("Abby Wiggins");
         member.setEmail("axw@email.com");
         member.setPassword("0001");
-        member.setDOB("20/12/96");
+        member.setDOB("20/12/1996");
         member.setPositions("1");
         member.setResponsibilities("Development officer");
         member.setTeamId("UOBWRFC_1");
@@ -85,7 +85,7 @@ public class TestDatabaseActivity extends Activity {
         member.setName("Billie Smith");
         member.setEmail("bxs@email.com");
         member.setPassword("0002");
-        member.setDOB("10/02/96");
+        member.setDOB("10/02/1996");
         member.setPositions("4, 5");
         member.setResponsibilities("None");
         member.setTeamId("UOBWRFC_1");
@@ -95,7 +95,7 @@ public class TestDatabaseActivity extends Activity {
         member.setName("Cathy Terry");
         member.setEmail("cxt@email.com");
         member.setPassword("0003");
-        member.setDOB("01/01/97");
+        member.setDOB("01/01/1997");
         member.setPositions("2");
         member.setResponsibilities("None");
         member.setTeamId("UOBWRFC_1");
@@ -105,7 +105,7 @@ public class TestDatabaseActivity extends Activity {
         member.setName("Den Florent");
         member.setEmail("dxf@email.com");
         member.setPassword("0004");
-        member.setDOB("05/07/94");
+        member.setDOB("05/07/1994");
         member.setPositions("12, 13");
         member.setResponsibilities("Social Secretary");
         member.setTeamId("UOBWRFC_1");
@@ -125,27 +125,27 @@ public class TestDatabaseActivity extends Activity {
         StrengthAndConditioning sc = new StrengthAndConditioning();
 
         sc.setSessionID("1");
-        sc.setSessionDate("04/03/18");
+        sc.setSessionDate("04/03/2018");
         sc.setSessionTime("1615");
         strengthAndConditioningRepo.insert(sc);
 
         sc.setSessionID("2");
-        sc.setSessionDate("07/03/18");
+        sc.setSessionDate("07/03/2018");
         sc.setSessionTime("1715");
         strengthAndConditioningRepo.insert(sc);
 
         sc.setSessionID("3");
-        sc.setSessionDate("10/03/18");
+        sc.setSessionDate("10/03/2018");
         sc.setSessionTime("1700");
         strengthAndConditioningRepo.insert(sc);
 
         sc.setSessionID("4");
-        sc.setSessionDate("13/03/18");
+        sc.setSessionDate("13/03/2018");
         sc.setSessionTime("1600");
         strengthAndConditioningRepo.insert(sc);
 
         sc.setSessionID("5");
-        sc.setSessionDate("20/03/18");
+        sc.setSessionDate("20/03/2018");
         sc.setSessionTime("1615");
         strengthAndConditioningRepo.insert(sc);
 

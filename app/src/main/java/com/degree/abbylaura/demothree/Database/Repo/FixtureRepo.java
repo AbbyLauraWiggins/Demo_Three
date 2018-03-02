@@ -1,12 +1,10 @@
 package com.degree.abbylaura.demothree.Database.Repo;
 
 import android.content.ContentValues;
-import android.content.pm.FeatureInfo;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
+import com.degree.abbylaura.demothree.App.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.Fixture;
-import com.degree.abbylaura.demothree.Database.Schema.Member;
 
 /**
  * Created by abbylaura on 02/03/2018.

@@ -6,10 +6,8 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
+import com.degree.abbylaura.demothree.App.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
-
-import java.util.ArrayList;
 
 /**
  * Created by abbylaura on 02/03/2018.
@@ -19,19 +17,18 @@ public class MemberRepo {
 
     private Member member;
     private String whereClause = "";
-    private String selectionClause = "*";
-    private int queryArgs = 8;
 
-    public MemberRepo(){
+
+    public MemberRepo() {
 
         member = new Member();
 
     }
 
 
-    public static String createTable(){
-        return "CREATE TABLE " + Member.TABLE  + "("
-                + Member.KEY_MemberId  + "   PRIMARY KEY,"
+    public static String createTable() {
+        return "CREATE TABLE " + Member.TABLE + "("
+                + Member.KEY_MemberId + "   PRIMARY KEY,"
                 + Member.KEY_Name + " TEXT,"
                 + Member.KEY_Email + " TEXT,"
                 + Member.KEY_Password + " TEXT,"
@@ -58,28 +55,27 @@ public class MemberRepo {
 
 
         // Inserting Row
-        memberId=(int)db.insert(Member.TABLE, null, values);
+        memberId = (int) db.insert(Member.TABLE, null, values);
         DatabaseManager.getInstance().closeDatabase();
 
         return memberId;
     }
 
 
-
-    public void delete( ) {
+    public void delete() {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        db.delete(Member.TABLE,null,null);
+        db.delete(Member.TABLE, null, null);
         DatabaseManager.getInstance().closeDatabase();
     }
 
-    public String[][] getMembers(){
+    public String[][] getMembers() {
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         int count = (int) DatabaseUtils.queryNumEntries(db, Member.TABLE);
 
-        String[][] memberArray = new String[queryArgs][count];
+        String[][] memberArray = new String[8][count];
 
-        String selectQuery =  " SELECT " + selectionClause + " FROM " + Member.TABLE + whereClause;
+        String selectQuery = " SELECT * FROM " + Member.TABLE + " " + whereClause;
 
         Log.d(Member.TAG, selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -96,7 +92,7 @@ public class MemberRepo {
                 memberArray[6][iterator] = cursor.getString(cursor.getColumnIndex(Member.KEY_Responsibilities));
                 memberArray[7][iterator] = cursor.getString(cursor.getColumnIndex(Member.KEY_TeamId));
 
-                iterator ++;
+                iterator++;
             } while (cursor.moveToNext());
         }
 
@@ -107,15 +103,15 @@ public class MemberRepo {
 
     }
 
-    public void setWhereClause(String where){
+    public void setWhereClause(String where) {
         this.whereClause = where;
     }
 
-    public void setSelection(String selection){
-        this.selectionClause = selection;
+    public int getMemberTableSize(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        return (int) DatabaseUtils.queryNumEntries(db, Member.TABLE);
+
     }
 
-    public void setQueryArgs(int i){
-        this.queryArgs = i;
-    }
 }
