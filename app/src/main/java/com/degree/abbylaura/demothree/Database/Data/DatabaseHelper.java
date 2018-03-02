@@ -7,12 +7,14 @@ import android.util.Log;
 import com.degree.abbylaura.demothree.App.App;
 import com.degree.abbylaura.demothree.Database.Repo.FixtureRepo;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
+import com.degree.abbylaura.demothree.Database.Repo.NoticeRepo;
 import com.degree.abbylaura.demothree.Database.Repo.SCsessionRepo;
 import com.degree.abbylaura.demothree.Database.Repo.StrengthAndConditioningRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamRepo;
 import com.degree.abbylaura.demothree.Database.Schema.Fixture;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
+import com.degree.abbylaura.demothree.Database.Schema.Notice;
 import com.degree.abbylaura.demothree.Database.Schema.SCsession;
 import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
 import com.degree.abbylaura.demothree.Database.Schema.Team;
@@ -27,8 +29,8 @@ import java.util.Scanner;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     //note: remember each time if you Add, Edit table, you need to change the version number.
-    private static final int DATABASE_VERSION =8;
-    private static final String DATABASE_NAME = "clientTeam.db";
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "databaseDemoThree.db";
     private static final String TAG = DatabaseHelper.class.getSimpleName().toString();
 
     public DatabaseHelper( ) {
@@ -37,6 +39,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+
         //All necessary tables you like to create will create here
         db.execSQL(FixtureRepo.createTable());
         db.execSQL(MemberRepo.createTable());
@@ -44,6 +48,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(StrengthAndConditioningRepo.createTable());
         db.execSQL(TeamRepo.createTable());
         db.execSQL(TeamFixturesRepo.createTable());
+
+        db.execSQL(NoticeRepo.createTable());
 
     }
 
@@ -58,6 +64,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + StrengthAndConditioning.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Team.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + TeamFixtures.TABLE);
+
+        db.execSQL("DROP TABLE IF EXISTS " + Notice.TABLE);
 
         onCreate(db);
     }

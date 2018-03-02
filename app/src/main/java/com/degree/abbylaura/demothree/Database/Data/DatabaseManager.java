@@ -1,4 +1,4 @@
-package com.degree.abbylaura.demothree.App;
+package com.degree.abbylaura.demothree.Database.Data;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -6,8 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Created by abbylaura on 02/03/2018.
  *
- * This works as the database manager for both the Database.Data.DatabaseHelper.clientTeam.db
- * and for AppState.Data.AppStateDBHelper.appState.db
+ *
  */
 
 public class DatabaseManager {

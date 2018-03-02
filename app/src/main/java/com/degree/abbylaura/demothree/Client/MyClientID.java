@@ -7,6 +7,7 @@ package com.degree.abbylaura.demothree.Client;
 public class MyClientID {
 
     public static String myID = "unknown"; //1 for testing
+    public static String myUsername = "";
 
     public MyClientID(){
         super();
@@ -16,9 +17,12 @@ public class MyClientID {
         //TODO start client to access server
         //TODO recieve clientID from server database based off email and password
 
-
         return myID;
 
+    }
+
+    public String getMyUsername(){
+        return myUsername;
     }
 
     public void newID(String email, String password){
@@ -30,9 +34,6 @@ public class MyClientID {
         this.myID = newID;
     }
 
-    public void setID(String id){
-        myID = id;
-    }
 
 
 }

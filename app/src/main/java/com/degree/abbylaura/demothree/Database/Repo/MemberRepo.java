@@ -6,7 +6,7 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.degree.abbylaura.demothree.App.DatabaseManager;
+import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
 
 /**

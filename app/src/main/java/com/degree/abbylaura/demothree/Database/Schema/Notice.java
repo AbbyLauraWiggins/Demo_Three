@@ -1,4 +1,4 @@
-package com.degree.abbylaura.demothree.AppState.Schema;
+package com.degree.abbylaura.demothree.Database.Schema;
 
 
 /**
@@ -14,14 +14,14 @@ public class Notice {
     public static final String KEY_Contents = "Contents";
     public static final String KEY_Date = "Date";
 
-    private int noticeId;
+    //private int noticeId;
     private String memberId;
     private String contents;
     private String date;
 
-    public int getNoticeId() {
-        return noticeId;
-    }
+    //public int getNoticeId() {
+    //    return noticeId;
+    //}
 
     /*
      * note: no setNoticeId() as this is autoincremented in NoticeRepo

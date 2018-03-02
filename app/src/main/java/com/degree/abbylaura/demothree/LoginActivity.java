@@ -151,6 +151,7 @@ public class LoginActivity extends Activity {
             Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
         }else{
             MyClientID.myID = result[0][0];
+            MyClientID.myUsername = result[1][0];
 
             Intent goToHome  = new Intent(this, HomeActivity.class);
             startActivity(goToHome);
