@@ -1,4 +1,4 @@
-package com.degree.abbylaura.demothree;
+package com.degree.abbylaura.demothree.Activities.SignIn;
 
 
 import android.app.Activity;
@@ -10,9 +10,10 @@ import android.widget.*;
 import android.content.SharedPreferences;
 import android.content.Intent;
 
+import com.degree.abbylaura.demothree.Activities.HomeActivity;
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
-import com.degree.abbylaura.demothree.Database.Schema.Member;
+import com.degree.abbylaura.demothree.R;
 import com.degree.abbylaura.demothree.Test.TestDatabaseActivity;
 
 /**

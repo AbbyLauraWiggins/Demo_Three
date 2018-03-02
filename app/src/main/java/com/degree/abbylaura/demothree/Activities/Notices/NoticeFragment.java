@@ -1,4 +1,4 @@
-package com.degree.abbylaura.demothree;
+package com.degree.abbylaura.demothree.Activities.Notices;
 
 import android.app.Fragment;
 import android.graphics.Color;
@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.degree.abbylaura.demothree.R;
 
 /**
  * Created by abbylaura on 28/02/2018.

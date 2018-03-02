@@ -1,4 +1,4 @@
-package com.degree.abbylaura.demothree;
+package com.degree.abbylaura.demothree.Activities.SignIn;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
+import com.degree.abbylaura.demothree.R;
 
 /**
  * Created by abbylaura on 16/02/2018.

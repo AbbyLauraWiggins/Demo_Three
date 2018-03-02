@@ -1,14 +1,10 @@
-package com.degree.abbylaura.demothree;
+package com.degree.abbylaura.demothree.Activities.Notices;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentTransaction;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,6 +12,7 @@ import android.widget.TextView;
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.NoticeRepo;
 import com.degree.abbylaura.demothree.Database.Schema.Notice;
+import com.degree.abbylaura.demothree.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;

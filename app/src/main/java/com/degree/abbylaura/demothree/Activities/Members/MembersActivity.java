@@ -1,16 +1,19 @@
-package com.degree.abbylaura.demothree;
+package com.degree.abbylaura.demothree.Activities.Members;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.degree.abbylaura.demothree.Activities.Members.MemberFragment;
+import com.degree.abbylaura.demothree.Activities.ProfileActivity;
+import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
+import com.degree.abbylaura.demothree.R;
 
 /**
  * Created by abbylaura on 09/02/2018.
@@ -69,5 +72,11 @@ public class MembersActivity extends Activity {
         Intent goBack = new Intent();
         setResult(RESULT_OK, goBack);
         finish();
+    }
+
+    public void onGoToProfile(View view) {
+        Intent goToProfile = new Intent(this, ProfileActivity.class);
+        goToProfile.putExtra("MemberID", MyClientID.myID); //send my own ID as this button is to view own profile
+        startActivity(goToProfile);
     }
 }

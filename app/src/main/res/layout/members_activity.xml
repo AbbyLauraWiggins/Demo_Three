@@ -13,6 +13,16 @@
         android:id="@+id/members_title"/>
 
     <Button
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:text="Profile"
+        android:textSize="10sp"
+        android:layout_alignParentRight="true"
+        android:padding="10dp"
+        android:id="@+id/profilebutton"
+        android:onClick="onGoToProfile"/>
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/back_button"
@@ -23,7 +33,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/members_title"
+        android:layout_below="@+id/profilebutton"
         android:id="@+id/scrollview">
 
         <LinearLayout

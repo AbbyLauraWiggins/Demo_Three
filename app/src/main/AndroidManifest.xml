@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.SignIn.LoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,48 +27,51 @@
         </activity>
 
         <activity
-            android:name=".HomeActivity"
+            android:name=".Activities.HomeActivity"
             android:theme="@style/AppTheme"/>
 
         <activity
-            android:name=".NoticeActivity"
+            android:name=".Activities.Notices.NoticeActivity"
             android:theme="@style/AppTheme"/>
 
         <activity
-            android:name=".NoticeComposeActivity"
+            android:name=".Activities.Notices.NoticeComposeActivity"
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name=".StatisticsActivity"
+            android:name=".Activities.StatisticsActivity"
             android:theme="@style/AppTheme"/>
 
         <activity
-            android:name=".LogActivity"
+            android:name=".Activities.LogActivity"
             android:theme="@style/AppTheme"/>
 
         <activity
-            android:name=".CalendarActivity"
+            android:name=".Activities.CalendarActivity"
             android:theme="@style/AppTheme"/>
 
         <activity
-            android:name=".GalleryActivity"
+            android:name=".Activities.GalleryActivity"
             android:theme="@style/AppTheme"/>
 
         <activity
-            android:name=".MembersActivity"
+            android:name=".Activities.Members.MembersActivity"
             android:theme="@style/AppTheme"/>
 
 
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Activities.SignIn.RegisterActivity"
             android:theme="@style/AppTheme" />
 
         <activity
             android:name=".Test.TestDatabaseActivity"
             android:theme="@style/AppTheme" />
 
+        <activity
+            android:name=".Activities.ProfileActivity"
+            android:theme="@style/AppTheme"/>
 
-        <service android:name=".ServerService"/>
+        <service android:name=".Activities.ServerService"/>
     </application>
 
 </manifest>

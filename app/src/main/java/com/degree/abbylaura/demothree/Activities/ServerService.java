@@ -1,4 +1,4 @@
-package com.degree.abbylaura.demothree;
+package com.degree.abbylaura.demothree.Activities;
 
 import android.app.IntentService;
 import android.content.Intent;

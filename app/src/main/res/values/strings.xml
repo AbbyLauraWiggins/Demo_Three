@@ -36,5 +36,15 @@
     <string name="test_database_button_text">test database</string>
     <string name="member_fragment_positions_text">Positions:</string>
     <string name="member_fragment_responsibilities_text">Responsibilities:</string>
+    <string name="membername">MemberName</string>
+    <string name="teamname">TeamName</string>
+    <string name="email_address">Email address</string>
+    <string name="positions_played_title">Positions Played</string>
+    <string name="positions_played">Positions Played</string>
+    <string name="add_position">Add Position</string>
+    <string name="responsibilities_title">Responsibilities</string>
+    <string name="responsibilities">Responsibilities</string>
+    <string name="add_responsibility">Add Responsibility</string>
+    <string name="back">Back</string>
 
 </resources>
