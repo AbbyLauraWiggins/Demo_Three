@@ -11,6 +11,7 @@ public class SCsession {
     public static final String KEY_SessionId = "SessionId"; //FOREIGN KEY FROM STRENGTHANDCONDITIONING
     public static final String KEY_MemberId = "MemberId";
     public static final String KEY_Deadlifts = "Deadlifts";
+    public static final String KEY_DeadliftJumps = "DeadliftJumps";
     public static final String KEY_BackSquat = "BackSquat";
     public static final String KEY_BackSquatJumps = "BackSquatJumps";
     public static final String KEY_GobletSquat = "GobletSquat";
@@ -26,6 +27,7 @@ public class SCsession {
     private String sessionID;
     private String memberId;
     private String deadlifts;
+    private String deadliftJumps;
     private String backSquat;
     private String backSquatJumps;
     private String gobletSquat;
@@ -61,6 +63,15 @@ public class SCsession {
     public void setDeadlifts(String deadlifts) {
         this.deadlifts = deadlifts;
     }
+
+    public String getDeadliftJumps() {
+        return deadliftJumps;
+    }
+
+    public void setDeadliftJumps(String deadliftJumps) {
+        this.deadliftJumps = deadliftJumps;
+    }
+
 
     public String getBackSquat(){
         return backSquat;
