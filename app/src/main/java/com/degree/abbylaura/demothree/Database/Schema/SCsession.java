@@ -8,6 +8,7 @@ public class SCsession {
 
     public static final String TAG = SCsession.class.getSimpleName();
     public static final String TABLE = "SCsession";
+    public static final String KEY_SCPrimary = "SCPrimary";
     public static final String KEY_SessionId = "SessionId"; //FOREIGN KEY FROM STRENGTHANDCONDITIONING
     public static final String KEY_MemberId = "MemberId";
     public static final String KEY_Deadlifts = "Deadlifts";

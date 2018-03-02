@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:text="Members"
         android:textSize="30sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:id="@+id/members_title"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -18,5 +19,21 @@
         android:text="Back"
         android:onClick="onBackButton"
         android:layout_alignParentBottom="true"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/members_title"
+        android:id="@+id/scrollview">
+
+        <LinearLayout
+            android:id="@+id/member_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

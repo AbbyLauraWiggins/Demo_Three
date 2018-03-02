@@ -1,10 +1,15 @@
 package com.degree.abbylaura.demothree.Database.Repo;
 
 import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
+
+import java.util.ArrayList;
 
 /**
  * Created by abbylaura on 02/03/2018.
@@ -13,6 +18,9 @@ import com.degree.abbylaura.demothree.Database.Schema.Member;
 public class MemberRepo {
 
     private Member member;
+    private String whereClause = "";
+    private String selectionClause = "*";
+    private int queryArgs = 8;
 
     public MemberRepo(){
 
@@ -62,5 +70,52 @@ public class MemberRepo {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         db.delete(Member.TABLE,null,null);
         DatabaseManager.getInstance().closeDatabase();
+    }
+
+    public String[][] getMembers(){
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        int count = (int) DatabaseUtils.queryNumEntries(db, Member.TABLE);
+
+        String[][] memberArray = new String[queryArgs][count];
+
+        String selectQuery =  " SELECT " + selectionClause + " FROM " + Member.TABLE + whereClause;
+
+        Log.d(Member.TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        int iterator = 0;
+        if (cursor.moveToFirst()) {
+            do {
+                memberArray[0][iterator] = cursor.getString(cursor.getColumnIndex(Member.KEY_MemberId));
+                memberArray[1][iterator] = cursor.getString(cursor.getColumnIndex(Member.KEY_Name));
+                memberArray[2][iterator] = cursor.getString(cursor.getColumnIndex(Member.KEY_Email));
+                memberArray[3][iterator] = cursor.getString(cursor.getColumnIndex(Member.KEY_Password));
+                memberArray[4][iterator] = cursor.getString(cursor.getColumnIndex(Member.KEY_DOB));
+                memberArray[5][iterator] = cursor.getString(cursor.getColumnIndex(Member.KEY_Positions));
+                memberArray[6][iterator] = cursor.getString(cursor.getColumnIndex(Member.KEY_Responsibilities));
+                memberArray[7][iterator] = cursor.getString(cursor.getColumnIndex(Member.KEY_TeamId));
+
+                iterator ++;
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return memberArray;
+
+    }
+
+    public void setWhereClause(String where){
+        this.whereClause = where;
+    }
+
+    public void setSelection(String selection){
+        this.selectionClause = selection;
+    }
+
+    public void setQueryArgs(int i){
+        this.queryArgs = i;
     }
 }

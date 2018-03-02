@@ -25,14 +25,14 @@ public class FixtureRepo {
 
     public static String createTable(){
         return "CREATE TABLE " + Fixture.TABLE  + "("
+                + Fixture.KEY_FixturePrimary + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + Fixture.KEY_TeamId + " TEXT,"  //MAY NEED TO DECLARE P/F KEYS HERE?
                 + Fixture.KEY_FixtureId + " TEXT,"
                 + Fixture.KEY_FixturePoints + " TEXT)";
     }
 
 
-    public int insert(Fixture fixture) {
-        int teamfixtureId; //A TEAM-FIXTURE COMPOSITE KEY?
+    public void insert(Fixture fixture) {
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
@@ -42,10 +42,8 @@ public class FixtureRepo {
 
 
         // Inserting Row
-        teamfixtureId=(int)db.insert(Fixture.TABLE, null, values);
+        db.insert(Fixture.TABLE, null, values);
         DatabaseManager.getInstance().closeDatabase();
-
-        return teamfixtureId;
     }
 
 

@@ -10,6 +10,7 @@ public class Fixture {
 
     public static final String TAG = Fixture.class.getSimpleName();
     public static final String TABLE = "Fixture";
+    public static final String KEY_FixturePrimary = "FixturePrimary";
     public static final String KEY_TeamId = "TeamId"; //FOREIGN KEY FROM TEAM
     public static final String KEY_FixtureId = "FixtureId"; //FOREIGN KEY FROM TEAMFIXTURE
     public static final String KEY_FixturePoints = "FixturePoints";

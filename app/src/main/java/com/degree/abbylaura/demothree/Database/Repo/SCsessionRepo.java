@@ -26,7 +26,8 @@ public class SCsessionRepo {
 
     public static String createTable(){
         return "CREATE TABLE " + SCsession.TABLE  + "("
-                + SCsession.KEY_MemberId  + "TEXT," //COMPOSITE KEY??
+                + SCsession.KEY_SCPrimary + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + SCsession.KEY_MemberId  + "TEXT,"
                 + SCsession.KEY_SessionId + " TEXT,"
                 + SCsession.KEY_Deadlifts + " TEXT,"
                 + SCsession.KEY_DeadliftJumps + " TEXT,"
@@ -44,8 +45,7 @@ public class SCsessionRepo {
     }
 
 
-    public int insert(SCsession sCsession) {
-        int sCsessionID;
+    public void insert(SCsession sCsession) {
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
@@ -67,10 +67,8 @@ public class SCsessionRepo {
 
 
         // Inserting Row
-        sCsessionID=(int)db.insert(Member.TABLE, null, values);
+        db.insert(Member.TABLE, null, values);
         DatabaseManager.getInstance().closeDatabase();
-
-        return sCsessionID;
     }
 
 

@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.Intent;
 
 import com.degree.abbylaura.demothree.Client.MyClientID;
+import com.degree.abbylaura.demothree.Test.TestDatabaseActivity;
 
 /**
  * A login screen that offers login via email/password.
@@ -165,5 +166,9 @@ public class LoginActivity extends Activity {
     }
 
 
+    public void onSkipForDatabase(View view) {
+        Intent goToTestDB = new Intent(this, TestDatabaseActivity.class);
+        startActivity(goToTestDB);
+    }
 }
 

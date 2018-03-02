@@ -74,9 +74,9 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/skip_to_server"
-            android:text="@string/test_server_button_text"
-            android:onClick="onSkipForServer"/>
+            android:id="@+id/test_database"
+            android:text="@string/test_database_button_text"
+            android:onClick="onSkipForDatabase"/>
 
     </LinearLayout>
 </LinearLayout>

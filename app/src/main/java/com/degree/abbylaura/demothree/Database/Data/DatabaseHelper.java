@@ -4,8 +4,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.degree.abbylaura.demothree.App.App;
+import com.degree.abbylaura.demothree.Database.Repo.FixtureRepo;
+import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
+import com.degree.abbylaura.demothree.Database.Repo.SCsessionRepo;
+import com.degree.abbylaura.demothree.Database.Repo.StrengthAndConditioningRepo;
+import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
+import com.degree.abbylaura.demothree.Database.Repo.TeamRepo;
+import com.degree.abbylaura.demothree.Database.Schema.Fixture;
+import com.degree.abbylaura.demothree.Database.Schema.Member;
 import com.degree.abbylaura.demothree.Database.Schema.SCsession;
 import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
+import com.degree.abbylaura.demothree.Database.Schema.Team;
 import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
 
 import java.util.Scanner;

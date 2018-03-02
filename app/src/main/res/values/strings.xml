@@ -33,5 +33,8 @@
     <string name="passwordTVtext">password</string>
     <string name="notice_fragment_client_name">NAME</string>
     <string name="notice_fragment_date">DATE</string>
+    <string name="test_database_button_text">test database</string>
+    <string name="member_fragment_positions_text">Positions:</string>
+    <string name="member_fragment_responsibilities_text">Responsibilities:</string>
 
 </resources>
