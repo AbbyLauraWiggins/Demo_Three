@@ -99,6 +99,8 @@ public class ServerService extends IntentService {
 
                 socket = new Socket("10.0.2.2", 9002);
 
+                System.out.println("connected to server");
+
                 inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
                 outToServer = new PrintWriter(socket.getOutputStream(), true);
