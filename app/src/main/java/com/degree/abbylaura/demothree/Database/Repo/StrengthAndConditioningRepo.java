@@ -1,7 +1,10 @@
 package com.degree.abbylaura.demothree.Database.Repo;
 
 import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
@@ -12,6 +15,7 @@ import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
 
 public class StrengthAndConditioningRepo {
     private StrengthAndConditioning strengthAndConditioning;
+    private String whereClause = "";
 
     public StrengthAndConditioningRepo(){
 
@@ -57,4 +61,39 @@ public class StrengthAndConditioningRepo {
         db.delete(StrengthAndConditioning.TABLE,null,null);
         DatabaseManager.getInstance().closeDatabase();
     }
+
+
+    public String[][] getTableData() {
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        int count = (int) DatabaseUtils.queryNumEntries(db, StrengthAndConditioning.TABLE);
+
+        String[][] scArray = new String[3][count];
+
+        String selectQuery = " SELECT * FROM " + StrengthAndConditioning.TABLE + " " + whereClause;
+
+        Log.d(StrengthAndConditioning.TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        int iterator = 0;
+        if (cursor.moveToFirst()) {
+            do {
+                scArray[0][iterator] = cursor.getString(cursor.getColumnIndex(StrengthAndConditioning.KEY_SessionId));
+                scArray[1][iterator] = cursor.getString(cursor.getColumnIndex(StrengthAndConditioning.KEY_SessionDate));
+                scArray[2][iterator] = cursor.getString(cursor.getColumnIndex(StrengthAndConditioning.KEY_SessionTime));
+                iterator++;
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return scArray;
+
+    }
+
+    public void setWhereClause(String where) {
+        this.whereClause = where;
+    }
+
 }

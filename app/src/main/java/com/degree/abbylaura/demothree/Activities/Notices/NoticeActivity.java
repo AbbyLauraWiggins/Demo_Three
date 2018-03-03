@@ -4,9 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.degree.abbylaura.demothree.Client.MyClientID;
@@ -26,8 +29,7 @@ import java.util.Date;
 public class NoticeActivity extends Activity {
 
     TextView usersMessage;
-
-
+    RelativeLayout relBottom;
 
 
     @Override
@@ -39,6 +41,9 @@ public class NoticeActivity extends Activity {
                 findViewById(R.id.input_text_view);
 
         updateContent(null);
+
+        relBottom = (RelativeLayout) findViewById(R.id.rel_bottom_layout);
+        relBottom.setBackgroundColor(Color.WHITE);
 
         /* Allows use to track when an intent with the id TRANSACTION_DONE is executed
          * We can call for an intent to execute something and then tell use when it finishes
@@ -144,8 +149,6 @@ public class NoticeActivity extends Activity {
 
         FragmentTransaction ft =  getFragmentManager().beginTransaction();
         ft.add(layout.getId(), NoticeFragment.newInstance(notice, memberName, date, i), "someTag1").commit();
-
-
 
         fragContainer.addView(layout);
     }

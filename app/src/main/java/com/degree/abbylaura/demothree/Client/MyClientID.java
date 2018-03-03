@@ -25,6 +25,10 @@ public class MyClientID {
         return myUsername;
     }
 
+    public static void setID(String id){
+        myID = id;
+    }
+
     public void newID(String email, String password){
         String newID = null;
 

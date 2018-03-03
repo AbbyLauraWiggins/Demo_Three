@@ -29,7 +29,7 @@ import java.util.Scanner;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     //note: remember each time if you Add, Edit table, you need to change the version number.
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "databaseDemoThree.db";
     private static final String TAG = DatabaseHelper.class.getSimpleName().toString();
 

@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
-
+    >
 
 
     <TextView
@@ -12,27 +11,21 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:text="Notices" />
+        android:text="Notices"
+        android:padding="10dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/input_text_view"
-        android:layout_below="@+id/notices_title"
-        android:textSize="20sp"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:padding="10dp"
         android:layout_below="@+id/input_text_view">
 
 
         <LinearLayout
             android:id="@+id/fragmentContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="19dp"
             android:orientation="vertical"
             android:gravity="top">
@@ -45,7 +38,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:id="@+id/rel_bottom_layout"
+        >
 
         <Button
             android:layout_width="wrap_content"

@@ -28,7 +28,7 @@ public class MemberRepo {
 
     public static String createTable() {
         return "CREATE TABLE " + Member.TABLE + "("
-                + Member.KEY_MemberId + "   PRIMARY KEY,"
+                + Member.KEY_MemberId + " TEXT PRIMARY KEY,"
                 + Member.KEY_Name + " TEXT,"
                 + Member.KEY_Email + " TEXT,"
                 + Member.KEY_Password + " TEXT,"
@@ -110,8 +110,34 @@ public class MemberRepo {
     public int getMemberTableSize(){
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
-        return (int) DatabaseUtils.queryNumEntries(db, Member.TABLE);
+        int result = (int) DatabaseUtils.queryNumEntries(db, Member.TABLE);
 
+        DatabaseManager.getInstance().closeDatabase();
+
+        return result;
+
+    }
+
+    public void updatePosition(String myId, String position){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        ContentValues args = new ContentValues();
+        args.put(Member.KEY_Positions, position);
+        String[] id = new String[1];
+        id[0] = myId;
+        int result = db.update(Member.TABLE, args, Member.KEY_MemberId + "=?", id);
+        DatabaseManager.getInstance().closeDatabase();
+    }
+
+    public void updateResponsibility(String myId, String responsibility){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        ContentValues args = new ContentValues();
+        args.put(Member.KEY_Responsibilities, responsibility);
+        String[] id = new String[1];
+        id[0] = myId;
+        int result = db.update(Member.TABLE, args, Member.KEY_MemberId + "=?", id);
+        DatabaseManager.getInstance().closeDatabase();
     }
 
 }

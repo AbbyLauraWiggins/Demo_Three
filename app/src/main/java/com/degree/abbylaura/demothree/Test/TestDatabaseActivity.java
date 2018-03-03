@@ -1,6 +1,8 @@
 package com.degree.abbylaura.demothree.Test;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -11,12 +13,14 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.degree.abbylaura.demothree.Activities.HomeActivity;
 import com.degree.abbylaura.demothree.Database.Repo.FixtureRepo;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.Database.Repo.SCsessionRepo;
 import com.degree.abbylaura.demothree.Database.Repo.StrengthAndConditioningRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamRepo;
+import com.degree.abbylaura.demothree.Database.Schema.Fixture;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
 import com.degree.abbylaura.demothree.Database.Schema.SCsession;
 import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
@@ -30,7 +34,7 @@ import com.degree.abbylaura.demothree.R;
 
 public class TestDatabaseActivity extends Activity {
 
-    Button showMembersButton, showTeamsButton, showSessionsButton;
+    Button showMembersButton, showTeamsButton, showSessionsButton, back;
 
     EditText editText;
 
@@ -43,6 +47,7 @@ public class TestDatabaseActivity extends Activity {
         showMembersButton = (Button) findViewById(R.id.showMembersButton);
         showSessionsButton = (Button) findViewById(R.id.showSessionsButton);
         showTeamsButton = (Button) findViewById(R.id.showTeamsButton);
+        back = (Button) findViewById(R.id.back);
 
         editText = (EditText) findViewById(R.id.editText);
 
@@ -122,6 +127,18 @@ public class TestDatabaseActivity extends Activity {
         teamRepo.insert(team);
 
 
+        team.setTeamId("LURFC_1");
+        team.setTeamName("LURFC");
+        team.setTeamLocation("LB1 56T");
+        team.setTeamCurPoints("131");
+        teamRepo.insert(team);
+
+        team.setTeamId("AUWRFC_1");
+        team.setTeamName("AUWRFC");
+        team.setTeamLocation("B1 8LM");
+        team.setTeamCurPoints("109");
+        teamRepo.insert(team);
+
         StrengthAndConditioning sc = new StrengthAndConditioning();
 
         sc.setSessionID("1");
@@ -150,6 +167,83 @@ public class TestDatabaseActivity extends Activity {
         strengthAndConditioningRepo.insert(sc);
 
 
+        TeamFixtures tf = new TeamFixtures();
+
+        tf.setFixtureId("1");
+        tf.setFixtureDate("02/01/2018");
+        tf.setFixtureLocation("B29 2TT");
+
+        tf.setFixtureId("2");
+        tf.setFixtureDate("12/01/2018");
+        tf.setFixtureLocation("NG34 0RJ");
+
+        tf.setFixtureId("3");
+        tf.setFixtureDate("22/02/2018");
+        tf.setFixtureLocation("B29 2TT");
+
+        tf.setFixtureId("4");
+        tf.setFixtureDate("08/03/2018");
+        tf.setFixtureLocation("LN4 4AE");
+
+        tf.setFixtureId("5");
+        tf.setFixtureDate("18/02/2018");
+        tf.setFixtureLocation("B15 2QW");
+
+        tf.setFixtureId("6");
+        tf.setFixtureDate("02/04/2018");
+        tf.setFixtureLocation("B15 2QW");
+
+
+        Fixture fixtures = new Fixture();
+
+        fixtures.setFixtureId("1"); //Fixture 1
+        fixtures.setTeamId("1");    //Team UOBWRFC
+        fixtures.setFixturePoints("22"); //Points scored by UOBWRFC
+
+        fixtures.setFixtureId("1"); //Fixture 1
+        fixtures.setTeamId("2");    //Team LURFC
+        fixtures.setFixturePoints("20"); //Points scored by LURFC
+
+        fixtures.setFixtureId("2"); //Fixture 2
+        fixtures.setTeamId("1");    //Team UOBWRFC
+        fixtures.setFixturePoints("87"); //Points scored by UOBWRFC
+
+        fixtures.setFixtureId("2"); //Fixture 2
+        fixtures.setTeamId("3");    //Team AURFC
+        fixtures.setFixturePoints("17"); //Points scored by AURFC
+
+        fixtures.setFixtureId("3"); //Fixture 3
+        fixtures.setTeamId("2");    //Team LURFC
+        fixtures.setFixturePoints("44"); //Points scored by LURFC
+
+        fixtures.setFixtureId("3"); //Fixture 3
+        fixtures.setTeamId("3");    //Team AURFC
+        fixtures.setFixturePoints("20"); //Points scored by AURFC
+
+        fixtures.setFixtureId("4"); //Fixture 4
+        fixtures.setTeamId("1");    //Team UOBWRFC
+        fixtures.setFixturePoints(null); //null points as game not occured yet
+
+        fixtures.setFixtureId("4"); //Fixture 4
+        fixtures.setTeamId("2");    //Team LURFC
+        fixtures.setFixturePoints(null); //null points as game not occured yet
+
+        fixtures.setFixtureId("5"); //Fixture 5
+        fixtures.setTeamId("3");    //Team AURFC
+        fixtures.setFixturePoints(null); //null points as game not occured yet
+
+        fixtures.setFixtureId("5"); //Fixture 5
+        fixtures.setTeamId("1");    //Team UOBWRFC
+        fixtures.setFixturePoints(null); //null points as game not occured yet
+
+        fixtures.setFixtureId("6"); //Fixture 6
+        fixtures.setTeamId("3");    //Team AURFC
+        fixtures.setFixturePoints(null); //null points as game not occured yet
+
+        fixtures.setFixtureId("6"); //Fixture 1
+        fixtures.setTeamId("2");    //Team LURFC
+        fixtures.setFixturePoints(null); //null points as game not occured yet
+
 
 
 
@@ -163,6 +257,7 @@ public class TestDatabaseActivity extends Activity {
     public void showTeams(View view) {
     }
 
+    @SuppressLint("SetTextI18n")
     public void showMembers(View view) {
         MemberRepo memberRepo = new MemberRepo();
 
@@ -179,7 +274,54 @@ public class TestDatabaseActivity extends Activity {
                 System.out.println(String.valueOf(row) + " " +
                         String.valueOf(col) + " " + allMembers[col][row]);
                 TextView label = new TextView(this);
-                label.setText(allMembers[col][row]);
+                label.setText(" | " + allMembers[col][row]);
+                tr.addView(label);
+            }
+
+            tl.addView(tr);
+        }
+
+        LinearLayout tableContainer = (LinearLayout) findViewById(R.id.tableContainer);
+
+        tableContainer.addView(tl);
+    }
+
+    public void goback(View view) {
+        Intent goingBack = new Intent();
+        setResult(RESULT_OK, goingBack);
+        finish();
+    }
+
+    public void showAll(View view) {
+        showMembers(view);
+
+        FixtureRepo fixtureRepo = new FixtureRepo();
+        StrengthAndConditioningRepo strengthAndConditioningRepo = new StrengthAndConditioningRepo();
+        TeamFixturesRepo teamFixturesRepo   = new TeamFixturesRepo();
+        TeamRepo teamRepo = new TeamRepo();
+
+        showTable(view, fixtureRepo.getTableData());
+        showTable(view, strengthAndConditioningRepo.getTableData());
+        showTable(view, teamFixturesRepo.getTableData());
+        showTable(view, teamRepo.getTableData());
+
+    }
+
+    public void showTable(View view, String[][] tableData) {
+
+
+        String output = "";
+
+        TableLayout tl = new TableLayout(this);
+
+        for(int row = 0; row < tableData[0].length; row++) {
+            TableRow tr = new TableRow(this);
+
+            for(int col = 0; col < 8; col++){
+                System.out.println(String.valueOf(row) + " " +
+                        String.valueOf(col) + " " + tableData[col][row]);
+                TextView label = new TextView(this);
+                label.setText(" | " + tableData[col][row]);
                 tr.addView(label);
             }
 
