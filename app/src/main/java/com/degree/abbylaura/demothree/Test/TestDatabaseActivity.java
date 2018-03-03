@@ -300,14 +300,14 @@ public class TestDatabaseActivity extends Activity {
         TeamFixturesRepo teamFixturesRepo   = new TeamFixturesRepo();
         TeamRepo teamRepo = new TeamRepo();
 
-        showTable(view, fixtureRepo.getTableData());
-        showTable(view, strengthAndConditioningRepo.getTableData());
-        showTable(view, teamFixturesRepo.getTableData());
-        showTable(view, teamRepo.getTableData());
+        showTable(view, fixtureRepo.getTableData(), 3);
+        showTable(view, strengthAndConditioningRepo.getTableData(), 3);
+        showTable(view, teamFixturesRepo.getTableData(), 3);
+        showTable(view, teamRepo.getTableData(), 4);
 
     }
 
-    public void showTable(View view, String[][] tableData) {
+    public void showTable(View view, String[][] tableData, int cols) {
 
 
         String output = "";
@@ -317,9 +317,7 @@ public class TestDatabaseActivity extends Activity {
         for(int row = 0; row < tableData[0].length; row++) {
             TableRow tr = new TableRow(this);
 
-            for(int col = 0; col < 8; col++){
-                System.out.println(String.valueOf(row) + " " +
-                        String.valueOf(col) + " " + tableData[col][row]);
+            for(int col = 0; col < cols; col++){
                 TextView label = new TextView(this);
                 label.setText(" | " + tableData[col][row]);
                 tr.addView(label);

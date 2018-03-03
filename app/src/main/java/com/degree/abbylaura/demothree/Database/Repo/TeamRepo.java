@@ -66,7 +66,7 @@ public class TeamRepo {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         int count = (int) DatabaseUtils.queryNumEntries(db, Team.TABLE);
 
-        String[][] teamArray = new String[3][count];
+        String[][] teamArray = new String[5][count];
 
         String selectQuery = " SELECT * FROM " + Team.TABLE + " " + whereClause;
 

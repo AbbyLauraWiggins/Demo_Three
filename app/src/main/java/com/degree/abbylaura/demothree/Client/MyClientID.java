@@ -8,6 +8,7 @@ public class MyClientID {
 
     public static String myID = "unknown"; //1 for testing
     public static String myUsername = "";
+    public static String myTeamID = "";
 
     public MyClientID(){
         super();
@@ -25,8 +26,9 @@ public class MyClientID {
         return myUsername;
     }
 
-    public static void setID(String id){
+    public static void setID(String id, String teamid){
         myID = id;
+        myTeamID = teamid;
     }
 
     public void newID(String email, String password){
