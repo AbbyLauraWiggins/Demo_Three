@@ -26,9 +26,9 @@ public class MyClientID {
         return myUsername;
     }
 
-    public static void setID(String id, String teamid){
+    public static void setID(String id){
         myID = id;
-        myTeamID = teamid;
+        //myTeamID = teamid;
     }
 
     public void newID(String email, String password){

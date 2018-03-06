@@ -35,7 +35,8 @@ public class MemberRepo {
                 + Member.KEY_DOB + " TEXT,"
                 + Member.KEY_Positions + " TEXT,"
                 + Member.KEY_Responsibilities + " TEXT,"
-                + Member.KEY_TeamId + " TEXT)";
+                + Member.KEY_TeamId + " TEXT,"
+                + Member.KEY_Permissions + "TEXT)";
     }
 
 
@@ -52,6 +53,7 @@ public class MemberRepo {
         values.put(Member.KEY_Positions, member.getPositions());
         values.put(Member.KEY_Responsibilities, member.getResponsibilities());
         values.put(Member.KEY_TeamId, member.getTeamId());
+        values.put(Member.KEY_Permissions, member.getPermissions());
 
 
         // Inserting Row
@@ -73,7 +75,7 @@ public class MemberRepo {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         int count = (int) DatabaseUtils.queryNumEntries(db, Member.TABLE);
 
-        String[][] memberArray = new String[8][count];
+        String[][] memberArray = new String[9][count];
 
         String selectQuery = " SELECT * FROM " + Member.TABLE + " " + whereClause;
 
@@ -91,6 +93,8 @@ public class MemberRepo {
                 memberArray[5][iterator] = cursor.getString(cursor.getColumnIndex(Member.KEY_Positions));
                 memberArray[6][iterator] = cursor.getString(cursor.getColumnIndex(Member.KEY_Responsibilities));
                 memberArray[7][iterator] = cursor.getString(cursor.getColumnIndex(Member.KEY_TeamId));
+                memberArray[8][iterator] = cursor.getString(cursor.getColumnIndex(Member.KEY_Permissions));
+
 
                 iterator++;
             } while (cursor.moveToNext());

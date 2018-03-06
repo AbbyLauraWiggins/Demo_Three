@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.degree.abbylaura.demothree.Activities.HomeActivity;
 import com.degree.abbylaura.demothree.Database.Repo.FixtureRepo;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
+import com.degree.abbylaura.demothree.Database.Repo.NoticeRepo;
 import com.degree.abbylaura.demothree.Database.Repo.SCsessionRepo;
 import com.degree.abbylaura.demothree.Database.Repo.StrengthAndConditioningRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
@@ -51,7 +52,7 @@ public class TestDatabaseActivity extends Activity {
 
         editText = (EditText) findViewById(R.id.editText);
 
-        insertTestData();
+        //insertTestData();
 
 
 
@@ -84,7 +85,9 @@ public class TestDatabaseActivity extends Activity {
         member.setPositions("1");
         member.setResponsibilities("Development officer");
         member.setTeamId("UOBWRFC_1");
+        member.setPermissions("LEADER");
         memberRepo.insert(member);
+
 
         member.setMemberId("2");
         member.setName("Billie Smith");
@@ -94,6 +97,7 @@ public class TestDatabaseActivity extends Activity {
         member.setPositions("4, 5");
         member.setResponsibilities("None");
         member.setTeamId("UOBWRFC_1");
+        member.setPermissions("BASIC");
         memberRepo.insert(member);
 
         member.setMemberId("3");
@@ -104,6 +108,7 @@ public class TestDatabaseActivity extends Activity {
         member.setPositions("2");
         member.setResponsibilities("None");
         member.setTeamId("UOBWRFC_1");
+        member.setPermissions("ADMIN");
         memberRepo.insert(member);
 
         member.setMemberId("4");
@@ -114,6 +119,7 @@ public class TestDatabaseActivity extends Activity {
         member.setPositions("12, 13");
         member.setResponsibilities("Social Secretary");
         member.setTeamId("UOBWRFC_1");
+        member.setPermissions("TOP");
         memberRepo.insert(member);
 
 
@@ -245,8 +251,14 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setFixturePoints(null); //null points as game not occured yet
 
 
+       /* SCsession scSession = new SCsession();
 
-
+        scSession.setMemberID("1");
+        scSession.setSessionID("1");
+        scSession.setDeadlifts("5:50, 5:50, 5:55:, 5:60");  //4 sets of 5 reps
+        scSession.setDeadliftJumps("4:40, 4:40:, 4:45, 4:45");
+        scSession.setBackSquat();
+        */
 
 
     }
@@ -270,7 +282,7 @@ public class TestDatabaseActivity extends Activity {
         for(int row = 0; row < allMembers[0].length; row++) {
             TableRow tr = new TableRow(this);
 
-            for(int col = 0; col < 8; col++){
+            for(int col = 0; col < 9; col++){
                 System.out.println(String.valueOf(row) + " " +
                         String.valueOf(col) + " " + allMembers[col][row]);
                 TextView label = new TextView(this);
@@ -299,15 +311,17 @@ public class TestDatabaseActivity extends Activity {
         StrengthAndConditioningRepo strengthAndConditioningRepo = new StrengthAndConditioningRepo();
         TeamFixturesRepo teamFixturesRepo   = new TeamFixturesRepo();
         TeamRepo teamRepo = new TeamRepo();
+        NoticeRepo noticeRepo = new NoticeRepo();
 
-        showTable(view, fixtureRepo.getTableData(), 3);
-        showTable(view, strengthAndConditioningRepo.getTableData(), 3);
-        showTable(view, teamFixturesRepo.getTableData(), 3);
-        showTable(view, teamRepo.getTableData(), 4);
+        showTable(view, "Fixtures:", fixtureRepo.getTableData(), 3);
+        showTable(view, "S and C", strengthAndConditioningRepo.getTableData(), 3);
+        showTable(view, "Team Fixtures", teamFixturesRepo.getTableData(), 3);
+        showTable(view, "Teams", teamRepo.getTableData(), 4);
+        showTable(view, "Notices", noticeRepo.getTableData(), 4);
 
     }
 
-    public void showTable(View view, String[][] tableData, int cols) {
+    public void showTable(View view, String tableName, String[][] tableData, int cols) {
 
 
         String output = "";
@@ -328,6 +342,9 @@ public class TestDatabaseActivity extends Activity {
 
         LinearLayout tableContainer = (LinearLayout) findViewById(R.id.tableContainer);
 
+        //TextView tableTitle = null;
+        //tableTitle.setText(tableName);
+        //tableContainer.addView(tableTitle);
         tableContainer.addView(tl);
     }
 }

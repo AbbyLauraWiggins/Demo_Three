@@ -16,6 +16,7 @@ public class Member {
     public static final String KEY_Positions = "Positions";
     public static final String KEY_Responsibilities = "Responsibilities";
     public static final String KEY_TeamId = "TeamId"; //FOREIGN KEY FROM TEAM
+    public static final String KEY_Permissions = "Permissions";
 
     // Labels Table Columns names
 
@@ -27,7 +28,7 @@ public class Member {
     private String positions;
     private String responsibilities;
     private String teamId;
-
+    private String permissions;
 
     public String getMemberId() {
         return memberId;
@@ -91,5 +92,30 @@ public class Member {
 
     public void setTeamId(String teamId) {
         this.teamId = teamId;
+    }
+
+    public String getPermissions(){
+        return permissions;
+    }
+
+
+    /*
+     * Permissions dictate the permission level of that user for the system.
+     * Levels are:
+     * BASIC = basic user, see own data, no extra permissions
+     *         + can add notices, pictures
+     *         + can request to add events to calender //TODO request cal events
+     * ADMIN = same as a basic user but also
+     *         + can delete other users notifications, change other users permissions, accept new users
+     *         + can see only their own rugby data
+     *         + can add and accept events to the calendar //TODO accept cal events
+     * LEADER = same as basic user does not have permissions of an admin
+     *         + but can see all users rugby data
+     *         + can decide and add KPIs and player feedback //TODO player feedback
+     *         + can add to calendar without needing a request to admin
+     * TOP = both an Admins and leaders privileges
+     */
+    public void setPermissions(String permission){
+        this.permissions = permission;
     }
 }

@@ -9,6 +9,7 @@ import android.util.Log;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
 import com.degree.abbylaura.demothree.Database.Schema.Notice;
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
+import com.degree.abbylaura.demothree.Database.Schema.Team;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class NoticeRepo {
 
     private Notice notice;
+    String whereClause = "";
 
     public NoticeRepo(){
         notice = new Notice();
@@ -59,8 +61,8 @@ public class NoticeRepo {
 
 
     /*
-     * Query to get all Notice.Contents and return in array
-     * returns result[memberName][content][date]
+     * Query to get all Notice.Contents and return in arraylist
+     * Used to get the Member name and Notice that isnt currently shown on uI
      */
     public ArrayList<ArrayList<String>> getNotices() {
 
@@ -106,6 +108,44 @@ public class NoticeRepo {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         return (int) DatabaseUtils.queryNumEntries(db, Notice.TABLE);
     }
+
+
+    //returns whole notice table, for testing
+    public String[][] getTableData() {
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        int count = (int) DatabaseUtils.queryNumEntries(db, Team.TABLE);
+
+        String[][] noticeArray = new String[5][count];
+
+        String selectQuery = " SELECT * FROM " + Notice.TABLE + " " + whereClause;
+
+        Log.d(Team.TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        int iterator = 0;
+        if (cursor.moveToFirst()) {
+            do {
+                noticeArray[0][iterator] = cursor.getString(cursor.getColumnIndex(Notice.KEY_NoticeId));
+                noticeArray[1][iterator] = cursor.getString(cursor.getColumnIndex(Notice.KEY_MemberId));
+                noticeArray[2][iterator] = cursor.getString(cursor.getColumnIndex(Notice.KEY_Contents));
+                noticeArray[3][iterator] = cursor.getString(cursor.getColumnIndex(Notice.KEY_Date));
+
+                iterator++;
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return noticeArray;
+
+    }
+
+    public void setWhereClause(String where) {
+        this.whereClause = where;
+    }
+
 
 
 }
