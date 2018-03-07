@@ -37,7 +37,7 @@ public class MyClientID {
         //TODO generate new ID
         //TODO check it is not already an id in database
 
-        this.myID = newID;
+        myID = newID;
     }
 
 

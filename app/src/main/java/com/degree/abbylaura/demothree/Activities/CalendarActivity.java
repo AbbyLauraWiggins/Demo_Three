@@ -23,7 +23,7 @@ public class CalendarActivity extends Activity{
 
         setContentView(R.layout.calendar_activity);
 
-        calendarView = (CalendarView) findViewById(R.id.calendarView);
+        calendarView = findViewById(R.id.calendarView);
         long selectedDate = calendarView.getDate();
     }
 

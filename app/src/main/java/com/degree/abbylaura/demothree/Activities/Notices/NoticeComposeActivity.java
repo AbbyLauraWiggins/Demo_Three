@@ -29,8 +29,7 @@ public class NoticeComposeActivity extends Activity {
         //to show on input_text_view in D2NoticeActivity
 
         // 1. Get the text
-        EditText user_input_edit_text = (EditText)
-                findViewById(R.id.compose_user_input_text);
+        EditText user_input_edit_text = findViewById(R.id.compose_user_input_text);
         String user_input = String.valueOf(user_input_edit_text.getText());
 
         // 2. Send it back to D2NoticeActivity using an intent

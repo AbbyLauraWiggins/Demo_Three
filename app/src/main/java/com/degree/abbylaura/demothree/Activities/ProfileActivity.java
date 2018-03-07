@@ -2,29 +2,22 @@ package com.degree.abbylaura.demothree.Activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
 import com.degree.abbylaura.demothree.R;
-import com.degree.abbylaura.demothree.Test.TestDatabaseActivity;
 
 /**
  * Created by abbylaura on 02/03/2018.
@@ -45,13 +38,13 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_activity);
 
-        name = (TextView) findViewById(R.id.member_name);
-        teamName = (TextView) findViewById(R.id.team_name);
-        email = (TextView) findViewById(R.id.email);
-        positionsPlayed = (TextView) findViewById(R.id.positions_played);
-        responsibilities = (TextView) findViewById(R.id.responsibilities);
+        name = findViewById(R.id.member_name);
+        teamName = findViewById(R.id.team_name);
+        email = findViewById(R.id.email);
+        positionsPlayed = findViewById(R.id.positions_played);
+        responsibilities = findViewById(R.id.responsibilities);
 
-        profilePicture = (ImageView) findViewById(R.id.imageView);
+        profilePicture = findViewById(R.id.imageView);
 
         int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
@@ -62,9 +55,9 @@ public class ProfileActivity extends AppCompatActivity {
         profilePicture.setLayoutParams(layoutParams);
         profilePicture.setVisibility(View.VISIBLE);
 
-        back = (Button) findViewById(R.id.back_button);
-        addPos = (Button) findViewById(R.id.addPosition);
-        addRes = (Button) findViewById(R.id.addResponsibilty);
+        back = findViewById(R.id.back_button);
+        addPos = findViewById(R.id.addPosition);
+        addRes = findViewById(R.id.addResponsibilty);
 
         Intent activityThatCalled = getIntent();
         thisID = (String) activityThatCalled.getSerializableExtra("MemberID");

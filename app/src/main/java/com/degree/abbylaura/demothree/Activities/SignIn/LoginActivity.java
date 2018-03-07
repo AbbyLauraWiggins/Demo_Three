@@ -35,8 +35,8 @@ public class LoginActivity extends Activity {
 
         /**** ensure there is data to retrieve ****/
 
-        emailEditText = (EditText) findViewById(R.id.signin_email);
-        passwordEditText = (EditText) findViewById(R.id.signin_password);
+        emailEditText = findViewById(R.id.signin_email);
+        passwordEditText = findViewById(R.id.signin_password);
 
         if(savedInstanceState != null) { //there is data saved
             String emailInput = savedInstanceState.getString("EMAIL");
@@ -70,7 +70,7 @@ public class LoginActivity extends Activity {
         //return whether registration was valid or cancelled: 0 = not valid, 1 = valid
 
 
-        btnRegister = (Button) findViewById(R.id.register_button);
+        btnRegister = findViewById(R.id.register_button);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.degree.abbylaura.demothree.Activities.Members.MembersActivity;
 import com.degree.abbylaura.demothree.Activities.Notices.NoticeActivity;
+import com.degree.abbylaura.demothree.Activities.Statistics.StatisticsActivity;
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.FixtureRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
@@ -16,14 +17,11 @@ import com.degree.abbylaura.demothree.Database.Schema.Fixture;
 import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
 import com.degree.abbylaura.demothree.R;
 
-import org.w3c.dom.Text;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by abbylaura on 09/02/2018.
@@ -39,8 +37,8 @@ public class HomeActivity extends Activity {
 
         setContentView(R.layout.home_activity);
 
-        nextGameDate = (TextView) findViewById(R.id.next_game_home_tv);
-        nextGameMonth = (TextView) findViewById(R.id.next_game_month_home_tv);
+        nextGameDate = findViewById(R.id.next_game_home_tv);
+        nextGameMonth = findViewById(R.id.next_game_month_home_tv);
 
     }
 

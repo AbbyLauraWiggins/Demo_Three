@@ -46,5 +46,6 @@
     <string name="responsibilities">Responsibilities</string>
     <string name="add_responsibility">Add Responsibility</string>
     <string name="back">Back</string>
+    <string name="s_amp_c"><![CDATA[S&C]]></string>
 
 </resources>

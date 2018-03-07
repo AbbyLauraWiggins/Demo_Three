@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.degree.abbylaura.demothree.App.App;
 import com.degree.abbylaura.demothree.Database.Repo.FixtureRepo;
+import com.degree.abbylaura.demothree.Database.Repo.KPIRepo;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.Database.Repo.NoticeRepo;
 import com.degree.abbylaura.demothree.Database.Repo.SCsessionRepo;
@@ -13,6 +14,7 @@ import com.degree.abbylaura.demothree.Database.Repo.StrengthAndConditioningRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamRepo;
 import com.degree.abbylaura.demothree.Database.Schema.Fixture;
+import com.degree.abbylaura.demothree.Database.Schema.KPI;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
 import com.degree.abbylaura.demothree.Database.Schema.Notice;
 import com.degree.abbylaura.demothree.Database.Schema.SCsession;
@@ -30,8 +32,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //note: remember each time if you Add, Edit table, you need to change the version number.
     private static final int DATABASE_VERSION = 2;
-    private static final String DATABASE_NAME = "databaseDemoThree.db";
-    private static final String TAG = DatabaseHelper.class.getSimpleName().toString();
+    private static final String DATABASE_NAME = "sixTableDB.db";
+    private static final String TAG = DatabaseHelper.class.getSimpleName();
 
     public DatabaseHelper( ) {
         super(App.getContext(), DATABASE_NAME, null, DATABASE_VERSION);
@@ -50,6 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(TeamFixturesRepo.createTable());
 
         db.execSQL(NoticeRepo.createTable());
+        db.execSQL(KPIRepo.createtable());
 
     }
 
@@ -66,6 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TeamFixtures.TABLE);
 
         db.execSQL("DROP TABLE IF EXISTS " + Notice.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + KPI.TABLE);
 
         onCreate(db);
     }

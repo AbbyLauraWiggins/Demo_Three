@@ -29,11 +29,11 @@ public class RegisterActivity extends Activity {
         String emailAddress = (String) activityThatCalled.getSerializableExtra("emailaddress");
         String password = (String) activityThatCalled.getSerializableExtra("password");
 
-        emailEditText = (EditText) findViewById(R.id.register_email);
-        passwordEditText = (EditText) findViewById(R.id.register_password);
-        nameEditText = (EditText) findViewById(R.id.register_name);
-        dobEditText = (EditText) findViewById(R.id.register_dob) ;
-        teamEditText = (EditText) findViewById(R.id.register_teamID);
+        emailEditText = findViewById(R.id.register_email);
+        passwordEditText = findViewById(R.id.register_password);
+        nameEditText = findViewById(R.id.register_name);
+        dobEditText = findViewById(R.id.register_dob);
+        teamEditText = findViewById(R.id.register_teamID);
 
         emailEditText.setText(emailAddress);
         passwordEditText.setText(password);
@@ -64,6 +64,7 @@ public class RegisterActivity extends Activity {
             member.setPositions(null);
             member.setResponsibilities("None");
             member.setTeamId(teamEditText.getText().toString());
+            member.setPermissions("BASIC");
             memberRepo.insert(member);
 
             goBack();

@@ -36,7 +36,7 @@ public class MemberRepo {
                 + Member.KEY_Positions + " TEXT,"
                 + Member.KEY_Responsibilities + " TEXT,"
                 + Member.KEY_TeamId + " TEXT,"
-                + Member.KEY_Permissions + "TEXT)";
+                + Member.KEY_Permissions + " TEXT)";
     }
 
 

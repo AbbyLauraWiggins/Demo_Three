@@ -37,12 +37,11 @@ public class NoticeActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.notice_activity);
-        usersMessage = (TextView)
-                findViewById(R.id.input_text_view);
+        usersMessage = findViewById(R.id.input_text_view);
 
         updateContent(null);
 
-        relBottom = (RelativeLayout) findViewById(R.id.rel_bottom_layout);
+        relBottom = findViewById(R.id.rel_bottom_layout);
         relBottom.setBackgroundColor(Color.WHITE);
 
         /* Allows use to track when an intent with the id TRANSACTION_DONE is executed
@@ -86,7 +85,7 @@ public class NoticeActivity extends Activity {
 
         ArrayList<ArrayList<String>> noticeArray = noticeRepo.getNotices();
 
-        LinearLayout fragContainer = (LinearLayout) findViewById(R.id.fragmentContainer);
+        LinearLayout fragContainer = findViewById(R.id.fragmentContainer);
         if(fragContainer != null){
             fragContainer.removeAllViews();
         }

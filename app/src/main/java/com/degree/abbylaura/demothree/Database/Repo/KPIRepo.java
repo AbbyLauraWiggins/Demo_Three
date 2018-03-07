@@ -24,8 +24,8 @@ public class KPIRepo {
 
     public static String createtable(){
         return "CREATE TABLE " + KPI.TABLE + "("
-                + KPI.KEY_KPIPrimary + " TEXT PRIMARY KEY AUTOINCREMENT"
-                + KPI.KEY_MemberID + " TEXT,"
+                + KPI.KEY_KPIPrimary + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + KPI.KEY_MemberID + " TEXT, "
                 + KPI.KEY_FixtureID + " TEXT,"
                 + KPI.KEY_sTackles + " TEXT,"
                 + KPI.KEY_uTackles + " TEXT,"
@@ -45,7 +45,6 @@ public class KPIRepo {
                 + KPI.KEY_sKicks + " TEXT,"
                 + KPI.KEY_uKicks + " TEXT)";
     }
-
 
     public void insert(KPI kpi){
 
@@ -75,7 +74,6 @@ public class KPIRepo {
         DatabaseManager.getInstance().closeDatabase();
     }
 
-
     public void delete() {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         db.delete(KPI.TABLE, null, null);
@@ -89,6 +87,7 @@ public class KPIRepo {
         int count = (int) DatabaseUtils.queryNumEntries(db, KPI.TABLE);
 
         String[][] kpiArray = new String[20][count];
+        System.out.println("KPI COUNT = " + String.valueOf(count));
 
         String selectQuery = " SELECT * FROM " + KPI.TABLE + " " + whereClause;
 
@@ -98,26 +97,26 @@ public class KPIRepo {
         int iterator = 0;
         if (cursor.moveToFirst()) {
             do {
-                kpiArray[0][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_KPIPrimary));
-                kpiArray[1][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_MemberID));
-                kpiArray[2][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_FixtureID));
-                kpiArray[3][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_sTackles));
-                kpiArray[4][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_uTackles));
-                kpiArray[5][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_sCarries));
-                kpiArray[6][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_uCarries));
-                kpiArray[7][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_sPasses));
-                kpiArray[8][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_uPasses));
-                kpiArray[9][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_HandlingErrors));
-                kpiArray[10][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_Penalties));
-                kpiArray[11][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_YellowCards));
-                kpiArray[12][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_TriesScored));
-                kpiArray[13][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_TurnoversWon));
-                kpiArray[14][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_sThrowIns));
-                kpiArray[15][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_uThrowIns));
-                kpiArray[16][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_sLineOutTakes));
-                kpiArray[17][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_uLineOutTakes));
-                kpiArray[18][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_sKicks));
-                kpiArray[19][iterator] = cursor.getString(cursor.getColumnIndex(KPI.KEY_uKicks));
+                kpiArray[0][iterator] = "PRIMARY KEY: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_KPIPrimary));
+                kpiArray[1][iterator] = "MEMBER ID: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_MemberID));
+                kpiArray[2][iterator] = "FIXTURE ID: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_FixtureID));
+                kpiArray[3][iterator] = "S TACKLES: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_sTackles));
+                kpiArray[4][iterator] = "U TACKLES: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_uTackles));
+                kpiArray[5][iterator] = "S CARRIES: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_sCarries));
+                kpiArray[6][iterator] = "U CARRIES:" + cursor.getString(cursor.getColumnIndex(KPI.KEY_uCarries));
+                kpiArray[7][iterator] = "S PASSES: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_sPasses));
+                kpiArray[8][iterator] = "U PASSES: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_uPasses));
+                kpiArray[9][iterator] = "HANDLING: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_HandlingErrors));
+                kpiArray[10][iterator] = "PENALTIES: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_Penalties));
+                kpiArray[11][iterator] = "YELLOW CARDS: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_YellowCards));
+                kpiArray[12][iterator] = "TRIES: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_TriesScored));
+                kpiArray[13][iterator] = "TURNOVERS: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_TurnoversWon));
+                kpiArray[14][iterator] = "S THROWS: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_sThrowIns));
+                kpiArray[15][iterator] = "U THROWS: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_uThrowIns));
+                kpiArray[16][iterator] = "S LINE OUTS: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_sLineOutTakes));
+                kpiArray[17][iterator] = "U LINE OUTS: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_uLineOutTakes));
+                kpiArray[18][iterator] = "S KICKS: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_sKicks));
+                kpiArray[19][iterator] = "U KICKS: " + cursor.getString(cursor.getColumnIndex(KPI.KEY_uKicks));
                 iterator++;
             } while (cursor.moveToNext());
         }

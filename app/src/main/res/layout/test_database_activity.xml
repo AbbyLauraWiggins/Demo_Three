@@ -4,33 +4,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Show all members"
-        android:id="@+id/showMembersButton"
-        android:onClick="showMembers"/>
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="members"
+            android:id="@+id/showMembersButton"
+            android:onClick="showMembers"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Show all teams"
-        android:id="@+id/showTeamsButton"
-        android:onClick="showTeams"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="teams"
+            android:id="@+id/showTeamsButton"
+            android:onClick="showTeams"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Show all sessions"
-        android:id="@+id/showSessionsButton"
-        android:onClick="showSessions"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/s_amp_c"
+            android:id="@+id/showSessionsButton"
+            android:onClick="showSessions"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="show all table"
-        android:id="@+id/showAllTablesButton"
-        android:onClick="showAll"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="all"
+            android:id="@+id/showAllTablesButton"
+            android:onClick="showAll"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="kpis"
+            android:id="@+id/showKPIsButton"
+            android:onClick="showKPIs"/>
+    </LinearLayout>
 
     <EditText
         android:id="@+id/editText"

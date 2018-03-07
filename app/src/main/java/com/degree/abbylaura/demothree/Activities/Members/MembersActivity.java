@@ -37,7 +37,7 @@ public class MembersActivity extends Activity {
 
         String[][] result = memberRepo.getMembers(); //String[setQueryArgs][numberOfResults]
 
-        LinearLayout fragContainer = (LinearLayout) findViewById(R.id.member_linear_layout);
+        LinearLayout fragContainer = findViewById(R.id.member_linear_layout);
 
         LinearLayout layout = new LinearLayout(this);
 
