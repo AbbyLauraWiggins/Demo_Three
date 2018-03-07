@@ -1,6 +1,7 @@
 package com.degree.abbylaura.demothree.Database.Repo;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,6 +9,9 @@ import android.util.Log;
 
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.KPI;
+import com.degree.abbylaura.demothree.Database.Schema.Member;
+
+import java.util.ArrayList;
 
 /**
  * Created by abbylaura on 06/03/2018.
@@ -128,9 +132,90 @@ public class KPIRepo {
 
     }
 
+    public ArrayList<ArrayList<String>> getKPILeaderboard(String teamFixtureID){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        int count = (int) DatabaseUtils.queryNumEntries(db, KPI.TABLE);
+
+        //Return array of |KPI COLUMN NAME | Member.Name | KPI COLUMN VALUE
+        //For each column, return the MemberID of the person with the highest value
+
+        ArrayList<ArrayList<String>> leaderboard = new ArrayList<ArrayList<String>>();
+
+        String array[] = new String[19];
+        array[0] = "MemberID";
+        array[1] = "FixtureID";
+        array[2] = "sTackles";
+        array[3] = "uTackles";
+        array[4] = "sCarries";
+        array[5] = "uCarries";
+        array[6] = "sPasses";
+        array[7] = "uPasses";
+        array[8] = "HandlingErrors";
+        array[9] = "Penalties";
+        array[10] = "YellowCards";
+        array[11] = "TriesScored";
+        array[12] = "TurnoversWon";
+        array[13] = "sThrowIns";
+        array[14] = "uThrowIns";
+        array[15] = "sLineOutTakes";
+        array[16] = "uLineOutTakes";
+        array[17] = "sKicks";
+        array[18] = "uKicks";
+
+        for(int i = 0; i < 18; i++){
+            String KPIColumnName = array[i];
+
+            String selectQuery = " SELECT Member.Name, KPI." + KPIColumnName + ", KPI.FixtureID" +
+                    " FROM KPI" +
+                    " INNER JOIN " + Member.TABLE + " ON Member.MemberId = KPI.MemberID";
+
+            Log.d(KPI.TAG, selectQuery);
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            // looping through all rows and adding to list
+            String fName = null;
+            int max = 0;
+
+            if (cursor.moveToFirst()) {
+                do {
+                    String name = cursor.getString(0);
+                    String result = cursor.getString(1);
+                    String fixture = cursor.getString(2);
+
+                    //System.out.println(name + " | " + result + " | " + fixture);
+
+                    if(fixture == teamFixtureID){
+                        if(Integer.parseInt(result) > max){ //TODO deal with equals
+                            max = Integer.parseInt(result);
+                            fName = name;
+                        }
+                    }
+
+
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+
+            ArrayList<String> list = new ArrayList<String>();
+            list.add(array[i]);
+            list.add(fName);
+            list.add(String.valueOf(max));
+
+            leaderboard.add(list);
+        }
+
+
+        DatabaseManager.getInstance().closeDatabase();
+
+        return leaderboard;
+
+    }
+
     public void setWhereClause(String where) {
         this.whereClause = where;
     }
+
 
 
 }
