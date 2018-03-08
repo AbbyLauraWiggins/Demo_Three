@@ -10,7 +10,9 @@ import android.util.Log;
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.KPI;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
+import com.degree.abbylaura.demothree.Database.Schema.SCsession;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +20,8 @@ import java.util.ArrayList;
  */
 
 public class KPIRepo {
+
+    String[] array;
 
     private KPI kpi;
     private String whereClause = "";
@@ -134,33 +138,12 @@ public class KPIRepo {
 
     public ArrayList<ArrayList<String>> getKPILeaderboard(String teamFixtureID){
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        int count = (int) DatabaseUtils.queryNumEntries(db, KPI.TABLE);
-
         //Return array of |KPI COLUMN NAME | Member.Name | KPI COLUMN VALUE
         //For each column, return the MemberID of the person with the highest value
 
         ArrayList<ArrayList<String>> leaderboard = new ArrayList<ArrayList<String>>();
 
-        String array[] = new String[19];
-        array[0] = "MemberID";
-        array[1] = "FixtureID";
-        array[2] = "sTackles";
-        array[3] = "uTackles";
-        array[4] = "sCarries";
-        array[5] = "uCarries";
-        array[6] = "sPasses";
-        array[7] = "uPasses";
-        array[8] = "HandlingErrors";
-        array[9] = "Penalties";
-        array[10] = "YellowCards";
-        array[11] = "TriesScored";
-        array[12] = "TurnoversWon";
-        array[13] = "sThrowIns";
-        array[14] = "uThrowIns";
-        array[15] = "sLineOutTakes";
-        array[16] = "uLineOutTakes";
-        array[17] = "sKicks";
-        array[18] = "uKicks";
+        setArray();
 
         for(int i = 0; i < 18; i++){
             String KPIColumnName = array[i];
@@ -184,7 +167,7 @@ public class KPIRepo {
 
                     //System.out.println(name + " | " + result + " | " + fixture);
 
-                    if(fixture == teamFixtureID){
+                    if(fixture.equals(teamFixtureID)){
                         if(Integer.parseInt(result) > max){ //TODO deal with equals
                             max = Integer.parseInt(result);
                             fName = name;
@@ -212,10 +195,113 @@ public class KPIRepo {
 
     }
 
+    public ArrayList<ArrayList<String>> getKPISeasonLeaderboard(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        ArrayList<ArrayList<String>> leaderboard = new ArrayList<ArrayList<String>>();
+        ArrayList<String> memberids = new ArrayList<String>();
+        setArray();
+
+        String selectQuery = " SELECT MemberId FROM Member ";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                memberids.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        //for each KPI
+        for(int i = 0; i < 18; i++) {
+            String kpiName = array[i];
+
+            //keep track of highest amount and winning id
+            String leadingName = null;
+            int maxValue = 0;
+
+            //calculate each members total
+            //for each member
+            for(int j = 0; j < memberids.size(); j++){
+                ArrayList<String> nameAndValue = getKPITotal(memberids.get(j), array[i]);
+                if(Integer.parseInt(nameAndValue.get(1)) > maxValue){
+                    maxValue = Integer.parseInt(nameAndValue.get(1));
+                    leadingName = nameAndValue.get(0);
+                }
+            }
+            System.out.println(array[i] + " | " + leadingName + " | " + String.valueOf(maxValue));
+
+
+            //add to the arraylist: array[i], Member Name, maxValue
+            ArrayList<String> row = new ArrayList<String>();
+            row.add(array[i]);
+            row.add(leadingName);
+            row.add(String.valueOf(maxValue));
+
+            leaderboard.add(row);
+        }
+
+        return leaderboard;
+    }
+
+    public ArrayList<String> getKPITotal(String thisMemberID, String kpiName){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        //select Name and KPI value for this member and this KPI
+        String selectQuery = " SELECT Member.Name, KPI." + kpiName +
+                " FROM KPI" +
+                " INNER JOIN " + Member.TABLE + " ON Member.MemberId = KPI.MemberID = " + thisMemberID;
+
+        //Sum through KPI values and return name and max value
+        ArrayList<String> result = new ArrayList<String>();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        String name = null;
+        int total = 0;
+
+        if (cursor.moveToFirst()) {
+            do {
+                name = (cursor.getString(0));
+                total = total + Integer.parseInt(cursor.getString(1)); //add total
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        result.add(name);
+        result.add(String.valueOf(total));
+
+        DatabaseManager.getInstance().closeDatabase();
+
+        return result;
+    }
+
     public void setWhereClause(String where) {
         this.whereClause = where;
     }
 
-
+    public void setArray(){
+        this.array = new String[19];
+        array[0] = "MemberID";
+        array[1] = "FixtureID";
+        array[2] = "sTackles";
+        array[3] = "uTackles";
+        array[4] = "sCarries";
+        array[5] = "uCarries";
+        array[6] = "sPasses";
+        array[7] = "uPasses";
+        array[8] = "HandlingErrors";
+        array[9] = "Penalties";
+        array[10] = "YellowCards";
+        array[11] = "TriesScored";
+        array[12] = "TurnoversWon";
+        array[13] = "sThrowIns";
+        array[14] = "uThrowIns";
+        array[15] = "sLineOutTakes";
+        array[16] = "uLineOutTakes";
+        array[17] = "sKicks";
+        array[18] = "uKicks";
+    }
 
 }

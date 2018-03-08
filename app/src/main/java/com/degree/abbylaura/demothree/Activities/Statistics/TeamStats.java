@@ -3,6 +3,7 @@ package com.degree.abbylaura.demothree.Activities.Statistics;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -56,39 +57,7 @@ public class TeamStats extends Activity {
         actionBar.addTab(gameTab);
         actionBar.addTab(leaderboardTab);
 
-        setOverviewLayout();
 
-    }
-
-    public void setOverviewLayout(){
-        KPIRepo kpiRepo = new KPIRepo();
-
-        ArrayList<ArrayList<String>> leaderboard = kpiRepo.getKPILeaderboard("1");
-
-        TableLayout tl = new TableLayout(this);
-
-        for(int i = 0; i < leaderboard.size(); i++) {
-            TableRow tr = new TableRow(this);
-            ArrayList<String> list = leaderboard.get(i);
-
-            for(int j = 0; j < 3; j++){
-                TextView label = new TextView(this);
-                label.setText(" | " + list.get(j));
-                System.out.print(label.getText());
-                tr.addView(label);
-            }
-
-            System.out.println("");
-
-           // tl.addView(tr);
-        }
-
-        //LinearLayout tableContainer = findViewById(R.id.tableContainer);
-
-        //TextView tableTitle = null;
-        //tableTitle.setText(tableName);
-        //tableContainer.addView(tableTitle);
-        //tableContainer.addView(tl);
     }
 
 
@@ -96,5 +65,10 @@ public class TeamStats extends Activity {
         Intent goingBack = new Intent();
         setResult(RESULT_OK, goingBack);
         finish();
+    }
+
+    public void onShowClick(View view) {
+        System.out.println("onShowClick");
+
     }
 }
