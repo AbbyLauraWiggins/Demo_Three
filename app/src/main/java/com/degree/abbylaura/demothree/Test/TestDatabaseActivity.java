@@ -247,7 +247,7 @@ public class TestDatabaseActivity extends Activity {
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("4"); //Fixture 4
-        fixtures.setTeamId("LURFC_!");    //Team LURFC
+        fixtures.setTeamId("LURFC_1");    //Team LURFC
         fixtures.setFixturePoints(null); //null points as game not occured yet
         fixtureRepo.insert(fixtures);
 

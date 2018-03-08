@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,13 +15,17 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 
-
+import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.KPIRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
 import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
 import com.degree.abbylaura.demothree.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -33,39 +38,67 @@ public class TeamStatsTabFragmentLeaderboard extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.team_stats_tab_leaderboard, null);
 
-        //TODO for each KPI, find the person with the highest value
-        //TODO and create a table of KPI name | Member Name | KPI value
-        Spinner fixtureSpinner = (Spinner) view.findViewById(R.id.fixtureSpinner);
-        List<String> spinnerItems = new ArrayList<String>();
         TeamFixturesRepo tfRepo = new TeamFixturesRepo();
 
-        String[][] fixturesList = tfRepo.getTableData();
+        ArrayList<ArrayList<String>> fixturesList = tfRepo.getSpinnerList();
+        ArrayList<String> spinnerList = new ArrayList<String>();
+        final HashMap<String, String> spinnerItemAndFixtureID = new HashMap<String, String>();
 
-        for(int i = 0; i < tfRepo.getTableSize(); i++){
-           // spinnerItems
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+
+        for(ArrayList<String> row : fixturesList){ //0=name1, 1=name2, 2=date
+
+            //must be one my MyTeams games
+            if(row.get(4).equals(MyClientID.myTeamID) || row.get(5).equals(MyClientID.myTeamID)){
+                //must be a game that has already occured
+
+                try {
+                    Date fixtureDate = sdf.parse(row.get(2));
+                    if (new Date().after(fixtureDate)) {
+                        String item = row.get(0) + " vs " + row.get(1) + ": " + row.get(2);
+                        String fixtureID = row.get(3);
+                        spinnerList.add(item);
+                        spinnerItemAndFixtureID.put(item, fixtureID);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
         }
 
-        ArrayList<ArrayList<String>> spinnerlist = tfRepo.getSpinnerList();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                getActivity(), android.R.layout.simple_spinner_item, spinnerList);
 
-        Button show = (Button) view.findViewById(R.id.btnShowLeaderboard);
-        show.setOnClickListener(new View.OnClickListener() {
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner fixtureSpinner = (Spinner) view.findViewById(R.id.fixtureSpinner);
+        fixtureSpinner.setAdapter(adapter);
+
+        fixtureSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                setView(view);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String itemSelectedInSpinner = adapterView.getItemAtPosition(i).toString();
+                setView(view, spinnerItemAndFixtureID.get(itemSelectedInSpinner)); //returns FixtureID of selected item
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
-
 
 
         return view;
     }
 
-    private void setView(View view){
+    private void setView(View view, String fixtureID){
         KPIRepo kpiRepo = new KPIRepo();
         ArrayList<ArrayList<String>> leaderboard;
 
-        EditText fixtureIDet = (EditText) view.findViewById(R.id.fixtureIdEditText);
-        String fixtureID = fixtureIDet.getText().toString();
+        //EditText fixtureIDet = (EditText) view.findViewById(R.id.fixtureIdEditText);
+        //String fixtureID = fixtureIDet.getText().toString();
 
         if(fixtureID.equals(null)){
             System.out.println("FIXTURE ID: " + fixtureID);

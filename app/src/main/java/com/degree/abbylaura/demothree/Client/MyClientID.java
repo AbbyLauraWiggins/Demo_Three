@@ -9,7 +9,6 @@ public class MyClientID {
     public static String myID = "unknown"; //1 for testing
     public static String myUsername = "";
     public static String myTeamID = "";
-
     public MyClientID(){
         super();
     }
@@ -35,9 +34,7 @@ public class MyClientID {
         myTeamID = id;
     }
 
-    public String getMyTeamID(){
-        return myTeamID;
-    }
+
 
     public void newID(String email, String password){
         String newID = null;

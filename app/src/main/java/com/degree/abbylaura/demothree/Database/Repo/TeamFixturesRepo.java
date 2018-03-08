@@ -6,6 +6,7 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 
 import com.degree.abbylaura.demothree.Database.Schema.SCsession;
@@ -142,6 +143,21 @@ public class TeamFixturesRepo {
                     row.add(teams.get(previousID)); //previous team name
                     row.add(teams.get(cursor.getString(0))); //current team name
                     row.add(cursor.getString(2)); //fixture date
+                    row.add(cursor.getString(1)); //fixture ID
+                    row.add(previousID); //teamID 1
+                    row.add(cursor.getString(0)); //team ID 2
+
+
+                    /* row format:
+                     *  (0) TEAM NAME 1
+                     *  (1) TEAM NAME 2
+                     *  (2) FIXTURE DATE   <^^ these three to be displayed on spinner
+                     *  (3) FIXTURE ID     <   to pass to query to display correct data
+                     *  (4) TEAM ID 1
+                     *  (5) TEAM ID 2      <^  so can check if we belong to any of these teams
+                     */
+
+
                     table.add(row);
                 } else {
                     //previous fixtureID is different so we are looking at a new row
@@ -169,7 +185,6 @@ public class TeamFixturesRepo {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
         String selectQuery = "SELECT TeamName, TeamId FROM Team";
-
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         HashMap<String, String> teams = new HashMap<String, String>();
