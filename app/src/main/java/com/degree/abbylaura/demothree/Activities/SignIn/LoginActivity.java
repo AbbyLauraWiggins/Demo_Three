@@ -153,7 +153,7 @@ public class LoginActivity extends Activity {
         }else{
             MyClientID.setID("5");//result[0][0]);//, result[0][7]);
            // MyClientID.myUsername = result[1][0];
-
+            MyClientID.setMyTeamID(result[7][0]);
             Intent goToHome  = new Intent(this, HomeActivity.class);
             startActivity(goToHome);
         }

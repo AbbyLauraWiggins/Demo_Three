@@ -31,6 +31,14 @@ public class MyClientID {
         //myTeamID = teamid;
     }
 
+    public static void setMyTeamID(String id){
+        myTeamID = id;
+    }
+
+    public String getMyTeamID(){
+        return myTeamID;
+    }
+
     public void newID(String email, String password){
         String newID = null;
 

@@ -181,7 +181,7 @@ public class KPIRepo {
             cursor.close();
 
             ArrayList<String> list = new ArrayList<String>();
-            list.add(array[i]);
+            list.add(array[i]); //TODO look to change using array[i] to cursor.getColumnName(i)
             list.add(fName);
             list.add(String.valueOf(max));
 

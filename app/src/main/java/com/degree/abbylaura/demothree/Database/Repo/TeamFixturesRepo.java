@@ -8,8 +8,14 @@ import android.util.Log;
 
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 
+import com.degree.abbylaura.demothree.Database.Schema.SCsession;
+import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
 import com.degree.abbylaura.demothree.Database.Schema.Team;
 import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by abbylaura on 02/03/2018.
@@ -93,4 +99,94 @@ public class TeamFixturesRepo {
         this.whereClause = where;
     }
 
+    public int getTableSize(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        int result = (int) DatabaseUtils.queryNumEntries(db, TeamFixtures.TABLE);
+
+        DatabaseManager.getInstance().closeDatabase();
+
+        return result;
+
+    }
+
+    public ArrayList<ArrayList<String>> getSpinnerList(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        HashMap<String, String> teams = getTeam();
+
+        String selectQuery =
+                "SELECT Fixture.TeamId, TeamFixtures.FixtureId, TeamFixtures.TeamFixtureDate " +
+                        "FROM TeamFixtures, Fixture" +
+                        " WHERE TeamFixtures.FixtureId = Fixture.FixtureId";
+
+        Log.d(TeamFixtures.TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        int size = (getTableSize()*2); //getTableSize*2 because they'll be two teamIDs per date
+
+        ArrayList<ArrayList<String>> table = new ArrayList<ArrayList<String>>();
+        String fixID = "";
+        String previousID = "";
+
+        if (cursor.moveToFirst()) {
+            do {
+               // System.out.println("spinner cursor");
+                System.out.println(cursor.getColumnName(0) + " " + cursor.getString(0)); //team id
+                System.out.println(cursor.getColumnName(1) + " " +cursor.getString(1)); //fixture id
+                System.out.println(cursor.getColumnName(2) + " " +cursor.getString(2)); //fixture date
+
+
+                if(fixID.equals(cursor.getString(1))){ //same as previous so add
+                    ArrayList<String> row = new ArrayList<String>();
+                    row.add(teams.get(previousID)); //previous team name
+                    row.add(teams.get(cursor.getString(0))); //current team name
+                    row.add(cursor.getString(2)); //fixture date
+                    table.add(row);
+                } else {
+                    //previous fixtureID is different so we are looking at a new row
+                    previousID = cursor.getString(0);
+                    fixID = cursor.getString(1);
+                }
+            } while (cursor.moveToNext());
+        }
+
+        //FOR TESTING
+        for(int i = 0; i < table.size(); i++){
+            ArrayList<String> row = table.get(i);
+            System.out.println(row.get(0) + " | " + row.get(1) + " | " + row.get(2));
+        }
+
+        cursor.close();
+
+        DatabaseManager.getInstance().closeDatabase();
+
+        return table;
+
+    }
+
+    public HashMap<String, String> getTeam(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        String selectQuery = "SELECT TeamName, TeamId FROM Team";
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        HashMap<String, String> teams = new HashMap<String, String>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                String key = cursor.getString(1);
+                String value = cursor.getString(0);
+                System.out.println(key + " | " + value);
+                teams.put(key, value);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        DatabaseManager.getInstance().closeDatabase();
+
+        return teams;
+    }
 }

@@ -11,10 +11,18 @@
         android:text="Team stats leaderboard"
         android:textSize="20sp"/>
 
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fixtureSpinner">
+
+    </Spinner>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
 
         <EditText
             android:layout_width="wrap_content"
@@ -26,8 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Show"
-            android:id="@+id/btnShowLeaderboard"
-            android:onClick="onShowClick"/>
+            android:id="@+id/btnShowLeaderboard" />
     </LinearLayout>
 
 

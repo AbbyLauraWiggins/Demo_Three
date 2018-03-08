@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -15,9 +16,12 @@ import android.widget.TextView;
 
 
 import com.degree.abbylaura.demothree.Database.Repo.KPIRepo;
+import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
+import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
 import com.degree.abbylaura.demothree.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by abbylaura on 07/03/2018.
@@ -31,7 +35,32 @@ public class TeamStatsTabFragmentLeaderboard extends Fragment {
 
         //TODO for each KPI, find the person with the highest value
         //TODO and create a table of KPI name | Member Name | KPI value
+        Spinner fixtureSpinner = (Spinner) view.findViewById(R.id.fixtureSpinner);
+        List<String> spinnerItems = new ArrayList<String>();
+        TeamFixturesRepo tfRepo = new TeamFixturesRepo();
 
+        String[][] fixturesList = tfRepo.getTableData();
+
+        for(int i = 0; i < tfRepo.getTableSize(); i++){
+           // spinnerItems
+        }
+
+        ArrayList<ArrayList<String>> spinnerlist = tfRepo.getSpinnerList();
+
+        Button show = (Button) view.findViewById(R.id.btnShowLeaderboard);
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setView(view);
+            }
+        });
+
+
+
+        return view;
+    }
+
+    private void setView(View view){
         KPIRepo kpiRepo = new KPIRepo();
         ArrayList<ArrayList<String>> leaderboard;
 
@@ -63,9 +92,6 @@ public class TeamStatsTabFragmentLeaderboard extends Fragment {
 
             tl.addView(tr);
         }
-
-
-        return view;
     }
 
 

@@ -67,8 +67,5 @@ public class TeamStats extends Activity {
         finish();
     }
 
-    public void onShowClick(View view) {
-        System.out.println("onShowClick");
 
-    }
 }

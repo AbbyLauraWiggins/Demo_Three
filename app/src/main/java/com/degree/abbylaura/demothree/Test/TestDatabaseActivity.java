@@ -58,7 +58,6 @@ public class TestDatabaseActivity extends Activity {
 
     }
 
-
     private void insertTestData(){
         FixtureRepo fixtureRepo = new FixtureRepo();
         MemberRepo memberRepo   = new MemberRepo();
@@ -143,8 +142,8 @@ public class TestDatabaseActivity extends Activity {
         team.setTeamCurPoints("131");
         teamRepo.insert(team);
 
-        team.setTeamId("AUWRFC_1");
-        team.setTeamName("AUWRFC");
+        team.setTeamId("AURFC_1");
+        team.setTeamName("AURFC");
         team.setTeamLocation("B1 8LM");
         team.setTeamCurPoints("109");
         teamRepo.insert(team);
@@ -213,62 +212,62 @@ public class TestDatabaseActivity extends Activity {
         Fixture fixtures = new Fixture();
 
         fixtures.setFixtureId("1"); //Fixture 1
-        fixtures.setTeamId("1");    //Team UOBWRFC
+        fixtures.setTeamId("UOBWRFC_1");    //Team UOBWRFC
         fixtures.setFixturePoints("22"); //Points scored by UOBWRFC
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("1"); //Fixture 1
-        fixtures.setTeamId("2");    //Team LURFC
+        fixtures.setTeamId("LURFC_1");    //Team LURFC
         fixtures.setFixturePoints("20"); //Points scored by LURFC
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("2"); //Fixture 2
-        fixtures.setTeamId("1");    //Team UOBWRFC
+        fixtures.setTeamId("UOBWRFC_1");    //Team UOBWRFC
         fixtures.setFixturePoints("87"); //Points scored by UOBWRFC
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("2"); //Fixture 2
-        fixtures.setTeamId("3");    //Team AURFC
+        fixtures.setTeamId("AURFC_1");    //Team AURFC
         fixtures.setFixturePoints("17"); //Points scored by AURFC
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("3"); //Fixture 3
-        fixtures.setTeamId("2");    //Team LURFC
+        fixtures.setTeamId("LURFC_1");    //Team LURFC
         fixtures.setFixturePoints("44"); //Points scored by LURFC
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("3"); //Fixture 3
-        fixtures.setTeamId("3");    //Team AURFC
+        fixtures.setTeamId("AURFC_1");    //Team AURFC
         fixtures.setFixturePoints("20"); //Points scored by AURFC
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("4"); //Fixture 4
-        fixtures.setTeamId("1");    //Team UOBWRFC
+        fixtures.setTeamId("UOBWRFC_1");    //Team UOBWRFC
         fixtures.setFixturePoints(null); //null points as game not occured yet
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("4"); //Fixture 4
-        fixtures.setTeamId("2");    //Team LURFC
+        fixtures.setTeamId("LURFC_!");    //Team LURFC
         fixtures.setFixturePoints(null); //null points as game not occured yet
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("5"); //Fixture 5
-        fixtures.setTeamId("3");    //Team AURFC
+        fixtures.setTeamId("AURFC_1");    //Team AURFC
         fixtures.setFixturePoints(null); //null points as game not occured yet
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("5"); //Fixture 5
-        fixtures.setTeamId("1");    //Team UOBWRFC
+        fixtures.setTeamId("UOBWRFC_1");    //Team UOBWRFC
         fixtures.setFixturePoints(null); //null points as game not occured yet
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("6"); //Fixture 6
-        fixtures.setTeamId("3");    //Team AURFC
+        fixtures.setTeamId("AURFC_1");    //Team AURFC
         fixtures.setFixturePoints(null); //null points as game not occured yet
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("6"); //Fixture 1
-        fixtures.setTeamId("2");    //Team LURFC
+        fixtures.setTeamId("LURFC_1");    //Team LURFC
         fixtures.setFixturePoints(null); //null points as game not occured yet
         fixtureRepo.insert(fixtures);
 
