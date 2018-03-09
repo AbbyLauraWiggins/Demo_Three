@@ -148,7 +148,7 @@ public class LoginActivity extends Activity {
 
         String[][] result = memberRepo.getMembers();
 
-        if(result[0][0].equals(null)){
+        if(result[0][0] == null ){
             Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
         }else{
             MyClientID.setID("5");//result[0][0]);//, result[0][7]);

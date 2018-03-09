@@ -186,27 +186,27 @@ public class TestDatabaseActivity extends Activity {
         teamFixturesRepo.insert(tf);
 
         tf.setFixtureId("2");
-        tf.setFixtureDate("12/01/2018");
+        tf.setFixtureDate("12/02/2018");
         tf.setFixtureLocation("NG34 0RJ");
         teamFixturesRepo.insert(tf);
 
         tf.setFixtureId("3");
-        tf.setFixtureDate("22/02/2018");
+        tf.setFixtureDate("22/03/2018");
         tf.setFixtureLocation("B29 2TT");
         teamFixturesRepo.insert(tf);
 
         tf.setFixtureId("4");
-        tf.setFixtureDate("08/03/2018");
+        tf.setFixtureDate("08/04/2018");
         tf.setFixtureLocation("LN4 4AE");
         teamFixturesRepo.insert(tf);
 
         tf.setFixtureId("5");
-        tf.setFixtureDate("18/03/2018");
+        tf.setFixtureDate("18/04/2018");
         tf.setFixtureLocation("B15 2QW");
         teamFixturesRepo.insert(tf);
 
         tf.setFixtureId("6");
-        tf.setFixtureDate("02/04/2018");
+        tf.setFixtureDate("02/05/2018");
         tf.setFixtureLocation("B15 2QW");
         teamFixturesRepo.insert(tf);
 
@@ -630,6 +630,27 @@ public class TestDatabaseActivity extends Activity {
         kpi.setuKicks("14");
 
         kpiRepo.insert(kpi);
+
+        SCsession scs = new SCsession();
+
+        scs.setMemberID("1");
+        scs.setSessionID("1");
+        scs.setDeadlifts("70, 65, 70, 75");
+        scs.setDeadliftJumps("50, 50, 55, 55");
+        scs.setBackSquat("50, 55, 55");
+        scs.setBackSquatJumps("40, 40, 40");
+        scs.setGobletSquat("22, 20, 22");
+        scs.setBenchPress("30, 35, 35, 35");
+        scs.setMilitaryPress("20, 20, 20, 20");
+        scs.setSupineRow("10, 10");
+        scs.setChinUps("B, B, BY, Y");
+        scs.setTrunk("3, 3, 3");
+        scs.setRdl("20, 20, 25, 25, 30");
+        scs.setSplitSquat("30, 30, 35, 40, 40");
+        scs.setFourWayArms("4, 3, 4");
+
+        sCsessionRepo.insert(scs);
+
     }
 
     public void showSessions(View view) {

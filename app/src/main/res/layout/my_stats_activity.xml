@@ -1,7 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My Stats and Logs"
+        android:id="@+id/statsandlogstitle"
+        android:textSize="30sp"
+        android:paddingBottom="20dp"/>
+
+    <TextView
+        android:id="@+id/scSubTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/statsandlogstitle"
+        android:text="Strength and Conditioning"
+        android:textSize="20sp"
+
+        />
+
+    <Button
+        android:id="@+id/scViewStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scSubTitle"
+        android:text="View Stats"
+        android:onClick="onViewSC"/>
+
+    <Button
+        android:id="@+id/scLogStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scSubTitle"
+        android:layout_alignParentRight="true"
+        android:text="Log Stats"/>
+
+
+    <TextView
+        android:id="@+id/pwSubTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scViewStats"
+        android:paddingTop="20dp"
+        android:text="Personal Workouts"
+        android:textSize="20sp"
+
+        />
+
+    <Button
+        android:id="@+id/pwViewStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pwSubTitle"
+        android:text="View Stats"/>
+
+    <Button
+        android:id="@+id/pwLogStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pwSubTitle"
+        android:layout_alignParentRight="true"
+        android:text="Log Stats"/>
+
+    <TextView
+        android:id="@+id/gameSubTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pwViewStats"
+        android:paddingTop="20dp"
+        android:text="Game Statistics"
+        android:textSize="20sp"
+
+        />
+
+    <Button
+        android:id="@+id/gViewStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gameSubTitle"
+        android:text="View Stats"/>
+
+    <Button
+        android:id="@+id/seeFeedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gameSubTitle"
+        android:layout_alignParentRight="true"
+        android:text="Feedback"/>
 
 
     <Button

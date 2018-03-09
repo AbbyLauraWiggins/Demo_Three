@@ -27,4 +27,9 @@ public class MyStats extends Activity {
         setResult(RESULT_OK, goingBack);
         finish();
     }
+
+    public void onViewSC(View view) {
+        Intent intent = new Intent(this, MySCStats.class);
+        startActivity(intent);
+    }
 }

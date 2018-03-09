@@ -1,11 +1,15 @@
 package com.degree.abbylaura.demothree.Database.Repo;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
 import com.degree.abbylaura.demothree.Database.Schema.SCsession;
+
+import java.util.ArrayList;
 
 /**
  * Created by abbylaura on 02/03/2018.
@@ -75,5 +79,37 @@ public class SCsessionRepo {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         db.delete(SCsession.TABLE,null,null);
         DatabaseManager.getInstance().closeDatabase();
+    }
+
+    public ArrayList<ArrayList<String>> getMySCsession(String sessionID){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+
+        String selectQuery = " SELECT * FROM SCsession " +
+                "WHERE SCsession.MemberId = '" + MyClientID.myID + "' " +
+                "AND SCsession.SessionId = '" + sessionID + "'";
+
+        ArrayList<ArrayList<String>> sessionRow = new ArrayList<ArrayList<String>>();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) { //cursor should only return one instance
+            do {
+                ArrayList<String> columnNames = new ArrayList<>();
+                ArrayList<String> values = new ArrayList<>();
+                for(int i = 0; i < 15; i++){
+                    columnNames.add(cursor.getColumnName(i));
+                    values.add(cursor.getString(i));
+                }
+                sessionRow.add(columnNames);
+                sessionRow.add(values);
+            } while (cursor.moveToNext());
+        }
+
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return sessionRow;
     }
 }

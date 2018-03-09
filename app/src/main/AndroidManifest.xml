@@ -79,6 +79,12 @@
             android:name=".Activities.Statistics.MyStats"
             android:theme="@android:style/Theme.Holo.Light"/>
 
+        <activity
+            android:name=".Activities.Statistics.MySCStats"
+            android:theme="@style/Theme.AppCompat.Light" />
+
+
+
         <service android:name=".Activities.ServerService"/>
     </application>
 
