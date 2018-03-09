@@ -78,6 +78,8 @@ public class NoticeActivity extends Activity {
             notice.setDate(date.toString());
 
             noticeRepo.insert(notice);
+
+            System.out.println("inserted " + addition);
         }
 
 
@@ -102,6 +104,8 @@ public class NoticeActivity extends Activity {
             String memberName = row.get(0);
             String noticeContent = row.get(1);
             String noticeDate = row.get(2);
+
+            System.out.println(memberName + " o " + noticeContent + " o " + noticeDate);
 
             colour++;
 
@@ -138,9 +142,8 @@ public class NoticeActivity extends Activity {
 
 
 
-    @SuppressLint("ResourceType")
     protected void updateTextView(LinearLayout fragContainer, String notice, String memberName, String date, int i){
-
+        System.out.print("in update text view");
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
 

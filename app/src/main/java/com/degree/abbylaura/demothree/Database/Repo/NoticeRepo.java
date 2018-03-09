@@ -36,6 +36,8 @@ public class NoticeRepo {
 
     public void insert(Notice notice) {
 
+        System.out.println("in insert notice");
+
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         //values.put(Notice.KEY_NoticeId, notice.getNoticeId());
