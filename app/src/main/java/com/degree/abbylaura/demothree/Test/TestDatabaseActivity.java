@@ -31,6 +31,8 @@ import com.degree.abbylaura.demothree.Database.Schema.Team;
 import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
 import com.degree.abbylaura.demothree.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by abbylaura on 02/03/2018.
  */
@@ -199,7 +201,7 @@ public class TestDatabaseActivity extends Activity {
         teamFixturesRepo.insert(tf);
 
         tf.setFixtureId("5");
-        tf.setFixtureDate("18/02/2018");
+        tf.setFixtureDate("18/03/2018");
         tf.setFixtureLocation("B15 2QW");
         teamFixturesRepo.insert(tf);
 
@@ -730,4 +732,31 @@ public class TestDatabaseActivity extends Activity {
         tableContainer.addView(tl);
     }
 
+    public void onTLbutton(View view) {
+        KPIRepo kpiRepo = new KPIRepo();
+        ArrayList<ArrayList<String>> leaderboard = kpiRepo.getKPISeasonLeaderboard();
+
+        TableLayout tl = new TableLayout(this);
+
+        for(int i = 2; i < leaderboard.size(); i++) { //start at 2 because we dont want Member and fixture ID
+
+            TableRow tr = new TableRow(this);
+
+
+            ArrayList<String> list = leaderboard.get(i);
+            for (int j = 0; j < 3; j++) {
+                TextView label = new TextView(this);
+                label.setText(" | " + list.get(j));
+                tr.addView(label);
+            }
+
+
+            tl.addView(tr);
+        }
+
+        LinearLayout tableContainer = findViewById(R.id.tableContainer);
+
+
+        tableContainer.addView(tl);
+    }
 }

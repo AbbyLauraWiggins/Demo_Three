@@ -22,13 +22,14 @@ import java.util.ArrayList;
  * Created by abbylaura on 07/03/2018.
  */
 
-public class TeamStats extends Activity {
+public class TeamStats extends Activity{
 
     ActionBar.Tab overviewTab, gameTab, leaderboardTab;
 
     Fragment overviewFragment = new TeamStatsTabFragmentOverview();
     Fragment gameFragment = new TeamStatsTabFragmentGame();
     Fragment leaderboardFragment = new TeamStatsTabFragmentLeaderboard();
+
 
     @SuppressWarnings("deprecation")
     @Override
@@ -42,6 +43,7 @@ public class TeamStats extends Activity {
         // Set the current navigation mode to tabs
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
+
         // Add text to tabs
         overviewTab = actionBar.newTab().setText("Overview");
         gameTab = actionBar.newTab().setText("Game");
@@ -51,6 +53,8 @@ public class TeamStats extends Activity {
         overviewTab.setTabListener(new TeamStatsTabListener(overviewFragment));
         gameTab.setTabListener(new TeamStatsTabListener(gameFragment));
         leaderboardTab.setTabListener(new TeamStatsTabListener(leaderboardFragment));
+
+
 
         // Adds tabs to the actionbar
         actionBar.addTab(overviewTab);
@@ -66,6 +70,8 @@ public class TeamStats extends Activity {
         setResult(RESULT_OK, goingBack);
         finish();
     }
+
+
 
 
 }

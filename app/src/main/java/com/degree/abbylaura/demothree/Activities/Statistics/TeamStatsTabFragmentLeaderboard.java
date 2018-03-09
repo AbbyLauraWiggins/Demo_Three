@@ -1,6 +1,9 @@
 package com.degree.abbylaura.demothree.Activities.Statistics;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -34,6 +39,7 @@ import java.util.List;
 
 public class TeamStatsTabFragmentLeaderboard extends Fragment {
 
+    public String fixtureID = "";
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.team_stats_tab_leaderboard, null);
@@ -78,10 +84,11 @@ public class TeamStatsTabFragmentLeaderboard extends Fragment {
         fixtureSpinner.setAdapter(adapter);
 
         fixtureSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String itemSelectedInSpinner = adapterView.getItemAtPosition(i).toString();
-                setView(view, spinnerItemAndFixtureID.get(itemSelectedInSpinner)); //returns FixtureID of selected item
+                fixtureID = (spinnerItemAndFixtureID.get(itemSelectedInSpinner)); //returns FixtureID of selected item
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -89,43 +96,45 @@ public class TeamStatsTabFragmentLeaderboard extends Fragment {
             }
         });
 
+        setView(view);
 
         return view;
     }
 
-    private void setView(View view, String fixtureID){
+
+    private void setView(View view) {
         KPIRepo kpiRepo = new KPIRepo();
         ArrayList<ArrayList<String>> leaderboard;
 
-        //EditText fixtureIDet = (EditText) view.findViewById(R.id.fixtureIdEditText);
-        //String fixtureID = fixtureIDet.getText().toString();
-
-        if(fixtureID.equals(null)){
+        if (fixtureID.equals("")) {
             System.out.println("FIXTURE ID: " + fixtureID);
             leaderboard = kpiRepo.getKPISeasonLeaderboard();
-        }else{
+        } else {
             System.out.println("FIXTURE ID ELSE: " + fixtureID);
             leaderboard = kpiRepo.getKPILeaderboard(fixtureID);
         }
 
         TableLayout tl = (TableLayout) view.findViewById(R.id.tableLayout);
 
-        for(int i = 2; i < leaderboard.size(); i++) { //start at 2 because we dont want Member and fixture ID
+        for (int i = 2; i < leaderboard.size(); i++) { //start at 2 because we dont want Member and fixture ID
+
             TableRow tr = new TableRow(getActivity());
+
             ArrayList<String> list = leaderboard.get(i);
 
-            for(int j = 0; j < 3; j++){
+            for (int j = 0; j < 3; j++) {
                 TextView label = new TextView(getActivity());
+
                 label.setText(" | " + list.get(j));
-                //System.out.print(label.getText());
+
                 tr.addView(label);
             }
 
-            //System.out.println("");
 
             tl.addView(tr);
-        }
-    }
 
+        }
+
+    }
 
 }

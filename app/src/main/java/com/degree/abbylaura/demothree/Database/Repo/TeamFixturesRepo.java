@@ -204,4 +204,31 @@ public class TeamFixturesRepo {
 
         return teams;
     }
+
+    public ArrayList<String> getMyFixtureDates(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        ArrayList<String> result = new ArrayList<String>();
+
+        String selectQuery = " SELECT TeamFixtures.TeamFixtureDate, Fixture.TeamId " +
+                "FROM TeamFixtures, Fixture " +
+                "WHERE TeamFixtures.FixtureId = Fixture.FixtureId";
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String teamID = cursor.getString(1);
+                if(teamID.equals(MyClientID.myTeamID)){
+                    result.add(cursor.getString(0));
+                }
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return result;
+
+    }
 }

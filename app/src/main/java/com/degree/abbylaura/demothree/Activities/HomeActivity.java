@@ -14,14 +14,18 @@ import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.FixtureRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
 import com.degree.abbylaura.demothree.Database.Schema.Fixture;
+import com.degree.abbylaura.demothree.Database.Schema.Team;
 import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
 import com.degree.abbylaura.demothree.R;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.NavigableSet;
+import java.util.TreeSet;
 
 /**
  * Created by abbylaura on 09/02/2018.
@@ -40,47 +44,34 @@ public class HomeActivity extends Activity {
         nextGameDate = findViewById(R.id.next_game_home_tv);
         nextGameMonth = findViewById(R.id.next_game_month_home_tv);
 
+        try {
+            setNextGame();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public void setNextGame() throws ParseException {
-        FixtureRepo fixtureRepo = new FixtureRepo();
-        fixtureRepo.setWhereClause(" WHERE " + Fixture.KEY_TeamId + " = " + MyClientID.myTeamID);
-        String[][] fixtures = fixtureRepo.getTableData(); //Get list of all fixtures where myTeam is playing
+        TeamFixturesRepo teamFixturesRepo = new TeamFixturesRepo();
+        ArrayList<String> fixtureDates = teamFixturesRepo.getMyFixtureDates();
 
-        TeamFixturesRepo tfRepo = new TeamFixturesRepo();
-        ArrayList<String> fixtureDates = new ArrayList<>();
-        for(int i = 0; i < fixtures[0].length; i++){
-            String fixtureID = fixtures[0][i];  //List of fixtureIDs for myTeam so to filter
+        DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
 
-            tfRepo.setWhereClause(" WHERE " + TeamFixtures.KEY_FixtureId + " = " + fixtureID);
-
-            fixtureDates.add(tfRepo.getTableData()[1][0]); //List of dates of fixtures where myTeam is playing
+        NavigableSet<Date> dates = new TreeSet<Date>();
+        for(String day : fixtureDates){
+            System.out.println(day);
+            Date fixtureDate = df.parse(day);
+            dates.add(fixtureDate);
         }
 
+        Date now = new Date();
+        Date nearest = dates.higher(now); //returns lowest date thats above now
 
+        nextGameDate.setText(String.valueOf(nearest));//.substring(0,2));
 
-        Date date = Calendar.getInstance().getTime();
-        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
-        Date todaysDate = simpleDate.parse(String.valueOf(date));
-
-        Date closestDate = simpleDate.parse("01/01/3000"); //no fixtures will be later than this
-
-
-        //FIND THE CLOSEST DATE TO TODAY
-        for(int i = 0; i < fixtureDates.size(); i++){
-            String strDate = fixtureDates.get(i);
-            Date fixtureDate = simpleDate.parse(strDate);
-
-            if(fixtureDate.after(todaysDate)){
-                if(fixtureDate.before(closestDate)){
-                    closestDate = fixtureDate;
-                }
-            }
-        }
-
-        nextGameDate.setText(String.valueOf(closestDate).substring(0,2));
-
-        String month = String.valueOf(closestDate).substring(4,5);
+        //String month = String.valueOf(closestDate).substring(4,5);
         //TODO show month
 
 

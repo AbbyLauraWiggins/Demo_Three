@@ -224,13 +224,19 @@ public class KPIRepo {
             //calculate each members total
             //for each member
             for(int j = 0; j < memberids.size(); j++){
+                //get name and value for each member
                 ArrayList<String> nameAndValue = getKPITotal(memberids.get(j), array[i]);
+
+                //System.out.println(array[i] + " name " + nameAndValue.get(0) + " value " + nameAndValue.get(1) + " maxvalue " + String.valueOf(maxValue));
+
                 if(Integer.parseInt(nameAndValue.get(1)) > maxValue){
+                    System.out.println(nameAndValue.get(1) + " > " + String.valueOf(maxValue) );
                     maxValue = Integer.parseInt(nameAndValue.get(1));
                     leadingName = nameAndValue.get(0);
+                   // System.out.println(array[i] + " leading max value: " + nameAndValue.get(1) + " leading name: " + leadingName);
                 }
             }
-            System.out.println(array[i] + " | " + leadingName + " | " + String.valueOf(maxValue));
+           // System.out.println(array[i] + " | " + leadingName + " | " + String.valueOf(maxValue));
 
 
             //add to the arraylist: array[i], Member Name, maxValue
@@ -242,16 +248,24 @@ public class KPIRepo {
             leaderboard.add(row);
         }
 
+       // for(ArrayList<String> s : leaderboard){
+         //  System.out.println(s.get(0) + " || " + s.get(1) + " || " + s.get(2));
+        //}
+
         return leaderboard;
     }
 
+    /*
+     * @returns result = a string list containing total value for given member and KPI
+     */
     public ArrayList<String> getKPITotal(String thisMemberID, String kpiName){
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
         //select Name and KPI value for this member and this KPI
-        String selectQuery = " SELECT Member.Name, KPI." + kpiName +
+        String selectQuery =  " SELECT Member.Name, KPI." + kpiName +
                 " FROM KPI" +
-                " INNER JOIN " + Member.TABLE + " ON Member.MemberId = KPI.MemberID = " + thisMemberID;
+                " INNER JOIN " + Member.TABLE + " ON Member.MemberId = KPI.MemberID" +
+                " AND Member.MemberId LIKE '" + thisMemberID + "'";
 
         //Sum through KPI values and return name and max value
         ArrayList<String> result = new ArrayList<String>();
@@ -263,7 +277,8 @@ public class KPIRepo {
         if (cursor.moveToFirst()) {
             do {
                 name = (cursor.getString(0));
-                total = total + Integer.parseInt(cursor.getString(1)); //add total
+                total = total + Integer.parseInt(cursor.getString(1));//add total
+                //System.out.println("name: " + name + ", value: " + cursor.getString(1) + ", total: " + String.valueOf(total));
             } while (cursor.moveToNext());
         }
 
