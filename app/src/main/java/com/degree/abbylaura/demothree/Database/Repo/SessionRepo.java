@@ -18,6 +18,7 @@ import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
 public class SessionRepo {
 
     private Session session;
+    private String whereclause = "";
 
     public SessionRepo(){
         session = new Session();
@@ -87,7 +88,7 @@ public class SessionRepo {
 
         String[][] sessionArray = new String[15][count];
 
-        String selectQuery = " SELECT * FROM " + Session.TABLE;
+        String selectQuery = " SELECT * FROM " + Session.TABLE + " " + whereclause;
 
         Log.d(Session.TAG, selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -95,7 +96,7 @@ public class SessionRepo {
         int iterator = 0;
         if (cursor.moveToFirst()) {
             do {
-                
+
                 sessionArray[0][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_MemberID));
                 sessionArray[1][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_SessionID));
                 sessionArray[2][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_Deadlifts));
@@ -121,5 +122,9 @@ public class SessionRepo {
 
         return sessionArray;
 
+    }
+
+    public void setWhereclause(String whereclause){
+        this.whereclause = whereclause;
     }
 }
