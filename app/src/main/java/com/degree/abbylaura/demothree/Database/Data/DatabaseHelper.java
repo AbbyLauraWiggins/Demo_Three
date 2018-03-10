@@ -29,8 +29,8 @@ import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     //note: remember each time if you Add, Edit table, you need to change the version number.
-    private static final int DATABASE_VERSION = 3;
-    private static final String DATABASE_NAME = "clientDatabase1.db";
+    private static final int DATABASE_VERSION = 2;
+    private static final String DATABASE_NAME = "clientDatabase3.db";
     private static final String TAG = DatabaseHelper.class.getSimpleName();
 
     public DatabaseHelper( ) {
@@ -39,6 +39,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " + Fixture.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Member.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Session.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + StrengthAndConditioning.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Team.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + TeamFixtures.TABLE);
+
+        db.execSQL("DROP TABLE IF EXISTS " + Notice.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + KPI.TABLE);
 
 
         //All necessary tables you like to create will create here

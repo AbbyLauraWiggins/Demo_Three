@@ -632,7 +632,7 @@ public class TestDatabaseActivity extends Activity {
 
         Session scs = new Session();
 
-        scs.setAuto("1");
+       // scs.setAuto("1");
         scs.setSessionID("1");
         scs.setMemberID("1");
         scs.setDeadlifts("70, 65, 70, 75");
@@ -651,7 +651,7 @@ public class TestDatabaseActivity extends Activity {
 
         sessionRepo.insert(scs);
 
-        scs.setAuto("1");
+        //scs.setAuto("1");
         scs.setSessionID("1");
         scs.setMemberID("2");
         scs.setDeadlifts("75, 75, 75, 75");
@@ -677,7 +677,9 @@ public class TestDatabaseActivity extends Activity {
 
         showTable(view, "S and C", strengthAndConditioningRepo.getTableData(), 3);
 
+        SessionRepo sessionRepo = new SessionRepo();
 
+        showTable(view, "Session", sessionRepo.getTable(), 15);
     }
 
     public void showTeams(View view) {

@@ -1,10 +1,15 @@
 package com.degree.abbylaura.demothree.Database.Repo;
 
 import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
+import com.degree.abbylaura.demothree.Database.Schema.Member;
 import com.degree.abbylaura.demothree.Database.Schema.Session;
+import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
 
 /**
  * Created by abbylaura on 10/03/2018.
@@ -20,9 +25,9 @@ public class SessionRepo {
 
     public static String createTable(){
         return "CREATE TABLE " + Session.TABLE + "("
-                + Session.KEY_AUTO + " TEXT PRIMARY KEY,"
+                //+ Session.KEY_AUTO + " TEXT PRIMARY KEY,"
                 + Session.KEY_MemberID + " TEXT,"
-                + Session.KEY_SessionID + "TEXT,"
+                + Session.KEY_SessionID + " TEXT,"
                 + Session.KEY_Deadlifts + " TEXT,"
                 + Session.KEY_DeadliftJumps + " TEXT,"
                 + Session.KEY_BackSquat + " TEXT,"
@@ -36,6 +41,7 @@ public class SessionRepo {
                 + Session.KEY_RDL + " TEXT,"
                 + Session.KEY_SplitSquat + " TEXT,"
                 + Session.KEY_FourWayArms + " TEXT)";
+
     }
 
     public int insert(Session session) {
@@ -43,7 +49,7 @@ public class SessionRepo {
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
-        values.put(Session.KEY_AUTO, session.getAuto());
+        //values.put(Session.KEY_AUTO, session.getAuto());
         values.put(Session.KEY_MemberID, session.getMemberID());
         values.put(Session.KEY_SessionID, session.getSessionID());
         values.put(Session.KEY_Deadlifts, session.getDeadlifts());
@@ -74,5 +80,46 @@ public class SessionRepo {
         DatabaseManager.getInstance().closeDatabase();
     }
 
-    
+
+    public String[][] getTable(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        int count = (int) DatabaseUtils.queryNumEntries(db, Session.TABLE);
+
+        String[][] sessionArray = new String[15][count];
+
+        String selectQuery = " SELECT * FROM " + Session.TABLE;
+
+        Log.d(Session.TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        int iterator = 0;
+        if (cursor.moveToFirst()) {
+            do {
+                
+                sessionArray[0][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_MemberID));
+                sessionArray[1][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_SessionID));
+                sessionArray[2][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_Deadlifts));
+                sessionArray[3][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_DeadliftJumps));
+                sessionArray[4][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_BackSquat));
+                sessionArray[5][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_BackSquatJumps));
+                sessionArray[6][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_GobletSquat));
+                sessionArray[7][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_BenchPress));
+                sessionArray[8][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_MilitaryPress));
+                sessionArray[9][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_SupineRow));
+                sessionArray[10][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_ChinUps));
+                sessionArray[11][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_Trunk));
+                sessionArray[12][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_RDL));
+                sessionArray[13][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_SplitSquat));
+                sessionArray[14][iterator] = cursor.getString(cursor.getColumnIndex(Session.KEY_FourWayArms));
+
+                iterator++;
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return sessionArray;
+
+    }
 }

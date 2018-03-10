@@ -8,7 +8,7 @@ public class Session {
 
     public static final String TAG = Session.class.getSimpleName();
     public static final String TABLE = "Session";
-    public static final String KEY_AUTO = "Auto";
+   // public static final String KEY_AUTO = "Auto";
     public static final String KEY_MemberID = "MemberID";
     public static final String KEY_SessionID = "SessionID";
     public static final String KEY_Deadlifts = "Deadlifts";
@@ -25,7 +25,7 @@ public class Session {
     public static final String KEY_SplitSquat = "SplitSquat";
     public static final String KEY_FourWayArms = "FourWayArms";
 
-    private String auto;
+    //private String auto;
     private String sessionID;
     private String memberID;
     private String deadlifts;
@@ -42,13 +42,13 @@ public class Session {
     private String splitSquat;
     private String fourWayArms;
 
-    public String getAuto(){
+   /* public String getAuto(){
         return auto;
     }
 
     public void setAuto(String auto){
         this.auto = auto;
-    }
+    }*/
 
     public String getSessionID() {
         return sessionID;
