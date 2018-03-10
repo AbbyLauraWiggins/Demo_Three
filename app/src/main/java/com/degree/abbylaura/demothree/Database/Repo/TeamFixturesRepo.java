@@ -9,12 +9,8 @@ import android.util.Log;
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 
-import com.degree.abbylaura.demothree.Database.Schema.SCsession;
-import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
-import com.degree.abbylaura.demothree.Database.Schema.Team;
 import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 

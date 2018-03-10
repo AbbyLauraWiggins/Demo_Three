@@ -13,19 +13,18 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.degree.abbylaura.demothree.Activities.HomeActivity;
 import com.degree.abbylaura.demothree.Database.Repo.FixtureRepo;
 import com.degree.abbylaura.demothree.Database.Repo.KPIRepo;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.Database.Repo.NoticeRepo;
-import com.degree.abbylaura.demothree.Database.Repo.SCsessionRepo;
+import com.degree.abbylaura.demothree.Database.Repo.SessionRepo;
 import com.degree.abbylaura.demothree.Database.Repo.StrengthAndConditioningRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamRepo;
 import com.degree.abbylaura.demothree.Database.Schema.Fixture;
 import com.degree.abbylaura.demothree.Database.Schema.KPI;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
-import com.degree.abbylaura.demothree.Database.Schema.SCsession;
+import com.degree.abbylaura.demothree.Database.Schema.Session;
 import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
 import com.degree.abbylaura.demothree.Database.Schema.Team;
 import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
@@ -63,7 +62,7 @@ public class TestDatabaseActivity extends Activity {
     private void insertTestData(){
         FixtureRepo fixtureRepo = new FixtureRepo();
         MemberRepo memberRepo   = new MemberRepo();
-        SCsessionRepo sCsessionRepo = new SCsessionRepo();
+        SessionRepo sessionRepo = new SessionRepo();
         StrengthAndConditioningRepo strengthAndConditioningRepo = new StrengthAndConditioningRepo();
         TeamFixturesRepo teamFixturesRepo   = new TeamFixturesRepo();
         TeamRepo teamRepo = new TeamRepo();
@@ -73,7 +72,7 @@ public class TestDatabaseActivity extends Activity {
 
         fixtureRepo.delete();
         memberRepo.delete();
-        sCsessionRepo.delete();
+        sessionRepo.delete();
         strengthAndConditioningRepo.delete();
         teamFixturesRepo.delete();
         teamRepo.delete();
@@ -631,10 +630,11 @@ public class TestDatabaseActivity extends Activity {
 
         kpiRepo.insert(kpi);
 
-        SCsession scs = new SCsession();
+        Session scs = new Session();
 
-        scs.setMemberID("1");
+        scs.setAuto("1");
         scs.setSessionID("1");
+        scs.setMemberID("1");
         scs.setDeadlifts("70, 65, 70, 75");
         scs.setDeadliftJumps("50, 50, 55, 55");
         scs.setBackSquat("50, 55, 55");
@@ -649,7 +649,26 @@ public class TestDatabaseActivity extends Activity {
         scs.setSplitSquat("30, 30, 35, 40, 40");
         scs.setFourWayArms("4, 3, 4");
 
-        sCsessionRepo.insert(scs);
+        sessionRepo.insert(scs);
+
+        scs.setAuto("1");
+        scs.setSessionID("1");
+        scs.setMemberID("2");
+        scs.setDeadlifts("75, 75, 75, 75");
+        scs.setDeadliftJumps("50, 55, 65, 65");
+        scs.setBackSquat("50, 50, 45");
+        scs.setBackSquatJumps("45, 45, 40");
+        scs.setGobletSquat("22, 20, 20");
+        scs.setBenchPress("30, 30, 30, 35");
+        scs.setMilitaryPress("20, 20, 20, 20");
+        scs.setSupineRow("10, 10");
+        scs.setChinUps("B, B, B, B");
+        scs.setTrunk("3, 3, 3");
+        scs.setRdl("25, 25, 25, 25, 30");
+        scs.setSplitSquat("35, 35, 35, 45, 40");
+        scs.setFourWayArms("2, 2, 2");
+
+        sessionRepo.insert(scs);
 
     }
 
@@ -657,6 +676,7 @@ public class TestDatabaseActivity extends Activity {
         StrengthAndConditioningRepo strengthAndConditioningRepo = new StrengthAndConditioningRepo();
 
         showTable(view, "S and C", strengthAndConditioningRepo.getTableData(), 3);
+
 
     }
 

@@ -9,7 +9,7 @@ import com.degree.abbylaura.demothree.Database.Repo.FixtureRepo;
 import com.degree.abbylaura.demothree.Database.Repo.KPIRepo;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.Database.Repo.NoticeRepo;
-import com.degree.abbylaura.demothree.Database.Repo.SCsessionRepo;
+import com.degree.abbylaura.demothree.Database.Repo.SessionRepo;
 import com.degree.abbylaura.demothree.Database.Repo.StrengthAndConditioningRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamRepo;
@@ -17,12 +17,10 @@ import com.degree.abbylaura.demothree.Database.Schema.Fixture;
 import com.degree.abbylaura.demothree.Database.Schema.KPI;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
 import com.degree.abbylaura.demothree.Database.Schema.Notice;
-import com.degree.abbylaura.demothree.Database.Schema.SCsession;
+import com.degree.abbylaura.demothree.Database.Schema.Session;
 import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
 import com.degree.abbylaura.demothree.Database.Schema.Team;
 import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
-
-import java.util.Scanner;
 
 /**
  * Created by abbylaura on 02/03/2018.
@@ -31,8 +29,8 @@ import java.util.Scanner;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     //note: remember each time if you Add, Edit table, you need to change the version number.
-    private static final int DATABASE_VERSION = 2;
-    private static final String DATABASE_NAME = "sixTableDB.db";
+    private static final int DATABASE_VERSION = 3;
+    private static final String DATABASE_NAME = "clientDatabase1.db";
     private static final String TAG = DatabaseHelper.class.getSimpleName();
 
     public DatabaseHelper( ) {
@@ -46,7 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //All necessary tables you like to create will create here
         db.execSQL(FixtureRepo.createTable());
         db.execSQL(MemberRepo.createTable());
-        db.execSQL(SCsessionRepo.createTable());
+        db.execSQL(SessionRepo.createTable());
         db.execSQL(StrengthAndConditioningRepo.createTable());
         db.execSQL(TeamRepo.createTable());
         db.execSQL(TeamFixturesRepo.createTable());
@@ -63,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Drop table if existed, all data will be gone!!!
         db.execSQL("DROP TABLE IF EXISTS " + Fixture.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Member.TABLE);
-        db.execSQL("DROP TABLE IF EXISTS " + SCsession.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Session.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + StrengthAndConditioning.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Team.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + TeamFixtures.TABLE);

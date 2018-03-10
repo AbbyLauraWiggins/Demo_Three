@@ -1,7 +1,6 @@
 package com.degree.abbylaura.demothree.Database.Repo;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,9 +9,7 @@ import android.util.Log;
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.KPI;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
-import com.degree.abbylaura.demothree.Database.Schema.SCsession;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**

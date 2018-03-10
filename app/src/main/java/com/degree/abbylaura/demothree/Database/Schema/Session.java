@@ -1,16 +1,16 @@
 package com.degree.abbylaura.demothree.Database.Schema;
 
 /**
- * Created by abbylaura on 02/03/2018.
+ * Created by abbylaura on 10/03/2018.
  */
 
-public class SCsession {
+public class Session {
 
-    public static final String TAG = SCsession.class.getSimpleName();
-    public static final String TABLE = "SCsession";
-    public static final String KEY_SCPrimary = "SCPrimary";
-    public static final String KEY_SessionId = "SessionId"; //FOREIGN KEY FROM STRENGTHANDCONDITIONING
-    public static final String KEY_MemberId = "MemberId";
+    public static final String TAG = Session.class.getSimpleName();
+    public static final String TABLE = "Session";
+    public static final String KEY_AUTO = "Auto";
+    public static final String KEY_MemberID = "MemberID";
+    public static final String KEY_SessionID = "SessionID";
     public static final String KEY_Deadlifts = "Deadlifts";
     public static final String KEY_DeadliftJumps = "DeadliftJumps";
     public static final String KEY_BackSquat = "BackSquat";
@@ -25,8 +25,9 @@ public class SCsession {
     public static final String KEY_SplitSquat = "SplitSquat";
     public static final String KEY_FourWayArms = "FourWayArms";
 
+    private String auto;
     private String sessionID;
-    private String memberId;
+    private String memberID;
     private String deadlifts;
     private String deadliftJumps;
     private String backSquat;
@@ -41,6 +42,14 @@ public class SCsession {
     private String splitSquat;
     private String fourWayArms;
 
+    public String getAuto(){
+        return auto;
+    }
+
+    public void setAuto(String auto){
+        this.auto = auto;
+    }
+
     public String getSessionID() {
         return sessionID;
     }
@@ -50,11 +59,11 @@ public class SCsession {
     }
 
     public String getMemberID() {
-        return memberId;
+        return memberID;
     }
 
-    public void setMemberID(String memberID) {
-        this.memberId = memberID;
+    public void setMemberID(String memberId) {
+        this.memberID = memberId;
     }
 
     public String getDeadlifts() {
@@ -73,92 +82,91 @@ public class SCsession {
         this.deadliftJumps = deadliftJumps;
     }
 
-
-    public String getBackSquat(){
+    public String getBackSquat() {
         return backSquat;
     }
 
-    public void setBackSquat(String backSquat){
+    public void setBackSquat(String backSquat) {
         this.backSquat = backSquat;
     }
 
-    public String getBackSquatJumps(){
+    public String getBackSquatJumps() {
         return backSquatJumps;
     }
 
-    public void setBackSquatJumps(String backSquatJumps){
+    public void setBackSquatJumps(String backSquatJumps) {
         this.backSquatJumps = backSquatJumps;
     }
 
-    public String getGobletSquat(){
+    public String getGobletSquat() {
         return gobletSquat;
     }
 
-    public void setGobletSquat(String gobletSquat){
+    public void setGobletSquat(String gobletSquat) {
         this.gobletSquat = gobletSquat;
     }
 
-    public String getBenchPress(){
+    public String getBenchPress() {
         return benchPress;
     }
 
-    public void setBenchPress(String benchPress){
+    public void setBenchPress(String benchPress) {
         this.benchPress = benchPress;
     }
 
-    public String getMilitaryPress(){
+    public String getMilitaryPress() {
         return militaryPress;
     }
 
-    public void setMilitaryPress(String militaryPress){
+    public void setMilitaryPress(String militaryPress) {
         this.militaryPress = militaryPress;
     }
 
-    public String getSupineRow(){
+    public String getSupineRow() {
         return supineRow;
     }
 
-    public void setSupineRow(String supineRow){
+    public void setSupineRow(String supineRow) {
         this.supineRow = supineRow;
     }
 
-    public String getChinUps(){
+    public String getChinUps() {
         return chinUps;
     }
 
-    public void setChinUps(String chinUps){
+    public void setChinUps(String chinUps) {
         this.chinUps = chinUps;
     }
 
-    public String getTrunk(){
+    public String getTrunk() {
         return trunk;
     }
 
-    public void setTrunk(String trunk){
+    public void setTrunk(String trunk) {
         this.trunk = trunk;
     }
 
-    public String getRdl(){
+    public String getRdl() {
         return rdl;
     }
 
-    public void setRdl(String rdl){
+    public void setRdl(String rdl) {
         this.rdl = rdl;
     }
 
-    public String getSplitSquat(){
+    public String getSplitSquat() {
         return splitSquat;
     }
 
-    public void setSplitSquat(String splitSquat){
+    public void setSplitSquat(String splitSquat) {
         this.splitSquat = splitSquat;
     }
 
-    public String getFourWayArms(){
+    public String getFourWayArms() {
         return fourWayArms;
     }
 
-    public void setFourWayArms(String fourWayArms){
+    public void setFourWayArms(String fourWayArms) {
         this.fourWayArms = fourWayArms;
     }
 
