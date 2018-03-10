@@ -1,6 +1,7 @@
 package com.degree.abbylaura.demothree.Activities.Statistics;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 
 import com.degree.abbylaura.demothree.Database.Repo.SessionRepo;
 import com.degree.abbylaura.demothree.R;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 /**
  * Created by abbylaura on 09/03/2018.
@@ -21,6 +25,8 @@ public class MySCStats extends Activity {
 
     EditText userInputID;
 
+    LineGraphSeries<DataPoint> graphSeries;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +35,34 @@ public class MySCStats extends Activity {
 
         userInputID = findViewById(R.id.scSessionID);
 
+        showGraph();
+
+
+    }
+
+    private void showGraph(){
+        GraphView graph = (GraphView) findViewById(R.id.graphView);
+
+        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+
+        android.view.ViewGroup.LayoutParams layoutParams = graph.getLayoutParams();
+        layoutParams.width = screenWidth;
+        layoutParams.height = screenHeight/2;
+        graph.setLayoutParams(layoutParams);
+        graph.setVisibility(View.VISIBLE);
+
+
+        double y,x;
+        x = -5.0;
+
+        graphSeries = new LineGraphSeries<DataPoint>();
+        for(int i =0; i<100; i++) {
+            x = x + 0.1;
+            y = Math.sin(x);
+            graphSeries.appendData(new DataPoint(x, y), true, 100);
+        }
+        graph.addSeries(graphSeries);
     }
 
     public void onShowSCSession(View view) {
@@ -76,4 +110,6 @@ public class MySCStats extends Activity {
         tableContainer.addView(tl);
 
     }
+
+
 }
