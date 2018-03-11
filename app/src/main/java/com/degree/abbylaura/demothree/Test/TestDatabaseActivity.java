@@ -459,6 +459,93 @@ public class TestDatabaseActivity extends Activity {
         kpi.setuKicks("2");
         kpiRepo.insert(kpi);
 
+        //fixture 3
+
+        kpi.setMemberID("1");
+        kpi.setFixtureID("3");
+        kpi.setsTackles("5");
+        kpi.setuTackles("6");
+        kpi.setsCarries("6");
+        kpi.setuCarries("1");
+        kpi.setsPasses("2");
+        kpi.setuPasses("0");
+        kpi.setHandlingErrors("7");
+        kpi.setPenalties("1");
+        kpi.setYellowCards("0");
+        kpi.setTriesScored("2");
+        kpi.setTurnoversWon("3");
+        kpi.setsThrowIns("0");
+        kpi.setuThrowIns("0");
+        kpi.setsLineOutTakes("0");
+        kpi.setuLineOutTakes("3");
+        kpi.setsKicks("4");
+        kpi.setuKicks("2");
+        kpiRepo.insert(kpi);
+
+        kpi.setMemberID("2");
+        kpi.setFixtureID("3");
+        kpi.setsTackles("1");
+        kpi.setuTackles("2");
+        kpi.setsCarries("5");
+        kpi.setuCarries("1");
+        kpi.setsPasses("3");
+        kpi.setuPasses("1");
+        kpi.setHandlingErrors("1");
+        kpi.setPenalties("1");
+        kpi.setYellowCards("0");
+        kpi.setTriesScored("6");
+        kpi.setTurnoversWon("4");
+        kpi.setsThrowIns("5");
+        kpi.setuThrowIns("3");
+        kpi.setsLineOutTakes("1");
+        kpi.setuLineOutTakes("1");
+        kpi.setsKicks("4");
+        kpi.setuKicks("1");
+        kpiRepo.insert(kpi);
+
+        kpi.setMemberID("3");
+        kpi.setFixtureID("3");
+        kpi.setsTackles("6");
+        kpi.setuTackles("4");
+        kpi.setsCarries("8");
+        kpi.setuCarries("10");
+        kpi.setsPasses("13");
+        kpi.setuPasses("3");
+        kpi.setHandlingErrors("6");
+        kpi.setPenalties("2");
+        kpi.setYellowCards("0");
+        kpi.setTriesScored("1");
+        kpi.setTurnoversWon("0");
+        kpi.setsThrowIns("0");
+        kpi.setuThrowIns("3");
+        kpi.setsLineOutTakes("4");
+        kpi.setuLineOutTakes("3");
+        kpi.setsKicks("1");
+        kpi.setuKicks("2");
+        kpiRepo.insert(kpi);
+
+        kpi.setMemberID("4");
+        kpi.setFixtureID("3");
+        kpi.setsTackles("14");
+        kpi.setuTackles("4");
+        kpi.setsCarries("7");
+        kpi.setuCarries("5");
+        kpi.setsPasses("21");
+        kpi.setuPasses("3");
+        kpi.setHandlingErrors("2");
+        kpi.setPenalties("0");
+        kpi.setYellowCards("0");
+        kpi.setTriesScored("2");
+        kpi.setTurnoversWon("3");
+        kpi.setsThrowIns("1");
+        kpi.setuThrowIns("1");
+        kpi.setsLineOutTakes("3");
+        kpi.setuLineOutTakes("0");
+        kpi.setsKicks("1");
+        kpi.setuKicks("0");
+        kpiRepo.insert(kpi);
+
+
         //fixture 4
         kpi.setMemberID("1");
         kpi.setFixtureID("4");

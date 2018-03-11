@@ -86,6 +86,7 @@ public class KPIRepo {
     }
 
     //returns whole notice table, for testing
+    //only works when returning whole table, otherwise for query return arraylist<>
     public String[][] getTableData() {
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
@@ -316,5 +317,75 @@ public class KPIRepo {
         array[18] = "uKicks";
     }
 
+    /*
+     * returns an arraylist as will return only one row of information from given fixture
+     */
+    public ArrayList<String> getMyGameKPIs(String memberID, String fixtureID){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        ArrayList<String> myKPI = new ArrayList<String>();
+
+        String selectQuery = " SELECT * FROM " + KPI.TABLE
+                + " WHERE MemberID ='" + memberID + "' AND FixtureID ='" + fixtureID + "'";
+
+        Log.d(KPI.TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                for(int i = 0; i < 20; i++){
+                    myKPI.add(cursor.getString(i));
+                }
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return myKPI;
+    }
+
+    public ArrayList<ArrayList<String>> getGraphStats(String memberID, String kpi){
+        //to do list:
+        //for every row with this member id
+        //get the date from SC of that session id
+        //calculate average value for that session id
+        //return [date][calculated average]
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        String selectQuery = "SELECT KPI." + kpi + ", TeamFixtures.TeamFixtureDate"
+                + " FROM KPI "
+                + " LEFT JOIN TeamFixtures"
+                + " ON KPI.FixtureID = TeamFixtures.FixtureId"
+                + " WHERE KPI.MemberID ='" + memberID +"'";
+
+        Log.d(KPI.TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                String kpiValue = cursor.getString(0);
+
+
+                ArrayList<String> row = new ArrayList<>();
+                row.add(kpiValue);
+                row.add(cursor.getString(1));
+
+                data.add(row);
+
+                System.out.println(row.get(0) + " -> " + row.get(1));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return data;
+    }
 
 }
