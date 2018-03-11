@@ -42,6 +42,7 @@ public class FixtureRepo {
         values.put(Fixture.KEY_FixtureId, fixture.getFixtureId());
         values.put(Fixture.KEY_FixturePoints, fixture.getFixturePoints());
 
+        //TODO auto insert into fixture repo when teamfixtures updated
 
         // Inserting Row
         db.insert(Fixture.TABLE, null, values);

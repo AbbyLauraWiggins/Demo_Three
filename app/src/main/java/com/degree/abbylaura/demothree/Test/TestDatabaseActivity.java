@@ -958,4 +958,286 @@ public class TestDatabaseActivity extends Activity {
 
         tableContainer.addView(tl);
     }
+
+    public void insertRealTestData(){
+        FixtureRepo fixtureRepo = new FixtureRepo();
+        MemberRepo memberRepo   = new MemberRepo();
+        SessionRepo sessionRepo = new SessionRepo();
+        StrengthAndConditioningRepo strengthAndConditioningRepo = new StrengthAndConditioningRepo();
+        TeamFixturesRepo teamFixturesRepo   = new TeamFixturesRepo();
+        TeamRepo teamRepo = new TeamRepo();
+        KPIRepo kpiRepo = new KPIRepo();
+        NoticeRepo noticeRepo = new NoticeRepo();
+
+
+        fixtureRepo.delete();
+        memberRepo.delete();
+        sessionRepo.delete();
+        strengthAndConditioningRepo.delete();
+        teamFixturesRepo.delete();
+        teamRepo.delete();
+        kpiRepo.delete();
+        noticeRepo.delete();
+
+        //INSERT ALL THE MEMBERS -> UOBWRFC USERS WHO HAVE AGREED TO BE TEST SUBJECTS
+        Member member = new Member();
+        insertMembers(member, memberRepo);
+
+        //Create a list of four "teams", including our UOBWRFC_1 test team
+        Team team = new Team();
+        insertTeams(team, teamRepo);
+
+        //Insert team fixtures (for UOBWRFC) and then create fixtures table
+        //League calendar is (4 teams, each play each other home and away, so 12 fixtures, as follows
+        //1: UOBWRFC vs LURFC   10/01/2018
+        //2: LURFC vs UOBWRFC   17/01/2018
+        //3: AURFC vs LURFC     24/01/2018
+        //4: OUWRFC vs UOBWRFC  31/01/2018
+        //5: UOBWRFC vs AURFC   7/02/2018
+        //6: LURFC vs AURFC     14/02/2018
+        //7: AURFC vs UOBWRFC   21/02/2018
+        //8: OUWRFC vs LURFC    28/02/2018
+        //9: OUWRFC vs AURFC  07/03/2018
+        //10: LURFC vs OUWRFC   14/03/2018
+        //11: AURFC vs OUWRFC   21/03/2017
+        //12: UOBWRFC vs OUWRFC   28/03/2018
+        TeamFixtures teamFixtures = new TeamFixtures();
+        insertTeamFixtures(teamFixtures, teamFixturesRepo);
+
+        Fixture fixture = new Fixture();
+        insertFixtures(fixture, fixtureRepo);
+
+
+    }
+
+    public void insertMembers(Member member, MemberRepo memberRepo){
+        member.setMemberId("0001");
+        member.setName("Michelle Ezigbo");
+        member.setEmail("m.ezigbo@outlook.com");
+        member.setPassword("0001");  //for testing, set password to memberID
+        member.setDOB("14/12/1997");
+        member.setPositions("5, 6, 8");
+        member.setResponsibilities("None");
+        member.setTeamId("UOBWRFC_1");
+        member.setPermissions("BASIC");
+        memberRepo.insert(member);
+
+        member.setMemberId("0002");
+        member.setName("Beth Stacey");
+        member.setEmail("b.Stacey@outlook.com");
+        member.setPassword("0002");  //for testing, set password to memberID
+        member.setDOB("22/02/1997");
+        member.setPositions("6, 7");
+        member.setResponsibilities("None");
+        member.setTeamId("UOBWRFC_1");
+        member.setPermissions("BASIC");
+        memberRepo.insert(member);
+
+        member.setMemberId("0003");
+        member.setName("Lizzie Nuttall");
+        member.setEmail("l.Nuttall@outlook.com");
+        member.setPassword("0003");  //for testing, set password to memberID
+        member.setDOB("10/08/1995");
+        member.setPositions("2");
+        member.setResponsibilities("Team Captain");
+        member.setTeamId("UOBWRFC_1");
+        member.setPermissions("LEADER");
+        memberRepo.insert(member);
+
+        member.setMemberId("0004");
+        member.setName("Abbygayle Wiggins");
+        member.setEmail("a.Wiggins@outlook.com");
+        member.setPassword("0004");  //for testing, set password to memberID
+        member.setDOB("20/12/1996");
+        member.setPositions("1");
+        member.setResponsibilities("Development Officer");
+        member.setTeamId("UOBWRFC_1");
+        member.setPermissions("LEADER");
+        memberRepo.insert(member);
+
+        member.setMemberId("0005");
+        member.setName("Jessica Ball");
+        member.setEmail("j.ball@outlook.com");
+        member.setPassword("0005");  //for testing, set password to memberID
+        member.setDOB("01/02/1997");
+        member.setPositions("9, 10");
+        member.setResponsibilities("None");
+        member.setTeamId("UOBWRFC_1");
+        member.setPermissions("BASIC");
+        memberRepo.insert(member);
+
+        member.setMemberId("0006");
+        member.setName("Autumn Rose");
+        member.setEmail("a.rose@outlook.com");
+        member.setPassword("0006");  //for testing, set password to memberID
+        member.setDOB("01/01/1996");
+        member.setPositions("4, 5");
+        member.setResponsibilities("Social Media Sec");
+        member.setTeamId("UOBWRFC_1");
+        member.setPermissions("ADMIN");
+        memberRepo.insert(member);
+
+        member.setMemberId("0007");
+        member.setName("Lou Rooker");
+        member.setEmail("l.Rooker@outlook.com");
+        member.setPassword("0007");  //for testing, set password to memberID
+        member.setDOB("18/05/1998");
+        member.setPositions("1, 3");
+        member.setResponsibilities("None");
+        member.setTeamId("UOBWRFC_1");
+        member.setPermissions("BASIC");
+        memberRepo.insert(member);
+
+        member.setMemberId("0008");
+        member.setName("Kathryn Hyland");
+        member.setEmail("kathyh@outlook.com");
+        member.setPassword("0008");  //for testing, set password to memberID
+        member.setDOB("10/12/1997");
+        member.setPositions("4, 5");
+        member.setResponsibilities("None");
+        member.setTeamId("UOBWRFC_1");
+        member.setPermissions("BASIC");
+        memberRepo.insert(member);
+
+        member.setMemberId("0009");
+        member.setName("Louise Gavin");
+        member.setEmail("lou.gavin@outlook.com");
+        member.setPassword("0009");  //for testing, set password to memberID
+        member.setDOB("19/07/1997");
+        member.setPositions("2");
+        member.setResponsibilities("None");
+        member.setTeamId("UOBWRFC_1");
+        member.setPermissions("BASIC");
+        memberRepo.insert(member);
+
+        member.setMemberId("0010");
+        member.setName("Katie Purcell");
+        member.setEmail("kp@outlook.com");
+        member.setPassword("0010");  //for testing, set password to memberID
+        member.setDOB("17/09/1997");
+        member.setPositions("6, 7");
+        member.setResponsibilities("Club Captain");
+        member.setTeamId("UOBWRFC_1");
+        member.setPermissions("ADMIN");
+        memberRepo.insert(member);
+
+
+    }
+
+    public void insertTeams(Team team, TeamRepo teamRepo){
+        team.setTeamId("UOBWRFC_1");
+        team.setTeamName("UOBWRFC");
+        team.setTeamLocation("B29 2TT");
+        team.setTeamCurPoints("149");
+        teamRepo.insert(team);
+
+        team.setTeamId("LURFC_1");
+        team.setTeamName("LURFC");
+        team.setTeamLocation("LB1 56T");
+        team.setTeamCurPoints("131");
+        teamRepo.insert(team);
+
+        team.setTeamId("AURFC_1");
+        team.setTeamName("AURFC");
+        team.setTeamLocation("B1 8LM");
+        team.setTeamCurPoints("109");
+        teamRepo.insert(team);
+
+        team.setTeamId("OUWRFC_1");
+        team.setTeamName("OUWRFC");
+        team.setTeamLocation("B1 8LM");
+        team.setTeamCurPoints("109");
+        teamRepo.insert(team);
+
+
+    }
+
+    public void insertTeamFixtures(TeamFixtures tf, TeamFixturesRepo teamFixturesRepo){
+        tf.setFixtureId("0001");
+        tf.setFixtureDate("10/01/2018");
+        tf.setFixtureLocation("B29 2TT");
+        teamFixturesRepo.insert(tf);
+
+        tf.setFixtureId("00012");
+        tf.setFixtureDate("17/01/2018");
+        tf.setFixtureLocation("LE12 8WD");
+        teamFixturesRepo.insert(tf);
+
+        tf.setFixtureId("0003");
+        tf.setFixtureDate("124/01/2018");
+        tf.setFixtureLocation("B1 7ST");
+        teamFixturesRepo.insert(tf);
+
+        tf.setFixtureId("0004");
+        tf.setFixtureDate("31/01/2018");
+        tf.setFixtureLocation("OX 9LN");
+        teamFixturesRepo.insert(tf);
+
+        tf.setFixtureId("0005");
+        tf.setFixtureDate("07/02/2018");
+        tf.setFixtureLocation("B29 2TT");
+        teamFixturesRepo.insert(tf);
+
+        tf.setFixtureId("0006");
+        tf.setFixtureDate("14/02/2018");
+        tf.setFixtureLocation("LE11 6NE");
+        teamFixturesRepo.insert(tf);
+
+        tf.setFixtureId("0007");
+        tf.setFixtureDate("21/02/2018");
+        tf.setFixtureLocation("B1 7ST");
+        teamFixturesRepo.insert(tf);
+
+        tf.setFixtureId("0008");
+        tf.setFixtureDate("28/02/2018");
+        tf.setFixtureLocation("OX 6ET");
+        teamFixturesRepo.insert(tf);
+
+        tf.setFixtureId("0009");
+        tf.setFixtureDate("07/03/2018");
+        tf.setFixtureLocation("OX 9LN");
+        teamFixturesRepo.insert(tf);
+
+        tf.setFixtureId("0010");
+        tf.setFixtureDate("14/03/2018");
+        tf.setFixtureLocation("LE12 8WD");
+        teamFixturesRepo.insert(tf);
+
+        tf.setFixtureId("0011");
+        tf.setFixtureDate("21/02/2018");
+        tf.setFixtureLocation("B2 6DV");
+        teamFixturesRepo.insert(tf);
+
+        tf.setFixtureId("0012");
+        tf.setFixtureDate("28/03/2018");
+        tf.setFixtureLocation("B15 2QW");
+        teamFixturesRepo.insert(tf);
+    }
+
+    public void insertFixtures(Fixture fixtures, FixtureRepo fixtureRepo){
+        fixtures.setFixtureId("0001"); //Fixture 1
+        fixtures.setTeamId("UOBWRFC_1");    //Team UOBWRFC
+        fixtures.setFixturePoints("22"); //Points scored by UOBWRFC in fixture 0001
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0001"); //Fixture 1
+        fixtures.setTeamId("LURFC_1"); //Team LURFC
+        fixtures.setFixturePoints("20"); //Points scored by LURFC in fixture 0001
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0002");
+        fixtures.setTeamId("LURFC");
+        fixtures.setFixturePoints("12");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0002"); //Fixture 1
+        fixtures.setTeamId("UOBWRFC_1");    //Team UOBWRFC
+        fixtures.setFixturePoints("37"); //Points scored by UOBWRFC
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0002");
+        fixtures.setTeamId("LURFC");
+        fixtures.setFixturePoints("12");
+        fixtureRepo.insert(fixtures);
+    }
 }
