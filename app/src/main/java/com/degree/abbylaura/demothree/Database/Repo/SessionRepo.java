@@ -1,6 +1,7 @@
 package com.degree.abbylaura.demothree.Database.Repo;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,6 +11,9 @@ import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
 import com.degree.abbylaura.demothree.Database.Schema.Session;
 import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by abbylaura on 10/03/2018.
@@ -81,7 +85,6 @@ public class SessionRepo {
         DatabaseManager.getInstance().closeDatabase();
     }
 
-
     public String[][] getTable(){
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         int count = (int) DatabaseUtils.queryNumEntries(db, Session.TABLE);
@@ -122,6 +125,52 @@ public class SessionRepo {
 
         return sessionArray;
 
+    }
+
+    public ArrayList<ArrayList<String>> getGraphStats(String memberID, String exercise){
+        //to do list:
+            //for every row with this member id
+            //get the date from SC of that session id
+            //calculate average value for that session id
+            //return [date][calculated average]
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        String selectQuery = "SELECT Session." + exercise + ", StrengthAndConditioning.SessionDate"
+                + " FROM Session "
+                + " LEFT JOIN StrengthAndConditioning"
+                + " ON StrengthAndConditioning.SessionId = Session.SessionID"
+                + " WHERE Session.MemberID ='" + memberID +"'";
+
+        Log.d(Session.TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                String exerciseValues = cursor.getString(0);
+                String[] values = exerciseValues.split(", ");
+                int totalValue = 0;
+                for(int i = 0; i < values.length; i++){
+                    totalValue = totalValue + Integer.parseInt(values[i]);
+                }
+                int value = totalValue/values.length;
+
+                ArrayList<String> row = new ArrayList<>();
+                row.add(String.valueOf(value));
+                row.add(cursor.getString(1));
+
+                data.add(row);
+
+                //System.out.println(cursor.getString(0) + " | " + cursor.getString(1) + " | " + cursor.getString(2));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return data;
     }
 
     public void setWhereclause(String whereclause){

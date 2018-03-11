@@ -632,6 +632,8 @@ public class TestDatabaseActivity extends Activity {
 
         Session scs = new Session();
 
+        // >>>>> adding lots of data for member 1 to test graph <<<<
+
        // scs.setAuto("1");
         scs.setSessionID("1");
         scs.setMemberID("1");
@@ -648,7 +650,74 @@ public class TestDatabaseActivity extends Activity {
         scs.setRdl("20, 20, 25, 25, 30");
         scs.setSplitSquat("30, 30, 35, 40, 40");
         scs.setFourWayArms("4, 3, 4");
+        sessionRepo.insert(scs);
 
+        scs.setSessionID("2");
+        scs.setMemberID("1");
+        scs.setDeadlifts("70, 75, 70, 75");
+        scs.setDeadliftJumps("55, 55, 55, 60");
+        scs.setBackSquat("55, 55, 55");
+        scs.setBackSquatJumps("40, 45, 45");
+        scs.setGobletSquat("22, 24, 22");
+        scs.setBenchPress("30, 35, 40, 40");
+        scs.setMilitaryPress("25, 25, 20, 20");
+        scs.setSupineRow("10, 10");
+        scs.setChinUps("B, B, BY, BY");
+        scs.setTrunk("3, 3, 3");
+        scs.setRdl("20, 20, 25, 30, 30");
+        scs.setSplitSquat("30, 30, 35, 40, 40");
+        scs.setFourWayArms("4, 3, 4");
+        sessionRepo.insert(scs);
+
+        scs.setSessionID("3");
+        scs.setMemberID("1");
+        scs.setDeadlifts("75, 75, 70, 75");
+        scs.setDeadliftJumps("55, 55, 60, 60");
+        scs.setBackSquat("55, 55, 55");
+        scs.setBackSquatJumps("45, 45, 45");
+        scs.setGobletSquat("24, 24, 24");
+        scs.setBenchPress("35, 35, 40, 40");
+        scs.setMilitaryPress("25, 25, 25, 20");
+        scs.setSupineRow("10, 10");
+        scs.setChinUps("B, B, BY, BY");
+        scs.setTrunk("3, 3, 3");
+        scs.setRdl("20, 20, 20, 30, 30");
+        scs.setSplitSquat("30, 35, 35, 40, 40");
+        scs.setFourWayArms("4, 4, 4");
+        sessionRepo.insert(scs);
+
+        scs.setSessionID("4");
+        scs.setMemberID("1");
+        scs.setDeadlifts("80, 75, 80, 75");
+        scs.setDeadliftJumps("55, 55, 60, 60");
+        scs.setBackSquat("55, 60, 55");
+        scs.setBackSquatJumps("45, 45, 50");
+        scs.setGobletSquat("26, 24, 26");
+        scs.setBenchPress("35, 40, 40, 40");
+        scs.setMilitaryPress("25, 25, 25, 30");
+        scs.setSupineRow("10, 10");
+        scs.setChinUps("B, B, BY, BY");
+        scs.setTrunk("3, 3, 3");
+        scs.setRdl("25, 30, 30, 30, 30");
+        scs.setSplitSquat("35, 35, 40, 40, 40");
+        scs.setFourWayArms("4, 4, 4");
+        sessionRepo.insert(scs);
+
+        scs.setSessionID("5");
+        scs.setMemberID("1");
+        scs.setDeadlifts("80, 80, 80, 75");
+        scs.setDeadliftJumps("55, 60, 60, 60");
+        scs.setBackSquat("60, 60, 65");
+        scs.setBackSquatJumps("45, 50, 50");
+        scs.setGobletSquat("26, 26, 26");
+        scs.setBenchPress("40, 40, 45, 40");
+        scs.setMilitaryPress("25, 25, 30, 30");
+        scs.setSupineRow("10, 10");
+        scs.setChinUps("B, B, B, B");
+        scs.setTrunk("3, 3, 3");
+        scs.setRdl("30, 30, 30, 30, 30");
+        scs.setSplitSquat("40, 40, 40, 40, 40");
+        scs.setFourWayArms("4, 4, 5");
         sessionRepo.insert(scs);
 
         //scs.setAuto("1");

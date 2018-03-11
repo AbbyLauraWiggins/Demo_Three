@@ -5,17 +5,28 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.SessionRepo;
 import com.degree.abbylaura.demothree.R;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by abbylaura on 09/03/2018.
@@ -24,8 +35,19 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 public class MySCStats extends Activity {
 
     EditText userInputID;
+    Spinner scSpinner;
 
-    LineGraphSeries<DataPoint> graphSeries;
+    //LineGraphSeries<DataPoint> graphSeries;
+
+    ArrayList<String> strPoints = new ArrayList<>();
+    ArrayList<Date> dates = new ArrayList<>();
+
+    String[] scExercises;
+    String chosenExerciseForGraph;
+
+    public MySCStats() {
+        chosenExerciseForGraph = "";
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,13 +57,67 @@ public class MySCStats extends Activity {
 
         userInputID = findViewById(R.id.scSessionID);
 
-        showGraph();
+        scSpinner = findViewById(R.id.scSpinner);
 
+
+        scExercises = new String[13];
+        scExercises[0] = "Deadlifts";
+        scExercises[1] = "DeadliftJumps";
+        scExercises[2] = "BackSquat";
+        scExercises[3] = "BackSquatJumps";
+        scExercises[4] = "GobletSquat";
+        scExercises[5] = "BenchPress";
+        scExercises[6] = "MilitaryPress";
+        scExercises[7] = "SupineRow";
+        scExercises[8] = "ChinUps";
+        scExercises[9] = "Trunk";
+        scExercises[10] = "RDL";
+        scExercises[11] = "SplitSquat";
+        scExercises[12] = "FourWayArms";
+
+        setSpinner();
 
     }
 
-    private void showGraph(){
+    private void setSpinner(){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, scExercises); //LIST OF EXERCISES);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        scSpinner.setAdapter(adapter);
+
+        scSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                chosenExerciseForGraph = scSpinner.getSelectedItem().toString();
+                try {
+                    showGraph();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void showGraph() throws ParseException {
+        SessionRepo sessionRepo = new SessionRepo();
+        ArrayList<ArrayList<String>> data =
+                sessionRepo.getGraphStats(MyClientID.myID, chosenExerciseForGraph);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+
+        for(ArrayList al : data){
+            strPoints.add(String.valueOf(al.get(0)));
+            dates.add(df.parse(String.valueOf(al.get(1))));
+        }
+
         GraphView graph = (GraphView) findViewById(R.id.graphView);
+        graph.removeAllSeries();
 
         int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
@@ -53,16 +129,34 @@ public class MySCStats extends Activity {
         graph.setVisibility(View.VISIBLE);
 
 
-        double y,x;
-        x = -5.0;
+        double y;
+        Date x;
 
-        graphSeries = new LineGraphSeries<DataPoint>();
-        for(int i =0; i<100; i++) {
-            x = x + 0.1;
-            y = Math.sin(x);
-            graphSeries.appendData(new DataPoint(x, y), true, 100);
+        LineGraphSeries<DataPoint> graphSeries = new LineGraphSeries<DataPoint>();
+        for(int i =0; i<strPoints.size(); i++) {
+            x = dates.get(i);
+            y = Double.parseDouble(strPoints.get(i));
+            graphSeries.appendData(new DataPoint(x, y), true, strPoints.size());
         }
         graph.addSeries(graphSeries);
+
+        // set date label formatter
+        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
+        graph.getGridLabelRenderer().setNumHorizontalLabels(strPoints.size()); // only 4 because of the space
+
+        graph.getViewport().setMinX(dates.get(0).getTime());
+        graph.getViewport().setMaxX(dates.get(dates.size() - 1).getTime());
+        graph.getViewport().setXAxisBoundsManual(true);
+
+        graph.getGridLabelRenderer().setHumanRounding(false);
+
+        //TODO get dates showing correctly on x axis
+    }
+
+    private void getGraphStats(){
+        //returns an array of [session date][given exercise value average]
+
+
     }
 
     public void onShowSCSession(View view) {
@@ -78,20 +172,6 @@ public class MySCStats extends Activity {
         LinearLayout tableContainer = findViewById(R.id.tableContainer);
         tableContainer.setOrientation(LinearLayout.VERTICAL);
 
-        String[] scExercises = new String[13];
-        scExercises[0] = "Deadlift";
-        scExercises[1] = "Deadlift Jump";
-        scExercises[2] = "Back Squat";
-        scExercises[3] = "Back Squat Jumps";
-        scExercises[4] = "Goblet Squat";
-        scExercises[5] = "Bench Press";
-        scExercises[6] = "Military Press";
-        scExercises[7] = "Supine Row";
-        scExercises[8] = "Chin Ups";
-        scExercises[9] = "Trunk";
-        scExercises[10] = "RDL";
-        scExercises[11] = "Split Squat";
-        scExercises[12] = "Four Way Arms";
 
         TableLayout tl = new TableLayout(this);
 
