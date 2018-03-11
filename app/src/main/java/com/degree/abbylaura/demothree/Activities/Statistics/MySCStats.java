@@ -37,10 +37,12 @@ public class MySCStats extends Activity {
     EditText userInputID;
     Spinner scSpinner;
 
-    //LineGraphSeries<DataPoint> graphSeries;
+    int graphNum;
 
-    ArrayList<String> strPoints = new ArrayList<>();
-    ArrayList<Date> dates = new ArrayList<>();
+    LineGraphSeries<DataPoint> graphSeries;
+
+    ArrayList<String> strPoints;
+    ArrayList<Date> dates;
 
     String[] scExercises;
     String chosenExerciseForGraph;
@@ -58,6 +60,8 @@ public class MySCStats extends Activity {
         userInputID = findViewById(R.id.scSessionID);
 
         scSpinner = findViewById(R.id.scSpinner);
+
+        this.graphNum = 0;
 
 
         scExercises = new String[13];
@@ -81,7 +85,7 @@ public class MySCStats extends Activity {
 
     private void setSpinner(){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, scExercises); //LIST OF EXERCISES);
+                this, android.R.layout.simple_spinner_item, scExercises);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         scSpinner.setAdapter(adapter);
@@ -92,6 +96,7 @@ public class MySCStats extends Activity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 chosenExerciseForGraph = scSpinner.getSelectedItem().toString();
                 try {
+                    System.out.println(chosenExerciseForGraph + " show graph");
                     showGraph();
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -105,6 +110,14 @@ public class MySCStats extends Activity {
     }
 
     private void showGraph() throws ParseException {
+        LinearLayout ll = findViewById(R.id.graphContainer);
+        graphNum++;
+
+        strPoints = new ArrayList<>();
+        dates = new ArrayList<>();
+
+        //Get all the data for the graph
+
         SessionRepo sessionRepo = new SessionRepo();
         ArrayList<ArrayList<String>> data =
                 sessionRepo.getGraphStats(MyClientID.myID, chosenExerciseForGraph);
@@ -114,33 +127,33 @@ public class MySCStats extends Activity {
         for(ArrayList al : data){
             strPoints.add(String.valueOf(al.get(0)));
             dates.add(df.parse(String.valueOf(al.get(1))));
+
+            System.out.println("date: " + String.valueOf(al.get(1)) + " value: " + String.valueOf(al.get(0)));
         }
 
-        GraphView graph = (GraphView) findViewById(R.id.graphView);
-        graph.removeAllSeries();
+
+        //Create graph and set size
+
+        GraphView graph = new GraphView(this);//(GraphView) findViewById(R.id.graphView);
 
         int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
-        android.view.ViewGroup.LayoutParams layoutParams = graph.getLayoutParams();
+        android.view.ViewGroup.LayoutParams layoutParams = ll.getLayoutParams();
         layoutParams.width = screenWidth;
         layoutParams.height = screenHeight/2;
         graph.setLayoutParams(layoutParams);
         graph.setVisibility(View.VISIBLE);
 
 
-        double y;
-        Date x;
+        //Add data to graph
 
-        LineGraphSeries<DataPoint> graphSeries = new LineGraphSeries<DataPoint>();
-        for(int i =0; i<strPoints.size(); i++) {
-            x = dates.get(i);
-            y = Double.parseDouble(strPoints.get(i));
-            graphSeries.appendData(new DataPoint(x, y), true, strPoints.size());
-        }
+        graph.removeAllSeries();
+        graphSeries = new LineGraphSeries<DataPoint>(generateData());
         graph.addSeries(graphSeries);
 
-        // set date label formatter
+        //Set date label formatter
+
         graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
         graph.getGridLabelRenderer().setNumHorizontalLabels(strPoints.size()); // only 4 because of the space
 
@@ -150,13 +163,27 @@ public class MySCStats extends Activity {
 
         graph.getGridLabelRenderer().setHumanRounding(false);
 
+
+        //Add graph to linear layout
+        ll.removeAllViews();
+        ll.addView(graph);
+
         //TODO get dates showing correctly on x axis
     }
 
-    private void getGraphStats(){
-        //returns an array of [session date][given exercise value average]
+    private DataPoint[] generateData() {
+        int size = strPoints.size();
+        DataPoint[] values = new DataPoint[size];
 
+        for(int i =0; i<strPoints.size(); i++) {
+            Date x = dates.get(i);
+            Double y = Double.parseDouble(strPoints.get(i));
 
+            System.out.println("generate data: " + String.valueOf(x) + " : " + String.valueOf(y));
+            DataPoint v = new DataPoint(x, y);
+            values[i] = v;
+        }
+        return values;
     }
 
     public void onShowSCSession(View view) {

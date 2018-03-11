@@ -163,7 +163,7 @@ public class SessionRepo {
 
                 data.add(row);
 
-                //System.out.println(cursor.getString(0) + " | " + cursor.getString(1) + " | " + cursor.getString(2));
+                System.out.println(row.get(0) + " -> " + row.get(1));
             } while (cursor.moveToNext());
         }
 
