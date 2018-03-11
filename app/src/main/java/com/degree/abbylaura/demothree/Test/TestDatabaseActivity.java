@@ -987,7 +987,7 @@ public class TestDatabaseActivity extends Activity {
         Team team = new Team();
         insertTeams(team, teamRepo);
 
-        //Insert team fixtures (for UOBWRFC) and then create fixtures table
+        //INSERT TEAM FIXTURES (for UOBWRFC) and then create fixtures table
         //League calendar is (4 teams, each play each other home and away, so 12 fixtures, as follows
         //1: UOBWRFC vs LURFC   10/01/2018
         //2: LURFC vs UOBWRFC   17/01/2018
@@ -1006,6 +1006,11 @@ public class TestDatabaseActivity extends Activity {
 
         Fixture fixture = new Fixture();
         insertFixtures(fixture, fixtureRepo);
+
+
+        //Create a list of Strength and Conditioning sessions, then fill Session with REAL data
+        StrengthAndConditioning sc = new StrengthAndConditioning();
+        insertSC(sc, strengthAndConditioningRepo);
 
 
     }
@@ -1226,7 +1231,7 @@ public class TestDatabaseActivity extends Activity {
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0002");
-        fixtures.setTeamId("LURFC");
+        fixtures.setTeamId("LURFC_1");
         fixtures.setFixturePoints("12");
         fixtureRepo.insert(fixtures);
 
@@ -1235,9 +1240,374 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setFixturePoints("37"); //Points scored by UOBWRFC
         fixtureRepo.insert(fixtures);
 
-        fixtures.setFixtureId("0002");
-        fixtures.setTeamId("LURFC");
+        fixtures.setFixtureId("0003");
+        fixtures.setTeamId("AURFC_1");
+        fixtures.setFixturePoints("32");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0003");
+        fixtures.setTeamId("LURFC_1");
+        fixtures.setFixturePoints("112");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0004");
+        fixtures.setTeamId("OUWRFC_1");
+        fixtures.setFixturePoints("67");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0004");
+        fixtures.setTeamId("UOBWRFC_1");
+        fixtures.setFixturePoints("55");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0005");
+        fixtures.setTeamId("UOBWRFC_1");
+        fixtures.setFixturePoints("15");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0005");
+        fixtures.setTeamId("AURFC_1");
+        fixtures.setFixturePoints("0");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0006");
+        fixtures.setTeamId("AURFC_1");
+        fixtures.setFixturePoints("10");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0006");
+        fixtures.setTeamId("LURFC_1");
+        fixtures.setFixturePoints("10");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0007");
+        fixtures.setTeamId("AURFC_1");
+        fixtures.setFixturePoints("7");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0007");
+        fixtures.setTeamId("UOBWRFC_1");
         fixtures.setFixturePoints("12");
         fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0008");
+        fixtures.setTeamId("OUWRFC_1");
+        fixtures.setFixturePoints("90");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0008");
+        fixtures.setTeamId("LURFC_1");
+        fixtures.setFixturePoints("64");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0009");
+        fixtures.setTeamId("OUWRFC_1");
+        fixtures.setFixturePoints("87");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0009");
+        fixtures.setTeamId("AURFC_1");
+        fixtures.setFixturePoints("44");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0010");
+        fixtures.setTeamId("LURFC_1");
+        fixtures.setFixturePoints("24");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0010");
+        fixtures.setTeamId("OUWRFC_1");
+        fixtures.setFixturePoints("10");
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0011");
+        fixtures.setTeamId("AURFC_1");
+        fixtures.setFixturePoints(null); //null as hasn't occured yet
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0011");
+        fixtures.setTeamId("OUWRFC_1");
+        fixtures.setFixturePoints(null);
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0012");
+        fixtures.setTeamId("UOBWRFC_1");
+        fixtures.setFixturePoints(null);
+        fixtureRepo.insert(fixtures);
+
+        fixtures.setFixtureId("0012");
+        fixtures.setTeamId("OUWRFC_1");
+        fixtures.setFixturePoints(null);
+        fixtureRepo.insert(fixtures);
+
+
     }
+
+    public void insertSC(StrengthAndConditioning sc, StrengthAndConditioningRepo scRepo){
+        sc.setSessionID("0");
+        sc.setSessionDate("25/09/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("1");
+        sc.setSessionDate("29/09/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("2");
+        sc.setSessionDate("02/10/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("3");
+        sc.setSessionDate("06/10/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("4");
+        sc.setSessionDate("09/10/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("5");
+        sc.setSessionDate("13/10/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("6");
+        sc.setSessionDate("16/10/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("7");
+        sc.setSessionDate("20/10/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("8");
+        sc.setSessionDate("23/10/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("9");
+        sc.setSessionDate("27/10/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("10");
+        sc.setSessionDate("30/10/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("11");
+        sc.setSessionDate("03/11/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("12");
+        sc.setSessionDate("06/11/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("13");
+        sc.setSessionDate("10/11/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("14");
+        sc.setSessionDate("13/11/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("15");
+        sc.setSessionDate("17/11/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("16");
+        sc.setSessionDate("20/11/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("17");
+        sc.setSessionDate("24/11/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("18");
+        sc.setSessionDate("27/11/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("19");
+        sc.setSessionDate("01/12/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("20");
+        sc.setSessionDate("04/12/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("21");
+        sc.setSessionDate("08/12/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("22");
+        sc.setSessionDate("11/12/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("23");
+        sc.setSessionDate("15/12/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("24");
+        sc.setSessionDate("18/12/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("25");
+        sc.setSessionDate("22/12/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("26");
+        sc.setSessionDate("25/12/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("27");
+        sc.setSessionDate("29/12/2017");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("28");
+        sc.setSessionDate("01/01/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("29");
+        sc.setSessionDate("05/01/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("30");
+        sc.setSessionDate("08/01/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("31");
+        sc.setSessionDate("12/01/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("32");
+        sc.setSessionDate("15/01/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("33");
+        sc.setSessionDate("19/01/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("34");
+        sc.setSessionDate("22/01/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("35");
+        sc.setSessionDate("26/01/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("36");
+        sc.setSessionDate("29/01/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("37");
+        sc.setSessionDate("02/02/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("38");
+        sc.setSessionDate("05/02/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("39");
+        sc.setSessionDate("09/02/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("40");
+        sc.setSessionDate("12/02/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("41");
+        sc.setSessionDate("16/02/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("42");
+        sc.setSessionDate("19/02/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("43");
+        sc.setSessionDate("23/02/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("44");
+        sc.setSessionDate("26/02/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("45");
+        sc.setSessionDate("02/03/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("46");
+        sc.setSessionDate("05/03/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("47");
+        sc.setSessionDate("09/03/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("48");
+        sc.setSessionDate("12/03/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("49");
+        sc.setSessionDate("16/03/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("50");
+        sc.setSessionDate("19/03/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("51");
+        sc.setSessionDate("23/03/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+
+        sc.setSessionID("52");
+        sc.setSessionDate("26/03/2018");
+        sc.setSessionTime("1615");
+        scRepo.insert(sc);
+    }
+
 }
