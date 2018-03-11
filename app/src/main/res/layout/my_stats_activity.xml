@@ -81,7 +81,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/gameSubTitle"
-        android:text="View Stats"/>
+        android:text="View Stats"
+        android:onClick="onViewGameStats"/>
 
     <Button
         android:id="@+id/seeFeedback"

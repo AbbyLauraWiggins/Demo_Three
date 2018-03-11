@@ -84,6 +84,11 @@
             android:theme="@style/Theme.AppCompat.Light" />
 
 
+        <activity
+            android:name=".Activities.Statistics.MyGameStats"
+            android:theme="@style/Theme.AppCompat.Light" />
+
+
 
         <service android:name=".Activities.ServerService"/>
     </application>

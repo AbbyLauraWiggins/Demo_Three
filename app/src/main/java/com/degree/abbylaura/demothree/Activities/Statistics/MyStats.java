@@ -32,4 +32,9 @@ public class MyStats extends Activity {
         Intent intent = new Intent(this, MySCStats.class);
         startActivity(intent);
     }
+
+    public void onViewGameStats(View view) {
+        Intent intent = new Intent(this, MyGameStats.class);
+        startActivity(intent);
+    }
 }
