@@ -144,4 +144,26 @@ public class MemberRepo {
         DatabaseManager.getInstance().closeDatabase();
     }
 
+    public String getMyPermissions(String myId){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        int count = (int) DatabaseUtils.queryNumEntries(db, Member.TABLE);
+
+        String memberPermission = null;
+
+        String selectQuery = " SELECT Permissions FROM " + Member.TABLE + " WHERE MemberId ='" + myId + "'";
+
+        Log.d(Member.TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                memberPermission = cursor.getString(0);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return memberPermission;
+    }
 }
