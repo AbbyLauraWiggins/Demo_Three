@@ -1,28 +1,17 @@
 package com.degree.abbylaura.demothree.Activities.Statistics;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
-import android.widget.TextView;
-
 import com.degree.abbylaura.demothree.R;
 
 import java.util.ArrayList;
+
 
 /**
  * Created by abbylaura on 12/03/2018.
@@ -30,8 +19,12 @@ import java.util.ArrayList;
 
 public class AnalyseStats extends Activity {
 
+    ArrayList<String> selectedIndicators;
+
     Switch toggle;
     Boolean switchState;
+
+    String indicator;
 
     String[] kpiHeaders;
     private PopupWindow pw;
@@ -57,6 +50,25 @@ public class AnalyseStats extends Activity {
             }
         });
 
+        kpiHeaders = new String[17];
+        kpiHeaders[0] = "Successful Tackles ";
+        kpiHeaders[1] = "Unsuccessful Tackles ";
+        kpiHeaders[2] = "Successful Carries ";
+        kpiHeaders[3] = "Unsuccessful Carries ";
+        kpiHeaders[4] = "Successful Passes ";
+        kpiHeaders[5] = "Unsuccessful Passes ";
+        kpiHeaders[6] = "Handling Errors ";
+        kpiHeaders[7] = "Penalties ";
+        kpiHeaders[8] = "Yellow Cards ";
+        kpiHeaders[9] = "Tries Scored ";
+        kpiHeaders[10] = "Turnovers Won ";
+        kpiHeaders[11] = "Successful Line Out Throws ";
+        kpiHeaders[12] = "Unsuccessful Line Out Throws ";
+        kpiHeaders[13] = "Successful Line Out Takes ";
+        kpiHeaders[14] = "Unsuccessful Line Out Takes ";
+        kpiHeaders[15] = "Successful Kicks ";
+        kpiHeaders[16] = "Unsuccessful Kicks ";
+
         //initialize();
 
     }
@@ -77,7 +89,10 @@ public class AnalyseStats extends Activity {
 
 
     public void onIndicatorClick(View view) {
+        indicator = "KPI"; //testing
+
         Intent showList = new Intent(this, Selection.class);
+        showList.putExtra("indicator", indicator);
         startActivityForResult(showList, 1);
     }
 
@@ -85,13 +100,14 @@ public class AnalyseStats extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        boolean[] selected = data.getBooleanArrayExtra("selected");
+        selectedIndicators = data.getStringArrayListExtra("selected");
 
 
+
+        for(int i = 0; i < selectedIndicators.size(); i++){
+            System.out.println("selected ind: " + selectedIndicators.get(i));
+        }
     }
 
-    public void onTestClick(View view) {
-        Intent showList = new Intent(this, Selection.class);
-        startActivityForResult(showList, 1);
-    }
+
 }

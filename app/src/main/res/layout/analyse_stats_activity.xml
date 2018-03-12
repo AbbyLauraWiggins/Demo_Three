@@ -15,6 +15,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Player(s)"
+            android:id="@+id/selectPlayers"
+            android:onClick="onSelectPlayers"
+            android:layout_below="@id/toggle"
+            android:layout_alignParentLeft="true"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Indicator(s)"
+            android:id="@+id/selectIndicators"
+            android:onClick="onIndicatorClick"
+            android:layout_below="@id/toggle"
+            android:layout_alignParentRight="true"/>
+
         <Switch
             android:id="@+id/toggle"
             android:layout_alignParentRight="true"
@@ -25,33 +43,9 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select player(s)"
-        android:id="@+id/selectPlayersTV"
-        />
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/selectPlayersSpinner">
 
-    </Spinner>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select indicator(s)"
-        android:id="@+id/selectIndicatorTV"
-        android:onClick="onIndicatorClick"/>
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/selectIndicatorSpinner">
-
-    </Spinner>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,10 +54,5 @@
         android:id="@+id/popUpContainer"></LinearLayout>
 
 
-   <Button
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:id="@+id/testButton"
-       android:text="test"
-       android:onClick="onTestClick"/>
+
 </LinearLayout>
