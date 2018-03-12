@@ -1,7 +1,9 @@
 package com.degree.abbylaura.demothree.Activities.Statistics;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -59,31 +61,7 @@ public class AnalyseStats extends Activity {
 
     }
 
-    public void setPopUp(){
-        kpiHeaders = new String[17];
-        kpiHeaders[0] = "Successful Tackles ";
-        kpiHeaders[1] = "Unsuccessful Tackles ";
-        kpiHeaders[2] = "Successful Carries ";
-        kpiHeaders[3] = "Unsuccessful Carries ";
-        kpiHeaders[4] = "Successful Passes ";
-        kpiHeaders[5] = "Unsuccessful Passes ";
-        kpiHeaders[6] = "Handling Errors ";
-        kpiHeaders[7] = "Penalties ";
-        kpiHeaders[8] = "Yellow Cards ";
-        kpiHeaders[9] = "Tries Scored ";
-        kpiHeaders[10] = "Turnovers Won ";
-        kpiHeaders[11] = "Successful Line Out Throws ";
-        kpiHeaders[12] = "Unsuccessful Line Out Throws ";
-        kpiHeaders[13] = "Successful Line Out Takes ";
-        kpiHeaders[14] = "Unsuccessful Line Out Takes ";
-        kpiHeaders[15] = "Successful Kicks ";
-        kpiHeaders[16] = "Unsuccessful Kicks ";
 
-        pw = new PopupWindow(this);
-        pw.setContentView(R.layout.pop_up_window);
-        LinearLayout ll = new LinearLayout(this);
-
-    }
 
     public void resetGraph(){
         //TODO delete graph contents
@@ -98,6 +76,22 @@ public class AnalyseStats extends Activity {
     }
 
 
+    public void onIndicatorClick(View view) {
+        Intent showList = new Intent(this, Selection.class);
+        startActivityForResult(showList, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        boolean[] selected = data.getBooleanArrayExtra("selected");
 
 
+    }
+
+    public void onTestClick(View view) {
+        Intent showList = new Intent(this, Selection.class);
+        startActivityForResult(showList, 1);
+    }
 }

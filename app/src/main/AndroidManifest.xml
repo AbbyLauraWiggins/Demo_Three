@@ -91,6 +91,10 @@
         <activity
             android:name=".Activities.Statistics.AnalyseStats"
             android:theme="@style/Theme.AppCompat.Light" />
+        
+        <activity
+            android:name=".Activities.Statistics.Selection"
+            android:theme="@style/Theme.AppCompat.Light" />
 
         <service android:name=".Activities.ServerService"/>
     </application>
