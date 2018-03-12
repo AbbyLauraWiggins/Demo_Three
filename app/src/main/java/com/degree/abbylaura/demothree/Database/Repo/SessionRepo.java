@@ -136,7 +136,7 @@ public class SessionRepo {
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
-        String selectQuery = "SELECT Session." + exercise + ", StrengthAndConditioning.SessionDate"
+        String selectQuery = "SELECT Session." + exercise + ", StrengthAndConditioning.SessionDate, Session.SessionID"
                 + " FROM Session "
                 + " LEFT JOIN StrengthAndConditioning"
                 + " ON StrengthAndConditioning.SessionId = Session.SessionID"
@@ -150,20 +150,26 @@ public class SessionRepo {
         if (cursor.moveToFirst()) {
             do {
                 String exerciseValues = cursor.getString(0);
-                String[] values = exerciseValues.split(", ");
-                int totalValue = 0;
-                for(int i = 0; i < values.length; i++){
-                    totalValue = totalValue + Integer.parseInt(values[i]);
+                System.out.println("exerciseValues: " + exerciseValues);
+                if(exerciseValues != null){
+                    String[] values = exerciseValues.split(", ");
+                    double totalValue = 0;
+                    for(int i = 0; i < values.length; i++){
+                        String strVal = values[i].substring(values[i].lastIndexOf(":") + 1);
+                        totalValue = totalValue + Double.parseDouble(strVal);
+                    }
+                    double value = totalValue/values.length;
+
+                    ArrayList<String> row = new ArrayList<>();
+                    row.add(String.valueOf(value));
+                    row.add(cursor.getString(1));
+                    row.add(cursor.getString(2));
+
+                    data.add(row);
+
+                    System.out.println(row.get(0) + " -> " + row.get(1));
                 }
-                int value = totalValue/values.length;
 
-                ArrayList<String> row = new ArrayList<>();
-                row.add(String.valueOf(value));
-                row.add(cursor.getString(1));
-
-                data.add(row);
-
-                System.out.println(row.get(0) + " -> " + row.get(1));
             } while (cursor.moveToNext());
         }
 

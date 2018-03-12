@@ -43,6 +43,7 @@ public class MySCStats extends Activity {
 
     ArrayList<String> strPoints;
     ArrayList<Date> dates;
+    ArrayList<String> sessionID;
 
     String[] scExercises;
     String chosenExerciseForGraph;
@@ -115,6 +116,7 @@ public class MySCStats extends Activity {
 
         strPoints = new ArrayList<>();
         dates = new ArrayList<>();
+        sessionID = new ArrayList<>();
 
         //Get all the data for the graph
 
@@ -127,7 +129,7 @@ public class MySCStats extends Activity {
         for(ArrayList al : data){
             strPoints.add(String.valueOf(al.get(0)));
             dates.add(df.parse(String.valueOf(al.get(1))));
-
+            sessionID.add(String.valueOf(al.get(2)));
             System.out.println("date: " + String.valueOf(al.get(1)) + " value: " + String.valueOf(al.get(0)));
         }
 
@@ -154,7 +156,7 @@ public class MySCStats extends Activity {
 
         //Set date label formatter
 
-        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
+        /*graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
         graph.getGridLabelRenderer().setNumHorizontalLabels(strPoints.size()); // only 4 because of the space
 
         graph.getViewport().setMinX(dates.get(0).getTime());
@@ -162,7 +164,7 @@ public class MySCStats extends Activity {
         graph.getViewport().setXAxisBoundsManual(true);
 
         graph.getGridLabelRenderer().setHumanRounding(false);
-
+        */
 
         //Add graph to linear layout
         ll.removeAllViews();
@@ -176,7 +178,7 @@ public class MySCStats extends Activity {
         DataPoint[] values = new DataPoint[size];
 
         for(int i =0; i<strPoints.size(); i++) {
-            Date x = dates.get(i);
+            Double x = Double.parseDouble(sessionID.get(i));//dates.get(i);
             Double y = Double.parseDouble(strPoints.get(i));
 
             System.out.println("generate data: " + String.valueOf(x) + " : " + String.valueOf(y));

@@ -55,8 +55,8 @@ public class TestDatabaseActivity extends Activity {
 
         editText = findViewById(R.id.editText);
 
-        insertTestData();
-
+        //insertTestData();
+        insertRealTestData();
     }
 
     private void insertTestData(){
@@ -2124,6 +2124,142 @@ public class TestDatabaseActivity extends Activity {
         scs.setTrunk(null);
         scs.setRdl(null);
         scs.setSplitSquat("5:30, 5:30, 5:30");
+        scs.setFourWayArms(null);
+        sessionRepo.insert(scs);
+
+        scs.setSessionID("12");
+        scs.setMemberID("0004");
+        scs.setDeadlifts("4:65, 4:70, 4:75, 4:80");
+        scs.setDeadliftJumps(null);
+        scs.setBackSquat(null);
+        scs.setBackSquatJumps(null);
+        scs.setGobletSquat(null);
+        scs.setBenchPress(null);
+        scs.setMilitaryPress(null);
+        scs.setSupineRow("12:/, 12:/, 12:/");
+        scs.setChinUps(null);
+        scs.setTrunk(null);
+        scs.setRdl("10:30, 10:30, 10:30");
+        scs.setSplitSquat("5:30, 5:30, 5:40");
+        scs.setFourWayArms(null);
+        sessionRepo.insert(scs);
+
+        scs.setSessionID("13");
+        scs.setMemberID("0004");
+        scs.setDeadlifts(null);
+        scs.setDeadliftJumps(null);
+        scs.setBackSquat("8:45, 8:45, 8:45, 8:50, 8:50");
+        scs.setBackSquatJumps("5:25, 5:25, 5:25");
+        scs.setGobletSquat(null);
+        scs.setBenchPress("6:35, 6:30, 6:30, 6:30");
+        scs.setMilitaryPress(null);
+        scs.setSupineRow("12:/, 12:/, 12:/");
+        scs.setChinUps(null);
+        scs.setTrunk(null);
+        scs.setRdl(null);
+        scs.setSplitSquat("5:40, 5:40, 5:40");
+        scs.setFourWayArms(null);
+        sessionRepo.insert(scs);
+
+        scs.setSessionID("14");
+        scs.setMemberID("0004");
+        scs.setDeadlifts("4:70, 4:70, 4:70, 4:75");
+        scs.setDeadliftJumps(null);
+        scs.setBackSquat(null);
+        scs.setBackSquatJumps(null);
+        scs.setGobletSquat(null);
+        scs.setBenchPress(null);
+        scs.setMilitaryPress(null);
+        scs.setSupineRow("12:/, 12:/, 12:/, 12:/");
+        scs.setChinUps(null);
+        scs.setTrunk(null);
+        scs.setRdl("10:30, 10:30, 10:30");
+        scs.setSplitSquat("5:20, 5:30, 5:30");
+        scs.setFourWayArms(null);
+        sessionRepo.insert(scs);
+
+        scs.setSessionID("15");
+        scs.setMemberID("0004");
+        scs.setDeadlifts(null);
+        scs.setDeadliftJumps(null);
+        scs.setBackSquat("8:45, 8:47.5, 8:47.5, 8:50, 8:50");
+        scs.setBackSquatJumps("5:25, 5:25, 5:25");
+        scs.setGobletSquat(null);
+        scs.setBenchPress("6:25, 6:30, 6:32.5, 6:32.5");
+        scs.setMilitaryPress(null);
+        scs.setSupineRow("12:/, 12:/, 12:/");
+        scs.setChinUps(null);
+        scs.setTrunk(null);
+        scs.setRdl(null);
+        scs.setSplitSquat("5:40, 5:40, 5:40");
+        scs.setFourWayArms(null);
+        sessionRepo.insert(scs);
+
+        scs.setSessionID("17");
+        scs.setMemberID("0004");
+        scs.setDeadlifts("4:70, 4:75, 4:75, 4:72.5");
+        scs.setDeadliftJumps(null);
+        scs.setBackSquat(null);
+        scs.setBackSquatJumps(null);
+        scs.setGobletSquat(null);
+        scs.setBenchPress(null);
+        scs.setMilitaryPress(null);
+        scs.setSupineRow("12:/, 12:/, 12:/");
+        scs.setChinUps(null);
+        scs.setTrunk(null);
+        scs.setRdl("10:40, 10:40, 10:40");
+        scs.setSplitSquat("5:40, 5:40, 5:40");
+        scs.setFourWayArms(null);
+        sessionRepo.insert(scs);
+
+        scs.setSessionID("18");
+        scs.setMemberID("0004");
+        scs.setDeadlifts("5:70, 5:60, 5:65, 5:65, 5:65");
+        scs.setDeadliftJumps(null);
+        scs.setBackSquat(null);
+        scs.setBackSquatJumps("5:30, 5:30, 5:30");
+        scs.setGobletSquat(null);
+        scs.setBenchPress(null);
+        scs.setMilitaryPress(null);
+        scs.setSupineRow(null);
+        scs.setChinUps(null);
+        scs.setTrunk(null);
+        scs.setRdl("10:30, 10:30, 10:30, 10:30");
+        scs.setSplitSquat(null);
+        scs.setFourWayArms(null);
+        sessionRepo.insert(scs);
+
+        scs.setSessionID("19");
+        scs.setMemberID("0004");
+        scs.setDeadlifts("5:65, 5:70, 5:70, 5:70, 5:70, 5:72.5");
+        scs.setDeadliftJumps(null);
+        scs.setBackSquat(null);
+        scs.setBackSquatJumps("5:25, 5:25, 5:25");
+        scs.setGobletSquat(null);
+        scs.setBenchPress(null);
+        scs.setMilitaryPress(null);
+        scs.setSupineRow("10:/, 10:/, 10:/, 10:/");
+        scs.setChinUps(null);
+        scs.setTrunk(null);
+        scs.setRdl(null);
+        scs.setSplitSquat("10:30, 10:30, 10:30");
+        scs.setFourWayArms(null);
+        sessionRepo.insert(scs);
+
+        scs.setSessionID("21");
+        scs.setMemberID("0004");
+        scs.setDeadlifts("5:70, 5:70, 5:72.5, 5:75, 5:50");
+        scs.setDeadliftJumps(null);
+        scs.setBackSquat(null);
+        scs.setBackSquatJumps("5:30, 5:30, 5:30");
+        scs.setGobletSquat(null);
+        scs.setBenchPress(null);
+        scs.setMilitaryPress(null);
+        scs.setSupineRow("10:/, 10:/, 10:/, 10:/");
+        scs.setChinUps(null);
+        scs.setTrunk(null);
+        scs.setRdl(null);
+        scs.setSplitSquat("10:30, 10:30");
         scs.setFourWayArms(null);
         sessionRepo.insert(scs);
     }
