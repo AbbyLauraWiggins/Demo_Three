@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.R;
 
 import java.util.ArrayList;
@@ -22,10 +23,11 @@ import java.util.ArrayList;
 
 public class Selection extends Activity implements CompoundButton.OnCheckedChangeListener {
 
-    ArrayList<String> selected;
+    ArrayList<String> selected, memberIDs;
     //int looper;
-
+    String indicator;
     String[] itemsIn;
+    String[][] members;
     ListView lv;
     ArrayList<Choices> choicesArrayList;
     MyListAdapter choiceAdapter;
@@ -35,7 +37,7 @@ public class Selection extends Activity implements CompoundButton.OnCheckedChang
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pop_up_fragment);
 
-        String [] kpiHeaders = new String[17];
+        String[] kpiHeaders = new String[17];
         kpiHeaders[0] = "Successful Tackles ";
         kpiHeaders[1] = "Unsuccessful Tackles ";
         kpiHeaders[2] = "Successful Carries ";
@@ -54,7 +56,22 @@ public class Selection extends Activity implements CompoundButton.OnCheckedChang
         kpiHeaders[15] = "Successful Kicks ";
         kpiHeaders[16] = "Unsuccessful Kicks ";
 
-        String indicator = "";
+        String[] scHeaders = new String[13];
+        scHeaders[0] = "Deadlifts";
+        scHeaders[1] = "Deadlift Jumps";
+        scHeaders[2] = "BackSquats";
+        scHeaders[3] = "BackSquat Jumps";
+        scHeaders[4] = "GobletSquat";
+        scHeaders[5] = "Bench Press";
+        scHeaders[6] = "Military Press";
+        scHeaders[7] = "Supine Row";
+        scHeaders[8] = "Chin Ups";
+        scHeaders[9] = "Trunk";
+        scHeaders[10] = "RDL";
+        scHeaders[11] = "Split Squat";
+        scHeaders[12] = "Four Way Arms";
+
+        indicator = "";
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -63,12 +80,26 @@ public class Selection extends Activity implements CompoundButton.OnCheckedChang
 
         if(indicator.equals("KPI")){
             itemsIn = kpiHeaders;
+        }else if(indicator.equals("SC")){
+            itemsIn = scHeaders;
+        }else if(indicator.equals("PLAYERS")){
+            MemberRepo memberRepo = new MemberRepo();
+            members = memberRepo.getMembers();
+
+            itemsIn = new String[members[0].length];
+            for(int i = 0; i < members.length; i++){
+                if(members[1][i] != null){
+                    itemsIn[i] = members[1][i];
+                }
+
+            }
         }
 
         Button done = findViewById(R.id.doneButton);
         done.setBackgroundColor(Color.WHITE);
 
         selected = new ArrayList<String>();
+        memberIDs = new ArrayList<String>();
 
         lv = (ListView) findViewById(R.id.listview);
         displayChoiceList();
@@ -87,6 +118,12 @@ public class Selection extends Activity implements CompoundButton.OnCheckedChang
             choice.setSelected(isChecked);
 
             selected.add(choice.getName());
+
+            if(indicator.equals("PLAYERS")){
+                memberIDs.add(members[0][pos]);
+
+            }
+
 
             Toast.makeText(this, "Clicked on: " + choice.getName(), Toast.LENGTH_SHORT).show();
         }
@@ -110,7 +147,9 @@ public class Selection extends Activity implements CompoundButton.OnCheckedChang
 
     public void onDone(View view) {
         Intent goingBack = new Intent();
+        goingBack.putExtra("indicator", indicator);
         goingBack.putStringArrayListExtra("selected", selected);
+        goingBack.putStringArrayListExtra("memberIDs", memberIDs);
         setResult(RESULT_OK, goingBack);
         finish();
     }

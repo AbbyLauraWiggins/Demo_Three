@@ -374,8 +374,8 @@ public class KPIRepo {
 
                 ArrayList<String> row = new ArrayList<>();
                 row.add(kpiValue);
-                row.add(cursor.getString(1));
-                row.add(cursor.getString(2));
+                row.add(cursor.getString(1)); //fixture date
+                row.add(cursor.getString(2)); //fixture ID
                 data.add(row);
 
                 System.out.println(row.get(0) + " -> " + row.get(1));

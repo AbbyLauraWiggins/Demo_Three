@@ -9,6 +9,8 @@ import android.util.Log;
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
 
+import java.lang.reflect.Array;
+
 /**
  * Created by abbylaura on 02/03/2018.
  */
@@ -106,6 +108,8 @@ public class MemberRepo {
         return memberArray;
 
     }
+
+
 
     public void setWhereClause(String where) {
         this.whereClause = where;
