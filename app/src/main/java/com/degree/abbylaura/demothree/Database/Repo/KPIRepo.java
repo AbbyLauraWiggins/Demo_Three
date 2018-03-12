@@ -356,7 +356,7 @@ public class KPIRepo {
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
-        String selectQuery = "SELECT KPI." + kpi + ", TeamFixtures.TeamFixtureDate"
+        String selectQuery = "SELECT KPI." + kpi + ", TeamFixtures.TeamFixtureDate, KPI.FixtureID"
                 + " FROM KPI "
                 + " LEFT JOIN TeamFixtures"
                 + " ON KPI.FixtureID = TeamFixtures.FixtureId"
@@ -375,7 +375,7 @@ public class KPIRepo {
                 ArrayList<String> row = new ArrayList<>();
                 row.add(kpiValue);
                 row.add(cursor.getString(1));
-
+                row.add(cursor.getString(2));
                 data.add(row);
 
                 System.out.println(row.get(0) + " -> " + row.get(1));

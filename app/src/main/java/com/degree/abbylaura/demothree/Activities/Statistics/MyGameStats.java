@@ -40,7 +40,7 @@ public class MyGameStats extends Activity {
     Spinner kpiSpinner;
     String chosenKPIforGraph;
 
-    ArrayList<String> strPoints;
+    ArrayList<String> strPoints, fixID;
     ArrayList<Date> dates;
 
     PointsGraphSeries<DataPoint> graphSeries;
@@ -164,6 +164,7 @@ public class MyGameStats extends Activity {
 
         strPoints = new ArrayList<>();
         dates = new ArrayList<>();
+        fixID = new ArrayList<>();
 
         //Get all the data for the graph
 
@@ -176,6 +177,7 @@ public class MyGameStats extends Activity {
         for(ArrayList al : data){
             strPoints.add(String.valueOf(al.get(0)));
             dates.add(df.parse(String.valueOf(al.get(1))));
+            fixID.add(String.valueOf(al.get(2)));
 
             System.out.println("date: " + String.valueOf(al.get(1)) + " value: " + String.valueOf(al.get(0)));
         }
@@ -202,7 +204,7 @@ public class MyGameStats extends Activity {
         graph.addSeries(graphSeries);
 
         //Set date label formatter
-
+/*
         graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
         graph.getGridLabelRenderer().setNumHorizontalLabels(strPoints.size()); // only 4 because of the space
 
@@ -211,7 +213,7 @@ public class MyGameStats extends Activity {
         graph.getViewport().setXAxisBoundsManual(true);
 
         graph.getGridLabelRenderer().setHumanRounding(false);
-
+*/
 
         //Add graph to linear layout
         ll.removeAllViews();
@@ -223,7 +225,10 @@ public class MyGameStats extends Activity {
         DataPoint[] values = new DataPoint[size];
 
         for(int i =0; i<strPoints.size(); i++) {
-            Date x = dates.get(i);
+
+            //Date x = dates.get(i);
+            Double x = Double.parseDouble(fixID.get(i));//dates.get(i);
+
             Double y = Double.parseDouble(strPoints.get(i));
 
             System.out.println("generate data: " + String.valueOf(x) + " : " + String.valueOf(y));
