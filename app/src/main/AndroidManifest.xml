@@ -100,6 +100,10 @@
             android:name=".Activities.LogGameStats"
             android:theme="@style/Theme.AppCompat.Light" />
 
+        <activity
+            android:name=".Activities.SelectKPI"
+            android:theme="@style/Theme.AppCompat.Light" />
+
         <service android:name=".Activities.ServerService"/>
     </application>
 

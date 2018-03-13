@@ -1,6 +1,7 @@
 package com.degree.abbylaura.demothree.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 
+import com.degree.abbylaura.demothree.Activities.Statistics.Selection;
 import com.degree.abbylaura.demothree.R;
 
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ import java.util.ArrayList;
  */
 
 public class LogGameStats extends Activity {
+
+    String pressedButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,13 +83,13 @@ public class LogGameStats extends Activity {
         buttons.add(button22);
 
 
-
         for(Button b: buttons){
             android.view.ViewGroup.LayoutParams layoutParams = b.getLayoutParams();
             layoutParams.width = screenWidth/7;
             layoutParams.height = screenWidth/7;
             b.setLayoutParams(layoutParams);
             b.setVisibility(View.VISIBLE);
+            setListener(b);
         }
 
         GridLayout backLine = findViewById(R.id.backLineLayout);
@@ -96,6 +100,16 @@ public class LogGameStats extends Activity {
         subs.setPadding(0, paddingTop, 0,0);
 
 
+    }
 
+    private void setListener(Button b){
+        pressedButton = b.getText().toString();
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SelectKPI.class);
+                startActivity(intent);
+            }
+        });
     }
 }
