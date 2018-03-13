@@ -12,6 +12,36 @@
         android:textSize="30sp"
         android:textStyle="bold"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/stats_title">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go to My Stats and Logs"
+            android:id="@+id/myStatsAndLogs"
+            android:onClick="goMyStats"
+            android:visibility="invisible"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set Up Training Session"
+            android:onClick="goToSetTrainingSession"
+            android:id="@+id/trainingSessionButton"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log game statistics"
+            android:id="@+id/logGameStatsButton"
+            android:onClick="goLogGameStats"/>
+
+    </LinearLayout>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

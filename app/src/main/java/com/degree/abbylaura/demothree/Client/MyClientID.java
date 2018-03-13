@@ -40,8 +40,10 @@ public class MyClientID {
             myPermissions = 1;
         }else if(permission.equals("LEADER")){
             myPermissions = 2;
-        }else if(permission.equals("TOP")){
+        }else if(permission.equals("CAL")){
             myPermissions = 3;
+        }else if(permission.equals("PAL")) {
+            myPermissions = 4;
         }
     }
 

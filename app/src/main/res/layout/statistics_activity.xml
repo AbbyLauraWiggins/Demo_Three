@@ -43,7 +43,8 @@
                 android:textSize="30dp"
                 android:id="@+id/myStatsButton"
                 android:onClick="goMyStats"
-                />
+                android:visibility="invisible"/>
+
 
             <Button
                 android:layout_width="200dp"

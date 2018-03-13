@@ -17,7 +17,7 @@ import com.degree.abbylaura.demothree.R;
 
 public class StatisticsActivity extends Activity {
 
-    Button analyse;
+    Button analyse, mystats;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,9 +25,14 @@ public class StatisticsActivity extends Activity {
         setContentView(R.layout.statistics_activity);
 
         analyse = findViewById(R.id.analyseButton);
+        mystats = findViewById(R.id.myStatsButton);
 
-        if(MyClientID.myPermissions > 1){
+        if(MyClientID.myPermissions > 1){ //LEADER or above - so can view stat analysis
             analyse.setVisibility(View.VISIBLE);
+        }
+
+        if(MyClientID.myPermissions != 3){ //3 = CAL = no personal stats
+            mystats.setVisibility(View.VISIBLE);
         }
     }
 

@@ -23,14 +23,15 @@ import java.util.ArrayList;
 
 public class Selection extends Activity implements CompoundButton.OnCheckedChangeListener {
 
-    ArrayList<String> selected, memberIDs;
+    ArrayList<String> selected, memberIDs, kpiColumn;
     //int looper;
     String indicator;
-    String[] itemsIn;
+    String[] itemsIn, kpiCols;
     String[][] members;
     ListView lv;
     ArrayList<Choices> choicesArrayList;
     MyListAdapter choiceAdapter;
+    boolean players;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +57,25 @@ public class Selection extends Activity implements CompoundButton.OnCheckedChang
         kpiHeaders[15] = "Successful Kicks ";
         kpiHeaders[16] = "Unsuccessful Kicks ";
 
+        kpiCols = new String[18];
+        kpiCols[0] = "sTackles";
+        kpiCols[1] = "uTackles";
+        kpiCols[2] = "sCarries";
+        kpiCols[3] = "uCarries";
+        kpiCols[4] = "sPasses";
+        kpiCols[5] = "uPasses";
+        kpiCols[6] = "HandlingErrors";
+        kpiCols[7] = "Penalties";
+        kpiCols[8] = "YellowCards";
+        kpiCols[9] = "TriesScored";
+        kpiCols[10] = "TurnoversWon";
+        kpiCols[11] = "sThrowIns";
+        kpiCols[12] = "uThrowIns";
+        kpiCols[13] = "sLineOutTakes";
+        kpiCols[14] = "uLineOutTakes";
+        kpiCols[15] = "sKicks";
+        kpiCols[16] = "uKicks";
+
         String[] scHeaders = new String[13];
         scHeaders[0] = "Deadlifts";
         scHeaders[1] = "Deadlift Jumps";
@@ -72,17 +92,19 @@ public class Selection extends Activity implements CompoundButton.OnCheckedChang
         scHeaders[12] = "Four Way Arms";
 
         indicator = "";
+        players = false;
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             indicator = extras.getString("indicator");
+            players = extras.getBoolean("players");
         }
 
         if(indicator.equals("KPI")){
             itemsIn = kpiHeaders;
         }else if(indicator.equals("SC")){
             itemsIn = scHeaders;
-        }else if(indicator.equals("PLAYERS")){
+        }else if(players){
             MemberRepo memberRepo = new MemberRepo();
             members = memberRepo.getMembers();
 
@@ -100,6 +122,7 @@ public class Selection extends Activity implements CompoundButton.OnCheckedChang
 
         selected = new ArrayList<String>();
         memberIDs = new ArrayList<String>();
+        kpiColumn = new ArrayList<String>();
 
         lv = (ListView) findViewById(R.id.listview);
         displayChoiceList();
@@ -119,9 +142,11 @@ public class Selection extends Activity implements CompoundButton.OnCheckedChang
 
             selected.add(choice.getName());
 
-            if(indicator.equals("PLAYERS")){
+            if(players){
                 memberIDs.add(members[0][pos]);
 
+            }else if(indicator.equals("KPI")){
+                kpiColumn.add(kpiCols[pos]);
             }
 
 
@@ -146,10 +171,12 @@ public class Selection extends Activity implements CompoundButton.OnCheckedChang
 
 
     public void onDone(View view) {
+        players=false;
         Intent goingBack = new Intent();
         goingBack.putExtra("indicator", indicator);
         goingBack.putStringArrayListExtra("selected", selected);
         goingBack.putStringArrayListExtra("memberIDs", memberIDs);
+        goingBack.putStringArrayListExtra("KPI columns", kpiColumn);
         setResult(RESULT_OK, goingBack);
         finish();
     }

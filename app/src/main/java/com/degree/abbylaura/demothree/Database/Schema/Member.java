@@ -113,7 +113,14 @@ public class Member {
      *         + but can see all users rugby data
      *         + can decide and add KPIs and player feedback //TODO player feedback
      *         + can add to calendar without needing a request to admin
-     * TOP = both an Admins and leaders privileges
+     *         + can set SC and training sheets
+     *         + can log game stats
+     *
+     * CAL = Coach + Admin + Leader = all priviledges of admin and leader, but doesnt have personal logs/stats
+     *
+     * PAL = Player + admin + leader = all priviledges of admin and leader, AND has personal logs/stats
+     *
+     *
      */
     public void setPermissions(String permission){
         this.permissions = permission;

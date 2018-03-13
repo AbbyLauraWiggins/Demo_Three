@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.degree.abbylaura.demothree.Activities.Members.MembersActivity;
 import com.degree.abbylaura.demothree.Activities.Notices.NoticeActivity;
+import com.degree.abbylaura.demothree.Activities.Statistics.MyStats;
 import com.degree.abbylaura.demothree.Activities.Statistics.StatisticsActivity;
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.FixtureRepo;
@@ -145,8 +146,17 @@ public class HomeActivity extends Activity {
     }
 
     public void onGoToLog(View view) {
-        Intent goToLog = new Intent(this, LogActivity.class);
-        startActivity(goToLog);
+        //if users permissions = BASIC 0 or ADMIN 1, then go straight to MyStats
+        if(MyClientID.myPermissions < 2){
+            Intent goToLog = new Intent(this, MyStats.class);
+            startActivity(goToLog);
+        }
+        //else if permissions are LEADER and above, go to log screen for more options
+        else{
+            Intent goToLog = new Intent(this, LogActivity.class);
+            startActivity(goToLog);
+        }
+
     }
 
     public void onGoToCalendar(View view) {
