@@ -3,20 +3,25 @@ package com.degree.abbylaura.demothree.Activities.Notices;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.degree.abbylaura.demothree.Activities.NetworkService;
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.NoticeRepo;
 import com.degree.abbylaura.demothree.Database.Schema.Notice;
 import com.degree.abbylaura.demothree.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -51,7 +56,7 @@ public class NoticeActivity extends Activity {
          *
          *
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ServerService.TRANSACTION_DONE);
+        intentFilter.addAction(NetworkService.TRANSACTION_DONE);
 
         // Prepare the main thread to receive a broadcast and act on it
         registerReceiver(clientReceiver, intentFilter);
@@ -66,7 +71,7 @@ public class NoticeActivity extends Activity {
      */
     public void updateContent(String addition) {
 
-        //TODO add addition to Database Notice table
+        //add addition to Database Notice table
         NoticeRepo noticeRepo = new NoticeRepo();
 
         if(addition != null){
@@ -80,11 +85,29 @@ public class NoticeActivity extends Activity {
             noticeRepo.insert(notice);
 
             System.out.println("inserted " + addition);
+
+
+
+            //TODO send Notice object to server
+
+            // Create an intent to run the IntentService in the background
+            Intent intent = new Intent(this, NetworkService.class);
+
+            // Pass the request that the IntentService will service from
+            //intent.putExtra("NOTICES", (Serializable) notice);
+
+            System.out.println("updatecontent: going to start service");
+
+            // Start the intent service
+            this.startService(intent);
+
         }
 
 
-        //TODO for all entries in Notice table not on UI, add to UI using updateTextView
+        //TODO fill clientDB from serverDB
 
+
+        //for all entries in Notice table not on UI, add to UI using updateTextView
         ArrayList<ArrayList<String>> noticeArray = noticeRepo.getNotices();
 
         LinearLayout fragContainer = findViewById(R.id.fragmentContainer);
@@ -122,7 +145,7 @@ public class NoticeActivity extends Activity {
 
 
         // Create an intent to run the IntentService in the background
-        Intent intent = new Intent(this, ServerService.class);
+        Intent intent = new Intent(this, NetworkService.class);
 
         // Pass the request that the IntentService will service from
         intent.putExtra("serviceRequested", "NoticeActivityAddition");
@@ -136,9 +159,6 @@ public class NoticeActivity extends Activity {
         this.startService(intent);
         */
     }
-
-
-
 
 
 
@@ -200,14 +220,13 @@ public class NoticeActivity extends Activity {
      * Is alerted when the IntentService broadcasts TRANSACTION_DONE
      *
      * COMMENTED OUT UNTIL SERVER IS FIXED
-     *
+     */
     private BroadcastReceiver clientReceiver = new BroadcastReceiver() {
 
         // Called when the broadcast is received
-        @Override
         public void onReceive(Context context, Intent intent) {
 
-            Log.e("ServerService", "Service Received");
+            Log.e("NetworkService", "Service Received");
 
             String[][] noticesReceived=null;
             Object[] objectArray = (Object[]) getIntent().getExtras().getSerializable("serverResponse");
@@ -221,15 +240,12 @@ public class NoticeActivity extends Activity {
             }
 
 
-            for(int i = 0; i > noticesReceived.length; i++){
-                updateTextView(noticesReceived[i][2], noticesReceived[i][1], noticesReceived[i][3]);
-            }
 
 
         }
     };
 
-     */
+
 
 
 

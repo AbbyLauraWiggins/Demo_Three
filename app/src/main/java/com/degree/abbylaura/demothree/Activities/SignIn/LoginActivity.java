@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.Intent;
 
 import com.degree.abbylaura.demothree.Activities.HomeActivity;
+import com.degree.abbylaura.demothree.Activities.TestingNetworkActivity;
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.R;
@@ -114,9 +115,6 @@ public class LoginActivity extends Activity {
         super.onStop();
     }
 
-
-
-
     //Uses OUTSTATE to save state if android OS crashes
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -127,11 +125,6 @@ public class LoginActivity extends Activity {
 
         super.onSaveInstanceState(outState);
     }
-
-
-
-
-
 
     public void onSignInClick(View view) {
 
@@ -163,8 +156,8 @@ public class LoginActivity extends Activity {
 
 
     public void onSkipForTestingClick(View view) {
-        Intent goToHome  = new Intent(this, HomeActivity.class);
-        startActivity(goToHome);
+        Intent goToNetwork = new Intent(this, TestingNetworkActivity.class);
+        startActivity(goToNetwork);
     }
 
 
