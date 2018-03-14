@@ -3,14 +3,18 @@ package com.degree.abbylaura.demothree.Activities;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 /**
  * Created by abbylaura on 25/02/2018.
@@ -37,31 +41,45 @@ public class NetworkService extends IntentService {
         System.out.println("2: NetworkService onHandleIntent");
 
         String passedRequest = intent.getStringExtra("messageToSend");
-        System.out.println("3: passedRequest = " + passedRequest);
+        System.out.println("3: passedRequest = " + passedRequest.toString());
 
-        String response = serviceRequest(passedRequest);
-        System.out.println("7: returned " + passedRequest + " to onHandleIntent");
-
+        Object response = serviceRequest(passedRequest);
 
 
-        Log.e("ServerService", "Service Stopped");
+        
+        if(response instanceof String){
+            System.out.println("7: returned " + passedRequest.toString() + " to onHandleIntent");
 
-        // Broadcast an intent back to MainActivity when file is downloaded
-        Intent i = new Intent(TRANSACTION_DONE);
-        i.putExtra("serverResponse", response);
-        NetworkService.this.sendBroadcast(i);
+            Intent i = new Intent(TRANSACTION_DONE);
+            i.putExtra("serverResponseString", (String) response);
+            NetworkService.this.sendBroadcast(i);
+
+        }else{
+            System.out.println("7: returned " + passedRequest.toString() + " to onHandleIntent");
+
+            Intent i = new Intent(TRANSACTION_DONE);
+
+            i.putParcelableArrayListExtra("serverResponseList", (ArrayList<? extends Parcelable>) response);
+            NetworkService.this.sendBroadcast(i);
+        }
+
+
+
+
 
     }
 
-    protected String serviceRequest(String passedRequest) {
+    protected Object serviceRequest(String passedRequest) {
         NestedClient nClient = new NestedClient();
         return nClient.talkToServer(passedRequest);
     }
 
 
     public class NestedClient{
-        BufferedReader inFromServer = null;
-        PrintWriter outToServer = null;
+        //BufferedReader inFromServer = null;
+        //PrintWriter outToServer = null;
+        ObjectOutputStream outToServer;
+        ObjectInputStream inFromServer;
 
         Socket socket;
 
@@ -71,22 +89,30 @@ public class NetworkService extends IntentService {
 
         }
 
-        public String talkToServer(String passedRequest) {
-            String response = null;
+        public Object talkToServer(String passedRequest) {
+            Object response = null;
 
             try{
                 System.out.println("5: Try block of TalkToServer NestedClient");
 
                 socket = new Socket("10.0.2.2", 9002);
 
-                inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                //inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                //outToServer = new PrintWriter(socket.getOutputStream(), true);
+                outToServer = new ObjectOutputStream(socket.getOutputStream());
+                inFromServer = new ObjectInputStream(socket.getInputStream());
 
-                outToServer = new PrintWriter(socket.getOutputStream(), true);
 
-                outToServer.println(passedRequest);
+                outToServer.writeObject(passedRequest);
 
-                response = inFromServer.readLine();
-                System.out.println("6: Try block still, response = " + response);
+                Object inFromServerObj = (Object) inFromServer.readObject();
+                if(inFromServerObj instanceof String){
+                    response = (String) inFromServerObj;
+                }else{
+                    response = (ArrayList<ArrayList<String>>) inFromServerObj;
+                }
+
+                System.out.println("6: Try block still, response = " + response.toString());
 
                 socket.close();
 
@@ -94,41 +120,13 @@ public class NetworkService extends IntentService {
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
 
             return response;
         }
 
-        public String[][] updateNotices(String clientID, String notice, String date, String myDbSize){
-            String response = null;
-            String[][] updateNotices = null;
-
-            try{
-                socket = new Socket("10.0.2.2", 9002);
-
-                System.out.println("connected to server");
-
-                inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-                outToServer = new PrintWriter(socket.getOutputStream(), true);
-
-                outToServer.println("sending notice update");
-
-                String in  = inFromServer.readLine();
-
-                outToServer.println(in);
-
-                socket.close();
-
-
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return updateNotices;
-        }
     }
 }

@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.degree.abbylaura.demothree.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by abbylaura on 13/03/2018.
  */
@@ -52,7 +54,7 @@ public class TestingNetworkActivity extends Activity{
 
         // Pass the request that the IntentService will service from
         intent.putExtra("messageToSend", messageToSend);
-
+        intent.putExtra("typeSending", "notice");
         System.out.println("1: sending writeToServer = " + messageToSend);
         // Start the intent service
         this.startService(intent);
@@ -66,11 +68,20 @@ public class TestingNetworkActivity extends Activity{
         public void onReceive(Context context, Intent intent) {
             System.out.println("8: NetworkService returned to BroadcastReceiver");
 
-            String response = intent.getStringExtra("serverResponse");
+            ArrayList<? extends ArrayList<String>> responseList = intent.getParcelableArrayListExtra("serverResponseList");
+            String response = intent.getStringExtra("serverResponseString");
 
-            System.out.println("9: in BR onReceiver, with response = " + response);
+            if(response == null){
+                //System.out.println("9: in BR onReceiver, with response = " + response.toString());
 
-            updateTextView(response);
+                updateTextViewArray((ArrayList<ArrayList<String>>) responseList);
+
+            }else{
+                System.out.println("9: in BR onReceiver, with response = " + response);
+
+                updateTextView(response);
+
+            }
 
         }
     };
@@ -79,5 +90,17 @@ public class TestingNetworkActivity extends Activity{
         System.out.println("10: update text view with response");
 
         this.responseFromServer.append("\n" + response);
+    }
+
+    private void updateTextViewArray(ArrayList<ArrayList<String>> responseList){
+        System.out.println("10: update text view with responseList");
+
+        for(ArrayList<String> row : responseList){
+            for(String s: row){
+                this.responseFromServer.append(s + " | ");
+            }
+            this.responseFromServer.append("\n");
+        }
+
     }
 }
