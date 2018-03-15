@@ -78,11 +78,17 @@ public class TeamStats extends Activity{
 
 
     public void goToOverviewTS(View view) {
+        Intent intent = new Intent(this, TeamStatsOverview.class);
+        startActivity(intent);
     }
 
     public void goToGameTS(View view) {
+        Intent intent = new Intent(this, TeamStatsGame.class);
+        startActivity(intent);
     }
 
     public void goToLeaderboardTS(View view) {
+        Intent intent = new Intent(this, TeamStatsLeaderboard.class);
+        startActivity(intent);
     }
 }

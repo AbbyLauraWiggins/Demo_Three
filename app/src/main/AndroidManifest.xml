@@ -108,6 +108,10 @@
             android:name=".Activities.TestingNetworkActivity"
             android:theme="@style/Theme.AppCompat.Light" />
 
+        <activity
+            android:name=".Activities.Statistics.TeamStatsLeaderboard"
+            android:theme="@style/Theme.AppCompat.Light" />
+
 
         <service android:name=".Activities.NetworkService"/>
     </application>
