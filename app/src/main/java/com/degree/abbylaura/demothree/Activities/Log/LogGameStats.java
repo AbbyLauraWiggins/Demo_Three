@@ -200,11 +200,11 @@ public class LogGameStats extends Activity {
             addToDatabase(countHash, i);
         }
 
-        //TODO for each player, count the strings of each KPI, add to KPI table
+
+
     }
 
     private void addToDatabase(HashMap<String, Integer> countHash, int playerNumber){
-        //TODO from previous activity, each playerNumber will be mapped to a memberID
 
         String playerID = playerAssignment.get(playerNumber);
 

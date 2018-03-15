@@ -16,6 +16,14 @@
         android:text="date"
         android:id="@+id/nextFixtureDate"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create and start logging"
+        android:id="@+id/createAndLog"
+        android:visibility="invisible"
+        android:onClick="onCreateAndLogClick"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -41,5 +49,7 @@
                 android:onClick="onCreateClick"/>
         </LinearLayout>
     </ScrollView>
+
+
 
 </LinearLayout>

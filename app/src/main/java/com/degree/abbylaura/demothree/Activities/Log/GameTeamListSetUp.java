@@ -1,6 +1,8 @@
 package com.degree.abbylaura.demothree.Activities.Log;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -25,8 +27,9 @@ import java.util.HashMap;
 
 public class GameTeamListSetUp extends Activity {
 
-    Button upload, create;
+    Button upload, create, createAndLog;
     HashMap<Integer, String> playerAssignment;
+    TextView fixtureDate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +39,8 @@ public class GameTeamListSetUp extends Activity {
 
         upload = findViewById(R.id.uploadTeamSheet);
         create = findViewById(R.id.createTeamSheet);
+        createAndLog = findViewById(R.id.createAndLog);
+        fixtureDate = findViewById(R.id.nextFixtureDate);
 
         playerAssignment = new HashMap<>();
     }
@@ -67,9 +72,7 @@ public class GameTeamListSetUp extends Activity {
 
         ll.addView(tl);
 
-        Button create2 = new Button(this);
-        android.view.ViewGroup.LayoutParams layoutParams = create2.getLayoutParams();
-        create2.setText("Create");
+        createAndLog.setVisibility(View.VISIBLE);
 
     }
 
@@ -102,5 +105,15 @@ public class GameTeamListSetUp extends Activity {
 
             }
         });
+    }
+
+    public void onCreateAndLogClick(View view) {
+        Intent intent = new Intent(getApplicationContext(), LogGameStats.class);
+        intent.putExtra("PLAYERS", playerAssignment);
+        startActivity(intent);
+    }
+
+    public void getFixtureDate(){
+        
     }
 }
