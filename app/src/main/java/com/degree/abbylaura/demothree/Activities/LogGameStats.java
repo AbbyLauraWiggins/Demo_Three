@@ -1,5 +1,6 @@
 package com.degree.abbylaura.demothree.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -10,6 +11,8 @@ import android.widget.Button;
 import android.widget.GridLayout;
 
 import com.degree.abbylaura.demothree.Activities.Statistics.Selection;
+import com.degree.abbylaura.demothree.Database.Repo.KPIRepo;
+import com.degree.abbylaura.demothree.Database.Schema.KPI;
 import com.degree.abbylaura.demothree.R;
 
 import java.util.ArrayList;
@@ -24,12 +27,19 @@ public class LogGameStats extends Activity {
     int pressedButton;
     String[] playerKPIs;
     HashMap<String, String> hashKPI;
+    HashMap<String, String> playerAssignment;
+    String fixtureID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.log_game_stats);
+
+        Intent activityThatCalled = getIntent();
+        playerAssignment = (HashMap<String, String>) activityThatCalled.getSerializableExtra("PLAYERS");
+        fixtureID = activityThatCalled.getStringExtra("FIXTUREID");
+
 
         setUpButtons();
 
@@ -161,19 +171,134 @@ public class LogGameStats extends Activity {
         pressedButton = 0;
     }
 
+    @SuppressLint("NewApi")
     public void onDone(View view) {
         for(int i = 1; i < 23; i++){
             System.out.println(String.valueOf(i) + ": " + playerKPIs[i]);
 
             String strKPI = playerKPIs[i];
+            HashMap<String, Integer> countHash = new HashMap<>();
             if(!strKPI.equals("")){
                 String[] strArrKPI = strKPI.split(",");
+
+                //for all string KPIs recorded
                 for(int j = 0; i < strArrKPI.length; j++){
-                    String KPIcol = hashKPI.get(strArrKPI[j]);
+
+                    //get the table column name of that KPI
+                    String kPIcol = hashKPI.get(strArrKPI[j]);
+
+                    //add to the counter of times that KPI has been seen for this user
+                    if(countHash.containsKey(kPIcol)){
+                        int count = countHash.get(kPIcol);
+                        countHash.replace(kPIcol, count + 1);
+                    }else{
+                        countHash.put(kPIcol, 1);
+                    }
                 }
             }
+
+            addToDatabase(countHash, i);
         }
 
         //TODO for each player, count the strings of each KPI, add to KPI table
     }
+
+    private void addToDatabase(HashMap<String, Integer> countHash, int playerNumber){
+        //TODO from previous activity, each playerNumber will be mapped to a memberID
+
+        String playerID = playerAssignment.get(playerNumber);
+
+        KPI kpi = new KPI();
+        kpi.setMemberID(playerID);
+        kpi.setFixtureID(fixtureID);
+
+        if(countHash.containsKey("sTackles")){
+            kpi.setsTackles(String.valueOf(countHash.get("sTackles")));
+        }else{
+            kpi.setsTackles("0");
+        }
+        if(countHash.containsKey("uTackles")){
+            kpi.setuTackles(String.valueOf(countHash.get("uTackles")));
+        }else{
+            kpi.setuTackles("0");
+        }
+        if(countHash.containsKey("sCarries")){
+            kpi.setsCarries(String.valueOf(countHash.get("sCarries")));
+        }else{
+            kpi.setsCarries("0");
+        }
+        if(countHash.containsKey("uCarries")){
+            kpi.setuCarries(String.valueOf(countHash.get("uCarries")));
+        }else{
+            kpi.setuCarries("0");
+        }
+        if(countHash.containsKey("sPasses")){
+            kpi.setsPasses(String.valueOf(countHash.get("sPasses")));
+        }else{
+            kpi.setsPasses("0");
+        }
+        if(countHash.containsKey("uPasses")){
+            kpi.setuPasses(String.valueOf(countHash.get("uPasses")));
+        }else{
+            kpi.setuPasses("0");
+        }
+        if(countHash.containsKey("HandlingErrors")){
+            kpi.setHandlingErrors(String.valueOf(countHash.get("HandlingErrors")));
+        }else{
+            kpi.setHandlingErrors("0");
+        }
+        if(countHash.containsKey("Penalties")){
+            kpi.setPenalties(String.valueOf(countHash.get("Penalties")));
+        }else{
+            kpi.setPenalties("0");
+        }
+        if(countHash.containsKey("YellowCards")){
+            kpi.setYellowCards(String.valueOf(countHash.get("YellowCards")));
+        }else{
+            kpi.setYellowCards("0");
+        }
+        if(countHash.containsKey("TriesScored")){
+            kpi.setTriesScored(String.valueOf(countHash.get("TriesScored")));
+        }else{
+            kpi.setTriesScored("0");
+        }
+        if(countHash.containsKey("TurnoversWon")){
+            kpi.setTurnoversWon(String.valueOf(countHash.get("TurnoversWon")));
+        }else{
+            kpi.setTurnoversWon("0");
+        }
+        if(countHash.containsKey("sThrowIns")){
+            kpi.setsThrowIns(String.valueOf(countHash.get("sThrowIns")));
+        }else{
+            kpi.setsThrowIns("0");
+        }
+        if(countHash.containsKey("uThrowIns")){
+            kpi.setuThrowIns(String.valueOf(countHash.get("uThrowIns")));
+        }else{
+            kpi.setsTackles("0");
+        }
+        if(countHash.containsKey("sLineOutTakes")){
+            kpi.setsLineOutTakes(String.valueOf(countHash.get("sLineOutTakes")));
+        }else{
+            kpi.setsLineOutTakes("0");
+        }
+        if(countHash.containsKey("uLineOutTakes")){
+            kpi.setuLineOutTakes(String.valueOf(countHash.get("uLineOutTakes")));
+        }else{
+            kpi.setuLineOutTakes("0");
+        }
+        if(countHash.containsKey("sKicks")){
+            kpi.setsKicks(String.valueOf(countHash.get("sKicks")));
+        }else{
+            kpi.setsKicks("0");
+        }
+        if(countHash.containsKey("uKicks")){
+            kpi.setuKicks(String.valueOf(countHash.get("uKicks")));
+        }else{
+            kpi.setuKicks("0");
+        }
+        KPIRepo kpiRepo = new KPIRepo();
+        kpiRepo.insert(kpi);
+    }
+
 }
