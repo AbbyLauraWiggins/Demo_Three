@@ -23,7 +23,6 @@ public class TeamStatsTabListener implements ActionBar.TabListener {
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
         // Replace the current fragment with the fragmentToChangeTo
         System.out.println("onTabSelected");
-        ft.replace(R.id.teamStatsTabContainer, fragment);
 
     }
 

@@ -5,9 +5,13 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -24,43 +28,44 @@ import java.util.ArrayList;
 
 public class TeamStats extends Activity{
 
-    ActionBar.Tab overviewTab, gameTab, leaderboardTab;
-
-    Fragment overviewFragment = new TeamStatsTabFragmentOverview();
-    Fragment gameFragment = new TeamStatsTabFragmentGame();
-    Fragment leaderboardFragment = new TeamStatsTabFragmentLeaderboard();
+    Button overview, game, leaderboard;
+    ButtonBarLayout buttonBarLayout;
 
 
-    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.team_stats_activity);
 
-        ActionBar actionBar = getActionBar();
+        overview = findViewById(R.id.teamStatOverviewButton);
+        game = findViewById(R.id.teamStatGameButton);
+        leaderboard = findViewById(R.id.teamStatLeaderboardButton);
+        buttonBarLayout = findViewById(R.id.buttonBarLayout);
 
-        // Set the current navigation mode to tabs
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        setLayout();
 
+    }
 
-        // Add text to tabs
-        overviewTab = actionBar.newTab().setText("Overview");
-        gameTab = actionBar.newTab().setText("Game");
-        leaderboardTab = actionBar.newTab().setText("Leaderboard");
+    private void setLayout(){
+        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 
-        // Set tab listeners to alert when an action occurs
-        overviewTab.setTabListener(new TeamStatsTabListener(overviewFragment));
-        gameTab.setTabListener(new TeamStatsTabListener(gameFragment));
-        leaderboardTab.setTabListener(new TeamStatsTabListener(leaderboardFragment));
+        android.view.ViewGroup.LayoutParams layoutParams1 = overview.getLayoutParams();
+        layoutParams1.width = screenWidth/3;
+        overview.setLayoutParams(layoutParams1);
 
+        android.view.ViewGroup.LayoutParams layoutParams2 = game.getLayoutParams();
+        layoutParams2.width = screenWidth/3;
+        overview.setLayoutParams(layoutParams2);
 
+        android.view.ViewGroup.LayoutParams layoutParams3 = leaderboard.getLayoutParams();
+        layoutParams3.width = screenWidth/3;
+        overview.setLayoutParams(layoutParams3);
 
-        // Adds tabs to the actionbar
-        actionBar.addTab(overviewTab);
-        actionBar.addTab(gameTab);
-        actionBar.addTab(leaderboardTab);
-
+        overview.setBackgroundColor(Color.LTGRAY);
+        game.setBackgroundColor(Color.LTGRAY);
+        leaderboard.setBackgroundColor(Color.LTGRAY);
+        buttonBarLayout.setBackgroundColor(Color.LTGRAY);
 
     }
 
@@ -72,6 +77,12 @@ public class TeamStats extends Activity{
     }
 
 
+    public void goToOverviewTS(View view) {
+    }
 
+    public void goToGameTS(View view) {
+    }
 
+    public void goToLeaderboardTS(View view) {
+    }
 }

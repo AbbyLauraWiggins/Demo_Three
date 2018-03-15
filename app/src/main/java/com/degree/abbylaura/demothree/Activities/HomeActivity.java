@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
@@ -47,6 +48,7 @@ public class HomeActivity extends Activity {
 
         nextGameDate = findViewById(R.id.next_game_home_tv);
         nextGameMonth = findViewById(R.id.next_game_month_home_tv);
+
 
         setButtons();
 

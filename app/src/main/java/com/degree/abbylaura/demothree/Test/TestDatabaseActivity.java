@@ -2026,7 +2026,7 @@ public class TestDatabaseActivity extends Activity {
         scs.setChinUps(null);
         scs.setTrunk(null);
         scs.setRdl(null);
-        scs.setSplitSquat("5:40, 5,40, 5,40");
+        scs.setSplitSquat("5:40, 5:40, 5:40");
         scs.setFourWayArms(null);
         sessionRepo.insert(scs);
 

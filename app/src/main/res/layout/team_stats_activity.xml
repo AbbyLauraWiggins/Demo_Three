@@ -10,15 +10,37 @@
         android:text="Team Statistics"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:id="@+id/teamStatsTitle"/>
+        android:id="@+id/teamStatsTitle"
+        />
 
-    <FrameLayout
+    <android.support.v7.widget.ButtonBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/teamStatsTabContainer"
-        android:layout_below="@+id/teamStatsTitle">
+        android:id="@+id/buttonBarLayout"
+        android:layout_below="@+id/teamStatsTitle"
+        android:background="@android:color/darker_gray">
 
-    </FrameLayout>
+        <Button
+            android:id="@+id/teamStatOverviewButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="goToOverviewTS"
+            android:text="Overview" />
+
+        <Button
+            android:id="@+id/teamStatGameButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="goToGameTS"
+            android:text="Game" />
+
+        <Button
+            android:id="@+id/teamStatLeaderboardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="goToLeaderboardTS"
+            android:text="Leaderboard" />
+    </android.support.v7.widget.ButtonBarLayout>
 
 
     <Button
