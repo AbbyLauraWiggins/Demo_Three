@@ -28,7 +28,7 @@ public class NoticeRepo {
 
     public static String createTable() {
         return "CREATE TABLE " + Notice.TABLE + "("
-                + Notice.KEY_NoticeId + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + Notice.KEY_NoticeId + " TEXT,"
                 + Notice.KEY_MemberId + " TEXT," //FOREIGN KEY FROM MEMBERID
                 + Notice.KEY_Contents + " TEXT,"
                 + Notice.KEY_Date + " TEXT)";
@@ -40,7 +40,7 @@ public class NoticeRepo {
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
-        //values.put(Notice.KEY_NoticeId, notice.getNoticeId());
+        values.put(Notice.KEY_NoticeId, notice.getNoticeId());
         values.put(Notice.KEY_MemberId, notice.getMemberId());
         values.put(Notice.KEY_Contents, notice.getContents());
         values.put(Notice.KEY_Date, notice.getDate());
@@ -77,7 +77,8 @@ public class NoticeRepo {
 
         String selectQuery = " SELECT Member." + Member.KEY_Name + ", " +
                 Notice.TABLE + "." + Notice.KEY_Contents + ", " +
-                Notice.TABLE + "." + Notice.KEY_Date + " " +
+                Notice.TABLE + "." + Notice.KEY_Date + ", " +
+                Notice.TABLE + "." + Notice.KEY_NoticeId + " " +
                 "FROM " + Notice.TABLE + " " +
                 "INNER JOIN " + Member.TABLE + " ON " +
                 Notice.TABLE + "." + Notice.KEY_MemberId + "=Member." + Member.KEY_MemberId;
@@ -92,6 +93,7 @@ public class NoticeRepo {
                 list.add(cursor.getString(cursor.getColumnIndex(Member.KEY_Name)));
                 list.add(cursor.getString(cursor.getColumnIndex(Notice.KEY_Contents)));
                 list.add(cursor.getString(cursor.getColumnIndex(Notice.KEY_Date)));
+                list.add(cursor.getString(cursor.getColumnIndex(Notice.KEY_NoticeId)));
 
                 result.add(list);
 

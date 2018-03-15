@@ -54,7 +54,7 @@ public class TestingNetworkActivity extends Activity{
 
         // Pass the request that the IntentService will service from
         intent.putExtra("messageToSend", messageToSend);
-        intent.putExtra("typeSending", "notice");
+        intent.putExtra("typeSending", "NOTICE");
         System.out.println("1: sending writeToServer = " + messageToSend);
         // Start the intent service
         this.startService(intent);

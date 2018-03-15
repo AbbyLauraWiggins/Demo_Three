@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,9 @@ public class NoticeActivity extends Activity {
 
     TextView usersMessage;
     RelativeLayout relBottom;
+    ArrayList<ArrayList<String>> noticeBuffer;
+    int noticeIdNum;
+    String winningNoticeId;
 
 
     @Override
@@ -44,27 +48,24 @@ public class NoticeActivity extends Activity {
         setContentView(R.layout.notice_activity);
         usersMessage = findViewById(R.id.input_text_view);
 
+        this.noticeIdNum = 0;
+        this.winningNoticeId = "";
+
         updateContent(null);
 
         relBottom = findViewById(R.id.rel_bottom_layout);
         relBottom.setBackgroundColor(Color.WHITE);
 
+        noticeBuffer = new ArrayList<>();
+
         /* Allows use to track when an intent with the id TRANSACTION_DONE is executed
          * We can call for an intent to execute something and then tell use when it finishes
-         *
-         * COMMENTED OUT UNTIL SERVER IS FIXED
-         *
-         *
+         */
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(NetworkService.TRANSACTION_DONE);
-
-        // Prepare the main thread to receive a broadcast and act on it
         registerReceiver(clientReceiver, intentFilter);
 
-        */
-
     }
-
 
     /**
      * starts the Intent to run intent service in background
@@ -76,38 +77,65 @@ public class NoticeActivity extends Activity {
 
         if(addition != null){
             Date date = Calendar.getInstance().getTime();
-            Notice notice = new Notice();
 
+            /*
+            Notice notice = new Notice();
             notice.setMemberId(MyClientID.myID);
             notice.setContents(addition);
             notice.setDate(date.toString());
-
             noticeRepo.insert(notice);
 
-            System.out.println("inserted " + addition);
+            We must send all new notices to server first, to ensure that noticeIDs are kept synchronised
+            We will then update the UI from server
+              > Fill clientDB from serverDB so that you can still view old notices when connection is lost
+              > But cannot add new notices or update notices without server connection
+            */
 
 
+            ArrayList<String> noticeAL = new ArrayList<>();
+            noticeAL.add(MyClientID.myID);
+            noticeAL.add(addition);
+            noticeAL.add(date.toString());
+            noticeBuffer.add(noticeAL);
 
-            //TODO send Notice object to server
-
-            // Create an intent to run the IntentService in the background
-            Intent intent = new Intent(this, NetworkService.class);
-
-            // Pass the request that the IntentService will service from
-            //intent.putExtra("NOTICES", (Serializable) notice);
-
-            System.out.println("updatecontent: going to start service");
-
-            // Start the intent service
-            this.startService(intent);
-
+            sendNewToServer();
         }
 
+    }
 
-        //TODO fill clientDB from serverDB
+    private void sendNewToServer(){
+        Intent intent = new Intent(this, NetworkService.class);
+        intent.putExtra("messageToSend", noticeBuffer); //send notices to buffer
+        intent.putExtra("typeSending", "NOTICE");
+        this.startService(intent);
+    }
 
+    public void updateDB(ArrayList<ArrayList<String>> allNotices){
+        System.out.println(">>>>>>>>>>>>>>>> updateDB " + allNotices);
+        if(allNotices != null){
+            System.out.print("Not all notices are null");
 
+            for(ArrayList<String> row: allNotices) {
+                //if ID of serverDBnotice is a higher increment than highest clientDBnotice, add to clientDB
+                System.out.println("updateDB: " + row);
+                if (Integer.parseInt(row.get(3)) > noticeIdNum) {
+                    Notice notice = new Notice();
+                    notice.setMemberId(row.get(0));
+                    notice.setContents(row.get(1));
+                    notice.setDate(row.get(2));
+                    notice.setNoticeId(row.get(3)); //this is AUTOINCREMENTED in server, but not in client
+
+                    NoticeRepo noticeRepo = new NoticeRepo();
+                    noticeRepo.insert(notice);
+                }
+            }
+
+        }
+    }
+
+    public void updateUI(){
         //for all entries in Notice table not on UI, add to UI using updateTextView
+        NoticeRepo noticeRepo = new NoticeRepo();
         ArrayList<ArrayList<String>> noticeArray = noticeRepo.getNotices();
 
         LinearLayout fragContainer = findViewById(R.id.fragmentContainer);
@@ -118,6 +146,7 @@ public class NoticeActivity extends Activity {
         int colour = 0;
 
         Collections.reverse(noticeArray);//because newer notices need to be added last
+        String winningID;
 
         for(int i = 0; i < noticeArray.size(); i++){
 
@@ -127,6 +156,10 @@ public class NoticeActivity extends Activity {
             String memberName = row.get(0);
             String noticeContent = row.get(1);
             String noticeDate = row.get(2);
+            if(Integer.parseInt(row.get(3)) > noticeIdNum){
+                noticeIdNum = Integer.parseInt(row.get(3));
+                winningID = row.get(3);
+            }
 
             System.out.println(memberName + " o " + noticeContent + " o " + noticeDate);
 
@@ -136,32 +169,9 @@ public class NoticeActivity extends Activity {
         }
 
 
-
-        /* COMMUNICATION WITH SERVER
-
-         * COMMENTED OUT UNTIL SERVER FIXTED
-
-
-
-
-        // Create an intent to run the IntentService in the background
-        Intent intent = new Intent(this, NetworkService.class);
-
-        // Pass the request that the IntentService will service from
-        intent.putExtra("serviceRequested", "NoticeActivityAddition");
-        intent.putExtra("content", addition);
-        intent.putExtra("clientID", "1"); //*****CLIENT ID = 1 FOR TESTING
-        intent.putExtra("date", String.valueOf(date));
-
-        System.out.println("updatecontent: going to start service");
-
-        // Start the intent service
-        this.startService(intent);
-        */
     }
 
-
-
+    @SuppressLint("ResourceType")
     protected void updateTextView(LinearLayout fragContainer, String notice, String memberName, String date, int i){
         System.out.print("in update text view");
         LinearLayout layout = new LinearLayout(this);
@@ -200,19 +210,15 @@ public class NoticeActivity extends Activity {
     }
 
 
-    protected void onUpdateButton(View view) {
-        //boundService.setMessageToServer("request update to notices");
-        //content = boundService.getMessageFromServer();
-        //usersMessage.setText(content);
-        updateContent(null);
-    }
-
-
     public void onBackButton(View view) {
         //go back to the activity that called it in the first place
         Intent goingBack = new Intent();
         setResult(RESULT_OK, goingBack);
         finish();
+    }
+
+    public void emptyNoticeBuffer(){
+        this.noticeBuffer = new ArrayList<>();
     }
 
 
@@ -226,21 +232,37 @@ public class NoticeActivity extends Activity {
         // Called when the broadcast is received
         public void onReceive(Context context, Intent intent) {
 
+
+            /**
+             *
+             *
+             * TODO maybe try next:
+             *    having return from server being hashmap of <String, Object> so we can update UI with obj each time
+             *
+             *
+             *
+             *
+             */
+
             Log.e("NetworkService", "Service Received");
 
-            String[][] noticesReceived=null;
-            Object[] objectArray = (Object[]) getIntent().getExtras().getSerializable("serverResponse");
-            if(objectArray!=null){
-                noticesReceived = new String[objectArray.length][];
+            ArrayList<? extends ArrayList<String>> responseList =
+                    intent.getParcelableArrayListExtra("serverResponseList");
 
-                for(int i=0;i<objectArray.length;i++){
-                    noticesReceived[i]=(String[]) objectArray[i];
+            String response = intent.getStringExtra("serverResponseString");
+
+            if(response != null){
+
+                if(response.equals("Notices Added")){
+                    //empty the notice buffer
+                    emptyNoticeBuffer();
                 }
-
+                //otherwise do not empty notice buffer, as we want to keep those contents in there
+                //for next attempt to send to server
             }
 
-
-
+            updateDB((ArrayList<ArrayList<String>>) responseList);
+            updateUI();
 
         }
     };

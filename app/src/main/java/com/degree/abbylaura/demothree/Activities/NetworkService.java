@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by abbylaura on 25/02/2018.
@@ -40,13 +41,14 @@ public class NetworkService extends IntentService {
         Log.e("NetworkService", "Service Started");
         System.out.println("2: NetworkService onHandleIntent");
 
-        String passedRequest = intent.getStringExtra("messageToSend");
+        Object passedRequest = intent.getStringArrayListExtra("messageToSend");
+        String typeSending = intent.getStringExtra("typeSending");
+
         System.out.println("3: passedRequest = " + passedRequest.toString());
 
-        Object response = serviceRequest(passedRequest);
+        Object response = serviceRequest(passedRequest, typeSending);
 
 
-        
         if(response instanceof String){
             System.out.println("7: returned " + passedRequest.toString() + " to onHandleIntent");
 
@@ -69,15 +71,13 @@ public class NetworkService extends IntentService {
 
     }
 
-    protected Object serviceRequest(String passedRequest) {
+    protected Object serviceRequest(Object passedRequest, String typeSending) {
         NestedClient nClient = new NestedClient();
-        return nClient.talkToServer(passedRequest);
+        return nClient.talkToServer(passedRequest, typeSending);
     }
 
 
     public class NestedClient{
-        //BufferedReader inFromServer = null;
-        //PrintWriter outToServer = null;
         ObjectOutputStream outToServer;
         ObjectInputStream inFromServer;
 
@@ -89,7 +89,7 @@ public class NetworkService extends IntentService {
 
         }
 
-        public Object talkToServer(String passedRequest) {
+        public Object talkToServer(Object passedRequest, String typeSending) {
             Object response = null;
 
             try{
@@ -97,13 +97,14 @@ public class NetworkService extends IntentService {
 
                 socket = new Socket("10.0.2.2", 9002);
 
-                //inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                //outToServer = new PrintWriter(socket.getOutputStream(), true);
                 outToServer = new ObjectOutputStream(socket.getOutputStream());
                 inFromServer = new ObjectInputStream(socket.getInputStream());
 
 
-                outToServer.writeObject(passedRequest);
+                HashMap<String, Object> sendingMap = new HashMap<>();
+                sendingMap.put("TYPE", (String) typeSending);
+                sendingMap.put("CONTENT", passedRequest);
+                outToServer.writeObject(sendingMap);
 
                 Object inFromServerObj = (Object) inFromServer.readObject();
                 if(inFromServerObj instanceof String){
