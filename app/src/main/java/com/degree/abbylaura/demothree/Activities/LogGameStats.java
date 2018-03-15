@@ -13,6 +13,7 @@ import com.degree.abbylaura.demothree.Activities.Statistics.Selection;
 import com.degree.abbylaura.demothree.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by abbylaura on 13/03/2018.
@@ -20,7 +21,9 @@ import java.util.ArrayList;
 
 public class LogGameStats extends Activity {
 
-    String pressedButton;
+    int pressedButton;
+    String[] playerKPIs;
+    HashMap<String, String> hashKPI;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,6 +32,30 @@ public class LogGameStats extends Activity {
         setContentView(R.layout.log_game_stats);
 
         setUpButtons();
+
+        playerKPIs = new String[23];//index of id = button number = player number
+        for(int i = 0; i < 23; i++){
+            playerKPIs[i] = "";
+        }
+
+        hashKPI = new HashMap<>();
+        hashKPI.put("Tackle", "sTackles");
+        hashKPI.put("Carry", "sCarries");
+        hashKPI.put("Successful Pass", "sPasses");
+        hashKPI.put("Try Scored", "TriesScored");
+        hashKPI.put( "Successful Throw In", "sThrowIns");
+        hashKPI.put("Successful Line Out Take", "sLineOutTakes");
+        hashKPI.put("Successful Kick", "sKicks");
+        hashKPI.put("Missed Tackle", "uTackles");
+        hashKPI.put("Unsuccessful Carry", "uCarries");
+        hashKPI.put("Unsuccesful Pass", "uPasses");
+        hashKPI.put("Turnover Won", "TurnoversWon");
+        hashKPI.put("Handling Error", "HandlingErrors");
+        hashKPI.put("Penalty", "Penalties");
+        hashKPI.put("Yellow Card", "YellowCards");
+        hashKPI.put("Unsuccessful Throw In", "uThrowIns");
+        hashKPI.put("Unsuccessful Line Out Take", "uLineOutTakes");
+        hashKPI.put("Unsuccessful Kick", "uKicks");
     }
 
     private void setUpButtons(){
@@ -92,8 +119,10 @@ public class LogGameStats extends Activity {
             setListener(b);
         }
 
+
+
         GridLayout backLine = findViewById(R.id.backLineLayout);
-        int paddingTop = screenHeight/12;
+        int paddingTop = screenHeight/16;
         backLine.setPadding(0, paddingTop, 0,0);
 
         GridLayout subs = findViewById(R.id.firstSubsLayout);
@@ -102,14 +131,49 @@ public class LogGameStats extends Activity {
 
     }
 
-    private void setListener(Button b){
-        pressedButton = b.getText().toString();
+
+    private void setListener(final Button b){
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SelectKPI.class);
-                startActivity(intent);
+                pressedButton = Integer.parseInt(b.getText().toString());
+                startActivityForResult(intent, 1);
             }
         });
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        System.out.println(">>>>>>>>>>>>>>>on intent returned");
+
+        String kpi = data.getStringExtra("KPI");
+
+        String contains = playerKPIs[pressedButton] + kpi + ",";
+
+        System.out.println(String.valueOf(pressedButton) + " " + contains);
+
+        playerKPIs[pressedButton] = contains;
+        pressedButton = 0;
+    }
+
+    public void onDone(View view) {
+        for(int i = 1; i < 23; i++){
+            System.out.println(String.valueOf(i) + ": " + playerKPIs[i]);
+
+            String strKPI = playerKPIs[i];
+            if(!strKPI.equals("")){
+                String[] strArrKPI = strKPI.split(",");
+                for(int j = 0; i < strArrKPI.length; j++){
+                    String KPIcol = hashKPI.get(strArrKPI[j]);
+                }
+            }
+        }
+
+        //TODO for each player, count the strings of each KPI, add to KPI table
     }
 }

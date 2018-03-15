@@ -101,7 +101,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="YellowCard"
+            android:text="Yellow Card"
             android:id="@+id/buttonsLineOutTakes"/>
         <Button
             android:layout_width="match_parent"

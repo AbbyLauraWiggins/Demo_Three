@@ -1,6 +1,7 @@
 package com.degree.abbylaura.demothree.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,9 +20,12 @@ import java.util.ArrayList;
 
 public class SelectKPI extends Activity {
 
+    String pressedButton;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        pressedButton = "";
 
         setContentView(R.layout.select_kpi_activity);
 
@@ -72,18 +76,37 @@ public class SelectKPI extends Activity {
 
         for(Button b: buttons){
             android.view.ViewGroup.LayoutParams layoutParams = b.getLayoutParams();
-            layoutParams.width = screenWidth/2;
-            layoutParams.height = screenHeight/10;
+            layoutParams.width = (int) (screenWidth/2.3);
+            layoutParams.height = screenHeight/12;
             b.setLayoutParams(layoutParams);
             b.setVisibility(View.VISIBLE);
-            //setListener(b);
+            setListener(b);
         }
 
         RelativeLayout textViewContainer = findViewById(R.id.textviewContainer);
         android.view.ViewGroup.LayoutParams layoutParams = textViewContainer.getLayoutParams();
         layoutParams.width = screenWidth/2;
-        layoutParams.height = screenHeight/10;
+        layoutParams.height = screenHeight/12;
         textViewContainer.setLayoutParams(layoutParams);
 
+    }
+
+    private void setListener(final Button b){
+        System.out.println("Set listener for button " + b.getText().toString());
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pressedButton = b.getText().toString();
+                System.out.println("onClick, pressed button = " + pressedButton);
+                sendIntent();
+            }
+        });
+    }
+
+    public void sendIntent(){
+        Intent goBack = new Intent();
+        goBack.putExtra("KPI", pressedButton);
+        setResult(RESULT_OK, goBack);
+        finish();
     }
 }
