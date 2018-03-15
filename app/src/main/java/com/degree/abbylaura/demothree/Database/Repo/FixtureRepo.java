@@ -9,6 +9,8 @@ import android.util.Log;
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.Fixture;
 
+import java.util.ArrayList;
+
 /**
  * Created by abbylaura on 02/03/2018.
  */
@@ -30,7 +32,10 @@ public class FixtureRepo {
                 + Fixture.KEY_FixturePrimary + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + Fixture.KEY_TeamId + " TEXT,"  //MAY NEED TO DECLARE P/F KEYS HERE?
                 + Fixture.KEY_FixtureId + " TEXT,"
-                + Fixture.KEY_FixturePoints + " TEXT)";
+                + Fixture.KEY_FixturePoints + " TEXT,"
+                + Fixture.KEY_Forward + " TEXT,"
+                + Fixture.KEY_Back + " TEXT,"
+                + Fixture.KEY_Player + " TEXT)";
     }
 
 
@@ -41,6 +46,9 @@ public class FixtureRepo {
         values.put(Fixture.KEY_TeamId, fixture.getTeamId());
         values.put(Fixture.KEY_FixtureId, fixture.getFixtureId());
         values.put(Fixture.KEY_FixturePoints, fixture.getFixturePoints());
+        values.put(Fixture.KEY_Forward, fixture.getForward());
+        values.put(Fixture.KEY_Back, fixture.getBack());
+        values.put(Fixture.KEY_Player, fixture.getPlayer());
 
         //TODO auto insert into fixture repo when teamfixtures updated
 
@@ -57,7 +65,7 @@ public class FixtureRepo {
         DatabaseManager.getInstance().closeDatabase();
     }
 
-    public String[][] getTableData() {
+    public String[][] getTableData() { //RETURN DATA NOT INCLUDING PLAYERS OF THE MATCH
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         int count = (int) DatabaseUtils.queryNumEntries(db, Fixture.TABLE);
@@ -88,6 +96,36 @@ public class FixtureRepo {
 
     public void setWhereClause(String where) {
         this.whereClause = where;
+    }
+
+    public ArrayList<String> getFixtureData(String fixtureID, String teamID){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        ArrayList<String> returnData = new ArrayList<>();
+
+        String selectQuery = " SELECT * FROM " + Fixture.TABLE + " WHERE FixtureId = '" + fixtureID + "'";
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        String theirScore = "";
+
+        if (cursor.moveToFirst()) {
+            do {
+                //if this is my teams row
+                if(cursor.getString(cursor.getColumnIndex(Fixture.KEY_TeamId)).equals(teamID)){
+                    returnData.add(cursor.getString(cursor.getColumnIndex(Fixture.KEY_Forward)));
+                    returnData.add(cursor.getString(cursor.getColumnIndex(Fixture.KEY_Back)));
+                    returnData.add(cursor.getString(cursor.getColumnIndex(Fixture.KEY_Player)));
+                    returnData.add(cursor.getString(cursor.getColumnIndex(Fixture.KEY_FixturePoints)));
+                }else{
+                    theirScore = cursor.getString(cursor.getColumnIndex(Fixture.KEY_FixturePoints));
+                }
+            } while (cursor.moveToNext());
+        }
+
+        returnData.add(theirScore);
+
+        return returnData;
     }
 
 }

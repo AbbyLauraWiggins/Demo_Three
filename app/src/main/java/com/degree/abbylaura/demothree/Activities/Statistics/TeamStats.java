@@ -32,6 +32,7 @@ public class TeamStats extends Activity{
     ButtonBarLayout buttonBarLayout;
 
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,16 +80,19 @@ public class TeamStats extends Activity{
 
     public void goToOverviewTS(View view) {
         Intent intent = new Intent(this, TeamStatsOverview.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }
 
     public void goToGameTS(View view) {
         Intent intent = new Intent(this, TeamStatsGame.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }
 
     public void goToLeaderboardTS(View view) {
         Intent intent = new Intent(this, TeamStatsLeaderboard.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }
 }

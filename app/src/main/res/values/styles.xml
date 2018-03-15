@@ -8,4 +8,21 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Theme.Design.Light.Light" parent="android:Theme.Holo.Light" >
+        <item name="android:colorForeground">@color/bright_foreground_holo_light</item>
+    </style>
+
+    <style name="ThemeOne" parent="android:Theme.Holo.Light" >
+        <item name="android:colorForeground">@color/bright_foreground_holo_light</item>
+    </style>
+
+    <style name="Theme.ThemeOne.Light" parent="android:Theme.Holo.Light" >
+        <item name="android:colorForeground">@color/bright_foreground_holo_light</item>
+        <item name="android:textColorPrimaryInverse">@color/bright_foreground_holo_light</item>
+    </style>
+
+    <style name="ThemeTwo" parent="android:Theme.Holo.Light" >
+        <item name="android:colorForeground">@color/bright_foreground_holo_light</item>
+    </style>
+
 </resources>

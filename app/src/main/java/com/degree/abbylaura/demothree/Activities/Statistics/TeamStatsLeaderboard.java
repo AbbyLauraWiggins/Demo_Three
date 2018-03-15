@@ -1,11 +1,16 @@
 package com.degree.abbylaura.demothree.Activities.Statistics;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -28,6 +33,9 @@ import java.util.HashMap;
 
 public class TeamStatsLeaderboard extends Activity {
     String fixtureID = "";
+    Button overview, game, leaderboard;
+    ButtonBarLayout buttonBarLayout;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +43,19 @@ public class TeamStatsLeaderboard extends Activity {
 
         setContentView(R.layout.team_stats_tab_leaderboard);
 
+
+        overview = findViewById(R.id.teamStatOverviewButton);
+        game = findViewById(R.id.teamStatGameButton);
+        leaderboard = findViewById(R.id.teamStatLeaderboardButton);
+        buttonBarLayout = findViewById(R.id.buttonBarLayout);
+
+        setLayout();
+
+        setSpinner();
+        setView();
+    }
+
+    private void setSpinner(){
         TeamFixturesRepo tfRepo = new TeamFixturesRepo();
 
         ArrayList<ArrayList<String>> fixturesList = tfRepo.getSpinnerList();
@@ -42,7 +63,6 @@ public class TeamStatsLeaderboard extends Activity {
         final HashMap<String, String> spinnerItemAndFixtureID = new HashMap<String, String>();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
 
         for(ArrayList<String> row : fixturesList){ //0=name1, 1=name2, 2=date
 
@@ -90,7 +110,6 @@ public class TeamStatsLeaderboard extends Activity {
             }
         });
 
-        setView();
     }
 
     private void setView() {
@@ -127,5 +146,46 @@ public class TeamStatsLeaderboard extends Activity {
 
         }
 
+    }
+    private void setLayout(){
+        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+
+        android.view.ViewGroup.LayoutParams layoutParams1 = overview.getLayoutParams();
+        layoutParams1.width = screenWidth/3;
+        overview.setLayoutParams(layoutParams1);
+
+        android.view.ViewGroup.LayoutParams layoutParams2 = game.getLayoutParams();
+        layoutParams2.width = screenWidth/3;
+        overview.setLayoutParams(layoutParams2);
+
+        android.view.ViewGroup.LayoutParams layoutParams3 = leaderboard.getLayoutParams();
+        layoutParams3.width = screenWidth/3;
+        overview.setLayoutParams(layoutParams3);
+
+        overview.setBackgroundColor(Color.LTGRAY);
+        game.setBackgroundColor(Color.LTGRAY);
+        leaderboard.setBackgroundColor(Color.LTGRAY);
+        buttonBarLayout.setBackgroundColor(Color.LTGRAY);
+
+    }
+
+
+
+    public void goToOverviewTS(View view) {
+        Intent intent = new Intent(this, TeamStatsOverview.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+    }
+
+    public void goToGameTS(View view) {
+        Intent intent = new Intent(this, TeamStatsGame.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+    }
+
+    public void goToLeaderboardTS(View view) {
+        Intent intent = new Intent(this, TeamStatsLeaderboard.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
 }

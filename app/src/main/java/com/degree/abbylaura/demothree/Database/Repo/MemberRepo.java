@@ -10,6 +10,7 @@ import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by abbylaura on 02/03/2018.
@@ -169,5 +170,24 @@ public class MemberRepo {
         DatabaseManager.getInstance().closeDatabase();
 
         return memberPermission;
+    }
+
+    public ArrayList<String> getNames(ArrayList<String> ids) {
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        ArrayList<String> names = new ArrayList<>();
+
+        for(String s: ids){
+            String selectQuery = " SELECT " + Member.KEY_Name + " FROM Member" +
+                    " WHERE " + Member.KEY_MemberId + " = '" + s + "'";
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if (cursor.moveToFirst()) {
+                names.add(cursor.getString(cursor.getColumnIndex(Member.KEY_Name)));
+            }
+        }
+
+        return names;
     }
 }

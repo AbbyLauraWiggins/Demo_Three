@@ -18,7 +18,8 @@
         android:theme="@android:style/Theme.Holo.Light">
         <activity
             android:name=".Activities.SignIn.LoginActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/ThemeTwo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,19 +29,19 @@
 
         <activity
             android:name=".Activities.HomeActivity"
-            android:theme="@android:style/Theme.Holo.Light"/>
+            android:theme="@style/ThemeTwo"/>
 
         <activity
             android:name=".Activities.Notices.NoticeActivity"
-            android:theme="@android:style/Theme.Holo.Light"/>
+            android:theme="@style/Theme.ThemeOne.Light"/>
 
         <activity
             android:name=".Activities.Notices.NoticeComposeActivity"
-            android:theme="@android:style/Theme.Holo.Light"/>
+            android:theme="@style/Theme.ThemeOne.Light"/>
 
         <activity
             android:name=".Activities.Statistics.StatisticsActivity"
-            android:theme="@android:style/Theme.Holo.Light"/>
+            android:theme="@style/Theme.ThemeOne.Light"/>
 
         <activity
             android:name=".Activities.LogActivity"
@@ -69,7 +70,7 @@
 
         <activity
             android:name=".Activities.ProfileActivity"
-            android:theme="@style/Theme.AppCompat.Light"/>
+            android:theme="@android:style/Theme.Holo.Light"/>
 
         <activity
             android:name=".Activities.Statistics.TeamStats"
@@ -81,37 +82,44 @@
 
         <activity
             android:name=".Activities.Statistics.MySCStats"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:theme="@android:style/Theme.Holo.Light"/>
 
 
         <activity
             android:name=".Activities.Statistics.MyGameStats"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:theme="@android:style/Theme.Holo.Light"/>
 
         <activity
             android:name=".Activities.Statistics.AnalyseStats"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:theme="@android:style/Theme.Holo.Light"/>
         
         <activity
             android:name=".Activities.Statistics.Selection"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:theme="@android:style/Theme.Holo.Light"/>
 
         <activity
             android:name=".Activities.LogGameStats"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:theme="@android:style/Theme.Holo.Light"/>
 
         <activity
             android:name=".Activities.SelectKPI"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:theme="@android:style/Theme.Holo.Light"/>
 
         <activity
             android:name=".Activities.TestingNetworkActivity"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:theme="@android:style/Theme.Holo.Light"/>
 
         <activity
             android:name=".Activities.Statistics.TeamStatsLeaderboard"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:theme="@android:style/Theme.Holo.Light"/>
 
+        <activity
+            android:name=".Activities.Statistics.TeamStatsGame"
+            android:theme="@android:style/Theme.Holo.Light"/>
+
+        <activity
+            android:name=".Activities.Statistics.TeamStatsOverview"
+            android:theme="@android:style/Theme.Holo.Light"/>
 
         <service android:name=".Activities.NetworkService"/>
     </application>

@@ -1228,21 +1228,33 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setFixtureId("0001"); //Fixture 1
         fixtures.setTeamId("UOBWRFC_1");    //Team UOBWRFC
         fixtures.setFixturePoints("22"); //Points scored by UOBWRFC in fixture 0001
+        fixtures.setForward("0003"); //memberID of UOBWRFC player who got forward of the match
+        fixtures.setBack("0005");
+        fixtures.setPlayer("0007");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0001"); //Fixture 1
         fixtures.setTeamId("LURFC_1"); //Team LURFC
         fixtures.setFixturePoints("20"); //Points scored by LURFC in fixture 0001
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0002");
         fixtures.setTeamId("LURFC_1");
         fixtures.setFixturePoints("12");
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0002"); //Fixture 1
         fixtures.setTeamId("UOBWRFC_1");    //Team UOBWRFC
         fixtures.setFixturePoints("37"); //Points scored by UOBWRFC
+        fixtures.setForward("0001");
+        fixtures.setBack("0009");
+        fixtures.setPlayer("0003");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0003");
@@ -1253,96 +1265,153 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setFixtureId("0003");
         fixtures.setTeamId("LURFC_1");
         fixtures.setFixturePoints("112");
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0004");
         fixtures.setTeamId("OUWRFC_1");
         fixtures.setFixturePoints("67");
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0004");
         fixtures.setTeamId("UOBWRFC_1");
         fixtures.setFixturePoints("55");
+        fixtures.setForward("0002");
+        fixtures.setBack("0005");
+        fixtures.setPlayer("0006");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0005");
         fixtures.setTeamId("UOBWRFC_1");
         fixtures.setFixturePoints("15");
+        fixtures.setForward("0008");
+        fixtures.setBack("0001");
+        fixtures.setPlayer("0003");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0005");
         fixtures.setTeamId("AURFC_1");
         fixtures.setFixturePoints("0");
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0006");
         fixtures.setTeamId("AURFC_1");
         fixtures.setFixturePoints("10");
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0006");
         fixtures.setTeamId("LURFC_1");
         fixtures.setFixturePoints("10");
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0007");
         fixtures.setTeamId("AURFC_1");
         fixtures.setFixturePoints("7");
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0007");
         fixtures.setTeamId("UOBWRFC_1");
         fixtures.setFixturePoints("12");
+        fixtures.setForward("0002");
+        fixtures.setBack("0009");
+        fixtures.setPlayer("0010");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0008");
         fixtures.setTeamId("OUWRFC_1");
         fixtures.setFixturePoints("90");
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0008");
         fixtures.setTeamId("LURFC_1");
         fixtures.setFixturePoints("64");
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0009");
         fixtures.setTeamId("OUWRFC_1");
         fixtures.setFixturePoints("87");
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0009");
         fixtures.setTeamId("AURFC_1");
         fixtures.setFixturePoints("44");
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0010");
         fixtures.setTeamId("LURFC_1");
         fixtures.setFixturePoints("24");
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0010");
         fixtures.setTeamId("OUWRFC_1");
         fixtures.setFixturePoints("10");
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0011");
         fixtures.setTeamId("AURFC_1");
         fixtures.setFixturePoints(null); //null as hasn't occured yet
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0011");
         fixtures.setTeamId("OUWRFC_1");
         fixtures.setFixturePoints(null);
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0012");
         fixtures.setTeamId("UOBWRFC_1");
         fixtures.setFixturePoints(null);
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0012");
         fixtures.setTeamId("OUWRFC_1");
         fixtures.setFixturePoints(null);
+        fixtures.setForward(null);
+        fixtures.setBack(null);
+        fixtures.setPlayer(null);
         fixtureRepo.insert(fixtures);
 
 

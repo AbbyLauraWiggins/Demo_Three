@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Design.Light.Light" parent="android:Theme.Holo.Light">
+        <item name="android:colorPrimary">@color/holo_light_primary</item>
+        <item name="android:colorForeground">@color/bright_foreground_holo_light</item>
+    </style>
+
+    <style name="ThemeOne" parent="android:Theme.Holo.Light">
+        <item name="android:navigationBarColor">@android:color/holo_red_dark</item>
+        <item name="android:statusBarColor">@android:color/holo_red_dark</item>
+        <item name="android:colorForeground">@color/bright_foreground_holo_light</item>
+        <item name="android:colorPrimary">@color/holo_light_primary</item>
+    </style>
+
+    <style name="Theme.ThemeOne.Light" parent="android:Theme.Holo.Light">
+        <item name="android:colorForeground">@color/bright_foreground_holo_light</item>
+        <item name="android:navigationBarColor">@android:color/holo_red_dark</item>
+        <item name="android:statusBarColor">@android:color/holo_red_dark</item>
+        <item name="android:textColorPrimaryInverse">@color/bright_foreground_holo_light</item>
+        <item name="android:colorPrimary">@color/bright_foreground_holo_light</item>
+    </style>
+
+    <style name="ThemeTwo" parent="android:Theme.Holo.Light">
+        <item name="android:colorForeground">@color/bright_foreground_holo_light</item>
+        <item name="android:navigationBarColor">@android:color/holo_red_dark</item>
+        <item name="android:statusBarColor">@android:color/holo_red_dark</item>
+        <item name="android:colorPrimaryDark">@color/bright_foreground_holo_light</item>
+        <item name="android:colorPrimary">@color/bright_foreground_holo_light</item>
+    </style>
+</resources>
