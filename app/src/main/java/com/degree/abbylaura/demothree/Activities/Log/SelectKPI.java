@@ -1,4 +1,4 @@
-package com.degree.abbylaura.demothree.Activities;
+package com.degree.abbylaura.demothree.Activities.Log;
 
 import android.app.Activity;
 import android.content.Intent;

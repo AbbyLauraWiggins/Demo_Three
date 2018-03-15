@@ -1,8 +1,9 @@
-package com.degree.abbylaura.demothree.Activities;
+package com.degree.abbylaura.demothree.Activities.Log;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 
-import com.degree.abbylaura.demothree.Activities.Statistics.Selection;
 import com.degree.abbylaura.demothree.Database.Repo.KPIRepo;
 import com.degree.abbylaura.demothree.Database.Schema.KPI;
 import com.degree.abbylaura.demothree.R;
@@ -27,7 +27,7 @@ public class LogGameStats extends Activity {
     int pressedButton;
     String[] playerKPIs;
     HashMap<String, String> hashKPI;
-    HashMap<String, String> playerAssignment;
+    HashMap<Integer, String> playerAssignment;
     String fixtureID;
 
     @Override
@@ -37,7 +37,7 @@ public class LogGameStats extends Activity {
         setContentView(R.layout.log_game_stats);
 
         Intent activityThatCalled = getIntent();
-        playerAssignment = (HashMap<String, String>) activityThatCalled.getSerializableExtra("PLAYERS");
+        playerAssignment = (HashMap<Integer, String>) activityThatCalled.getSerializableExtra("PLAYERS");
         fixtureID = activityThatCalled.getStringExtra("FIXTUREID");
 
 

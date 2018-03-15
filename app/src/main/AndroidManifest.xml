@@ -44,7 +44,7 @@
             android:theme="@style/Theme.ThemeOne.Light"/>
 
         <activity
-            android:name=".Activities.LogActivity"
+            android:name=".Activities.Log.LogActivity"
             android:theme="@android:style/Theme.Holo.Light"/>
 
         <activity
@@ -73,7 +73,7 @@
             android:theme="@android:style/Theme.Holo.Light"/>
 
         <activity
-            android:name=".Activities.Statistics.TeamStats"
+            android:name=".Activities.Log.GameTeamListSetUp"
             android:theme="@android:style/Theme.Holo.Light"/>
 
         <activity
@@ -83,7 +83,6 @@
         <activity
             android:name=".Activities.Statistics.MySCStats"
             android:theme="@android:style/Theme.Holo.Light"/>
-
 
         <activity
             android:name=".Activities.Statistics.MyGameStats"
@@ -98,11 +97,11 @@
             android:theme="@android:style/Theme.Holo.Light"/>
 
         <activity
-            android:name=".Activities.LogGameStats"
+            android:name=".Activities.Log.LogGameStats"
             android:theme="@android:style/Theme.Holo.Light"/>
 
         <activity
-            android:name=".Activities.SelectKPI"
+            android:name=".Activities.Log.SelectKPI"
             android:theme="@android:style/Theme.Holo.Light"/>
 
         <activity

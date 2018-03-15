@@ -1,4 +1,4 @@
-package com.degree.abbylaura.demothree.Activities;
+package com.degree.abbylaura.demothree.Activities.Log;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -47,7 +47,7 @@ public class LogActivity extends Activity {
     }
 
     public void goLogGameStats(View view) {
-        Intent goToLog = new Intent(this, LogGameStats.class);
+        Intent goToLog = new Intent(this, GameTeamListSetUp.class);
         startActivity(goToLog);
     }
 }
