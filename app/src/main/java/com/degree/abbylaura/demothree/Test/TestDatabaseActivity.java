@@ -55,6 +55,8 @@ public class TestDatabaseActivity extends Activity {
 
         editText = findViewById(R.id.editText);
 
+
+
         //insertTestData();
         insertRealTestData();
     }
@@ -893,6 +895,8 @@ public class TestDatabaseActivity extends Activity {
         TeamRepo teamRepo = new TeamRepo();
         NoticeRepo noticeRepo = new NoticeRepo();
         KPIRepo kpiRepo = new KPIRepo();
+        SessionRepo sessionRepo = new SessionRepo();
+
 
         showTable(view, "Members", memberRepo.getMembers(), 9);
         showTable(view, "Fixtures:", fixtureRepo.getTableData(), 3);
@@ -1231,6 +1235,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward("0003"); //memberID of UOBWRFC player who got forward of the match
         fixtures.setBack("0005");
         fixtures.setPlayer("0007");
+        fixtures.setTriesScored("4");
+        fixtures.setTriesSucceeded("4");
+        fixtures.setConversions("1");
+        fixtures.setConversionsSucceeded("0");
+        fixtures.setScrumsWon("4");
+        fixtures.setScrumsLost("2");
+        fixtures.setMaulsWon("1");
+        fixtures.setMaulsLost("2");
+        fixtures.setLineOutsWon("3");
+        fixtures.setLineOutsLost("4");
+        fixtures.setDropGoals("0");
+        fixtures.setPenaltyKicks("0");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0001"); //Fixture 1
@@ -1239,6 +1255,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored("4");
+        fixtures.setTriesSucceeded("4");
+        fixtures.setConversions("0");
+        fixtures.setConversionsSucceeded("1");
+        fixtures.setScrumsWon("2");
+        fixtures.setScrumsLost("4");
+        fixtures.setMaulsWon("2");
+        fixtures.setMaulsLost("1");
+        fixtures.setLineOutsWon("4");
+        fixtures.setLineOutsLost("3");
+        fixtures.setDropGoals("0");
+        fixtures.setPenaltyKicks("0");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0002");
@@ -1247,6 +1275,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored("2");
+        fixtures.setTriesSucceeded("7");
+        fixtures.setConversions("1");
+        fixtures.setConversionsSucceeded("1");
+        fixtures.setScrumsWon("3");
+        fixtures.setScrumsLost("5");
+        fixtures.setMaulsWon("1");
+        fixtures.setMaulsLost("1");
+        fixtures.setLineOutsWon("2");
+        fixtures.setLineOutsLost("2");
+        fixtures.setDropGoals("0");
+        fixtures.setPenaltyKicks("0");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0002"); //Fixture 1
@@ -1255,11 +1295,36 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward("0001");
         fixtures.setBack("0009");
         fixtures.setPlayer("0003");
+        fixtures.setTriesScored("7");
+        fixtures.setTriesSucceeded("2");
+        fixtures.setConversions("1");
+        fixtures.setConversionsSucceeded("1");
+        fixtures.setScrumsWon("5");
+        fixtures.setScrumsLost("3");
+        fixtures.setMaulsWon("1");
+        fixtures.setMaulsLost("1");
+        fixtures.setLineOutsWon("2");
+        fixtures.setLineOutsLost("2");
+        fixtures.setDropGoals("0");
+        fixtures.setPenaltyKicks("0");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0003");
         fixtures.setTeamId("AURFC_1");
         fixtures.setFixturePoints("32");
+        fixtureRepo.insert(fixtures);
+        fixtures.setTriesScored("5");
+        fixtures.setTriesSucceeded("20");
+        fixtures.setConversions("1");
+        fixtures.setConversionsSucceeded("6");
+        fixtures.setScrumsWon("5");
+        fixtures.setScrumsLost("8");
+        fixtures.setMaulsWon("1");
+        fixtures.setMaulsLost("1");
+        fixtures.setLineOutsWon("4");
+        fixtures.setLineOutsLost("4");
+        fixtures.setDropGoals("0");
+        fixtures.setPenaltyKicks("0");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0003");
@@ -1268,14 +1333,38 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored("20");
+        fixtures.setTriesSucceeded("5");
+        fixtures.setConversions("6");
+        fixtures.setConversionsSucceeded("1");
+        fixtures.setScrumsWon("8");
+        fixtures.setScrumsLost("5");
+        fixtures.setMaulsWon("1");
+        fixtures.setMaulsLost("1");
+        fixtures.setLineOutsWon("4");
+        fixtures.setLineOutsLost("4");
+        fixtures.setDropGoals("0");
+        fixtures.setPenaltyKicks("0");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0004");
         fixtures.setTeamId("OUWRFC_1");
-        fixtures.setFixturePoints("67");
+        fixtures.setFixturePoints("66");
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored("12");
+        fixtures.setTriesSucceeded("11");
+        fixtures.setConversions("3");
+        fixtures.setConversionsSucceeded("0");
+        fixtures.setScrumsWon("3");
+        fixtures.setScrumsLost("3");
+        fixtures.setMaulsWon("1");
+        fixtures.setMaulsLost("1");
+        fixtures.setLineOutsWon("3");
+        fixtures.setLineOutsLost("3");
+        fixtures.setDropGoals("0");
+        fixtures.setPenaltyKicks("0");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0004");
@@ -1284,6 +1373,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward("0002");
         fixtures.setBack("0005");
         fixtures.setPlayer("0006");
+        fixtures.setTriesScored("11");
+        fixtures.setTriesSucceeded("12");
+        fixtures.setConversions("0");
+        fixtures.setConversionsSucceeded("3");
+        fixtures.setScrumsWon("3");
+        fixtures.setScrumsLost("3");
+        fixtures.setMaulsWon("1");
+        fixtures.setMaulsLost("1");
+        fixtures.setLineOutsWon("3");
+        fixtures.setLineOutsLost("3");
+        fixtures.setDropGoals("0");
+        fixtures.setPenaltyKicks("0");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0005");
@@ -1292,6 +1393,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward("0008");
         fixtures.setBack("0001");
         fixtures.setPlayer("0003");
+        fixtures.setTriesScored("3");
+        fixtures.setTriesSucceeded("0");
+        fixtures.setConversions("0");
+        fixtures.setConversionsSucceeded("0");
+        fixtures.setScrumsWon("6");
+        fixtures.setScrumsLost("3");
+        fixtures.setMaulsWon("2");
+        fixtures.setMaulsLost("1");
+        fixtures.setLineOutsWon("6");
+        fixtures.setLineOutsLost("3");
+        fixtures.setDropGoals("0");
+        fixtures.setPenaltyKicks("0");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0005");
@@ -1300,6 +1413,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored("0");
+        fixtures.setTriesSucceeded("3");
+        fixtures.setConversions("0");
+        fixtures.setConversionsSucceeded("0");
+        fixtures.setScrumsWon("3");
+        fixtures.setScrumsLost("6");
+        fixtures.setMaulsWon("1");
+        fixtures.setMaulsLost("2");
+        fixtures.setLineOutsWon("3");
+        fixtures.setLineOutsLost("6");
+        fixtures.setDropGoals("0");
+        fixtures.setPenaltyKicks("0");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0006");
@@ -1308,6 +1433,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored("2");
+        fixtures.setTriesSucceeded("2");
+        fixtures.setConversions("0");
+        fixtures.setConversionsSucceeded("0");
+        fixtures.setScrumsWon("3");
+        fixtures.setScrumsLost("3");
+        fixtures.setMaulsWon("2");
+        fixtures.setMaulsLost("2");
+        fixtures.setLineOutsWon("4");
+        fixtures.setLineOutsLost("4");
+        fixtures.setDropGoals("0");
+        fixtures.setPenaltyKicks("0");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0006");
@@ -1316,6 +1453,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored("2");
+        fixtures.setTriesSucceeded("2");
+        fixtures.setConversions("0");
+        fixtures.setConversionsSucceeded("0");
+        fixtures.setScrumsWon("3");
+        fixtures.setScrumsLost("3");
+        fixtures.setMaulsWon("2");
+        fixtures.setMaulsLost("2");
+        fixtures.setLineOutsWon("4");
+        fixtures.setLineOutsLost("4");
+        fixtures.setDropGoals("0");
+        fixtures.setPenaltyKicks("0");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0007");
@@ -1324,6 +1473,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored("1");
+        fixtures.setTriesSucceeded("2");
+        fixtures.setConversions("0");
+        fixtures.setConversionsSucceeded("1");
+        fixtures.setScrumsWon("5");
+        fixtures.setScrumsLost("5");
+        fixtures.setMaulsWon("1");
+        fixtures.setMaulsLost("1");
+        fixtures.setLineOutsWon("2");
+        fixtures.setLineOutsLost("2");
+        fixtures.setDropGoals("0");
+        fixtures.setPenaltyKicks("0");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0007");
@@ -1332,14 +1493,38 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward("0002");
         fixtures.setBack("0009");
         fixtures.setPlayer("0010");
+        fixtures.setTriesScored("2");
+        fixtures.setTriesSucceeded("1");
+        fixtures.setConversions("1");
+        fixtures.setConversionsSucceeded("0");
+        fixtures.setScrumsWon("5");
+        fixtures.setScrumsLost("5");
+        fixtures.setMaulsWon("1");
+        fixtures.setMaulsLost("1");
+        fixtures.setLineOutsWon("2");
+        fixtures.setLineOutsLost("2");
+        fixtures.setDropGoals("0");
+        fixtures.setPenaltyKicks("0");
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0008");
         fixtures.setTeamId("OUWRFC_1");
-        fixtures.setFixturePoints("90");
+        fixtures.setFixturePoints("68");
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored(null);
+        fixtures.setTriesSucceeded(null);
+        fixtures.setConversions(null);
+        fixtures.setConversionsSucceeded(null);
+        fixtures.setScrumsWon(null);
+        fixtures.setScrumsLost(null);
+        fixtures.setMaulsWon(null);
+        fixtures.setMaulsLost(null);
+        fixtures.setLineOutsWon(null);
+        fixtures.setLineOutsLost(null);
+        fixtures.setDropGoals(null);
+        fixtures.setPenaltyKicks(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0008");
@@ -1348,6 +1533,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored(null);
+        fixtures.setTriesSucceeded(null);
+        fixtures.setConversions(null);
+        fixtures.setConversionsSucceeded(null);
+        fixtures.setScrumsWon(null);
+        fixtures.setScrumsLost(null);
+        fixtures.setMaulsWon(null);
+        fixtures.setMaulsLost(null);
+        fixtures.setLineOutsWon(null);
+        fixtures.setLineOutsLost(null);
+        fixtures.setDropGoals(null);
+        fixtures.setPenaltyKicks(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0009");
@@ -1356,6 +1553,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored(null);
+        fixtures.setTriesSucceeded(null);
+        fixtures.setConversions(null);
+        fixtures.setConversionsSucceeded(null);
+        fixtures.setScrumsWon(null);
+        fixtures.setScrumsLost(null);
+        fixtures.setMaulsWon(null);
+        fixtures.setMaulsLost(null);
+        fixtures.setLineOutsWon(null);
+        fixtures.setLineOutsLost(null);
+        fixtures.setDropGoals(null);
+        fixtures.setPenaltyKicks(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0009");
@@ -1364,6 +1573,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored(null);
+        fixtures.setTriesSucceeded(null);
+        fixtures.setConversions(null);
+        fixtures.setConversionsSucceeded(null);
+        fixtures.setScrumsWon(null);
+        fixtures.setScrumsLost(null);
+        fixtures.setMaulsWon(null);
+        fixtures.setMaulsLost(null);
+        fixtures.setLineOutsWon(null);
+        fixtures.setLineOutsLost(null);
+        fixtures.setDropGoals(null);
+        fixtures.setPenaltyKicks(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0010");
@@ -1388,6 +1609,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored(null);
+        fixtures.setTriesSucceeded(null);
+        fixtures.setConversions(null);
+        fixtures.setConversionsSucceeded(null);
+        fixtures.setScrumsWon(null);
+        fixtures.setScrumsLost(null);
+        fixtures.setMaulsWon(null);
+        fixtures.setMaulsLost(null);
+        fixtures.setLineOutsWon(null);
+        fixtures.setLineOutsLost(null);
+        fixtures.setDropGoals(null);
+        fixtures.setPenaltyKicks(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0011");
@@ -1396,6 +1629,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored(null);
+        fixtures.setTriesSucceeded(null);
+        fixtures.setConversions(null);
+        fixtures.setConversionsSucceeded(null);
+        fixtures.setScrumsWon(null);
+        fixtures.setScrumsLost(null);
+        fixtures.setMaulsWon(null);
+        fixtures.setMaulsLost(null);
+        fixtures.setLineOutsWon(null);
+        fixtures.setLineOutsLost(null);
+        fixtures.setDropGoals(null);
+        fixtures.setPenaltyKicks(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0012");
@@ -1404,6 +1649,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored(null);
+        fixtures.setTriesSucceeded(null);
+        fixtures.setConversions(null);
+        fixtures.setConversionsSucceeded(null);
+        fixtures.setScrumsWon(null);
+        fixtures.setScrumsLost(null);
+        fixtures.setMaulsWon(null);
+        fixtures.setMaulsLost(null);
+        fixtures.setLineOutsWon(null);
+        fixtures.setLineOutsLost(null);
+        fixtures.setDropGoals(null);
+        fixtures.setPenaltyKicks(null);
         fixtureRepo.insert(fixtures);
 
         fixtures.setFixtureId("0012");
@@ -1412,6 +1669,18 @@ public class TestDatabaseActivity extends Activity {
         fixtures.setForward(null);
         fixtures.setBack(null);
         fixtures.setPlayer(null);
+        fixtures.setTriesScored(null);
+        fixtures.setTriesSucceeded(null);
+        fixtures.setConversions(null);
+        fixtures.setConversionsSucceeded(null);
+        fixtures.setScrumsWon(null);
+        fixtures.setScrumsLost(null);
+        fixtures.setMaulsWon(null);
+        fixtures.setMaulsLost(null);
+        fixtures.setLineOutsWon(null);
+        fixtures.setLineOutsLost(null);
+        fixtures.setDropGoals(null);
+        fixtures.setPenaltyKicks(null);
         fixtureRepo.insert(fixtures);
 
 

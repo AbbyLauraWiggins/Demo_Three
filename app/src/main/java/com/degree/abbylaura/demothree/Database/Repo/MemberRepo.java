@@ -181,10 +181,15 @@ public class MemberRepo {
             String selectQuery = " SELECT " + Member.KEY_Name + " FROM Member" +
                     " WHERE " + Member.KEY_MemberId + " = '" + s + "'";
 
+            System.out.println(selectQuery);
+
             Cursor cursor = db.rawQuery(selectQuery, null);
 
             if (cursor.moveToFirst()) {
-                names.add(cursor.getString(cursor.getColumnIndex(Member.KEY_Name)));
+                do{
+                    names.add(cursor.getString(cursor.getColumnIndex(Member.KEY_Name)));
+
+                }while(cursor.moveToNext());
             }
         }
 

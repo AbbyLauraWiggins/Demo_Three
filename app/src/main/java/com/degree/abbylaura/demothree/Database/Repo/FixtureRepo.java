@@ -1,6 +1,7 @@
 package com.degree.abbylaura.demothree.Database.Repo;
 
 import android.content.ContentValues;
+import android.content.pm.FeatureInfo;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,6 +11,7 @@ import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.Fixture;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by abbylaura on 02/03/2018.
@@ -35,7 +37,19 @@ public class FixtureRepo {
                 + Fixture.KEY_FixturePoints + " TEXT,"
                 + Fixture.KEY_Forward + " TEXT,"
                 + Fixture.KEY_Back + " TEXT,"
-                + Fixture.KEY_Player + " TEXT)";
+                + Fixture.KEY_Player + " TEXT,"
+                + Fixture.KEY_TriesScored + " TEXT,"
+                + Fixture.KEY_TriesSucceeded + " TEXT,"
+                + Fixture.KEY_Conversions + " TEXT,"
+                + Fixture.KEY_ConversionsSucceeded + " TEXT,"
+                + Fixture.KEY_ScrumsWon + " TEXT,"
+                + Fixture.KEY_ScrumsLost + " TEXT,"
+                + Fixture.KEY_MaulsWon + " TEXT,"
+                + Fixture.KEY_MaulsLost + " TEXT,"
+                + Fixture.KEY_LineOutsWon + " TEXT,"
+                + Fixture.KEY_LineOutsLost + " TEXT,"
+                + Fixture.KEY_DropGoals + " TEXT,"
+                + Fixture.KEY_PenaltyKicks + " TEXT)";
     }
 
 
@@ -49,6 +63,19 @@ public class FixtureRepo {
         values.put(Fixture.KEY_Forward, fixture.getForward());
         values.put(Fixture.KEY_Back, fixture.getBack());
         values.put(Fixture.KEY_Player, fixture.getPlayer());
+        values.put(Fixture.KEY_TriesScored, fixture.getTriesScored());
+        values.put(Fixture.KEY_TriesSucceeded, fixture.getTriesSucceeded());
+        values.put(Fixture.KEY_Conversions, fixture.getConversions());
+        values.put(Fixture.KEY_ConversionsSucceeded, fixture.getConversionsSucceeded());
+        values.put(Fixture.KEY_ScrumsWon, fixture.getScrumsWon());
+        values.put(Fixture.KEY_ScrumsLost, fixture.getScrumsLost());
+        values.put(Fixture.KEY_MaulsWon, fixture.getMaulsWon());
+        values.put(Fixture.KEY_MaulsLost, fixture.getMaulsLost());
+        values.put(Fixture.KEY_LineOutsWon, fixture.getLineOutsWon());
+        values.put(Fixture.KEY_LineOutsLost, fixture.getLineOutsLost());
+        values.put(Fixture.KEY_DropGoals, fixture.getDropGoals());
+        values.put(Fixture.KEY_PenaltyKicks, fixture.getPenaltyKicks());
+
 
         //TODO auto insert into fixture repo when teamfixtures updated
 
@@ -70,7 +97,7 @@ public class FixtureRepo {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         int count = (int) DatabaseUtils.queryNumEntries(db, Fixture.TABLE);
 
-        String[][] fixArray = new String[3][count];
+        String[][] fixArray = new String[15][count];
 
         String selectQuery = " SELECT * FROM " + Fixture.TABLE + " " + whereClause;
 
@@ -103,7 +130,8 @@ public class FixtureRepo {
 
         ArrayList<String> returnData = new ArrayList<>();
 
-        String selectQuery = " SELECT * FROM " + Fixture.TABLE + " WHERE FixtureId = '" + fixtureID + "'";
+        String selectQuery = " SELECT * " +
+                "FROM " + Fixture.TABLE + " WHERE FixtureId = '" + fixtureID + "'";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -111,7 +139,7 @@ public class FixtureRepo {
 
         if (cursor.moveToFirst()) {
             do {
-                //if this is my teams row
+                /*if this is my teams row
                 if(cursor.getString(cursor.getColumnIndex(Fixture.KEY_TeamId)).equals(teamID)){
                     returnData.add(cursor.getString(cursor.getColumnIndex(Fixture.KEY_Forward)));
                     returnData.add(cursor.getString(cursor.getColumnIndex(Fixture.KEY_Back)));
@@ -119,7 +147,16 @@ public class FixtureRepo {
                     returnData.add(cursor.getString(cursor.getColumnIndex(Fixture.KEY_FixturePoints)));
                 }else{
                     theirScore = cursor.getString(cursor.getColumnIndex(Fixture.KEY_FixturePoints));
+                }*/
+                if(cursor.getString(cursor.getColumnIndex(Fixture.KEY_TeamId)).equals(teamID)){
+                    for(int i = 4; i < 19; i++){
+                        returnData.add(cursor.getString(i));
+                    }
+                }else{
+                    theirScore = cursor.getString(cursor.getColumnIndex(Fixture.KEY_FixturePoints));
                 }
+
+
             } while (cursor.moveToNext());
         }
 
@@ -127,5 +164,6 @@ public class FixtureRepo {
 
         return returnData;
     }
+
 
 }

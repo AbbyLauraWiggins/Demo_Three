@@ -12,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.degree.abbylaura.demothree.Client.MyClientID;
@@ -132,7 +134,9 @@ public class TeamStatsGame extends Activity {
          * 1: back
          * 2: player
          * 3: myscore
-         * 4: theirscore
+         *
+         * 4...15: table stats
+         * 16: theirscore
          */
 
         ArrayList<String> fixtureData = fixtureRepo.getFixtureData(fixtureID, MyClientID.myTeamID);
@@ -141,7 +145,7 @@ public class TeamStatsGame extends Activity {
         String backID = fixtureData.get(1);
         String playerID = fixtureData.get(2);
         myScore.setText(fixtureData.get(3));
-        theirScore.setText(fixtureData.get(4));
+        theirScore.setText(fixtureData.get(15));
 
         MemberRepo memberRepo = new MemberRepo();
         ArrayList<String> playerIDs = new ArrayList<>();
@@ -149,11 +153,45 @@ public class TeamStatsGame extends Activity {
         playerIDs.add(backID);
         playerIDs.add(playerID);
 
-        ArrayList<String> names = memberRepo.getNames(playerIDs);
-        if(names != null){
-            forward.setText(names.get(0));
-            back.setText(names.get(1));
-            player.setText(names.get(2));
+        ArrayList<String> name = memberRepo.getNames(playerIDs);
+        if(name != null){
+            forward.setText(name.get(0));
+            back.setText(name.get(1));
+            player.setText(name.get(2));
+        }
+
+        String[] titles = new String[12];
+        titles[0] = "Tries Scored";
+        titles[1] = "Tries Succeeded";
+        titles[2] = "Conversions";
+        titles[3] = "Conversions Succeeded";
+        titles[4] = "Scrums Won";
+        titles[5] = "Scrums Lost";
+        titles[6] = "Mauls Won";
+        titles[7] = "Mauls Lost";
+        titles[8] = "Line Outs Won";
+        titles[9] = "Line Outs Lost";
+        titles[10] = "Drop Goals";
+        titles[11] = "Penalty Kicks";
+
+        TableLayout tl = (TableLayout) findViewById(R.id.teamGameTableLayout);
+        tl.removeAllViews();
+
+        for (int i = 4; i < 15; i++) { //start at 2 because we dont want Member and fixture ID
+
+            TableRow tr = new TableRow(this);
+
+            TextView labelTitle = new TextView(this);
+            labelTitle.setText(titles[i-4]);
+            tr.addView(labelTitle);
+
+            TextView labelValue = new TextView(this);
+            System.out.println(String.valueOf(i) + " " + fixtureData.get(i));
+            labelValue.setText("   " + fixtureData.get(i));
+            tr.addView(labelValue);
+
+            tl.addView(tr);
+
         }
 
 
@@ -170,11 +208,11 @@ public class TeamStatsGame extends Activity {
 
         android.view.ViewGroup.LayoutParams layoutParams2 = game.getLayoutParams();
         layoutParams2.width = screenWidth/3;
-        overview.setLayoutParams(layoutParams2);
+        game.setLayoutParams(layoutParams2);
 
         android.view.ViewGroup.LayoutParams layoutParams3 = leaderboard.getLayoutParams();
         layoutParams3.width = screenWidth/3;
-        overview.setLayoutParams(layoutParams3);
+        leaderboard.setLayoutParams(layoutParams3);
 
         overview.setBackgroundColor(Color.LTGRAY);
         game.setBackgroundColor(Color.LTGRAY);

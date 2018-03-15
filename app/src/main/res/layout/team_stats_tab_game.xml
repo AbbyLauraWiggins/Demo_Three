@@ -4,14 +4,6 @@
     android:layout_height="match_parent"
     >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Team Statistics"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:id="@+id/teamStatsTitle"
-        />
 
     <android.support.v7.widget.ButtonBarLayout
         android:layout_width="match_parent"
@@ -42,162 +34,174 @@
             android:text="Leaderboard" />
     </android.support.v7.widget.ButtonBarLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="Team stats game"
-        android:textSize="30sp"/>
-
     <LinearLayout
+
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="20dp">
+        android:orientation="vertical"
+        android:padding="10dp">
+
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Choose game:"
+            android:text="Team Statistics Game"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:id="@+id/teamStatsTitle"
             />
 
-        <Spinner
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/gameSpinner">
-
-        </Spinner>
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Score"
-            android:id="@+id/scoreTitle"
-            android:textSize="20sp"/>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/scoreTitle"
-            android:id="@+id/rel1"
-            >
+            android:orientation="horizontal"
+            android:paddingBottom="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20"
-                android:id="@+id/myScore"
-                android:layout_centerHorizontal="true"
-                android:textSize="40sp"/>
+                android:text="Choose game:"
+                />
 
-            <TextView
+            <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Us"
-                android:id="@+id/us"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/myScore"
-                android:textSize="15sp"/>
+                android:id="@+id/gameSpinner">
 
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="       "
-            android:id="@+id/vsText"
-            android:textSize="20sp"
-            android:layout_toRightOf="@+id/rel1"
-            android:layout_alignBaseline="@+id/rel1"/>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rel2"
-            android:layout_toRightOf="@+id/vsText"
-            android:layout_below="@id/scoreTitle"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="14"
-                android:id="@+id/theirScore"
-                android:layout_centerHorizontal="true"
-                android:textSize="40sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Away team"
-                android:id="@+id/awayTeamTextView"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/theirScore"
-                android:textSize="15sp"/>
-        </RelativeLayout>
+            </Spinner>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/rel2">
+            android:paddingBottom="20dp"
+            >
 
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerHorizontal="true"
+                android:text="Score"
+                android:id="@+id/scoreTitle"
+                android:textSize="20sp"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/scoreTitle"
+                android:id="@+id/rel1"
                 >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Forward of the match:"/>
+                    android:text="20"
+                    android:id="@+id/myScore"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="40sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:id="@+id/forwardTextView"/>
+                    android:text="Us"
+                    android:id="@+id/us"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/myScore"
+                    android:textSize="15sp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="       "
+                android:id="@+id/vsText"
+                android:textSize="20sp"
+                android:layout_toRightOf="@+id/rel1"
+                android:layout_alignBaseline="@+id/rel1"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rel2"
+                android:layout_toRightOf="@+id/vsText"
+                android:layout_below="@id/scoreTitle"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Back of the match:"/>
+                    android:text="14"
+                    android:id="@+id/theirScore"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="40sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:id="@+id/backTextView"/>
+                    android:text="Away team"
+                    android:id="@+id/awayTeamTextView"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/theirScore"
+                    android:textSize="15sp"/>
+            </RelativeLayout>
 
-                <TextView
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/rel2">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Player of the match:"/>
+                    android:orientation="vertical"
+                    android:layout_centerHorizontal="true"
+                    >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:id="@+id/playerTextView"/>
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Forward of the match:"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:id="@+id/forwardTextView"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Back of the match:"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:id="@+id/backTextView"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Player of the match:"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:id="@+id/playerTextView"/>
+                </LinearLayout>
+
+
+            </RelativeLayout>
 
 
         </RelativeLayout>
 
-
-    </RelativeLayout>
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/teamGameTableLayout"></TableLayout>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/teamGameTableLayout"></TableLayout>
+    </LinearLayout>
 
 </LinearLayout>

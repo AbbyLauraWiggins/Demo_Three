@@ -44,7 +44,7 @@ public class StatisticsActivity extends Activity {
     }
 
     public void goTeamStats(View view) {
-        Intent intent = new Intent(this, TeamStats.class);
+        Intent intent = new Intent(this, TeamStatsOverview.class);
         startActivity(intent);
     }
 
