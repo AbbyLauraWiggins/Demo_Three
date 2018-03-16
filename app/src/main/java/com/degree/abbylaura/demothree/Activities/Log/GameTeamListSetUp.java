@@ -48,6 +48,11 @@ public class GameTeamListSetUp extends Activity {
         createAndLog = findViewById(R.id.createAndLog);
         fixtureDate = findViewById(R.id.nextFixtureDate);
 
+        try {
+            getFixtureDate();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         playerAssignment = new HashMap<>();
     }
 

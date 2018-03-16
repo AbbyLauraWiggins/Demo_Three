@@ -183,7 +183,7 @@ public class LogGameStats extends Activity {
 
                 if(fixtureStatistics.containsKey(stat)){//already contains this stat
                     int count = fixtureStatistics.get(stat);
-                    fixtureStatistics.replace(stat, count + 1);
+                    fixtureStatistics.put(stat, count + 1);
                 }else{
                     fixtureStatistics.put(stat, 1);
                 }
@@ -231,7 +231,7 @@ public class LogGameStats extends Activity {
                 String[] strArrKPI = strKPI.split(",");
 
                 //for all string KPIs recorded
-                for(int j = 0; i < strArrKPI.length; j++){
+                for(int j = 0; j < strArrKPI.length; j++){
 
                     //get the table column name of that KPI
                     String kPIcol = hashKPI.get(strArrKPI[j]);
@@ -239,7 +239,7 @@ public class LogGameStats extends Activity {
                     //add to the counter of times that KPI has been seen for this user
                     if(countHash.containsKey(kPIcol)){
                         int count = countHash.get(kPIcol);
-                        countHash.replace(kPIcol, count + 1);
+                        countHash.put(kPIcol, count + 1);
                     }else{
                         countHash.put(kPIcol, 1);
                     }
@@ -252,7 +252,7 @@ public class LogGameStats extends Activity {
         Intent intent = new Intent(this, FixtureStatsSummary.class);
         intent.putExtra("FIXTUREID", fixtureID);
         intent.putExtra("PLAYERS", playerAssignment);
-
+        intent.putExtra("STATISTICS", fixtureStatistics);
         startActivity(intent);
 
     }
