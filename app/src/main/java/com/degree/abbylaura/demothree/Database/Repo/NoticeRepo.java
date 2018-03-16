@@ -151,5 +151,34 @@ public class NoticeRepo {
     }
 
 
+    public ArrayList<Notice> getTableObject(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        ArrayList<Notice> result = new ArrayList<>();
+
+        String selectQuery = " SELECT * FROM " + Notice.TABLE;
+
+        Log.d(Notice.TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Notice notice = new Notice();
+                notice.setContents(cursor.getString(cursor.getColumnIndex(Notice.KEY_Contents)));
+                notice.setDate(cursor.getString(cursor.getColumnIndex(Notice.KEY_Date)));
+                notice.setNoticeId(cursor.getString(cursor.getColumnIndex(Notice.KEY_NoticeId)));
+                notice.setMemberId(cursor.getString(cursor.getColumnIndex(Notice.KEY_MemberId)));
+
+                result.add(notice);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return result;
+    }
+
 
 }

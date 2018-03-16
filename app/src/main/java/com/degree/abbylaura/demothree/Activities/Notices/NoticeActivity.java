@@ -23,6 +23,7 @@ import com.degree.abbylaura.demothree.Database.Schema.Notice;
 import com.degree.abbylaura.demothree.R;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -36,7 +37,8 @@ public class NoticeActivity extends Activity {
 
     TextView usersMessage;
     RelativeLayout relBottom;
-    ArrayList<ArrayList<String>> noticeBuffer;
+    ArrayList<Notice> noticeBuffer;
+
     int noticeIdNum;
     String winningNoticeId;
 
@@ -67,9 +69,29 @@ public class NoticeActivity extends Activity {
 
     }
 
-    /**
-     * starts the Intent to run intent service in background
-     */
+    public void onComposeNotice(View view) {
+        //when this is clicked, we want to go to D2NoticeComposeActivity
+        //should return with activity name and notice content
+
+        Intent getReturnUserInput = new Intent(this, NoticeComposeActivity.class);
+
+        final int result = 1;
+        //getReturnUserInput.putExtra("User Input", "TEST");
+
+        startActivityForResult(getReturnUserInput, result);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //handle text being sent back to from D2NoticeActivity
+        String composeText = data.getStringExtra("User Input");
+        System.out.println("return from compose: " + composeText);
+
+        updateContent(composeText);
+    }
+
     public void updateContent(String addition) {
 
         //add addition to Database Notice table
@@ -78,58 +100,54 @@ public class NoticeActivity extends Activity {
         if(addition != null){
             Date date = Calendar.getInstance().getTime();
 
-            /*
             Notice notice = new Notice();
             notice.setMemberId(MyClientID.myID);
             notice.setContents(addition);
             notice.setDate(date.toString());
-            noticeRepo.insert(notice);
 
-            We must send all new notices to server first, to ensure that noticeIDs are kept synchronised
-            We will then update the UI from server
-              > Fill clientDB from serverDB so that you can still view old notices when connection is lost
-              > But cannot add new notices or update notices without server connection
-            */
-
-
-            ArrayList<String> noticeAL = new ArrayList<>();
-            noticeAL.add(MyClientID.myID);
-            noticeAL.add(addition);
-            noticeAL.add(date.toString());
-            noticeBuffer.add(noticeAL);
-
-            sendNewToServer();
+            noticeBuffer.add(notice);
         }
+
+        sendBufferToServer();
 
     }
 
-    private void sendNewToServer(){
+    private void sendBufferToServer(){
+        NoticeRepo noticeRepo = new NoticeRepo();
+
         Intent intent = new Intent(this, NetworkService.class);
-        intent.putExtra("messageToSend", noticeBuffer); //send notices to buffer
+        intent.putExtra("CLASS", noticeBuffer);
         intent.putExtra("typeSending", "NOTICE");
         this.startService(intent);
     }
 
-    public void updateDB(ArrayList<ArrayList<String>> allNotices){
-        System.out.println(">>>>>>>>>>>>>>>> updateDB " + allNotices);
-        if(allNotices != null){
-            System.out.print("Not all notices are null");
+    /*
+     * Is alerted when the IntentService broadcasts TRANSACTION_DONE
+     */
+    private BroadcastReceiver clientReceiver = new BroadcastReceiver() {
 
-            for(ArrayList<String> row: allNotices) {
-                //if ID of serverDBnotice is a higher increment than highest clientDBnotice, add to clientDB
-                System.out.println("updateDB: " + row);
-                if (Integer.parseInt(row.get(3)) > noticeIdNum) {
-                    Notice notice = new Notice();
-                    notice.setMemberId(row.get(0));
-                    notice.setContents(row.get(1));
-                    notice.setDate(row.get(2));
-                    notice.setNoticeId(row.get(3)); //this is AUTOINCREMENTED in server, but not in client
+        // Called when the broadcast is received
+        public void onReceive(Context context, Intent intent) {
+            emptyNoticeBuffer();
 
-                    NoticeRepo noticeRepo = new NoticeRepo();
-                    noticeRepo.insert(notice);
-                }
-            }
+            Log.e("NetworkService", "Service Received");
 
+            ArrayList<Notice> response = intent.getParcelableExtra("RESPONSE OBJECT");
+
+            updateDB(response);
+
+            updateUI();
+
+        }
+    };
+
+    private void updateDB(ArrayList<Notice> notices){
+        NoticeRepo noticeRepo = new NoticeRepo();
+
+        noticeRepo.delete(); //delete all notices
+
+        for(Notice n: notices){
+            noticeRepo.insert(n);
         }
     }
 
@@ -171,6 +189,9 @@ public class NoticeActivity extends Activity {
 
     }
 
+    /*
+     * Called from updateUI;
+     */
     @SuppressLint("ResourceType")
     protected void updateTextView(LinearLayout fragContainer, String notice, String memberName, String date, int i){
         System.out.print("in update text view");
@@ -185,31 +206,6 @@ public class NoticeActivity extends Activity {
         fragContainer.addView(layout);
     }
 
-
-    public void onComposeNotice(View view) {
-        //when this is clicked, we want to go to D2NoticeComposeActivity
-        //should return with activity name and notice content
-
-        Intent getReturnUserInput = new Intent(this, NoticeComposeActivity.class);
-
-        final int result = 1;
-        //getReturnUserInput.putExtra("User Input", "TEST");
-
-        startActivityForResult(getReturnUserInput, result);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        //handle text being sent back to from D2NoticeActivity
-        String composeText = data.getStringExtra("User Input");
-        System.out.println("return from compose: " + composeText);
-
-        updateContent(composeText);
-    }
-
-
     public void onBackButton(View view) {
         //go back to the activity that called it in the first place
         Intent goingBack = new Intent();
@@ -220,56 +216,6 @@ public class NoticeActivity extends Activity {
     public void emptyNoticeBuffer(){
         this.noticeBuffer = new ArrayList<>();
     }
-
-
-    /*
-     * Is alerted when the IntentService broadcasts TRANSACTION_DONE
-     *
-     * COMMENTED OUT UNTIL SERVER IS FIXED
-     */
-    private BroadcastReceiver clientReceiver = new BroadcastReceiver() {
-
-        // Called when the broadcast is received
-        public void onReceive(Context context, Intent intent) {
-
-
-            /**
-             *
-             *
-             * TODO maybe try next:
-             *    having return from server being hashmap of <String, Object> so we can update UI with obj each time
-             *
-             *
-             *
-             *
-             */
-
-            Log.e("NetworkService", "Service Received");
-
-            ArrayList<? extends ArrayList<String>> responseList =
-                    intent.getParcelableArrayListExtra("serverResponseList");
-
-            String response = intent.getStringExtra("serverResponseString");
-
-            if(response != null){
-
-                if(response.equals("Notices Added")){
-                    //empty the notice buffer
-                    emptyNoticeBuffer();
-                }
-                //otherwise do not empty notice buffer, as we want to keep those contents in there
-                //for next attempt to send to server
-            }
-
-            updateDB((ArrayList<ArrayList<String>>) responseList);
-            updateUI();
-
-        }
-    };
-
-
-
-
 
 
 }

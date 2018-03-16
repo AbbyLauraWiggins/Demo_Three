@@ -35,44 +35,36 @@ public class NetworkService extends IntentService {
         super(name);
     }
 
+
+    //Runs when called from an activity
     @Override
     protected void onHandleIntent(Intent intent) {
 
         Log.e("NetworkService", "Service Started");
         System.out.println("2: NetworkService onHandleIntent");
 
-        Object passedRequest = intent.getStringArrayListExtra("messageToSend");
+        Object passedObj = intent.getParcelableExtra("CLASS");
         String typeSending = intent.getStringExtra("typeSending");
 
-        System.out.println("3: passedRequest = " + passedRequest.toString());
+        System.out.println("3: passedRequest = " + passedObj.toString());
 
-        Object response = serviceRequest(passedRequest, typeSending);
-
-
-        if(response instanceof String){
-            System.out.println("7: returned " + passedRequest.toString() + " to onHandleIntent");
-
-            Intent i = new Intent(TRANSACTION_DONE);
-            i.putExtra("serverResponseString", (String) response);
-            NetworkService.this.sendBroadcast(i);
-
-        }else{
-            System.out.println("7: returned " + passedRequest.toString() + " to onHandleIntent");
-
-            Intent i = new Intent(TRANSACTION_DONE);
-
-            i.putParcelableArrayListExtra("serverResponseList", (ArrayList<? extends Parcelable>) response);
-            NetworkService.this.sendBroadcast(i);
-        }
+        Object response = serviceRequest(passedObj, typeSending);
+        //response is response from server after sending them table and update request
+        //response will be in ArrayList<Database.Schema.class> format
 
 
-
-
+        //so send response back to activity that requested it
+        Intent i = new Intent(TRANSACTION_DONE);
+        i.putExtra("RESPONSE OBJECT", (Parcelable) response);
+        NetworkService.this.sendBroadcast(i);
 
     }
 
     protected Object serviceRequest(Object passedRequest, String typeSending) {
+        //start a client, connect to server, send it request and object
         NestedClient nClient = new NestedClient();
+
+        //will return the ArrayList<Class> object so we can update our DB
         return nClient.talkToServer(passedRequest, typeSending);
     }
 
@@ -110,7 +102,7 @@ public class NetworkService extends IntentService {
                 if(inFromServerObj instanceof String){
                     response = (String) inFromServerObj;
                 }else{
-                    response = (ArrayList<ArrayList<String>>) inFromServerObj;
+                    response = (ArrayList<Object>) inFromServerObj;
                 }
 
                 System.out.println("6: Try block still, response = " + response.toString());
