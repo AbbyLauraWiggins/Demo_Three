@@ -60,6 +60,9 @@ public class FixtureStatsSummary extends Activity {
         showKPIstats();
         fillSpinners();
         updateFixtureTable();
+
+        //TODO make this look pretty and add buttons linking to analysis page
+        //TODO add go straight to home page button
     }
 
     private void showFixStatsTextView(){
@@ -115,6 +118,26 @@ public class FixtureStatsSummary extends Activity {
             value = value  + "\n Mauls Lost: " + (String.valueOf(fixtureStatistics.get("Maul Lost")));
         }else{
             value = value + "\n Mauls Lost: 0";
+        }
+        if(fixtureStatistics.containsKey("Drop Goal")){
+            value = value  + "\n Our Drop Goals: " + (String.valueOf(fixtureStatistics.get("Drop Goal")));
+        }else{
+            value = value + "\n Our Drop Goals: 0";
+        }
+        if(fixtureStatistics.containsKey("Their Drop Goal")){
+            value = value  + "\n Their Drop Goals: " + (String.valueOf(fixtureStatistics.get("Their Drop Goal")));
+        }else{
+            value = value + "\n Their Drop Goals: 0";
+        }
+        if(fixtureStatistics.containsKey("Penalty Kick")){
+            value = value  + "\n Our Penalty Kicks: " + (String.valueOf(fixtureStatistics.get("Penalty Kick")));
+        }else{
+            value = value + "\n Our Penalty Kicks: 0";
+        }
+        if(fixtureStatistics.containsKey("Their Penalty Kick")){
+            value = value  + "\n Their Penalty Kicks: " + (String.valueOf(fixtureStatistics.get("Their Penalty Kick")));
+        }else{
+            value = value + "\n Their Penalty Kicks: 0";
         }
 
         showFixTV.setTextSize(15);
@@ -213,6 +236,8 @@ public class FixtureStatsSummary extends Activity {
     private void updateFixtureTable(){
         FixtureRepo fixtureRepo = new FixtureRepo();
         Fixture fixtureTable = new Fixture();
+
+        //TODO update database with this data
 
 
     }

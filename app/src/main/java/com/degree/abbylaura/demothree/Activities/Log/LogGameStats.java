@@ -145,6 +145,14 @@ public class LogGameStats extends Activity {
         bottomButtons.add(buttonMAUL);
         Button buttonOMAUL = findViewById(R.id.buttonOMAUL);
         bottomButtons.add(buttonOMAUL);
+        Button buttonDG = findViewById(R.id.buttonDG);
+        bottomButtons.add(buttonDG);
+        Button buttonODG = findViewById(R.id.buttonODG);
+        bottomButtons.add(buttonODG);
+        Button buttonPK = findViewById(R.id.buttonPK);
+        bottomButtons.add(buttonPK);
+        Button buttonOPK = findViewById(R.id.buttonOPK);
+        bottomButtons.add(buttonOPK);
 
         for(Button b: buttons){
             android.view.ViewGroup.LayoutParams layoutParams = b.getLayoutParams();
@@ -157,20 +165,27 @@ public class LogGameStats extends Activity {
 
         for(Button b: bottomButtons){
             android.view.ViewGroup.LayoutParams layoutParams = b.getLayoutParams();
-            layoutParams.width = screenWidth/5;
-            layoutParams.height = screenWidth/6;
+            layoutParams.width = screenWidth/4;
+            layoutParams.height = screenWidth/7;
             b.setLayoutParams(layoutParams);
             b.setVisibility(View.VISIBLE);
             setBottomListener(b);
         }
 
+        Button done = findViewById(R.id.doneButton);
+        android.view.ViewGroup.LayoutParams layoutParams = done.getLayoutParams();
+        layoutParams.width = screenWidth/2;
+        layoutParams.height = screenWidth/7;
+        done.setLayoutParams(layoutParams);
+        done.setVisibility(View.VISIBLE);
 
-        GridLayout backLine = findViewById(R.id.backLineLayout);
+
+        /*GridLayout backLine = findViewById(R.id.backLineLayout);
         int paddingTop = screenHeight/20;
         backLine.setPadding(0, paddingTop, 0,0);
 
         GridLayout subs = findViewById(R.id.firstSubsLayout);
-        subs.setPadding(0, paddingTop, 0,0);
+        subs.setPadding(0, paddingTop, 0,0);*/
 
     }
 
