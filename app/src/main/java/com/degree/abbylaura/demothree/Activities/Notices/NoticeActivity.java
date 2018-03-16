@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -39,7 +40,7 @@ public class NoticeActivity extends Activity {
 
     TextView usersMessage;
     RelativeLayout relBottom;
-    ArrayList<Notice> noticeBuffer;
+    ArrayList<ArrayList<String>> noticeBuffer;
 
     int noticeIdNum;
     String winningNoticeId;
@@ -104,12 +105,18 @@ public class NoticeActivity extends Activity {
         if(addition != null){
             Date date = Calendar.getInstance().getTime();
 
-            Notice notice = new Notice();
+            /*Notice notice = new Notice();
             notice.setMemberId(MyClientID.myID);
             notice.setContents(addition);
-            notice.setDate(date.toString());
+            notice.setDate(date.toString());*/
 
-            noticeBuffer.add(notice);
+            ArrayList<String> noticeRow = new ArrayList<>();
+            noticeRow.add(MyClientID.myID);
+            noticeRow.add(addition);
+            noticeRow.add(date.toString());
+
+            noticeBuffer.add(noticeRow);
+
         }
 
         sendBufferToServer();
@@ -119,10 +126,16 @@ public class NoticeActivity extends Activity {
     private void sendBufferToServer(){
         NoticeRepo noticeRepo = new NoticeRepo();
 
-        Intent intent = new Intent(this, NetworkService.class);
-        intent.putExtra("CLASS", noticeBuffer);
-        intent.putExtra("typeSending", "NOTICE");
-        this.startService(intent);
+        if(noticeBuffer != null){
+            for(ArrayList al : noticeBuffer){
+                Intent intent = new Intent(this, NetworkService.class);
+                intent.putExtra("CLASS", al);
+                intent.putExtra("typeSending", "NOTICE");
+                this.startService(intent);
+            }
+        }
+
+
     }
 
     /*
@@ -137,7 +150,7 @@ public class NoticeActivity extends Activity {
 
             Log.e("NetworkService", "Service Received");
 
-            ArrayList<Notice> response = intent.getParcelableExtra("RESPONSE OBJECT");
+            ArrayList<String> response = intent.getStringArrayListExtra("RESPONSE OBJECT");
 
             updateDB(response);
 
@@ -146,15 +159,22 @@ public class NoticeActivity extends Activity {
         }
     };
 
-    private void updateDB(ArrayList<Notice> notices){
+    private void updateDB(ArrayList<String> notices){
         NoticeRepo noticeRepo = new NoticeRepo();
 
-        if(notices != null){
-            noticeRepo.delete(); //delete all notices
 
-            for(Notice n: notices){
-                noticeRepo.insert(n);
-            }
+
+        if(notices != null){
+            //noticeRepo.delete(); //delete all notices
+
+            System.out.println("UPDATE DB >>>>>>>" + notices.toString());
+            Notice notice = new Notice();
+            notice.setNoticeId((String) notices.get(0));
+            notice.setMemberId((String) notices.get(1));
+            notice.setContents((String) notices.get(2));
+            notice.setDate((String) notices.get(3));
+
+            noticeRepo.insert(notice);
         }
 
     }
