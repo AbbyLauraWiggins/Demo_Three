@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.degree.abbylaura.demothree.Database.Repo.KPIRepo;
 import com.degree.abbylaura.demothree.Database.Schema.KPI;
@@ -28,6 +30,7 @@ public class LogGameStats extends Activity {
     String[] playerKPIs;
     HashMap<String, String> hashKPI;
     HashMap<Integer, String> playerAssignment;
+    HashMap<String, Integer> fixtureStatistics;
     String fixtureID;
 
     @Override
@@ -40,6 +43,7 @@ public class LogGameStats extends Activity {
         playerAssignment = (HashMap<Integer, String>) activityThatCalled.getSerializableExtra("PLAYERS");
         fixtureID = activityThatCalled.getStringExtra("FIXTUREID");
 
+        fixtureStatistics = new HashMap<>();
 
         setUpButtons();
 
@@ -119,28 +123,75 @@ public class LogGameStats extends Activity {
         Button button22 = findViewById(R.id.button22);
         buttons.add(button22);
 
+        ArrayList<Button> bottomButtons = new ArrayList<Button>();
+
+        Button buttonTRY = findViewById(R.id.buttonTRY);
+        bottomButtons.add(buttonTRY);
+        Button buttonOTRY = findViewById(R.id.buttonOTRY);
+        bottomButtons.add(buttonOTRY);
+        Button buttonCON = findViewById(R.id.buttonCON);
+        bottomButtons.add(buttonCON);
+        Button buttonOCON = findViewById(R.id.buttonOCON);
+        bottomButtons.add(buttonOCON);
+        Button buttonSCRUM = findViewById(R.id.buttonSCRUM);
+        bottomButtons.add(buttonSCRUM);
+        Button buttonOSCRUM = findViewById(R.id.buttonOSCRUM);
+        bottomButtons.add(buttonOSCRUM);
+        Button buttonLO = findViewById(R.id.buttonLO);
+        bottomButtons.add(buttonLO);
+        Button buttonOLO = findViewById(R.id.buttonOLO);
+        bottomButtons.add(buttonOLO);
+        Button buttonMAUL = findViewById(R.id.buttonMAUL);
+        bottomButtons.add(buttonMAUL);
+        Button buttonOMAUL = findViewById(R.id.buttonOMAUL);
+        bottomButtons.add(buttonOMAUL);
 
         for(Button b: buttons){
             android.view.ViewGroup.LayoutParams layoutParams = b.getLayoutParams();
             layoutParams.width = screenWidth/7;
-            layoutParams.height = screenWidth/7;
+            layoutParams.height = screenWidth/10;
             b.setLayoutParams(layoutParams);
             b.setVisibility(View.VISIBLE);
             setListener(b);
         }
 
+        for(Button b: bottomButtons){
+            android.view.ViewGroup.LayoutParams layoutParams = b.getLayoutParams();
+            layoutParams.width = screenWidth/5;
+            layoutParams.height = screenWidth/6;
+            b.setLayoutParams(layoutParams);
+            b.setVisibility(View.VISIBLE);
+            setBottomListener(b);
+        }
 
 
         GridLayout backLine = findViewById(R.id.backLineLayout);
-        int paddingTop = screenHeight/16;
+        int paddingTop = screenHeight/20;
         backLine.setPadding(0, paddingTop, 0,0);
 
         GridLayout subs = findViewById(R.id.firstSubsLayout);
         subs.setPadding(0, paddingTop, 0,0);
 
-
     }
 
+    private void setBottomListener(final Button b){
+        b.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NewApi")
+            @Override
+            public void onClick(View v) {
+                String stat = b.getText().toString();
+
+                if(fixtureStatistics.containsKey(stat)){//already contains this stat
+                    int count = fixtureStatistics.get(stat);
+                    fixtureStatistics.replace(stat, count + 1);
+                }else{
+                    fixtureStatistics.put(stat, 1);
+                }
+
+                Toast.makeText(LogGameStats.this, stat + " added.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     private void setListener(final Button b){
         b.setOnClickListener(new View.OnClickListener() {
@@ -152,8 +203,6 @@ public class LogGameStats extends Activity {
             }
         });
     }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -200,7 +249,11 @@ public class LogGameStats extends Activity {
             addToDatabase(countHash, i);
         }
 
+        Intent intent = new Intent(this, FixtureStatsSummary.class);
+        intent.putExtra("FIXTUREID", fixtureID);
+        intent.putExtra("PLAYERS", playerAssignment);
 
+        startActivity(intent);
 
     }
 

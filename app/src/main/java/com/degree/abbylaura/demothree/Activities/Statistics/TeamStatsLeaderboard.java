@@ -166,10 +166,7 @@ public class TeamStatsLeaderboard extends Activity {
         game.setBackgroundColor(Color.LTGRAY);
         leaderboard.setBackgroundColor(Color.LTGRAY);
         buttonBarLayout.setBackgroundColor(Color.LTGRAY);
-
     }
-
-
 
     public void goToOverviewTS(View view) {
         Intent intent = new Intent(this, TeamStatsOverview.class);

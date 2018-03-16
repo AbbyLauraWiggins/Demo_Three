@@ -15,10 +15,15 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
+import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
 import com.degree.abbylaura.demothree.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -30,6 +35,7 @@ public class GameTeamListSetUp extends Activity {
     Button upload, create, createAndLog;
     HashMap<Integer, String> playerAssignment;
     TextView fixtureDate;
+    String fixtureID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,10 +116,42 @@ public class GameTeamListSetUp extends Activity {
     public void onCreateAndLogClick(View view) {
         Intent intent = new Intent(getApplicationContext(), LogGameStats.class);
         intent.putExtra("PLAYERS", playerAssignment);
+        intent.putExtra("FIXTUREID", fixtureID);
         startActivity(intent);
     }
 
-    public void getFixtureDate(){
-        
+    public void getFixtureDate() throws ParseException {
+        TeamFixturesRepo tfRepo = new TeamFixturesRepo();
+
+        ArrayList<ArrayList<String>> fixturesList = tfRepo.getSpinnerList();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date farAway = sdf.parse("01/01/3018");
+
+        for(ArrayList<String> row : fixturesList){ //0=name1, 1=name2, 2=date
+
+            //must be one my MyTeams games
+            if(row.get(4).equals(MyClientID.myTeamID) || row.get(5).equals(MyClientID.myTeamID)){
+                //must be a game that has NOT occured
+
+                try {
+                    Date fixtureDate = sdf.parse(row.get(2));
+                    if (new Date().before(fixtureDate)) { //if NOW is before fixtureDate
+                        if(fixtureDate.before(farAway)){ //if it closer to now than current closest date
+                            farAway = fixtureDate;
+                            fixtureID = row.get(0);
+                        }
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+        }
+
+        String fixtureDateToPass = sdf.format(farAway);
+        fixtureDate.setText(fixtureDateToPass);
     }
 }

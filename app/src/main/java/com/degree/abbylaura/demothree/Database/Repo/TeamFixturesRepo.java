@@ -153,8 +153,8 @@ public class TeamFixturesRepo {
                      *  (5) TEAM ID 2      <^  so can check if we belong to any of these teams
                      */
 
-
                     table.add(row);
+
                 } else {
                     //previous fixtureID is different so we are looking at a new row
                     previousID = cursor.getString(0);
