@@ -29,6 +29,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
+import static android.app.PendingIntent.getActivity;
+
 /**
  * Created by abbylaura on 09/02/2018.
  */
@@ -53,12 +55,14 @@ public class NoticeActivity extends Activity {
         this.noticeIdNum = 0;
         this.winningNoticeId = "";
 
+        noticeBuffer = new ArrayList<>();
+
         updateContent(null);
 
         relBottom = findViewById(R.id.rel_bottom_layout);
         relBottom.setBackgroundColor(Color.WHITE);
 
-        noticeBuffer = new ArrayList<>();
+
 
         /* Allows use to track when an intent with the id TRANSACTION_DONE is executed
          * We can call for an intent to execute something and then tell use when it finishes
@@ -128,6 +132,7 @@ public class NoticeActivity extends Activity {
 
         // Called when the broadcast is received
         public void onReceive(Context context, Intent intent) {
+            //NoticeActivity.this.unregisterReceiver(this);
             emptyNoticeBuffer();
 
             Log.e("NetworkService", "Service Received");
@@ -144,11 +149,14 @@ public class NoticeActivity extends Activity {
     private void updateDB(ArrayList<Notice> notices){
         NoticeRepo noticeRepo = new NoticeRepo();
 
-        noticeRepo.delete(); //delete all notices
+        if(notices != null){
+            noticeRepo.delete(); //delete all notices
 
-        for(Notice n: notices){
-            noticeRepo.insert(n);
+            for(Notice n: notices){
+                noticeRepo.insert(n);
+            }
         }
+
     }
 
     public void updateUI(){
@@ -218,4 +226,16 @@ public class NoticeActivity extends Activity {
     }
 
 
+    protected void onPause() {
+        super.onPause();
+
+        unregisterReceiver(clientReceiver);
+    }
+
+    protected void onResume() {
+        super.onResume();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(NetworkService.TRANSACTION_DONE);
+        registerReceiver(clientReceiver, intentFilter);
+    }
 }

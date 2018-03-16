@@ -43,24 +43,23 @@ public class NetworkService extends IntentService {
         Log.e("NetworkService", "Service Started");
         System.out.println("2: NetworkService onHandleIntent");
 
-        Object passedObj = intent.getParcelableExtra("CLASS");
+        ArrayList<Object> passedObj = (ArrayList<Object>) intent.getSerializableExtra("CLASS");
         String typeSending = intent.getStringExtra("typeSending");
 
-        System.out.println("3: passedRequest = " + passedObj.toString());
-
-        Object response = serviceRequest(passedObj, typeSending);
+        ArrayList<Object> response = serviceRequest(passedObj, typeSending);
         //response is response from server after sending them table and update request
         //response will be in ArrayList<Database.Schema.class> format
 
 
+
         //so send response back to activity that requested it
         Intent i = new Intent(TRANSACTION_DONE);
-        i.putExtra("RESPONSE OBJECT", (Parcelable) response);
+        i.putExtra("RESPONSE OBJECT", response);
         NetworkService.this.sendBroadcast(i);
 
     }
 
-    protected Object serviceRequest(Object passedRequest, String typeSending) {
+    protected ArrayList<Object> serviceRequest(Object passedRequest, String typeSending) {
         //start a client, connect to server, send it request and object
         NestedClient nClient = new NestedClient();
 
@@ -81,8 +80,8 @@ public class NetworkService extends IntentService {
 
         }
 
-        public Object talkToServer(Object passedRequest, String typeSending) {
-            Object response = null;
+        public ArrayList<Object> talkToServer(Object passedRequest, String typeSending) {
+            ArrayList<Object> response = null;
 
             try{
                 System.out.println("5: Try block of TalkToServer NestedClient");
@@ -98,14 +97,7 @@ public class NetworkService extends IntentService {
                 sendingMap.put("CONTENT", passedRequest);
                 outToServer.writeObject(sendingMap);
 
-                Object inFromServerObj = (Object) inFromServer.readObject();
-                if(inFromServerObj instanceof String){
-                    response = (String) inFromServerObj;
-                }else{
-                    response = (ArrayList<Object>) inFromServerObj;
-                }
-
-                System.out.println("6: Try block still, response = " + response.toString());
+                response = (ArrayList<Object>) inFromServer.readObject();
 
                 socket.close();
 
