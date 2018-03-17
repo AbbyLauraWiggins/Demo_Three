@@ -872,6 +872,28 @@ public class TestDatabaseActivity extends Activity {
         LinearLayout tableContainer = findViewById(R.id.tableContainer);
 
         tableContainer.addView(tl);
+
+        NoticeRepo noticeRepo = new NoticeRepo();
+
+        ArrayList<ArrayList<String>> notices = noticeRepo.getNotices();
+
+
+        TableLayout tl2 = new TableLayout(this);
+
+        for(int row = 0; row < notices.size(); row++) {
+            TableRow tr2 = new TableRow(this);
+
+            TextView label = new TextView(this);
+            label.setText(notices.get(row).toString());
+            tr2.addView(label);
+
+
+            tl2.addView(tr2);
+        }
+
+
+        tableContainer.addView(tl2);
+
     }
 
     public void goback(View view) {

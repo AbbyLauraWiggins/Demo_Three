@@ -1,11 +1,13 @@
 package com.degree.abbylaura.demothree.Database.Schema;
 
 
+import java.io.Serializable;
+
 /**
  * Created by abbylaura on 02/03/2018.
  */
 
-public class Notice {
+public class Notice{
 
     public static final String TAG = Notice.class.getSimpleName();
     public static final String TABLE = "Notice";

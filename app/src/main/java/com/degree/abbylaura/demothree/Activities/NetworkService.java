@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.degree.abbylaura.demothree.Database.Repo.NoticeRepo;
+import com.degree.abbylaura.demothree.Database.Schema.Notice;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -41,21 +45,31 @@ public class NetworkService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
         Log.e("NetworkService", "Service Started");
-        System.out.println("2: NetworkService onHandleIntent");
-
-        ArrayList<String> passedObj = intent.getStringArrayListExtra("CLASS");
-        String typeSending = intent.getStringExtra("typeSending");
-
-        ArrayList<String> response = serviceRequest(passedObj, typeSending);
-        //response is response from server after sending them table and update request
-        //response will be in ArrayList<Database.Schema.class> format
 
 
+        ArrayList<String> passedList = intent.getStringArrayListExtra("CLASS");
 
-        //so send response back to activity that requested it
-        Intent i = new Intent(TRANSACTION_DONE);
-        i.putExtra("RESPONSE OBJECT", response);
-        NetworkService.this.sendBroadcast(i);
+        if(passedList == null){
+            Intent i = new Intent(TRANSACTION_DONE);
+            NetworkService.this.sendBroadcast(i);
+        }else{
+            String typeSending = intent.getStringExtra("typeSending");
+
+            //ArrayList<Object> passedObj = new ArrayList<Object>();
+            if(typeSending.equals("NOTICE")){
+
+                ArrayList<String> response = serviceRequest(passedList, typeSending);
+
+                updateNotices(response);
+
+            }
+
+            //so send response back to activity that requested it
+            Intent i = new Intent(TRANSACTION_DONE);
+            NetworkService.this.sendBroadcast(i);
+
+        }
+
 
     }
 
@@ -67,6 +81,10 @@ public class NetworkService extends IntentService {
     }
 
 
+
+    /*
+     * Will return an ArrayList<String> in format that each string = table row: "col1||col2||col3..."
+     */
     public class NestedClient{
         ObjectOutputStream outToServer;
         ObjectInputStream inFromServer;
@@ -80,7 +98,7 @@ public class NetworkService extends IntentService {
         }
 
         public ArrayList<String> talkToServer(ArrayList<String> passedRequest, String typeSending) {
-            ArrayList<String> response = null;
+            ArrayList<String> response = new ArrayList<>();
 
             try{
                 System.out.println("5: Try block of TalkToServer NestedClient");
@@ -91,12 +109,15 @@ public class NetworkService extends IntentService {
                 inFromServer = new ObjectInputStream(socket.getInputStream());
 
 
-                HashMap<String, Object> sendingMap = new HashMap<>();
-                sendingMap.put("TYPE", (String) typeSending);
-                sendingMap.put("CONTENT", passedRequest);
-                outToServer.writeObject(sendingMap);
+                //HashMap<String, Object> sendingMap = new HashMap<>();
+                //sendingMap.put("TYPE", (String) typeSending);
+                //sendingMap.put("CONTENT", passedRequest);
+                outToServer.writeObject(typeSending);
+                outToServer.writeObject(passedRequest);
+
 
                 response = (ArrayList<String>) inFromServer.readObject();
+
 
                 socket.close();
 
@@ -112,5 +133,24 @@ public class NetworkService extends IntentService {
             return response;
         }
 
+    }
+
+
+
+    private void updateNotices(ArrayList<String> response){
+        NoticeRepo noticeRepo = new NoticeRepo();
+
+        noticeRepo.delete();
+
+        for(String al: response){
+            String[] splitter = al.split("||");
+            Notice notice = new Notice();
+            notice.setNoticeId((String) splitter[0]);
+            notice.setMemberId((String) splitter[1]);
+            notice.setContents((String) splitter[2]);
+            notice.setDate((String) splitter[3]);
+
+            noticeRepo.insert(notice);
+        }
     }
 }

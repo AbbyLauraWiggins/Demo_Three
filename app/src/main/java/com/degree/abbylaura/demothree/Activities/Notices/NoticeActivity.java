@@ -40,7 +40,7 @@ public class NoticeActivity extends Activity {
 
     TextView usersMessage;
     RelativeLayout relBottom;
-    ArrayList<ArrayList<String>> noticeBuffer;
+    ArrayList<String> noticeBuffer;
 
     int noticeIdNum;
     String winningNoticeId;
@@ -105,17 +105,7 @@ public class NoticeActivity extends Activity {
         if(addition != null){
             Date date = Calendar.getInstance().getTime();
 
-            /*Notice notice = new Notice();
-            notice.setMemberId(MyClientID.myID);
-            notice.setContents(addition);
-            notice.setDate(date.toString());*/
-
-            ArrayList<String> noticeRow = new ArrayList<>();
-            noticeRow.add(MyClientID.myID);
-            noticeRow.add(addition);
-            noticeRow.add(date.toString());
-
-            noticeBuffer.add(noticeRow);
+            noticeBuffer.add(MyClientID.myID + "||" + addition + "||" + date.toString());
 
         }
 
@@ -126,13 +116,13 @@ public class NoticeActivity extends Activity {
     private void sendBufferToServer(){
         NoticeRepo noticeRepo = new NoticeRepo();
 
-        if(noticeBuffer != null){
-            for(ArrayList al : noticeBuffer){
-                Intent intent = new Intent(this, NetworkService.class);
-                intent.putExtra("CLASS", al);
-                intent.putExtra("typeSending", "NOTICE");
-                this.startService(intent);
-            }
+        if(!noticeBuffer.isEmpty()){
+            System.out.println(noticeBuffer.toString());
+            Intent intent = new Intent(this, NetworkService.class);
+            intent.putExtra("CLASS", noticeBuffer);
+            intent.putExtra("typeSending", "NOTICE");
+            this.startService(intent);
+
         }
 
 
@@ -150,13 +140,13 @@ public class NoticeActivity extends Activity {
 
             Log.e("NetworkService", "Service Received");
 
-            ArrayList<String> response = intent.getStringArrayListExtra("RESPONSE OBJECT");
-
-            updateDB(response);
+            //updateDB(response);
 
             updateUI();
 
+
         }
+
     };
 
     private void updateDB(ArrayList<String> notices){
@@ -245,7 +235,6 @@ public class NoticeActivity extends Activity {
         this.noticeBuffer = new ArrayList<>();
     }
 
-
     protected void onPause() {
         super.onPause();
 
@@ -258,4 +247,5 @@ public class NoticeActivity extends Activity {
         intentFilter.addAction(NetworkService.TRANSACTION_DONE);
         registerReceiver(clientReceiver, intentFilter);
     }
+
 }
