@@ -103,7 +103,7 @@ public class NetworkService extends IntentService {
             try{
                 System.out.println("5: Try block of TalkToServer NestedClient");
 
-                socket = new Socket("10.0.2.2", 9002);
+                socket = new Socket("localhost", 9002);
 
                 outToServer = new ObjectOutputStream(socket.getOutputStream());
                 inFromServer = new ObjectInputStream(socket.getInputStream());
@@ -117,6 +117,7 @@ public class NetworkService extends IntentService {
 
 
                 response = (ArrayList<String>) inFromServer.readObject();
+                System.out.println("nClient try response: " + response);
 
 
                 socket.close();
@@ -138,12 +139,14 @@ public class NetworkService extends IntentService {
 
 
     private void updateNotices(ArrayList<String> response){
+        System.out.println("updateNotices: " + response.toString());
+
         NoticeRepo noticeRepo = new NoticeRepo();
 
         noticeRepo.delete();
 
         for(String al: response){
-            String[] splitter = al.split("||");
+            String[] splitter = al.split("4h4f");
             Notice notice = new Notice();
             notice.setNoticeId((String) splitter[0]);
             notice.setMemberId((String) splitter[1]);

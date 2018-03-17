@@ -98,6 +98,7 @@ public class NoticeActivity extends Activity {
     }
 
     public void updateContent(String addition) {
+        System.out.println("updateContent: " + addition);
 
         //add addition to Database Notice table
         NoticeRepo noticeRepo = new NoticeRepo();
@@ -105,7 +106,7 @@ public class NoticeActivity extends Activity {
         if(addition != null){
             Date date = Calendar.getInstance().getTime();
 
-            noticeBuffer.add(MyClientID.myID + "||" + addition + "||" + date.toString());
+            noticeBuffer.add(MyClientID.myID + "4h4f" + addition + "4h4f" + date.toString());
 
         }
 
@@ -114,6 +115,8 @@ public class NoticeActivity extends Activity {
     }
 
     private void sendBufferToServer(){
+        System.out.println("sendBufferToServer: " + noticeBuffer.toString());
+
         NoticeRepo noticeRepo = new NoticeRepo();
 
         if(!noticeBuffer.isEmpty()){
@@ -137,6 +140,9 @@ public class NoticeActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             //NoticeActivity.this.unregisterReceiver(this);
             emptyNoticeBuffer();
+
+            System.out.println("onReceive BroadcastReceiver");
+
 
             Log.e("NetworkService", "Service Received");
 
@@ -170,6 +176,9 @@ public class NoticeActivity extends Activity {
     }
 
     public void updateUI(){
+        System.out.println("updateUI");
+
+
         //for all entries in Notice table not on UI, add to UI using updateTextView
         NoticeRepo noticeRepo = new NoticeRepo();
         ArrayList<ArrayList<String>> noticeArray = noticeRepo.getNotices();
@@ -213,6 +222,7 @@ public class NoticeActivity extends Activity {
     @SuppressLint("ResourceType")
     protected void updateTextView(LinearLayout fragContainer, String notice, String memberName, String date, int i){
         System.out.print("in update text view");
+        fragContainer.removeAllViews();
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
 
