@@ -65,8 +65,13 @@ public class NetworkService extends IntentService {
             }
 
             //so send response back to activity that requested it
+            System.out.println("JUST BEFORE INTENT");
             Intent i = new Intent(TRANSACTION_DONE);
+            System.out.println("JUST AFTER INTENT");
+
             NetworkService.this.sendBroadcast(i);
+
+            System.out.println("after send broadcast");
 
         }
 
@@ -103,7 +108,7 @@ public class NetworkService extends IntentService {
             try{
                 System.out.println("5: Try block of TalkToServer NestedClient");
 
-                socket = new Socket("localhost", 9002);
+                socket = new Socket("192.168.0.18", 9002); //192.168.0.18
 
                 outToServer = new ObjectOutputStream(socket.getOutputStream());
                 inFromServer = new ObjectInputStream(socket.getInputStream());

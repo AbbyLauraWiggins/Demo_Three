@@ -139,9 +139,10 @@ public class NoticeActivity extends Activity {
         // Called when the broadcast is received
         public void onReceive(Context context, Intent intent) {
             //NoticeActivity.this.unregisterReceiver(this);
+            System.out.println("onReceive BroadcastReceiver");
+
             emptyNoticeBuffer();
 
-            System.out.println("onReceive BroadcastReceiver");
 
 
             Log.e("NetworkService", "Service Received");
@@ -247,12 +248,15 @@ public class NoticeActivity extends Activity {
 
     protected void onPause() {
         super.onPause();
+        System.out.println("onPause BroadcastReceiver");
 
         unregisterReceiver(clientReceiver);
     }
 
     protected void onResume() {
         super.onResume();
+        System.out.println("onResume BroadcastReceiver");
+
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(NetworkService.TRANSACTION_DONE);
         registerReceiver(clientReceiver, intentFilter);

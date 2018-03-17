@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.degree.abbylaura.demothree.Database.Data.DatabaseHelper;
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
+import com.degree.abbylaura.demothree.Database.Repo.NoticeRepo;
 
 /**
  * Created by abbylaura on 02/03/2018.
@@ -21,6 +22,8 @@ public class  App extends Application {
         context = this.getApplicationContext();
         dbHelper = new DatabaseHelper();
         DatabaseManager.initializeInstance(dbHelper);
+        NoticeRepo noticeRepo = new NoticeRepo();
+        noticeRepo.delete();
 
     }
 
