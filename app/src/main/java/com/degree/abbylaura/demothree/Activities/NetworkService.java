@@ -55,10 +55,13 @@ public class NetworkService extends IntentService {
         }else{
             String typeSending = intent.getStringExtra("typeSending");
 
+            int size = Integer.parseInt(intent.getStringExtra("TABLESIZE"));
+
             //ArrayList<Object> passedObj = new ArrayList<Object>();
             if(typeSending.equals("NOTICE")){
+                NoticeRepo noticeRepo = new NoticeRepo();
 
-                ArrayList<String> response = serviceRequest(passedList, typeSending);
+                ArrayList<String> response = serviceRequest(passedList, typeSending, size);
 
                 updateNotices(response);
 
@@ -78,11 +81,11 @@ public class NetworkService extends IntentService {
 
     }
 
-    protected ArrayList<String> serviceRequest(ArrayList<String> passedRequest, String typeSending) {
+    protected ArrayList<String> serviceRequest(ArrayList<String> passedRequest, String typeSending, int size) {
         //start a client, connect to server, send it request and object
         NestedClient nClient = new NestedClient();
 
-        return nClient.talkToServer(passedRequest, typeSending);
+        return nClient.talkToServer(passedRequest, typeSending, size);
     }
 
 
@@ -102,7 +105,7 @@ public class NetworkService extends IntentService {
 
         }
 
-        public ArrayList<String> talkToServer(ArrayList<String> passedRequest, String typeSending) {
+        public ArrayList<String> talkToServer(ArrayList<String> passedRequest, String typeSending, int size) {
             ArrayList<String> response = new ArrayList<>();
 
             try{
@@ -114,11 +117,11 @@ public class NetworkService extends IntentService {
                 inFromServer = new ObjectInputStream(socket.getInputStream());
 
 
-                //HashMap<String, Object> sendingMap = new HashMap<>();
-                //sendingMap.put("TYPE", (String) typeSending);
-                //sendingMap.put("CONTENT", passedRequest);
-                outToServer.writeObject(typeSending);
-                outToServer.writeObject(passedRequest);
+
+                outToServer.writeObject(typeSending);   //DATABASE TABLE TYPE
+                outToServer.writeObject(size);          //SIZE OF CLIENT TABLE
+                outToServer.writeObject(passedRequest); //WHAT WE WANT TO ADD TO TABLE
+
 
 
                 response = (ArrayList<String>) inFromServer.readObject();
@@ -144,21 +147,25 @@ public class NetworkService extends IntentService {
 
 
     private void updateNotices(ArrayList<String> response){
-        System.out.println("updateNotices: " + response.toString());
 
-        NoticeRepo noticeRepo = new NoticeRepo();
+        if(!response.isEmpty()){
+            if(!(response.get(0).equals("CODE:4698:EMPTYBUFFER"))){
+                System.out.println("updateNotices: " + response.toString());
 
-        noticeRepo.delete();
+                NoticeRepo noticeRepo = new NoticeRepo();
 
-        for(String al: response){
-            String[] splitter = al.split("4h4f");
-            Notice notice = new Notice();
-            notice.setNoticeId((String) splitter[0]);
-            notice.setMemberId((String) splitter[1]);
-            notice.setContents((String) splitter[2]);
-            notice.setDate((String) splitter[3]);
+                for(String al: response){
+                    String[] splitter = al.split("4h4f");
+                    Notice notice = new Notice();
+                    notice.setNoticeId((String) splitter[0]);
+                    notice.setMemberId((String) splitter[1]);
+                    notice.setContents((String) splitter[2]);
+                    notice.setDate((String) splitter[3]);
 
-            noticeRepo.insert(notice);
+                    noticeRepo.insert(notice);
+                }
+            }
+
         }
     }
 }

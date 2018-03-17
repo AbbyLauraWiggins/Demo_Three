@@ -117,17 +117,21 @@ public class NoticeActivity extends Activity {
     private void sendBufferToServer(){
         System.out.println("sendBufferToServer: " + noticeBuffer.toString());
 
+        System.out.println(noticeBuffer.toString());
+        Intent intent = new Intent(this, NetworkService.class);
+
         NoticeRepo noticeRepo = new NoticeRepo();
 
-        if(!noticeBuffer.isEmpty()){
-            System.out.println(noticeBuffer.toString());
-            Intent intent = new Intent(this, NetworkService.class);
-            intent.putExtra("CLASS", noticeBuffer);
-            intent.putExtra("typeSending", "NOTICE");
-            this.startService(intent);
+        if(noticeBuffer.isEmpty()){
+            System.out.println("sendBufferToServer: CODE:4698:EMPTYBUFFER");
 
+            noticeBuffer.add("CODE:4698:EMPTYBUFFER"); //Unique string that user will not input
         }
+        intent.putExtra("TABLESIZE", String.valueOf(noticeRepo.tableSize()));
 
+        intent.putExtra("CLASS", noticeBuffer);
+        intent.putExtra("typeSending", "NOTICE");
+        this.startService(intent);
 
     }
 
@@ -156,29 +160,15 @@ public class NoticeActivity extends Activity {
 
     };
 
-    private void updateDB(ArrayList<String> notices){
-        NoticeRepo noticeRepo = new NoticeRepo();
-
-
-
-        if(notices != null){
-            //noticeRepo.delete(); //delete all notices
-
-            System.out.println("UPDATE DB >>>>>>>" + notices.toString());
-            Notice notice = new Notice();
-            notice.setNoticeId((String) notices.get(0));
-            notice.setMemberId((String) notices.get(1));
-            notice.setContents((String) notices.get(2));
-            notice.setDate((String) notices.get(3));
-
-            noticeRepo.insert(notice);
-        }
-
-    }
 
     public void updateUI(){
         System.out.println("updateUI");
 
+        if(!noticeBuffer.isEmpty()){
+            if(noticeBuffer.get(0).equals("CODE:4698:EMPTYBUFFER")){
+                noticeBuffer = new ArrayList<>();
+            }
+        }
 
         //for all entries in Notice table not on UI, add to UI using updateTextView
         NoticeRepo noticeRepo = new NoticeRepo();
