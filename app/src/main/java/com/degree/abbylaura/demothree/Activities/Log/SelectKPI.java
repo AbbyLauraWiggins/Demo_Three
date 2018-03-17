@@ -81,6 +81,7 @@ public class SelectKPI extends Activity {
             b.setLayoutParams(layoutParams);
             b.setVisibility(View.VISIBLE);
             setListener(b);
+            b.setTextSize(15);
         }
 
         RelativeLayout textViewContainer = findViewById(R.id.textviewContainer);

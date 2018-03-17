@@ -18,15 +18,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
+
         android:id="@+id/top_linear"
         >
 
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/homepagepic"
             android:background="@android:color/darker_gray"
-            android:src="@drawable/team_photo_nobg" />
+            android:src="@drawable/home_page_pic" />
     </LinearLayout>
 
     <RelativeLayout
@@ -83,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/next_training_month_home_tv"
-            android:text="@string/next_training_month_text"
+            android:text="03"
             android:layout_below="@+id/next_training_home_tv"
             android:layout_centerInParent="true"
             />
@@ -92,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/next_social_month_home_tv"
-            android:text="@string/next_social_month_text"
+            android:text="03"
             android:layout_below="@+id/next_social_home_tv"
             android:layout_alignParentEnd="true"
             android:paddingRight="25dp"
@@ -149,7 +151,8 @@
             android:layout_alignParentLeft="true"
             android:onClick="onGoToNotices"
             android:textSize="15dp"
-            android:text="Notices" />
+            android:text="Notices"
+            />
 
         <Button
             android:id="@+id/stats_home_button"

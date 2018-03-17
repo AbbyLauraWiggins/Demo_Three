@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.degree.abbylaura.demothree.Activities.Log.LogActivity;
@@ -47,7 +49,11 @@ public class HomeActivity extends Activity {
         setButtons();
 
 
-
+        try {
+            setNextGame();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -97,38 +103,70 @@ public class HomeActivity extends Activity {
         layoutParams.height = screenWidth/4;
         members.setLayoutParams(layoutParams);
         members.setVisibility(View.VISIBLE);
+
+        ImageView img = findViewById(R.id.homepagepic);
+        layoutParams = img.getLayoutParams();
+        layoutParams.width = screenWidth;
+        img.setLayoutParams(layoutParams);
+        img.setVisibility(View.VISIBLE);
+
+        LinearLayout top = findViewById(R.id.top_linear);
+        layoutParams = top.getLayoutParams();
+        layoutParams.width = screenWidth;
+        layoutParams.height = screenHeight/3;
+        top.setLayoutParams(layoutParams);
+        top.setVisibility(View.VISIBLE);
+
     }
 
     public void setNextGame() throws ParseException {
-        TeamFixturesRepo teamFixturesRepo = new TeamFixturesRepo();
-        ArrayList<String> fixtureDates = teamFixturesRepo.getMyFixtureDates();
 
-        SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-        Date now = new Date();
+        String fixtureDate = getFixtureDate();
 
+        nextGameDate.setText(fixtureDate.substring(0,2));
 
-        NavigableSet<Date> dates = new TreeSet<Date>();
-        for(String day : fixtureDates){
-            Date fixtureDate = df.parse(day);
-            if(fixtureDate.after(now)){
-                System.out.println(day);
-                dates.add(fixtureDate);
-            }
-        }
+        String month = fixtureDate.substring(3,5);
 
-        System.out.println("now DATE  " + df.format(now));
-
-        Date nearest = dates.first(); //returns lowest date thats above now
-
-        System.out.println("NEAREST DATE + " + df.format(nearest));
-        //nextGameDate.setText(df.format(nearest));//.substring(0,2));
-
-        //String month = String.valueOf(closestDate).substring(4,5);*/
+        nextGameMonth.setText(month);
         //TODO show month
 
 
 
 
+    }
+
+    public String getFixtureDate() throws ParseException {
+        TeamFixturesRepo tfRepo = new TeamFixturesRepo();
+
+        ArrayList<ArrayList<String>> fixturesList = tfRepo.getSpinnerList();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date farAway = sdf.parse("01/01/3018");
+
+        for(ArrayList<String> row : fixturesList){ //0=name1, 1=name2, 2=date
+
+            //must be one my MyTeams games
+            if(row.get(4).equals(MyClientID.myTeamID) || row.get(5).equals(MyClientID.myTeamID)){
+                //must be a game that has NOT occured
+
+                try {
+                    Date fixtureDate = sdf.parse(row.get(2));
+                    if (new Date().before(fixtureDate)) { //if NOW is before fixtureDate
+                        if(fixtureDate.before(farAway)){ //if it closer to now than current closest date
+                            farAway = fixtureDate;
+                        }
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+        }
+
+        String fixtureDateToPass = sdf.format(farAway);
+        return fixtureDateToPass;
     }
 
     public void onGoToNotices(View view) {

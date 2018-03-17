@@ -160,6 +160,7 @@ public class LogGameStats extends Activity {
             layoutParams.height = screenWidth/10;
             b.setLayoutParams(layoutParams);
             b.setVisibility(View.VISIBLE);
+
             setListener(b);
         }
 
