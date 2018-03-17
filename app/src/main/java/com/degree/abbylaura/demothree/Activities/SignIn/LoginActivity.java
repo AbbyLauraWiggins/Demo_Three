@@ -2,20 +2,27 @@ package com.degree.abbylaura.demothree.Activities.SignIn;
 
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.IntentFilter;
+import android.net.Network;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import android.content.SharedPreferences;
 import android.content.Intent;
 
 import com.degree.abbylaura.demothree.Activities.HomeActivity;
+import com.degree.abbylaura.demothree.Activities.NetworkService;
 import com.degree.abbylaura.demothree.Activities.TestingNetworkActivity;
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.R;
 import com.degree.abbylaura.demothree.Test.TestDatabaseActivity;
+
+import java.util.ArrayList;
 
 /**
  * A login screen that offers login via email/password.
@@ -82,6 +89,14 @@ public class LoginActivity extends Activity {
             }
         });
 
+
+        /* Allows use to track when an intent with the id TRANSACTION_DONE is executed
+         * We can call for an intent to execute something and then tell use when it finishes
+         */
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(NetworkService.TRANSACTION_DONE);
+        registerReceiver(clientReceiver, intentFilter);
+
     }
 
     @Override
@@ -127,33 +142,57 @@ public class LoginActivity extends Activity {
     }
 
     public void onSignInClick(View view) {
-
-        //TODO validate email and password pair
-        //if valid then save login and go to home
-        //if not valid then TOAST error message
-
-        MemberRepo memberRepo = new MemberRepo();
-
+        /*MemberRepo memberRepo = new MemberRepo();
         String where = "WHERE Email = '" + emailEditText.getText().toString() + "'" +
                 " AND Password = '" + passwordEditText.getText().toString() + "'";
-
         memberRepo.setWhereClause(where);
+        String[][] result = memberRepo.getMembers();*/
 
-        String[][] result = memberRepo.getMembers();
+        ArrayList<String> logInDetails = new ArrayList<>();
+        logInDetails.add(emailEditText.getText().toString());
+        logInDetails.add(passwordEditText.getText().toString());
 
-        if(result[0][0] == null ){
-            Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
-        }else{
-            String id = result[0][0];
-            MyClientID.setID(id);//, result[0][7]);
-            MyClientID.setMyTeamID(result[7][0]);
-            Intent goToHome  = new Intent(this, HomeActivity.class);
-            startActivity(goToHome);
-        }
-
+        Intent intent = new Intent(this, NetworkService.class);
+        intent.putExtra("typeSending", "LOGIN");
+        intent.putExtra("CLASS", logInDetails);
+        intent.putExtra("TABLESIZE", 0);
+        this.startService(intent);
 
     }
 
+    /*
+ * Is alerted when the IntentService broadcasts TRANSACTION_DONE
+ */
+    private BroadcastReceiver clientReceiver = new BroadcastReceiver() {
+
+        public void onReceive(Context context, Intent intent) {
+            String valid = intent.getStringExtra("VALIDATION");
+
+            if(!valid.equals("true")){
+                showToast();
+            }else{
+                ArrayList<String> memberDetails = intent.getStringArrayListExtra("MEMBERDETAILS");
+
+                String id = memberDetails.get(0);
+                MyClientID.setID(id);//, result[0][7]);
+
+                String teamId = memberDetails.get(1);
+                MyClientID.setMyTeamID(teamId);
+
+                goToHome();
+            }
+        }
+
+    };
+
+    private void goToHome(){
+        Intent goToHome  = new Intent(this, HomeActivity.class);
+        startActivity(goToHome);
+    }
+
+    private void showToast(){
+        Toast.makeText(this, getString(R.string.toast_invalid_message), Toast.LENGTH_SHORT).show();
+    }
 
     public void onSkipForTestingClick(View view) {
         Intent goToNetwork = new Intent(this, TestingNetworkActivity.class);

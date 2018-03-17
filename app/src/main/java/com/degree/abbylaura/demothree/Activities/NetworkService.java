@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.Database.Repo.NoticeRepo;
+import com.degree.abbylaura.demothree.Database.Schema.Member;
 import com.degree.abbylaura.demothree.Database.Schema.Notice;
 
 import java.io.BufferedReader;
@@ -40,36 +42,37 @@ public class NetworkService extends IntentService {
     }
 
 
+
     //Runs when called from an activity
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        Log.e("NetworkService", "Service Started");
 
+        //so send response back to activity that requested it
+        System.out.println("JUST BEFORE INTENT");
+        Intent i = new Intent(TRANSACTION_DONE);
+
+        Log.e("NetworkService", "Service Started");
 
         ArrayList<String> passedList = intent.getStringArrayListExtra("CLASS");
 
         if(passedList == null){
-            Intent i = new Intent(TRANSACTION_DONE);
             NetworkService.this.sendBroadcast(i);
         }else{
             String typeSending = intent.getStringExtra("typeSending");
-
             int size = Integer.parseInt(intent.getStringExtra("TABLESIZE"));
 
-            //ArrayList<Object> passedObj = new ArrayList<Object>();
+            ArrayList<String> response = serviceRequest(passedList, typeSending, size);
+
             if(typeSending.equals("NOTICE")){
-                NoticeRepo noticeRepo = new NoticeRepo();
-
-                ArrayList<String> response = serviceRequest(passedList, typeSending, size);
-
                 updateNotices(response);
-
+            }
+            else if(typeSending.equals("LOGIN")){
+                String valid = updateMembers(response, passedList);
+                i.putExtra("VALIDATION", valid);
             }
 
-            //so send response back to activity that requested it
-            System.out.println("JUST BEFORE INTENT");
-            Intent i = new Intent(TRANSACTION_DONE);
+
             System.out.println("JUST AFTER INTENT");
 
             NetworkService.this.sendBroadcast(i);
@@ -123,8 +126,8 @@ public class NetworkService extends IntentService {
                 outToServer.writeObject(passedRequest); //WHAT WE WANT TO ADD TO TABLE
 
 
+                response = (ArrayList<String>) inFromServer.readObject(); //CONTENTS OF TABLE TO UPDATE
 
-                response = (ArrayList<String>) inFromServer.readObject();
                 System.out.println("nClient try response: " + response);
 
 
@@ -168,4 +171,42 @@ public class NetworkService extends IntentService {
 
         }
     }
+
+    private String updateMembers(ArrayList<String> response, ArrayList<String> logInDetails){
+        String email = logInDetails.get(0);
+        String password = logInDetails.get(1);
+        String validation = "false";
+
+        if(!response.isEmpty()){
+            System.out.println("updateMembers: " + response.toString());
+
+            MemberRepo memberRepo = new MemberRepo();
+            memberRepo.delete();
+
+            for(String al: response){
+                String[] splitter = al.split("4h4f");
+
+                Member member = new Member();
+                member.setMemberId((String) splitter[0]);
+                member.setName((String) splitter[1]);
+                member.setEmail((String) splitter[2]);
+                member.setPassword((String) splitter[3]);
+                member.setDOB((String) splitter[4]);
+                member.setPositions((String) splitter[5]);
+                member.setResponsibilities((String) splitter[6]);
+                member.setTeamId((String) splitter[7]);
+                member.setPermissions((String) splitter[8]);
+
+                if(splitter[2].equals(email) && splitter[3].equals(password)){
+                    validation="true";
+                }
+
+                memberRepo.insert(member);
+
+            }
+        }
+
+        return validation;
+    }
+
 }
