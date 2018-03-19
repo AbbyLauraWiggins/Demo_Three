@@ -168,15 +168,14 @@ public class LoginActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             String valid = intent.getStringExtra("VALIDATION");
 
-            if(!valid.equals("true")){
+            if(valid.equals("false")){
                 showToast();
             }else{
-                ArrayList<String> memberDetails = intent.getStringArrayListExtra("MEMBERDETAILS");
-
-                String id = memberDetails.get(0);
+                String[] splitter = valid.split("4h4f");
+                String id = splitter[0];
                 MyClientID.setID(id);//, result[0][7]);
 
-                String teamId = memberDetails.get(1);
+                String teamId = splitter[1];
                 MyClientID.setMyTeamID(teamId);
 
                 goToHome();

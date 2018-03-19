@@ -176,6 +176,8 @@ public class NetworkService extends IntentService {
         String email = logInDetails.get(0);
         String password = logInDetails.get(1);
         String validation = "false";
+        String id = "";
+        String team = "";
 
         if(!response.isEmpty()){
             if(!response.get(0).equals("CODE:4699:NOMEMBERS")){
@@ -200,6 +202,8 @@ public class NetworkService extends IntentService {
 
                     if(splitter[2].equals(email) && splitter[3].equals(password)){
                         validation="true";
+                        id = (splitter[0]);
+                        team = String.valueOf(splitter[7]);
                     }
 
                     memberRepo.insert(member);
@@ -208,7 +212,12 @@ public class NetworkService extends IntentService {
             }
         }
 
-        return validation;
+        if(validation.equals("false")){
+            return validation;
+
+        }else{
+            return id + "4h4f" + team;
+        }
     }
 
 }
