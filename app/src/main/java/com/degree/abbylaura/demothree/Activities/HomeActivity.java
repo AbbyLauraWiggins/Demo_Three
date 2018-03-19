@@ -156,7 +156,7 @@ public class HomeActivity extends Activity {
         LinearLayout top = findViewById(R.id.top_linear);
         layoutParams = top.getLayoutParams();
         layoutParams.width = screenWidth;
-        layoutParams.height = screenHeight/3;
+        layoutParams.height = (int) (screenHeight/3.5);
         top.setLayoutParams(layoutParams);
         top.setVisibility(View.VISIBLE);
 

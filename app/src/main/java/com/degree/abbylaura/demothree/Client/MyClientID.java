@@ -47,12 +47,18 @@ public class MyClientID {
         }
     }
 
+
     public static void setMyTeamID(String id){
         myTeamID = id;
     }
 
+    public static void setMyPermissions(int perm){ //FOR TESTING ONLY
+        myPermissions = perm;
+    }
 
-
+    public static void setTESTid(String id){
+        myID = id;
+    }
     public void newID(String email, String password){
         String newID = null;
 

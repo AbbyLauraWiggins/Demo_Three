@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@color/colorPrimary">
 
     <TextView
         android:layout_width="wrap_content"
@@ -11,73 +12,110 @@
         android:text="Statistics"
         android:id="@+id/stats_title"
         android:textStyle="bold"
-        android:textSize="30sp"/>
+        android:textSize="30sp"
+        android:textColor="#ffffff"/>
         />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/teamStatsButton"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:clickable="true"
-        android:onClick="goTeamStats"
-        android:background="@color/colorPrimary">
+        android:background="#ffffff"
+        android:padding="10dp">
 
-        <TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/teamStatsButton"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:onClick="goTeamStats"
+            android:background="#ffffff">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_people_black_48dp"
+                android:tint="@color/colorAccent"
+                android:id="@+id/teamStatsImage"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:text="Team Statistics"
+                android:textSize="20dp"
+                android:textColor="@color/colorAccent"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/myStatsButton"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:onClick="goMyStats"
+
+            android:background="#ffffff">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_person_black_48dp"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/myStatsImage"
+                android:tint="@color/colorAccent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:text="My Statistics"
+                android:textSize="20dp"
+                android:textColor="@color/colorAccent"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/analyseButton"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:onClick="goAnalyseStats"
+
+            android:background="#ffffff">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_poll_black_48dp"
+                android:id="@+id/analyseImage"
+                android:tint="@color/colorAccent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:text="Analyse Statistics"
+                android:textSize="20dp"
+                android:textColor="@color/colorAccent"/>
+
+        </LinearLayout>
+
+
+
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Team Statistics"
-            android:textSize="20dp"/>
+            android:id="@+id/notice_back_button"
+            android:text="Back"
+            android:layout_gravity="bottom|left"
+            android:onClick="onBackButton"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorAccent"
+            android:textColor="#ffffff"/>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/myStatsButton"
-        android:orientation="vertical"
-        android:clickable="true"
-        android:onClick="goMyStats"
-        android:visibility="invisible"
-        android:background="@color/colorAccent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="My Statistics"
-            android:textSize="20dp"/>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/analyseButton"
-        android:orientation="vertical"
-        android:clickable="true"
-        android:onClick="goAnalyseStats"
-        android:visibility="invisible"
-        android:background="@color/colorPrimaryDark">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Analyse Statistics"
-            android:textSize="20dp"/>
-    </LinearLayout>
-
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/notice_back_button"
-        android:text="Back"
-        android:layout_gravity="bottom|left"
-        android:onClick="onBackButton"
-        android:layout_alignParentBottom="true"/>
 
 
 

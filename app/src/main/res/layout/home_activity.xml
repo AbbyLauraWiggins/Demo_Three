@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     >
 
     <RelativeLayout
@@ -27,10 +28,11 @@
             >
 
             <ImageView
+                android:id="@+id/homepagepic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/homepagepic"
                 android:background="@android:color/darker_gray"
+                android:cropToPadding="true"
                 android:src="@drawable/home_page_pic" />
         </LinearLayout>
 
@@ -42,7 +44,8 @@
             android:columnCount="3"
             android:layout_below="@id/top_linear"
             android:layout_above="@+id/grid_layout"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            >
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -60,7 +63,8 @@
                     android:text=""
                     android:textStyle="bold"
                     android:textSize="35sp"
-                    android:paddingLeft="5dp"/>
+                    android:paddingLeft="5dp"
+                    android:textColor="#ffffff"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -68,11 +72,13 @@
                     android:id="@+id/next_game_month_home_tv"
                     android:text="@string/next_game_month_text"
                     android:layout_gravity="center_horizontal"
+                    android:textColor="#ffffff"
                     android:paddingLeft="15dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#ffffff"
                     android:id="@+id/game_label"
                     android:text="GAME"
                     android:layout_gravity="center_horizontal"
@@ -91,6 +97,7 @@
                 <TextView
                     android:id="@+id/next_training_home_tv"
                     android:layout_width="wrap_content"
+                    android:textColor="#ffffff"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/next_training_day_text"
@@ -100,6 +107,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#ffffff"
                     android:id="@+id/next_training_month_home_tv"
                     android:text="03"
                     android:layout_gravity="center_horizontal"
@@ -109,6 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/training_label"
+                    android:textColor="#ffffff"
                     android:text="TRAINING"
                     android:layout_gravity="center_horizontal"
                     android:textSize="20sp"
@@ -127,6 +136,7 @@
                     android:id="@+id/next_social_home_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#ffffff"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginEnd="14dp"
                     android:text="@string/next_social_day_text"
@@ -140,6 +150,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/next_social_month_home_tv"
                     android:text="03"
+                    android:textColor="#ffffff"
                     android:layout_gravity="center_horizontal"
                     android:paddingRight="25dp"
                     />
@@ -150,6 +161,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/social_label"
                     android:text="SOCIAL"
+                    android:textColor="#ffffff"
                     android:layout_gravity="center_horizontal"
                     android:textSize="20sp"
                     android:textStyle=""
@@ -183,7 +195,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:id="@+id/noticepng"
-                    android:tint="@color/colorPrimary"
+                    android:tint="#ffffff"
                     android:src="@drawable/ic_chat_black_48dp"/>
 
                 <TextView
@@ -191,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="Notices"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="#ffffff"
                     android:textSize="15sp"/>
             </LinearLayout>
 
@@ -210,7 +222,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:id="@+id/statpng"
-                    android:tint="@color/colorPrimary"
+                    android:tint="#ffffff"
                     android:src="@drawable/ic_trending_up_black_48dp"/>
 
                 <TextView
@@ -218,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="Statistics"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="#ffffff"
                     android:textSize="15sp"/>
             </LinearLayout>
 
@@ -237,7 +249,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/logpng"
-                    android:tint="@color/colorPrimary"
+                    android:tint="#ffffff"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/ic_note_add_black_48dp"/>
 
@@ -246,7 +258,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="Log"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="#ffffff"
                     android:textSize="15sp"/>
             </LinearLayout>
 
@@ -267,7 +279,7 @@
                     android:layout_gravity="center_horizontal"
                     android:id="@+id/calpng"
                     android:src="@drawable/ic_today_black_48dp"
-                    android:tint="@color/colorPrimary"
+                    android:tint="#ffffff"
                     />
 
                 <TextView
@@ -276,7 +288,7 @@
                     android:layout_gravity="center_horizontal"
                     android:text="Calendar"
                     android:textSize="15sp"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="#ffffff"
                     />
             </LinearLayout>
 

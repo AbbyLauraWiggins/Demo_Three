@@ -195,6 +195,8 @@ public class LoginActivity extends Activity {
     }
 
     public void onSkipForTestingClick(View view) {
+        MyClientID.setTESTid("3");
+        MyClientID.setMyPermissions(2);
         Intent goToNetwork = new Intent(this, HomeActivity.class);
         startActivity(goToNetwork);
     }
