@@ -1,319 +1,346 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     >
 
-    <Button
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:text="Profile"
-        android:textSize="10sp"
-        android:layout_alignParentRight="true"
-        android:padding="10dp"
-        android:id="@+id/profilebutton"
-        android:onClick="onGoToProfile"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:id="@+id/top_linear"
-        >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/homepagepic"
-            android:background="@android:color/darker_gray"
-            android:src="@drawable/home_page_pic" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/top_linear"
-        android:padding="20dp">
-
-        <TextView
-            android:id="@+id/next_game_home_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:text=""
-            android:textStyle="bold"
-            android:textSize="35sp"
-            android:paddingLeft="5dp"/>
-
-        <TextView
-            android:id="@+id/next_training_home_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/next_training_day_text"
-            android:textStyle="bold"
-            android:textSize="35sp"/>
-
-        <TextView
-            android:id="@+id/next_social_home_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="14dp"
-            android:text="@string/next_social_day_text"
-            android:textStyle="bold"
-            android:textSize="35sp"
-            android:paddingRight="5dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/next_game_month_home_tv"
-            android:text="@string/next_game_month_text"
-            android:layout_below="@+id/next_game_home_tv"
-            android:layout_alignParentStart="true"
-            android:paddingLeft="15dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/next_training_month_home_tv"
-            android:text="03"
-            android:layout_below="@+id/next_training_home_tv"
-            android:layout_centerInParent="true"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/next_social_month_home_tv"
-            android:text="03"
-            android:layout_below="@+id/next_social_home_tv"
-            android:layout_alignParentEnd="true"
-            android:paddingRight="25dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/game_label"
-            android:text="GAME"
-            android:layout_below="@+id/next_game_month_home_tv"
-            android:layout_alignParentStart="true"
-            android:paddingLeft="0dp"
-            android:textSize="20sp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/training_label"
-            android:text="TRAINING"
-            android:layout_below="@+id/next_training_month_home_tv"
-            android:layout_centerInParent="true"
-            android:textSize="20sp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/social_label"
-            android:text="SOCIAL"
-            android:layout_below="@+id/next_social_month_home_tv"
-            android:layout_alignParentEnd="true"
-            android:textSize="20sp"
-            android:textStyle=""
-            />
-
-    </RelativeLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/relativeLayout2"
-        android:paddingHorizontal="30dp"
-        android:paddingBottom="10dp">
-
-        <!-- SIZES TO BE CHANGED -->
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/notice_home_button"
-            android:onClick="onGoToNotices"
-            android:clickable="true"
-            android:layout_alignParentLeft="true"
-            android:layout_above="@+id/members_home_button"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center|left"
-                android:id="@+id/noticepng"
-                android:tint="@color/colorPrimary"
-                android:src="@drawable/ic_chat_black_24dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Notices"
-                android:textColor="@color/colorPrimary"
-                android:textSize="15sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/stats_home_button"
-            android:clickable="true"
-            android:layout_above="@+id/gallery_home_button"
-            android:layout_centerHorizontal="true"
-            android:onClick="onGoToStats"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/statpng"
-                android:tint="@color/colorPrimary"
-                android:src="@drawable/ic_trending_up_black_24dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Statistics"
-                android:textColor="@color/colorPrimary"
-                android:textSize="15sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/log_home_button"
-            android:clickable="true"
-            android:layout_above="@+id/members_home_button"
+        android:layout_height="match_parent">
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="Profile"
+            android:textSize="10sp"
             android:layout_alignParentRight="true"
-            android:onClick="onGoToLog"
-            android:orientation="vertical"
+            android:padding="10dp"
+            android:id="@+id/profilebutton"
+            android:onClick="onGoToProfile"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/top_linear"
             >
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/logpng"
-                android:tint="@color/colorPrimary"
-                android:layout_gravity="center|right"
-                android:src="@drawable/ic_note_add_black_24dp"/>
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Log"
-                android:textColor="@color/colorPrimary"
-                android:textSize="15sp"/>
+                android:id="@+id/homepagepic"
+                android:background="@android:color/darker_gray"
+                android:src="@drawable/home_page_pic" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <GridLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/calendar_home_button"
-            android:clickable="true"
-            android:layout_below="@+id/notice_home_button"
-            android:layout_alignParentStart="true"
-            android:onClick="onGoToCalendar"
-            android:orientation="vertical">
+            android:id="@+id/dates_grid_layout"
+            android:rowCount="1"
+            android:columnCount="3"
+            android:layout_below="@id/top_linear"
+            android:layout_above="@+id/grid_layout"
+            android:layout_centerHorizontal="true">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center|left"
-                android:id="@+id/calpng"
-                android:src="@drawable/ic_today_black_24dp"
-                android:tint="@color/colorPrimary"
-                />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Calendar"
-                android:textSize="15sp"
-                android:textColor="@color/colorPrimary"
-                />
-        </LinearLayout>
+                android:id="@+id/next_game_ll"
+                android:orientation="vertical"
+                android:layout_row="0"
+                android:layout_column="0">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/next_game_home_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textSize="35sp"
+                    android:paddingLeft="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/next_game_month_home_tv"
+                    android:text="@string/next_game_month_text"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingLeft="15dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/game_label"
+                    android:text="GAME"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="20sp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/next_training_ll"
+                android:orientation="vertical"
+                android:layout_row="0"
+                android:layout_column="1">
+
+                <TextView
+                    android:id="@+id/next_training_home_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/next_training_day_text"
+                    android:textStyle="bold"
+                    android:textSize="35sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/next_training_month_home_tv"
+                    android:text="03"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/training_label"
+                    android:text="TRAINING"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="20sp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/next_social_ll"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/next_social_home_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/next_social_day_text"
+                    android:textStyle="bold"
+                    android:textSize="35sp"
+                    android:paddingRight="5dp"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/next_social_month_home_tv"
+                    android:text="03"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingRight="25dp"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/social_label"
+                    android:text="SOCIAL"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="20sp"
+                    android:textStyle=""
+                    />
+            </LinearLayout>
+        </GridLayout>
+
+
+        <GridLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/gallery_home_button"
-            android:clickable="true"
-            android:layout_alignBottom="@+id/members_home_button"
             android:layout_centerHorizontal="true"
-            android:onClick="onGoToGallery"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/galpng"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_collections_black_24dp"
-                android:tint="@color/colorPrimary"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Gallery"
-                android:textSize="15sp"
-                android:textColor="@color/colorPrimary"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/members_home_button"
-            android:clickable="true"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:onClick="onGoToMembers"
-            android:orientation="vertical">
+            android:id="@+id/grid_layout"
+            android:rowCount="2"
+            android:columnCount="3"
+            android:paddingBottom="10dp">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center|right"
-                android:id="@+id/mempng"
-                android:src="@drawable/ic_people_black_24dp"
-                android:tint="@color/colorPrimary"
-                />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|right"
-                android:text="Members"
-                android:textColor="@color/colorPrimary"
-                android:textSize="15sp"/>
-        </LinearLayout>
+                android:id="@+id/notice_home_button"
+                android:onClick="onGoToNotices"
+                android:clickable="true"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/noticepng"
+                    android:tint="@color/colorPrimary"
+                    android:src="@drawable/ic_chat_black_48dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Notices"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/stats_home_button"
+                android:clickable="true"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:onClick="onGoToStats"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/statpng"
+                    android:tint="@color/colorPrimary"
+                    android:src="@drawable/ic_trending_up_black_48dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Statistics"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/log_home_button"
+                android:clickable="true"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:onClick="onGoToLog"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/logpng"
+                    android:tint="@color/colorPrimary"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_note_add_black_48dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Log"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"/>
+            </LinearLayout>
 
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/calendar_home_button"
+                android:clickable="true"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:onClick="onGoToCalendar"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/calpng"
+                    android:src="@drawable/ic_today_black_48dp"
+                    android:tint="@color/colorPrimary"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Calendar"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorPrimary"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/gallery_home_button"
+                android:clickable="true"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:onClick="onGoToGallery"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/galpng"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_collections_black_48dp"
+                    android:tint="#ffffff"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Gallery"
+                    android:textSize="15sp"
+                    android:textColor="#ffffff"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/members_home_button"
+                android:clickable="true"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:onClick="onGoToMembers"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/mempng"
+                    android:src="@drawable/ic_people_black_48dp"
+                    android:tint="#ffffff"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Members"
+                    android:textColor="#ffffff"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+        </GridLayout>
     </RelativeLayout>
 
-</RelativeLayout>
+
+
+
+
+</LinearLayout>

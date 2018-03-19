@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,7 +36,7 @@ import java.util.TreeSet;
 public class HomeActivity extends Activity {
 
     TextView nextGameDate, nextGameMonth;
-    LinearLayout notice, stats, log, calendar, members, gallery;
+    LinearLayout notice, stats, log, calendar, members, gallery, nextGameLL, nextTrainingLL, nextSocialLL;
     ImageView noticeIV, statsIV, logIV, calendarIV, membersIV, galleryIV;
 
     @Override
@@ -46,7 +47,6 @@ public class HomeActivity extends Activity {
 
         nextGameDate = findViewById(R.id.next_game_home_tv);
         nextGameMonth = findViewById(R.id.next_game_month_home_tv);
-
 
         setButtons();
 
@@ -77,6 +77,9 @@ public class HomeActivity extends Activity {
         galleryIV = findViewById(R.id.galpng);
         membersIV = findViewById(R.id.mempng);
 
+        nextGameLL = findViewById(R.id.next_game_ll);
+        nextTrainingLL = findViewById(R.id.next_training_ll);
+        nextSocialLL = findViewById(R.id.next_social_ll);
 
         android.view.ViewGroup.LayoutParams layoutParams = notice.getLayoutParams();
         layoutParams.width = screenWidth/3;
@@ -156,6 +159,32 @@ public class HomeActivity extends Activity {
         layoutParams.height = screenHeight/3;
         top.setLayoutParams(layoutParams);
         top.setVisibility(View.VISIBLE);
+
+        GridLayout buttonGrid = findViewById(R.id.grid_layout);
+        layoutParams = buttonGrid.getLayoutParams();
+        layoutParams.width = screenWidth;
+        layoutParams.height = (int) (screenHeight/2.5);
+        buttonGrid.setLayoutParams(layoutParams);
+
+
+
+        layoutParams = nextGameLL.getLayoutParams();
+        layoutParams.width = screenWidth/3;
+        layoutParams.height = screenWidth/3;
+        nextGameLL.setLayoutParams(layoutParams);
+        nextGameLL.setVisibility(View.VISIBLE);
+
+        layoutParams = nextTrainingLL.getLayoutParams();
+        layoutParams.width = screenWidth/3;
+        layoutParams.height = screenWidth/3;
+        nextTrainingLL.setLayoutParams(layoutParams);
+        nextTrainingLL.setVisibility(View.VISIBLE);
+
+        layoutParams = nextSocialLL.getLayoutParams();
+        layoutParams.width = screenWidth/3;
+        layoutParams.height = screenWidth/3;
+        nextSocialLL.setLayoutParams(layoutParams);
+        nextSocialLL.setVisibility(View.VISIBLE);
 
     }
 
