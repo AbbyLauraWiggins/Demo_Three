@@ -79,8 +79,8 @@ public class HomeActivity extends Activity {
 
 
         android.view.ViewGroup.LayoutParams layoutParams = notice.getLayoutParams();
-        layoutParams.width = screenWidth/4;
-        layoutParams.height = screenWidth/4;
+        layoutParams.width = screenWidth/3;
+        layoutParams.height = screenWidth/3;
         notice.setLayoutParams(layoutParams);
         notice.setVisibility(View.VISIBLE);
 
@@ -90,8 +90,8 @@ public class HomeActivity extends Activity {
         noticeIV.setLayoutParams(layoutParams);
 
         layoutParams = stats.getLayoutParams();
-        layoutParams.width = screenWidth/4;
-        layoutParams.height = screenWidth/4;
+        layoutParams.width = screenWidth/3;
+        layoutParams.height = screenWidth/3;
         stats.setLayoutParams(layoutParams);
         stats.setVisibility(View.VISIBLE);
 
@@ -101,8 +101,8 @@ public class HomeActivity extends Activity {
         statsIV.setLayoutParams(layoutParams);
 
         layoutParams = log.getLayoutParams();
-        layoutParams.width = screenWidth/4;
-        layoutParams.height = screenWidth/4;
+        layoutParams.width = screenWidth/3;
+        layoutParams.height = screenWidth/3;
         log.setLayoutParams(layoutParams);
         log.setVisibility(View.VISIBLE);
 
@@ -112,8 +112,8 @@ public class HomeActivity extends Activity {
         logIV.setLayoutParams(layoutParams);
 
         layoutParams = calendar.getLayoutParams();
-        layoutParams.width = screenWidth/4;
-        layoutParams.height = screenWidth/4;
+        layoutParams.width = screenWidth/3;
+        layoutParams.height = screenWidth/3;
         calendar.setLayoutParams(layoutParams);
         calendar.setVisibility(View.VISIBLE);
 
@@ -123,8 +123,8 @@ public class HomeActivity extends Activity {
         calendarIV.setLayoutParams(layoutParams);
 
         layoutParams = gallery.getLayoutParams();
-        layoutParams.width = screenWidth/4;
-        layoutParams.height = screenWidth/4;
+        layoutParams.width = screenWidth/3;
+        layoutParams.height = screenWidth/3;
         gallery.setLayoutParams(layoutParams);
         gallery.setVisibility(View.VISIBLE);
 
@@ -134,8 +134,8 @@ public class HomeActivity extends Activity {
         galleryIV.setLayoutParams(layoutParams);
 
         layoutParams = members.getLayoutParams();
-        layoutParams.width = screenWidth/4;
-        layoutParams.height = screenWidth/4;
+        layoutParams.width = screenWidth/3;
+        layoutParams.height = screenWidth/3;
         members.setLayoutParams(layoutParams);
         members.setVisibility(View.VISIBLE);
 
