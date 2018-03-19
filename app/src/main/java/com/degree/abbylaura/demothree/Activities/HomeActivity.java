@@ -2,6 +2,7 @@ package com.degree.abbylaura.demothree.Activities;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -34,7 +35,8 @@ import java.util.TreeSet;
 public class HomeActivity extends Activity {
 
     TextView nextGameDate, nextGameMonth;
-    Button notice, stats, log, calendar, members, gallery;
+    LinearLayout notice, stats, log, calendar, members, gallery;
+    ImageView noticeIV, statsIV, logIV, calendarIV, membersIV, galleryIV;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,11 +70,24 @@ public class HomeActivity extends Activity {
         gallery = findViewById(R.id.gallery_home_button);
         members = findViewById(R.id.members_home_button);
 
+        noticeIV = findViewById(R.id.noticepng);
+        statsIV = findViewById(R.id.statpng);
+        logIV = findViewById(R.id.logpng);
+        calendarIV = findViewById(R.id.calpng);
+        galleryIV = findViewById(R.id.galpng);
+        membersIV = findViewById(R.id.mempng);
+
+
         android.view.ViewGroup.LayoutParams layoutParams = notice.getLayoutParams();
         layoutParams.width = screenWidth/4;
         layoutParams.height = screenWidth/4;
         notice.setLayoutParams(layoutParams);
         notice.setVisibility(View.VISIBLE);
+
+        layoutParams = noticeIV.getLayoutParams();
+        layoutParams.width = screenWidth/5;
+        layoutParams.height = screenWidth/5;
+        noticeIV.setLayoutParams(layoutParams);
 
         layoutParams = stats.getLayoutParams();
         layoutParams.width = screenWidth/4;
@@ -80,11 +95,21 @@ public class HomeActivity extends Activity {
         stats.setLayoutParams(layoutParams);
         stats.setVisibility(View.VISIBLE);
 
+        layoutParams = statsIV.getLayoutParams();
+        layoutParams.width = screenWidth/5;
+        layoutParams.height = screenWidth/5;
+        statsIV.setLayoutParams(layoutParams);
+
         layoutParams = log.getLayoutParams();
         layoutParams.width = screenWidth/4;
         layoutParams.height = screenWidth/4;
         log.setLayoutParams(layoutParams);
         log.setVisibility(View.VISIBLE);
+
+        layoutParams = logIV.getLayoutParams();
+        layoutParams.width = screenWidth/5;
+        layoutParams.height = screenWidth/5;
+        logIV.setLayoutParams(layoutParams);
 
         layoutParams = calendar.getLayoutParams();
         layoutParams.width = screenWidth/4;
@@ -92,17 +117,32 @@ public class HomeActivity extends Activity {
         calendar.setLayoutParams(layoutParams);
         calendar.setVisibility(View.VISIBLE);
 
+        layoutParams = calendarIV.getLayoutParams();
+        layoutParams.width = screenWidth/5;
+        layoutParams.height = screenWidth/5;
+        calendarIV.setLayoutParams(layoutParams);
+
         layoutParams = gallery.getLayoutParams();
         layoutParams.width = screenWidth/4;
         layoutParams.height = screenWidth/4;
         gallery.setLayoutParams(layoutParams);
         gallery.setVisibility(View.VISIBLE);
 
+        layoutParams = galleryIV.getLayoutParams();
+        layoutParams.width = screenWidth/5;
+        layoutParams.height = screenWidth/5;
+        galleryIV.setLayoutParams(layoutParams);
+
         layoutParams = members.getLayoutParams();
         layoutParams.width = screenWidth/4;
         layoutParams.height = screenWidth/4;
         members.setLayoutParams(layoutParams);
         members.setVisibility(View.VISIBLE);
+
+        layoutParams = membersIV.getLayoutParams();
+        layoutParams.width = screenWidth/5;
+        layoutParams.height = screenWidth/5;
+        membersIV.setLayoutParams(layoutParams);
 
         ImageView img = findViewById(R.id.homepagepic);
         layoutParams = img.getLayoutParams();

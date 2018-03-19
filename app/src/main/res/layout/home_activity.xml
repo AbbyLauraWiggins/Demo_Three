@@ -143,66 +143,159 @@
         android:paddingBottom="10dp">
 
         <!-- SIZES TO BE CHANGED -->
-        <Button
-            android:id="@+id/notice_home_button"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_above="@+id/members_home_button"
-            android:layout_alignParentLeft="true"
-            android:onClick="onGoToNotices"
-            android:textSize="15dp"
-            android:text="Notices"
-            />
 
-        <Button
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/notice_home_button"
+            android:onClick="onGoToNotices"
+            android:clickable="true"
+            android:layout_alignParentLeft="true"
+            android:layout_above="@+id/members_home_button"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/noticepng"
+                android:src="@drawable/ic_chat_black_24dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Notices"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/stats_home_button"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:clickable="true"
             android:layout_above="@+id/gallery_home_button"
             android:layout_centerHorizontal="true"
             android:onClick="onGoToStats"
-            android:textSize="15dp"
-            android:text="Statistics" />
+            android:orientation="vertical">
 
-        <Button
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/statpng"
+                android:src="@drawable/ic_trending_up_black_24dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Statistics"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/log_home_button"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:clickable="true"
             android:layout_above="@+id/members_home_button"
             android:layout_alignParentRight="true"
             android:onClick="onGoToLog"
-            android:textSize="15dp"
-            android:text="Log" />
+            android:orientation="vertical">
 
-        <Button
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/logpng"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_note_add_black_24dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Log"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/calendar_home_button"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:clickable="true"
             android:layout_below="@+id/notice_home_button"
             android:layout_alignParentStart="true"
             android:onClick="onGoToCalendar"
-            android:textSize="15dp"
-            android:text="Calendar" />
+            android:orientation="vertical">
 
-        <Button
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/calpng"
+                android:src="@drawable/ic_today_black_24dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Calendar"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/gallery_home_button"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:clickable="true"
             android:layout_alignBottom="@+id/members_home_button"
             android:layout_centerHorizontal="true"
             android:onClick="onGoToGallery"
-            android:textSize="15dp"
-            android:text="Gallery" />
+            android:orientation="vertical">
 
-        <Button
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/galpng"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_collections_black_24dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Gallery"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/members_home_button"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:textSize="15dp"
+            android:clickable="true"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:onClick="onGoToMembers"
-            android:text="Members" />
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/mempng"
+                android:src="@drawable/ic_people_black_24dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Members"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+
     </RelativeLayout>
 
 </RelativeLayout>

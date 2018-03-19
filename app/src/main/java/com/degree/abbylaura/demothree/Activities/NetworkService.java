@@ -178,31 +178,33 @@ public class NetworkService extends IntentService {
         String validation = "false";
 
         if(!response.isEmpty()){
-            System.out.println("updateMembers: " + response.toString());
+            if(!response.get(0).equals("CODE:4699:NOMEMBERS")){
+                System.out.println("updateMembers: " + response.toString());
 
-            MemberRepo memberRepo = new MemberRepo();
-            memberRepo.delete();
+                MemberRepo memberRepo = new MemberRepo();
+                memberRepo.delete();
 
-            for(String al: response){
-                String[] splitter = al.split("4h4f");
+                for(String al: response){
+                    String[] splitter = al.split("4h4f");
 
-                Member member = new Member();
-                member.setMemberId((String) splitter[0]);
-                member.setName((String) splitter[1]);
-                member.setEmail((String) splitter[2]);
-                member.setPassword((String) splitter[3]);
-                member.setDOB((String) splitter[4]);
-                member.setPositions((String) splitter[5]);
-                member.setResponsibilities((String) splitter[6]);
-                member.setTeamId((String) splitter[7]);
-                member.setPermissions((String) splitter[8]);
+                    Member member = new Member();
+                    member.setMemberId((String) splitter[0]);
+                    member.setName((String) splitter[1]);
+                    member.setEmail((String) splitter[2]);
+                    member.setPassword((String) splitter[3]);
+                    member.setDOB((String) splitter[4]);
+                    member.setPositions((String) splitter[5]);
+                    member.setResponsibilities((String) splitter[6]);
+                    member.setTeamId((String) splitter[7]);
+                    member.setPermissions((String) splitter[8]);
 
-                if(splitter[2].equals(email) && splitter[3].equals(password)){
-                    validation="true";
+                    if(splitter[2].equals(email) && splitter[3].equals(password)){
+                        validation="true";
+                    }
+
+                    memberRepo.insert(member);
+
                 }
-
-                memberRepo.insert(member);
-
             }
         }
 

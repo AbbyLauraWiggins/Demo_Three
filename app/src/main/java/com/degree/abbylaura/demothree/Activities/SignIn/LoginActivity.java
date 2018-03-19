@@ -155,7 +155,7 @@ public class LoginActivity extends Activity {
         Intent intent = new Intent(this, NetworkService.class);
         intent.putExtra("typeSending", "LOGIN");
         intent.putExtra("CLASS", logInDetails);
-        intent.putExtra("TABLESIZE", 0);
+        intent.putExtra("TABLESIZE", "0");
         this.startService(intent);
 
     }
@@ -195,7 +195,7 @@ public class LoginActivity extends Activity {
     }
 
     public void onSkipForTestingClick(View view) {
-        Intent goToNetwork = new Intent(this, TestingNetworkActivity.class);
+        Intent goToNetwork = new Intent(this, HomeActivity.class);
         startActivity(goToNetwork);
     }
 
