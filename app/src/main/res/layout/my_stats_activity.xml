@@ -2,103 +2,211 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@drawable/background">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="My Stats and Logs"
+        android:text="MY STATS AND LOGS"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
         android:id="@+id/statsandlogstitle"
-        android:textSize="30sp"
-        android:paddingBottom="20dp"/>
-
-    <TextView
-        android:id="@+id/scSubTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/statsandlogstitle"
-        android:text="Strength and Conditioning"
         android:textSize="20sp"
-
+        android:paddingBottom="20dp"
         />
 
-    <Button
-        android:id="@+id/scViewStats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/scSubTitle"
-        android:text="View Stats"
-        android:onClick="onViewSC"/>
-
-    <Button
-        android:id="@+id/scLogStats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/scSubTitle"
-        android:layout_alignParentRight="true"
-        android:text="Log Stats"/>
-
-
-    <TextView
-        android:id="@+id/pwSubTitle"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/scViewStats"
-        android:paddingTop="20dp"
-        android:text="Personal Workouts"
-        android:textSize="20sp"
+        android:layout_height="match_parent"
+        android:id="@+id/linearlayout"
+        android:layout_below="@+id/statsandlogstitle"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-        />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scStatsLayout"
+            >
 
-    <Button
-        android:id="@+id/pwViewStats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pwSubTitle"
-        android:text="View Stats"/>
+            <TextView
+                android:id="@+id/scSubTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Strength and Conditioning"
+                android:textSize="20sp"
 
-    <Button
-        android:id="@+id/pwLogStats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pwSubTitle"
-        android:layout_alignParentRight="true"
-        android:text="Log Stats"/>
+                />
 
-    <TextView
-        android:id="@+id/gameSubTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pwViewStats"
-        android:paddingTop="20dp"
-        android:text="Game Statistics"
-        android:textSize="20sp"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/scViewStats"
+                android:clickable="true"
+                android:onClick="onViewSC"
+                android:layout_below="@id/scSubTitle"
+                android:layout_alignParentLeft="true"
+                android:orientation="vertical"
+                android:background="#ffffff">
 
-        />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#ffc400">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/scViewStatsIV"
+                        android:src="@drawable/ic_trending_up_black_48dp"
+                        android:tint="#ffffff"
+                        android:layout_gravity="center_horizontal"/>
+                </LinearLayout>
 
-    <Button
-        android:id="@+id/gViewStats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/gameSubTitle"
-        android:text="View Stats"
-        android:onClick="onViewGameStats"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/scViewStatsTV"
+                    android:text="View Statistics"
+                    android:padding="5dp"
+                    android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/seeFeedback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/gameSubTitle"
-        android:layout_alignParentRight="true"
-        android:text="Feedback"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/scLogStats"
+                android:clickable="true"
+                android:onClick="onLogSC"
+                android:layout_below="@id/scSubTitle"
+                android:layout_alignParentRight="true"
+                android:background="#ffffff"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#ffc400">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/scLogStatsIV"
+                        android:src="@drawable/ic_note_add_black_48dp"
+                        android:tint="#ffffff"
+                        android:layout_gravity="center_horizontal"/>
+                </LinearLayout>
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="back"
-        android:id="@+id/goBackButton"
-        android:onClick="goBack"
-        android:layout_alignParentBottom="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/scLogStatsTV"
+                    android:text="Log Session"
+                    android:padding="5dp"
+                    android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/gameStatsLayout"
+
+            >
+
+            <TextView
+                android:id="@+id/gameSubTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:text="Game Statistics"
+                android:textSize="20sp"
+
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/gameViewStats"
+                android:clickable="true"
+                android:onClick="onViewGameStats"
+                android:layout_below="@id/gameSubTitle"
+                android:layout_alignParentLeft="true"
+                android:orientation="vertical"
+                android:background="#ffffff">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#d50000">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/gameViewStatsIV"
+                        android:src="@drawable/ic_trending_up_black_48dp"
+                        android:tint="#ffffff"
+                        android:layout_gravity="center_horizontal"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/gameViewStatsTV"
+                    android:text="View Statistics"
+                    android:padding="5dp"
+                    android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/feedbackLayout"
+                android:clickable="true"
+                android:onClick="onGameFeedback"
+                android:layout_below="@id/gameSubTitle"
+                android:layout_alignParentRight="true"
+                android:orientation="vertical"
+                android:background="#ffffff">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#d50000">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/gameFeedbackIV"
+                    android:src="@drawable/ic_feedback_black_48dp"
+                    android:tint="#ffffff"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/gameFeedbackTV"
+                    android:text="Feedback"
+                    android:padding="5dp"
+                    android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

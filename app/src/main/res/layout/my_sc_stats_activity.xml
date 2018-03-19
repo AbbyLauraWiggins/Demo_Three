@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="@drawable/background">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Strength and Conditioning Statistics"
-        android:textSize="30sp"/>
+        android:text="STRENGTH AND CONDITIONING STATISTICS"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/myScScrollView">
+        android:id="@+id/myScScrollView"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,11 +34,14 @@
                     android:hint="Enter session ID"/>
 
                 <Button
+                    android:id="@+id/showSession"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/showSession"
+                    android:layout_gravity="right"
+                    android:background="#ffc400"
+                    android:onClick="onShowSCSession"
                     android:text="Show"
-                    android:onClick="onShowSCSession"/>
+                    android:textColor="#ffffff" />
             </LinearLayout>
 
             <LinearLayout
@@ -45,15 +52,11 @@
 
             </LinearLayout>
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/graphStatsET"
-                android:hint="Enter exercise name"/>
 
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints="Select Exercise"
                 android:id="@+id/scSpinner">
 
             </Spinner>
@@ -69,7 +72,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/graphContainer"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical"
+                android:background="#ffffff"
+                ></LinearLayout>
 
         </LinearLayout>
 

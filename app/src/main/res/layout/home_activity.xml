@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
     >
 
     <RelativeLayout
@@ -36,138 +35,148 @@
                 android:src="@drawable/home_page_pic" />
         </LinearLayout>
 
-        <GridLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/dates_grid_layout"
-            android:rowCount="1"
-            android:columnCount="3"
+            android:orientation="vertical"
             android:layout_below="@id/top_linear"
-            android:layout_above="@+id/grid_layout"
-            android:layout_centerHorizontal="true"
-            >
+            android:id="@+id/middle_linear">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <GridLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/next_game_ll"
-                android:orientation="vertical"
-                android:layout_row="0"
-                android:layout_column="0">
+                android:id="@+id/dates_grid_layout"
+                android:rowCount="1"
+                android:columnCount="3"
+                android:layout_below="@id/top_linear"
+                android:layout_above="@+id/grid_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_vertical"
+                android:background="#263238"
+                >
 
-                <TextView
-                    android:id="@+id/next_game_home_tv"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text=""
-                    android:textStyle="bold"
-                    android:textSize="35sp"
-                    android:paddingLeft="5dp"
-                    android:textColor="#ffffff"/>
+                    android:id="@+id/next_game_ll"
+                    android:orientation="vertical"
+                    android:layout_row="0"
+                    android:layout_column="0">
 
-                <TextView
+                    <TextView
+                        android:id="@+id/next_game_home_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text=""
+                        android:textStyle="bold"
+                        android:textSize="35sp"
+                        android:paddingLeft="5dp"
+                        android:textColor="#ffffff"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/next_game_month_home_tv"
+                        android:text="@string/next_game_month_text"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#ffffff"
+                        android:paddingLeft="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffff"
+                        android:id="@+id/game_label"
+                        android:text="GAME"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="20sp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/next_game_month_home_tv"
-                    android:text="@string/next_game_month_text"
-                    android:layout_gravity="center_horizontal"
-                    android:textColor="#ffffff"
-                    android:paddingLeft="15dp"/>
+                    android:id="@+id/next_training_ll"
+                    android:orientation="vertical"
+                    android:layout_row="0"
+                    android:layout_column="1">
 
-                <TextView
+                    <TextView
+                        android:id="@+id/next_training_home_tv"
+                        android:layout_width="wrap_content"
+                        android:textColor="#ffffff"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/next_training_day_text"
+                        android:textStyle="bold"
+                        android:textSize="35sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffff"
+                        android:id="@+id/next_training_month_home_tv"
+                        android:text="03"
+                        android:layout_gravity="center_horizontal"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/training_label"
+                        android:textColor="#ffffff"
+                        android:text="TRAINING"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="20sp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
-                    android:id="@+id/game_label"
-                    android:text="GAME"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="20sp"
-                    />
-            </LinearLayout>
+                    android:id="@+id/next_social_ll"
+                    android:layout_row="0"
+                    android:layout_column="2"
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/next_training_ll"
-                android:orientation="vertical"
-                android:layout_row="0"
-                android:layout_column="1">
-
-                <TextView
-                    android:id="@+id/next_training_home_tv"
-                    android:layout_width="wrap_content"
-                    android:textColor="#ffffff"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/next_training_day_text"
-                    android:textStyle="bold"
-                    android:textSize="35sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
-                    android:id="@+id/next_training_month_home_tv"
-                    android:text="03"
-                    android:layout_gravity="center_horizontal"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/training_label"
-                    android:textColor="#ffffff"
-                    android:text="TRAINING"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="20sp"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/next_social_ll"
-                android:layout_row="0"
-                android:layout_column="2"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/next_social_home_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/next_social_day_text"
-                    android:textStyle="bold"
-                    android:textSize="35sp"
-                    android:paddingRight="5dp"/>
+                    <TextView
+                        android:id="@+id/next_social_home_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffff"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginEnd="14dp"
+                        android:text="@string/next_social_day_text"
+                        android:textStyle="bold"
+                        android:textSize="35sp"
+                        android:paddingRight="5dp"/>
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/next_social_month_home_tv"
-                    android:text="03"
-                    android:textColor="#ffffff"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingRight="25dp"
-                    />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/next_social_month_home_tv"
+                        android:text="03"
+                        android:textColor="#ffffff"
+                        android:layout_gravity="center_horizontal"
+                        android:paddingRight="25dp"
+                        />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/social_label"
-                    android:text="SOCIAL"
-                    android:textColor="#ffffff"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="20sp"
-                    android:textStyle=""
-                    />
-            </LinearLayout>
-        </GridLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/social_label"
+                        android:text="SOCIAL"
+                        android:textColor="#ffffff"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="20sp"
+                        android:textStyle=""
+                        />
+                </LinearLayout>
+            </GridLayout>
+        </LinearLayout>
 
 
         <GridLayout
@@ -178,7 +187,9 @@
             android:id="@+id/grid_layout"
             android:rowCount="2"
             android:columnCount="3"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="20dp"
+            android:background="#ffc400">
 
             <LinearLayout
                 android:layout_width="wrap_content"

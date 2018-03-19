@@ -4,24 +4,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="@color/colorPrimary">
+    android:background="@drawable/background"
+    >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Statistics"
-        android:id="@+id/stats_title"
+        android:text="STATISTICS"
         android:textStyle="bold"
-        android:textSize="30sp"
-        android:textColor="#ffffff"/>
+        android:id="@+id/stats_title"
+        android:textSize="20sp"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="10dp"
         />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#ffffff"
-        android:padding="10dp">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,13 +31,13 @@
             android:orientation="horizontal"
             android:clickable="true"
             android:onClick="goTeamStats"
-            android:background="#ffffff">
+            android:background="#ffc400">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_people_black_48dp"
-                android:tint="@color/colorAccent"
+                android:tint="#ffffff"
                 android:id="@+id/teamStatsImage"/>
 
             <TextView
@@ -46,8 +47,11 @@
                 android:text="Team Statistics"
                 android:textSize="20dp"
                 android:id="@+id/tsTV"
-                android:textColor="@color/colorAccent"/>
+                android:textColor="#ffffff"/>
         </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,7 +61,7 @@
             android:clickable="true"
             android:onClick="goMyStats"
 
-            android:background="#ffffff">
+            android:background="#d50000">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -65,7 +69,7 @@
                 android:src="@drawable/ic_person_black_48dp"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/myStatsImage"
-                android:tint="@color/colorAccent"/>
+                android:tint="#ffffff"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -74,9 +78,11 @@
                 android:text="My Statistics"
                 android:textSize="20dp"
                 android:id="@+id/msTV"
-                android:textColor="@color/colorAccent"/>
+                android:textColor="#ffffff"/>
         </LinearLayout>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,15 +91,14 @@
             android:orientation="horizontal"
             android:clickable="true"
             android:onClick="goAnalyseStats"
-
-            android:background="#ffffff">
+            android:background="#0277bd">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_poll_black_48dp"
                 android:id="@+id/analyseImage"
-                android:tint="@color/colorAccent"/>
+                android:tint="#ffffff"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -102,7 +107,7 @@
                 android:text="Analyse Statistics"
                 android:textSize="20dp"
                 android:id="@+id/aTV"
-                android:textColor="@color/colorAccent"/>
+                android:textColor="#ffffff"/>
 
         </LinearLayout>
 

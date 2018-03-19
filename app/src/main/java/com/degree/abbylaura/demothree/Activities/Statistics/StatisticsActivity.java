@@ -35,6 +35,7 @@ public class StatisticsActivity extends Activity {
 
         setContentView(R.layout.statistics_activity);
 
+
         analyse = findViewById(R.id.analyseButton);
         mystats = findViewById(R.id.myStatsButton);
         teamstats = findViewById(R.id.teamStatsButton);
