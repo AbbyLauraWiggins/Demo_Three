@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
@@ -25,6 +26,8 @@ public class StatisticsActivity extends Activity {
 
     LinearLayout analyse, mystats, teamstats;
     ImageView my, team, an;
+    int iconSize;
+    TextView tsTV, msTV, aTV;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,8 +42,22 @@ public class StatisticsActivity extends Activity {
         team = findViewById(R.id.teamStatsImage);
         an = findViewById(R.id.analyseImage);
 
+
         int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels - 30; //room for title
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels - 30;
+
+
+        tsTV = findViewById(R.id.tsTV);
+        msTV = findViewById(R.id.msTV);
+        aTV = findViewById(R.id.aTV);
+
+        iconSize = screenHeight/5;
+
+        tsTV.setTextSize(iconSize/10);
+        System.out.println(String.valueOf(iconSize));
+        msTV.setTextSize(iconSize/10);
+        aTV.setTextSize(iconSize/10);
+
 
         android.view.ViewGroup.LayoutParams layoutParams = teamstats.getLayoutParams();
 
@@ -62,7 +79,7 @@ public class StatisticsActivity extends Activity {
 
                 team.setImageResource(0);
                 Drawable draw = getResources().getDrawable(R.drawable.ic_people_black_48dp);
-                draw = resize(draw, (int) (teamstats.getHeight() * 0.6)+ 1);
+                draw = resize(draw);
                 team.setImageDrawable(draw);
 
 
@@ -74,7 +91,7 @@ public class StatisticsActivity extends Activity {
 
                 an.setImageResource(0);
                 draw = getResources().getDrawable(R.drawable.ic_poll_black_48dp);
-                draw = resize(draw, (int) (analyse.getHeight() * 0.6)+ 1);
+                draw = resize(draw);
                 an.setImageDrawable(draw);
 
 
@@ -89,7 +106,7 @@ public class StatisticsActivity extends Activity {
 
                 my.setImageResource(0);
                 Drawable draw = getResources().getDrawable(R.drawable.ic_person_black_48dp);
-                draw = resize(draw, (int) (mystats.getHeight() * 0.6) + 1);
+                draw = resize(draw);
                 my.setImageDrawable(draw);
 
 
@@ -101,7 +118,7 @@ public class StatisticsActivity extends Activity {
 
                 team.setImageResource(0);
                 draw = getResources().getDrawable(R.drawable.ic_people_black_48dp);
-                draw = resize(draw, (int) (teamstats.getHeight() * 0.6)+ 1);
+                draw = resize(draw);
                 team.setImageDrawable(draw);
 
                 layoutParams = analyse.getLayoutParams();
@@ -112,7 +129,7 @@ public class StatisticsActivity extends Activity {
 
                 an.setImageResource(0);
                 draw = getResources().getDrawable(R.drawable.ic_poll_black_48dp);
-                draw = resize(draw, (int) (analyse.getHeight() * 0.6)+ 1);
+                draw = resize(draw);
                 an.setImageDrawable(draw);
             }
 
@@ -126,7 +143,7 @@ public class StatisticsActivity extends Activity {
 
             my.setImageResource(0);
             Drawable draw = getResources().getDrawable(R.drawable.ic_person_black_48dp);
-            draw = resize(draw, (int) (mystats.getHeight() * 0.6)+ 1);
+            draw = resize(draw);
             my.setImageDrawable(draw);
 
 
@@ -138,7 +155,7 @@ public class StatisticsActivity extends Activity {
 
             team.setImageResource(0);
             draw = getResources().getDrawable(R.drawable.ic_people_black_48dp);
-            draw = resize(draw, (int) (teamstats.getHeight() * 0.6)+ 1);
+            draw = resize(draw);
             team.setImageDrawable(draw);
 
         }
@@ -146,10 +163,10 @@ public class StatisticsActivity extends Activity {
 
     }
 
-    private Drawable resize(Drawable image, int size) {
+    private Drawable resize(Drawable image) {
         Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
         Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap,
-                size, size, false);
+                iconSize, iconSize, false);
         return new BitmapDrawable(getResources(), bitmapResized);
     }
 

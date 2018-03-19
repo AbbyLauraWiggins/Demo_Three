@@ -45,6 +45,7 @@
                 android:layout_gravity="center_vertical|right"
                 android:text="Team Statistics"
                 android:textSize="20dp"
+                android:id="@+id/tsTV"
                 android:textColor="@color/colorAccent"/>
         </LinearLayout>
 
@@ -72,6 +73,7 @@
                 android:layout_gravity="center_vertical|right"
                 android:text="My Statistics"
                 android:textSize="20dp"
+                android:id="@+id/msTV"
                 android:textColor="@color/colorAccent"/>
         </LinearLayout>
 
@@ -99,22 +101,14 @@
                 android:layout_gravity="center_vertical|right"
                 android:text="Analyse Statistics"
                 android:textSize="20dp"
+                android:id="@+id/aTV"
                 android:textColor="@color/colorAccent"/>
 
         </LinearLayout>
 
 
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/notice_back_button"
-            android:text="Back"
-            android:layout_gravity="bottom|left"
-            android:onClick="onBackButton"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorAccent"
-            android:textColor="#ffffff"/>
+
     </LinearLayout>
 
 

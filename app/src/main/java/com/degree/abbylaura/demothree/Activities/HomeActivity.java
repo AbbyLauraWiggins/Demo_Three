@@ -39,6 +39,7 @@ public class HomeActivity extends Activity {
     LinearLayout notice, stats, log, calendar, members, gallery, nextGameLL, nextTrainingLL, nextSocialLL;
     ImageView noticeIV, statsIV, logIV, calendarIV, membersIV, galleryIV;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
