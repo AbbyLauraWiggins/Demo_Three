@@ -151,7 +151,6 @@ public class KPIRepo {
                     " FROM KPI" +
                     " INNER JOIN " + Member.TABLE + " ON Member.MemberId = KPI.MemberID";
 
-            Log.d(KPI.TAG, selectQuery);
             Cursor cursor = db.rawQuery(selectQuery, null);
 
             // looping through all rows and adding to list
@@ -160,9 +159,9 @@ public class KPIRepo {
 
             if (cursor.moveToFirst()) {
                 do {
-                    String name = cursor.getString(cursor.getColumnIndex("Member.Name"));
-                    String result = cursor.getString(cursor.getColumnIndex("KPI." + KPIColumnName));
-                    String fixture = cursor.getString(cursor.getColumnIndex("KPI.FixtureID"));
+                    String name = cursor.getString(0);
+                    String result = cursor.getString(1);
+                    String fixture = cursor.getString(2);
 
                     //System.out.println(name + " | " + result + " | " + fixture);
 

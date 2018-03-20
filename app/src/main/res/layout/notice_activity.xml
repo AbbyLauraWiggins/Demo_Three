@@ -34,40 +34,84 @@
     </ScrollView>
 
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/compose_button_text"
+        android:id="@+id/compose_button"
+        android:onClick="onComposeNotice"
+        android:layout_alignParentRight="true"/>
 
-    <RelativeLayout
+    <android.support.v7.widget.ButtonBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/buttonBarLayout"
         android:layout_alignParentBottom="true"
-        android:id="@+id/rel_bottom_layout"
-        >
+        android:background="@android:color/black">
 
-        <Button
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/compose_button_text"
-            android:id="@+id/compose_button"
-            android:onClick="onComposeNotice"
-            android:layout_alignParentRight="true"/>
+            android:id="@+id/homeBBLL"
+            android:orientation="vertical">
 
-        <Button
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/homeBarButton"
+                android:src="@drawable/ic_chat_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/notice_back_button"
-            android:text="Back"
-            android:onClick="onBackButton"/>
+            android:id="@+id/noticeBBLL"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/noticesBarButton"
+                android:src="@drawable/ic_chat_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
 
-        <Button
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/update_button"
-            android:text="Update"
-            android:layout_centerHorizontal="true"
-            android:onClick="onUpdateButton"/>
+            android:id="@+id/profileBBLL"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/profileBarButton"
+                android:src="@drawable/ic_chat_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/logBBLL"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/logBarButton"
+                android:src="@drawable/ic_note_add_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
 
 
-
-
-    </RelativeLayout>
+    </android.support.v7.widget.ButtonBarLayout>
 
 </RelativeLayout>

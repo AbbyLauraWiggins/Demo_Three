@@ -3,12 +3,17 @@ package com.degree.abbylaura.demothree.Activities.Log;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -54,7 +59,10 @@ public class GameTeamListSetUp extends Activity {
             e.printStackTrace();
         }
         playerAssignment = new HashMap<>();
+
     }
+
+
 
     public void onCreateClick(View view) {
         upload.setVisibility(View.INVISIBLE);

@@ -19,12 +19,13 @@ public class  App extends Application {
     public void onCreate()
     {
         super.onCreate();
-        context = this.getApplicationContext();
-        dbHelper = new DatabaseHelper();
-        DatabaseManager.initializeInstance(dbHelper);
-        //for testing only!!!
-        //dbHelper.onDelete();
 
+        context = this.getApplicationContext();
+
+
+        dbHelper = new DatabaseHelper();
+
+        DatabaseManager.initializeInstance(dbHelper);
 
     }
 

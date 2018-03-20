@@ -1,55 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Your next fixture is:"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="date"
-        android:id="@+id/nextFixtureDate"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create and start logging"
-        android:id="@+id/createAndLog"
-        android:visibility="invisible"
-        android:onClick="onCreateAndLogClick"/>
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your next fixture is:"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="date"
+            android:id="@+id/nextFixtureDate"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create and start logging"
+            android:id="@+id/createAndLog"
+            android:visibility="invisible"
+            android:onClick="onCreateAndLogClick"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/ll">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/uploadTeamSheet"
+                    android:text="Upload Team Sheet"
+                    />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Create Team Sheet"
+                    android:id="@+id/createTeamSheet"
+                    android:onClick="onCreateClick"/>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+
+    <android.support.v7.widget.ButtonBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonBarLayout"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/black">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/ll">
+            android:id="@+id/homeBBLL"
+            android:orientation="vertical">
 
-            <Button
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/uploadTeamSheet"
-                android:text="Upload Team Sheet"
-                />
+                android:id="@+id/homeBarButton"
+                android:src="@drawable/ic_chat_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Create Team Sheet"
-                android:id="@+id/createTeamSheet"
-                android:onClick="onCreateClick"/>
+
         </LinearLayout>
-    </ScrollView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/noticeBBLL"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/noticesBarButton"
+                android:src="@drawable/ic_chat_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/profileBBLL"
+            android:orientation="vertical">
 
-</LinearLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/profileBarButton"
+                android:src="@drawable/ic_chat_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/logBBLL"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/logBarButton"
+                android:src="@drawable/ic_note_add_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.ButtonBarLayout>
+
+</RelativeLayout>

@@ -73,6 +73,7 @@ public class NetworkService extends IntentService {
             String typeSending = intent.getStringExtra("typeSending");
 
             if(typeSending.equals("SESSION")){
+                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>in network service SESSION");
                 String permission = intent.getStringExtra("PERMISSION");
 
                 updateScSession(permission);
@@ -107,6 +108,7 @@ public class NetworkService extends IntentService {
                 startUpGetTeamFixtures();
                 startUpGetTeams();
                 startUpGetSC();
+
                 ArrayList<String> response = serviceRequest(passedList, typeSending, size);
 
 
@@ -400,6 +402,7 @@ public class NetworkService extends IntentService {
         request.add("CODE:4805:UPDATESESSION");
         request.add(permission);
 
+
         if(Integer.valueOf(permission) < 2){
             sessionRepo.delete(); //will delete all data as cannot only pass new data based on table size as we are filtering
             sessionRepo.createTable();
@@ -445,9 +448,12 @@ public class NetworkService extends IntentService {
         request.add("CODE:4808:UPDATEKPI");
         request.add(permission);
 
+        kpiRepo.delete(); //will delete all data as cannot only pass new data based on table size as we are filtering
+        kpiRepo.createtable();
+
         if(Integer.valueOf(permission) < 2){
-            kpiRepo.delete(); //will delete all data as cannot only pass new data based on table size as we are filtering
-            kpiRepo.createtable();
+            //kpiRepo.delete(); //will delete all data as cannot only pass new data based on table size as we are filtering
+           // kpiRepo.createtable();
             request.add(MyClientID.myID);
         }
 

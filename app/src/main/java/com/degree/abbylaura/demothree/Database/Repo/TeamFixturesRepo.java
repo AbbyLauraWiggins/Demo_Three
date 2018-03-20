@@ -111,11 +111,21 @@ public class TeamFixturesRepo {
     public int getTableSize(){
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
-        int result = (int) DatabaseUtils.queryNumEntries(db, TeamFixtures.TABLE);
+        String getSize = "SELECT COUNT(*) FROM " + TeamFixtures.TABLE;
+
+        int size = 0;
+
+        Cursor cursor = db.rawQuery(getSize, null);
+
+        if(cursor.moveToNext()){
+            do{
+                size = cursor.getInt(0);
+            }while(cursor.moveToNext());
+        }
 
         DatabaseManager.getInstance().closeDatabase();
 
-        return result;
+        return size;
 
     }
 

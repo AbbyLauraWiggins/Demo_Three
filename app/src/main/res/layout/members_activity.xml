@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="10dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,7 +9,8 @@
         android:text="Members"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:id="@+id/members_title"/>
+        android:id="@+id/members_title"
+        android:padding="10dp"/>
 
     <Button
         android:layout_width="70dp"
@@ -22,13 +22,6 @@
         android:id="@+id/profilebutton"
         android:onClick="onGoToProfile"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/back_button"
-        android:text="Back"
-        android:onClick="onBackButton"
-        android:layout_alignParentBottom="true"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,5 +38,77 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <android.support.v7.widget.ButtonBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonBarLayout"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/black">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/homeBBLL"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/homeBarButton"
+                android:src="@drawable/ic_chat_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/noticeBBLL"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/noticesBarButton"
+                android:src="@drawable/ic_chat_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/profileBBLL"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/profileBarButton"
+                android:src="@drawable/ic_chat_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/logBBLL"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/logBarButton"
+                android:src="@drawable/ic_note_add_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.ButtonBarLayout>
 
 </RelativeLayout>

@@ -3,10 +3,12 @@ package com.degree.abbylaura.demothree.Activities.Statistics;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
@@ -24,10 +26,11 @@ import com.degree.abbylaura.demothree.R;
 
 public class StatisticsActivity extends Activity {
 
-    LinearLayout analyse, mystats, teamstats;
-    ImageView my, team, an;
-    int iconSize;
+    LinearLayout analyse, mystats, teamstats, homebbll, noticebbll, profilebbll, logbbll;
+    ImageView my, team, an, barNotice, barHome, barLog, barProfile;
+    int iconSize, barSize;
     TextView tsTV, msTV, aTV;
+    ButtonBarLayout bbl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +45,16 @@ public class StatisticsActivity extends Activity {
         my = findViewById(R.id.myStatsImage);
         team = findViewById(R.id.teamStatsImage);
         an = findViewById(R.id.analyseImage);
+
+        bbl = findViewById(R.id.buttonBarLayout);
+        barNotice = findViewById(R.id.noticesBarButton);
+        barHome = findViewById(R.id.homeBarButton);
+        barLog = findViewById(R.id.logBarButton);
+        barProfile = findViewById(R.id.profileBarButton);
+        homebbll = findViewById(R.id.homeBBLL);
+        noticebbll = findViewById(R.id.noticeBBLL);
+        profilebbll = findViewById(R.id.profileBBLL);
+        logbbll = findViewById(R.id.logBBLL);
 
 
         int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels - 30; //room for title
@@ -60,7 +73,53 @@ public class StatisticsActivity extends Activity {
         aTV.setTextSize(iconSize/10);
 
 
-        android.view.ViewGroup.LayoutParams layoutParams = teamstats.getLayoutParams();
+        android.view.ViewGroup.LayoutParams layoutParams;
+
+        layoutParams = bbl.getLayoutParams();
+        layoutParams.width = screenWidth + 30;
+        layoutParams.height = screenHeight/10;
+        bbl.setLayoutParams(layoutParams);
+
+        layoutParams = homebbll.getLayoutParams();
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenHeight/10;
+        homebbll.setLayoutParams(layoutParams);
+
+        layoutParams = noticebbll.getLayoutParams();
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenHeight/10;
+        noticebbll.setLayoutParams(layoutParams);
+
+        layoutParams = profilebbll.getLayoutParams();
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenHeight/10;
+        profilebbll.setLayoutParams(layoutParams);
+
+        layoutParams = logbbll.getLayoutParams();
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenHeight/10;
+        logbbll.setLayoutParams(layoutParams);
+
+        barSize = screenHeight/12;
+        barNotice.setImageResource(0);
+        Drawable draw = getResources().getDrawable(R.drawable.ic_chat_black_48dp);
+        draw = barresize(draw);
+        barNotice.setImageDrawable(draw);
+
+        barHome.setImageResource(0);
+        draw = getResources().getDrawable(R.drawable.ic_chat_black_48dp);
+        draw = barresize(draw);
+        barHome.setImageDrawable(draw);
+
+        barProfile.setImageResource(0);
+        draw = getResources().getDrawable(R.drawable.ic_person_black_48dp);
+        draw = barresize(draw);
+        barProfile.setImageDrawable(draw);
+
+        barLog.setImageResource(0);
+        draw = getResources().getDrawable(R.drawable.ic_note_add_black_48dp);
+        draw = barresize(draw);
+        barLog.setImageDrawable(draw);
 
         if(MyClientID.myPermissions > 1){ //LEADER or above - so can view stat analysis
             analyse.setVisibility(View.VISIBLE);
@@ -79,7 +138,7 @@ public class StatisticsActivity extends Activity {
                 team.setVisibility(View.VISIBLE);*/
 
                 team.setImageResource(0);
-                Drawable draw = getResources().getDrawable(R.drawable.ic_people_black_48dp);
+                draw = getResources().getDrawable(R.drawable.ic_people_black_48dp);
                 draw = resize(draw);
                 team.setImageDrawable(draw);
 
@@ -106,7 +165,7 @@ public class StatisticsActivity extends Activity {
                 mystats.setVisibility(View.VISIBLE);
 
                 my.setImageResource(0);
-                Drawable draw = getResources().getDrawable(R.drawable.ic_person_black_48dp);
+                draw = getResources().getDrawable(R.drawable.ic_person_black_48dp);
                 draw = resize(draw);
                 my.setImageDrawable(draw);
 
@@ -143,7 +202,7 @@ public class StatisticsActivity extends Activity {
             mystats.setVisibility(View.VISIBLE);
 
             my.setImageResource(0);
-            Drawable draw = getResources().getDrawable(R.drawable.ic_person_black_48dp);
+            draw = getResources().getDrawable(R.drawable.ic_person_black_48dp);
             draw = resize(draw);
             my.setImageDrawable(draw);
 
@@ -161,13 +220,20 @@ public class StatisticsActivity extends Activity {
 
         }
 
-
     }
+
 
     private Drawable resize(Drawable image) {
         Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
         Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap,
                 iconSize, iconSize, false);
+        return new BitmapDrawable(getResources(), bitmapResized);
+    }
+
+    private Drawable barresize(Drawable image) {
+        Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap,
+                barSize, barSize, false);
         return new BitmapDrawable(getResources(), bitmapResized);
     }
 

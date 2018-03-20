@@ -122,9 +122,20 @@ public class TeamStatsLeaderboard extends Activity {
         if (fixtureID.equals("")) {
             System.out.println("FIXTURE ID: " + fixtureID);
             leaderboard = kpiRepo.getKPISeasonLeaderboard();
+
         } else {
             System.out.println("FIXTURE ID ELSE: " + fixtureID);
             leaderboard = kpiRepo.getKPILeaderboard(fixtureID);
+        }
+
+        String[][] table = kpiRepo.getTableData();
+        System.out.println("tablelength: " + String.valueOf(table[0].length));
+
+        for(int i = 0; i < table[0].length; i++){
+            for(int j = 0; j < 20; j++){
+                System.out.print(table[j][i] + " / ");
+            }
+            System.out.println("");
         }
 
         TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
@@ -150,6 +161,7 @@ public class TeamStatsLeaderboard extends Activity {
         }
 
     }
+
     private void setLayout(){
         int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 

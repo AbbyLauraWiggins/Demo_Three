@@ -34,11 +34,13 @@
 
         <activity
             android:name=".Activities.Notices.NoticeActivity"
+
             />
 
         <activity
             android:name=".Activities.Notices.NoticeComposeActivity"
-            />
+            android:parentActivityName=".Activities.Notices.NoticeActivity"
+        />
 
         <activity
             android:name=".Activities.Statistics.StatisticsActivity"

@@ -172,7 +172,7 @@ public class LoginActivity extends Activity {
         Intent intent2 = new Intent(this, NetworkService.class);
         intent2.putExtra("PERMISSION", String.valueOf(MyClientID.myPermissions));
         intent2.putExtra("typeSending", "KPI");
-        this.startService(intent);
+        this.startService(intent2);
 
     }
     /*

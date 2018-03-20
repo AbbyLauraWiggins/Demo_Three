@@ -7,12 +7,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v7.widget.ButtonBarLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,6 +52,12 @@ public class NoticeActivity extends Activity {
     String winningNoticeId;
 
 
+    LinearLayout homebbll, noticebbll, profilebbll, logbbll;
+    ImageView barNotice, barHome, barLog, barProfile;
+    int iconSize, barSize;
+    ButtonBarLayout bbl;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,9 +72,20 @@ public class NoticeActivity extends Activity {
 
         updateContent(null);
 
-        relBottom = findViewById(R.id.rel_bottom_layout);
-        relBottom.setBackgroundColor(Color.WHITE);
 
+        homebbll = findViewById(R.id.homeBBLL);
+        noticebbll = findViewById(R.id.noticeBBLL);
+        profilebbll = findViewById(R.id.profileBBLL);
+        logbbll = findViewById(R.id.logBBLL);
+
+        bbl = findViewById(R.id.buttonBarLayout);
+
+        barNotice = findViewById(R.id.noticesBarButton);
+        barHome = findViewById(R.id.homeBarButton);
+        barLog = findViewById(R.id.logBarButton);
+        barProfile = findViewById(R.id.profileBarButton);
+
+        setBottomBar();
 
 
         /* Allows use to track when an intent with the id TRANSACTION_DONE is executed
@@ -74,16 +97,74 @@ public class NoticeActivity extends Activity {
 
     }
 
+    private void setBottomBar(){
+
+        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels - 30; //room for title
+        int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels - 30;
+
+        android.view.ViewGroup.LayoutParams layoutParams = bbl.getLayoutParams();
+        layoutParams.width = screenWidth + 30;
+        layoutParams.height = screenHeight/10;
+        bbl.setLayoutParams(layoutParams);
+
+        layoutParams = homebbll.getLayoutParams();
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenHeight/10;
+        homebbll.setLayoutParams(layoutParams);
+
+        layoutParams = noticebbll.getLayoutParams();
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenHeight/10;
+        noticebbll.setLayoutParams(layoutParams);
+
+        layoutParams = profilebbll.getLayoutParams();
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenHeight/10;
+        profilebbll.setLayoutParams(layoutParams);
+
+        layoutParams = logbbll.getLayoutParams();
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenHeight/10;
+        logbbll.setLayoutParams(layoutParams);
+
+        barSize = screenHeight/12;
+        barNotice.setImageResource(0);
+        Drawable draw = getResources().getDrawable(R.drawable.ic_chat_black_48dp);
+        draw = barresize(draw);
+        barNotice.setImageDrawable(draw);
+
+        barHome.setImageResource(0);
+        draw = getResources().getDrawable(R.drawable.ic_chat_black_48dp);
+        draw = barresize(draw);
+        barHome.setImageDrawable(draw);
+
+        barProfile.setImageResource(0);
+        draw = getResources().getDrawable(R.drawable.ic_person_black_48dp);
+        draw = barresize(draw);
+        barProfile.setImageDrawable(draw);
+
+        barLog.setImageResource(0);
+        draw = getResources().getDrawable(R.drawable.ic_note_add_black_48dp);
+        draw = barresize(draw);
+        barLog.setImageDrawable(draw);
+
+    }
+
+    private Drawable barresize(Drawable image) {
+        Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap,
+                barSize, barSize, false);
+        return new BitmapDrawable(getResources(), bitmapResized);
+    }
+
     public void onComposeNotice(View view) {
         //when this is clicked, we want to go to D2NoticeComposeActivity
         //should return with activity name and notice content
 
         Intent getReturnUserInput = new Intent(this, NoticeComposeActivity.class);
 
-        final int result = 1;
-        //getReturnUserInput.putExtra("User Input", "TEST");
 
-        startActivityForResult(getReturnUserInput, result);
+        startActivity(getReturnUserInput);
     }
 
     @Override

@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     android:background="@drawable/background">
 
     <TextView
@@ -14,6 +13,7 @@
         android:id="@+id/statsandlogstitle"
         android:textSize="20sp"
         android:paddingBottom="20dp"
+        android:padding="10dp"
         />
 
     <LinearLayout
@@ -207,6 +207,77 @@
 
     </LinearLayout>
 
+    <android.support.v7.widget.ButtonBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonBarLayout"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/black">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/homeBBLL"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/homeBarButton"
+                android:src="@drawable/ic_chat_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/noticeBBLL"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/noticesBarButton"
+                android:src="@drawable/ic_chat_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/profileBBLL"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/profileBarButton"
+                android:src="@drawable/ic_chat_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/logBBLL"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/logBarButton"
+                android:src="@drawable/ic_note_add_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.ButtonBarLayout>
 
 
 </RelativeLayout>
