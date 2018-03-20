@@ -160,9 +160,9 @@ public class KPIRepo {
 
             if (cursor.moveToFirst()) {
                 do {
-                    String name = cursor.getString(0);
-                    String result = cursor.getString(1);
-                    String fixture = cursor.getString(2);
+                    String name = cursor.getString(cursor.getColumnIndex("Member.Name"));
+                    String result = cursor.getString(cursor.getColumnIndex("KPI." + KPIColumnName));
+                    String fixture = cursor.getString(cursor.getColumnIndex("KPI.FixtureID"));
 
                     //System.out.println(name + " | " + result + " | " + fixture);
 
@@ -183,6 +183,7 @@ public class KPIRepo {
             list.add(array[i]); //TODO look to change using array[i] to cursor.getColumnName(i)
             list.add(fName);
             list.add(String.valueOf(max));
+            System.out.println("name:" + array[i] + " | result: " + fName + " | value: " + String.valueOf(max));
 
             leaderboard.add(list);
         }

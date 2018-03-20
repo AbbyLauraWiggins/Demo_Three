@@ -61,7 +61,7 @@ public class TeamStatsLeaderboard extends Activity {
     private void setSpinner(){
         TeamFixturesRepo tfRepo = new TeamFixturesRepo();
 
-        ArrayList<ArrayList<String>> fixturesList = tfRepo.getSpinnerList();
+        final ArrayList<ArrayList<String>> fixturesList = tfRepo.getSpinnerList();
         ArrayList<String> spinnerList = new ArrayList<String>();
         final HashMap<String, String> spinnerItemAndFixtureID = new HashMap<String, String>();
 
