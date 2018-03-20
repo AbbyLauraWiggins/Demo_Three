@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.Fixture;
+import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +33,7 @@ public class FixtureRepo {
     public static String createTable(){
         return "CREATE TABLE " + Fixture.TABLE  + "("
                 + Fixture.KEY_FixturePrimary + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + Fixture.KEY_TeamId + " TEXT,"  
+                + Fixture.KEY_TeamId + " TEXT,"
                 + Fixture.KEY_FixtureId + " TEXT,"
                 + Fixture.KEY_FixturePoints + " TEXT,"
                 + Fixture.KEY_Forward + " TEXT,"
@@ -166,4 +167,14 @@ public class FixtureRepo {
     }
 
 
+    public int getTableSize(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        int result = (int) DatabaseUtils.queryNumEntries(db, Fixture.TABLE);
+
+        DatabaseManager.getInstance().closeDatabase();
+
+        return result;
+
+    }
 }

@@ -80,4 +80,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         onCreate(db);
     }
+
+    //FOR TESTING ONLY
+    public void onDelete() {
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        // Drop table if existed, all data will be gone!!!
+        db.execSQL("DROP TABLE IF EXISTS " + Fixture.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Member.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Session.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + StrengthAndConditioning.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Team.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + TeamFixtures.TABLE);
+
+        db.execSQL("DROP TABLE IF EXISTS " + Notice.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + KPI.TABLE);
+
+    }
 }

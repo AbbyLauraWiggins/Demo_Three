@@ -22,8 +22,8 @@ public class  App extends Application {
         context = this.getApplicationContext();
         dbHelper = new DatabaseHelper();
         DatabaseManager.initializeInstance(dbHelper);
-        NoticeRepo noticeRepo = new NoticeRepo();
-        noticeRepo.delete();
+        //for testing only!!!
+        dbHelper.onDelete();
 
     }
 

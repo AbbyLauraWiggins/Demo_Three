@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.Team;
+import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
 
 /**
  * Created by abbylaura on 02/03/2018.
@@ -95,4 +96,15 @@ public class TeamRepo {
         this.whereClause = where;
     }
 
+
+    public int getTableSize(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        int result = (int) DatabaseUtils.queryNumEntries(db, Team.TABLE);
+
+        DatabaseManager.getInstance().closeDatabase();
+
+        return result;
+
+    }
 }

@@ -6,13 +6,20 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.FixtureRepo;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.Database.Repo.NoticeRepo;
+import com.degree.abbylaura.demothree.Database.Repo.SessionRepo;
+import com.degree.abbylaura.demothree.Database.Repo.StrengthAndConditioningRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
+import com.degree.abbylaura.demothree.Database.Repo.TeamRepo;
 import com.degree.abbylaura.demothree.Database.Schema.Fixture;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
 import com.degree.abbylaura.demothree.Database.Schema.Notice;
+import com.degree.abbylaura.demothree.Database.Schema.Session;
+import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
+import com.degree.abbylaura.demothree.Database.Schema.Team;
 import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
 
 import java.io.BufferedReader;
@@ -75,8 +82,16 @@ public class NetworkService extends IntentService {
                 //refresh all necessary tables when log in
                 startUpGetFixtures();
                 startUpGetTeamFixtures();
+                startUpGetTeams();
+                startUpGetSC();
+
+
                 String valid = updateMembers(response, passedList);
                 i.putExtra("VALIDATION", valid);
+            }else if(typeSending.equals("SESSION")){
+                int permission = intent.getIntExtra("PERMISSION");
+
+                updateScSession(permission);
             }
 
 
@@ -234,7 +249,7 @@ public class NetworkService extends IntentService {
         FixtureRepo fixtureRepo = new FixtureRepo();
         fixtureRepo.delete();
 
-        ArrayList<String> fixtures = serviceRequest(request, "FIXTURES", 0);
+        ArrayList<String> fixtures = serviceRequest(request, "FIXTURES", fixtureRepo.getTableSize());
         if(!fixtures.isEmpty()){
             if(!(fixtures.get(0).equals("CODE:4702:NOFIXTURES"))){
                 for(String f: fixtures){
@@ -272,9 +287,9 @@ public class NetworkService extends IntentService {
         request.add("CODE:4801:UPDATETEAMFIXTURES");
 
         TeamFixturesRepo tfRepo = new TeamFixturesRepo();
-        tfRepo.delete();
+        //tfRepo.delete();
 
-        ArrayList<String> fixtures = serviceRequest(request, "TEAMFIXTURES", 0);
+        ArrayList<String> fixtures = serviceRequest(request, "TEAMFIXTURES", tfRepo.getTableSize());
         if(!fixtures.isEmpty()){
             if(!(fixtures.get(0).equals("CODE:4702:NOFIXTURES"))){
                 for(String f: fixtures){
@@ -292,6 +307,96 @@ public class NetworkService extends IntentService {
             }
         }
 
+    }
+
+    private void startUpGetTeams(){
+        ArrayList<String> request = new ArrayList<>();
+        request.add("CODE:4802:UPDATETEAMS");
+
+        TeamRepo teamRepo = new TeamRepo();
+        //tfRepo.delete();
+
+        ArrayList<String> teams = serviceRequest(request, "TEAMS", teamRepo.getTableSize());
+        if(!teams.isEmpty()){
+            if(!(teams.get(0).equals("CODE:4700:NOTEAMS"))){
+                for(String t: teams){
+                    String[] splitter = t.split("4h4f");
+
+                    Team team = new Team();
+                    team.setTeamId(splitter[0]);
+                    team.setTeamName(splitter[1]);
+                    team.setTeamLocation(splitter[2]);
+                    team.setTeamCurPoints(splitter[3]);
+                    teamRepo.insert(team);
+                }
+
+            }
+        }
+    }
+
+    private void startUpGetSC(){
+        ArrayList<String> request = new ArrayList<>();
+        request.add("CODE:4804:UPDATESC");
+
+        StrengthAndConditioningRepo scRepo = new StrengthAndConditioningRepo();
+        //tfRepo.delete();
+
+        ArrayList<String> scList = serviceRequest(request, "SC", scRepo.getTableSize());
+        if(!scList.isEmpty()){
+            if(!(scList.get(0).equals("CODE:4701:NOSESSIONS"))){
+                for(String t: scList){
+                    String[] splitter = t.split("4h4f");
+
+                    StrengthAndConditioning sc = new StrengthAndConditioning();
+                    sc.setSessionID(splitter[0]);
+                    sc.setSessionDate(splitter[1]);
+                    sc.setSessionTime(splitter[2]);
+                    scRepo.insert(sc);
+                }
+
+            }
+        }
+    }
+
+    private void updateScSession(int permission){
+        SessionRepo sessionRepo = new SessionRepo();
+
+        ArrayList<String> request = new ArrayList<>();
+        request.add("CODE:4805:UPDATESESSION");
+        request.add(String.valueOf(permission));
+
+        if(permission < 2){
+            sessionRepo.delete(); //will delete all data as cannot only pass new data based on table size as we are filtering
+            request.add(MyClientID.myID);
+        }
+
+        ArrayList<String> sessionData = serviceRequest(request, "SESSION", sessionRepo.getTableSize());
+
+        if(!sessionData.isEmpty()){
+            if(!sessionData.get(0).equals("CODE:4701:NOSESSIONS")){
+                for(String s: sessionData){
+                    String[] splitter = s.split("4h4f");
+                    Session scs = new Session();
+
+                    scs.setSessionID(splitter[0]);
+                    scs.setMemberID(splitter[1]);
+                    scs.setDeadlifts(splitter[1]);
+                    scs.setDeadliftJumps(splitter[3]);
+                    scs.setBackSquat(splitter[4]);
+                    scs.setBackSquatJumps(splitter[5]);
+                    scs.setGobletSquat(splitter[6]);
+                    scs.setBenchPress(splitter[7]);
+                    scs.setMilitaryPress(splitter[8]);
+                    scs.setSupineRow(splitter[9]);
+                    scs.setChinUps(splitter[10]);
+                    scs.setTrunk(splitter[11]);
+                    scs.setRdl(splitter[12]);
+                    scs.setSplitSquat(splitter[13]);
+                    scs.setFourWayArms(splitter[14]);
+                    sessionRepo.insert(scs);
+                }
+            }
+        }
     }
 
 }

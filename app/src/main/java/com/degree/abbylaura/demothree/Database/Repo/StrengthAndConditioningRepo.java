@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
+import com.degree.abbylaura.demothree.Database.Schema.Team;
 
 /**
  * Created by abbylaura on 02/03/2018.
@@ -55,6 +56,16 @@ public class StrengthAndConditioningRepo {
     }
 
 
+    public int getTableSize(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        int result = (int) DatabaseUtils.queryNumEntries(db, StrengthAndConditioning.TABLE);
+
+        DatabaseManager.getInstance().closeDatabase();
+
+        return result;
+
+    }
 
     public void delete( ) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();

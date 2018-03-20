@@ -179,6 +179,17 @@ public class SessionRepo {
         return data;
     }
 
+    public int getTableSize(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        int result = (int) DatabaseUtils.queryNumEntries(db, Session.TABLE);
+
+        DatabaseManager.getInstance().closeDatabase();
+
+        return result;
+
+    }
+
     public void setWhereclause(String whereclause){
         this.whereclause = whereclause;
     }
