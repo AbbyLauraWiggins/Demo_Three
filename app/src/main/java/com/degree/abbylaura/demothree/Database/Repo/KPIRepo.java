@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
+import com.degree.abbylaura.demothree.Database.Schema.Fixture;
 import com.degree.abbylaura.demothree.Database.Schema.KPI;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
 
@@ -386,6 +387,17 @@ public class KPIRepo {
         DatabaseManager.getInstance().closeDatabase();
 
         return data;
+    }
+
+    public int getTableSize(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        int result = (int) DatabaseUtils.queryNumEntries(db, KPI.TABLE);
+
+        DatabaseManager.getInstance().closeDatabase();
+
+        return result;
+
     }
 
 }

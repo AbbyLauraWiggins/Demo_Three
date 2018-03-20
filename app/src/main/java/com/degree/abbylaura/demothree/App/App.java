@@ -23,7 +23,8 @@ public class  App extends Application {
         dbHelper = new DatabaseHelper();
         DatabaseManager.initializeInstance(dbHelper);
         //for testing only!!!
-        dbHelper.onDelete();
+        //dbHelper.onDelete();
+
 
     }
 

@@ -157,6 +157,24 @@ public class LoginActivity extends Activity {
 
     }
 
+    private void updateAllStats(){
+        //TODO talk to server to update Session table
+        //TODO talk to server to update KPI table
+
+        //If permission < 2 then only update MY data
+        //If permission >= 2 then update ALL player data
+
+        Intent intent = new Intent(this, NetworkService.class);
+        intent.putExtra("PERMISSION", String.valueOf(MyClientID.myPermissions));
+        intent.putExtra("typeSending", "SESSION");
+        this.startService(intent);
+
+        Intent intent2 = new Intent(this, NetworkService.class);
+        intent2.putExtra("PERMISSION", String.valueOf(MyClientID.myPermissions));
+        intent2.putExtra("typeSending", "KPI");
+        this.startService(intent);
+
+    }
     /*
  * Is alerted when the IntentService broadcasts TRANSACTION_DONE
  */
@@ -165,8 +183,10 @@ public class LoginActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             String valid = intent.getStringExtra("VALIDATION");
 
-            if(valid.equals("false")){
+            if(valid.equals("false")) {
                 showToast();
+            }else if(valid.equals("updated")){
+                showUpdateToast();
             }else{
                 String[] splitter = valid.split("4h4f");
                 String id = splitter[0];
@@ -174,6 +194,8 @@ public class LoginActivity extends Activity {
 
                 String teamId = splitter[1];
                 MyClientID.setMyTeamID(teamId);
+
+                updateAllStats();
 
                 goToHome();
             }
@@ -188,6 +210,10 @@ public class LoginActivity extends Activity {
 
     private void showToast(){
         Toast.makeText(this, getString(R.string.toast_invalid_message), Toast.LENGTH_SHORT).show();
+    }
+
+    private void showUpdateToast(){
+        Toast.makeText(this, "Database updated from server.", Toast.LENGTH_SHORT).show();
     }
 
     public void onSkipForTestingClick(View view) {

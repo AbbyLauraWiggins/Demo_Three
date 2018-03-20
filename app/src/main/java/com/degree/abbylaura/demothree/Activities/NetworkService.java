@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.FixtureRepo;
+import com.degree.abbylaura.demothree.Database.Repo.KPIRepo;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.Database.Repo.NoticeRepo;
 import com.degree.abbylaura.demothree.Database.Repo.SessionRepo;
@@ -15,6 +16,7 @@ import com.degree.abbylaura.demothree.Database.Repo.StrengthAndConditioningRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamRepo;
 import com.degree.abbylaura.demothree.Database.Schema.Fixture;
+import com.degree.abbylaura.demothree.Database.Schema.KPI;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
 import com.degree.abbylaura.demothree.Database.Schema.Notice;
 import com.degree.abbylaura.demothree.Database.Schema.Session;
@@ -68,14 +70,35 @@ public class NetworkService extends IntentService {
         ArrayList<String> passedList = intent.getStringArrayListExtra("CLASS");
 
         if(passedList == null){
-            NetworkService.this.sendBroadcast(i);
+            String typeSending = intent.getStringExtra("typeSending");
+
+            if(typeSending.equals("SESSION")){
+                String permission = intent.getStringExtra("PERMISSION");
+
+                updateScSession(permission);
+
+                String valid = "updated";
+                i.putExtra("VALIDATION", valid);
+
+            }else if(typeSending.equals("KPI")){
+                String permission = intent.getStringExtra("PERMISSION");
+
+                updateKPI(permission);
+
+                String valid = "updated";
+                i.putExtra("VALIDATION", valid);
+            }else{
+                NetworkService.this.sendBroadcast(i);
+            }
+
         }else{
             String typeSending = intent.getStringExtra("typeSending");
             int size = Integer.parseInt(intent.getStringExtra("TABLESIZE"));
 
-            ArrayList<String> response = serviceRequest(passedList, typeSending, size);
 
             if(typeSending.equals("NOTICE")){
+                ArrayList<String> response = serviceRequest(passedList, typeSending, size);
+
                 updateNotices(response);
             }
             else if(typeSending.equals("LOGIN")){
@@ -84,14 +107,11 @@ public class NetworkService extends IntentService {
                 startUpGetTeamFixtures();
                 startUpGetTeams();
                 startUpGetSC();
+                ArrayList<String> response = serviceRequest(passedList, typeSending, size);
 
 
                 String valid = updateMembers(response, passedList);
                 i.putExtra("VALIDATION", valid);
-            }else if(typeSending.equals("SESSION")){
-                int permission = intent.getIntExtra("PERMISSION");
-
-                updateScSession(permission);
             }
 
 
@@ -192,6 +212,8 @@ public class NetworkService extends IntentService {
             }
 
         }
+
+        System.out.println(">>>>>>>>>>>>>>>> notices updated");
     }
 
     private String updateMembers(ArrayList<String> response, ArrayList<String> logInDetails){
@@ -234,6 +256,9 @@ public class NetworkService extends IntentService {
             }
         }
 
+        System.out.println(">>>>>>>>>>>>>>>> members updated");
+
+
         if(validation.equals("false")){
             return validation;
 
@@ -247,7 +272,6 @@ public class NetworkService extends IntentService {
         request.add("CODE:4800:UPDATEFIXTURES");
 
         FixtureRepo fixtureRepo = new FixtureRepo();
-        fixtureRepo.delete();
 
         ArrayList<String> fixtures = serviceRequest(request, "FIXTURES", fixtureRepo.getTableSize());
         if(!fixtures.isEmpty()){
@@ -280,6 +304,9 @@ public class NetworkService extends IntentService {
             }
         }
 
+        System.out.println(">>>>>>>>>>>>>>>> fixtures updated");
+
+
     }
 
     private void startUpGetTeamFixtures(){
@@ -307,6 +334,8 @@ public class NetworkService extends IntentService {
             }
         }
 
+        System.out.println(">>>>>>>>>>>>>>>> teamfixtures updated");
+
     }
 
     private void startUpGetTeams(){
@@ -332,6 +361,9 @@ public class NetworkService extends IntentService {
 
             }
         }
+
+        System.out.println(">>>>>>>>>>>>>>>> teams updated");
+
     }
 
     private void startUpGetSC(){
@@ -356,17 +388,21 @@ public class NetworkService extends IntentService {
 
             }
         }
+
+        System.out.println(">>>>>>>>>>>>>>>> SC updated");
+
     }
 
-    private void updateScSession(int permission){
+    private void updateScSession(String permission){
         SessionRepo sessionRepo = new SessionRepo();
 
         ArrayList<String> request = new ArrayList<>();
         request.add("CODE:4805:UPDATESESSION");
-        request.add(String.valueOf(permission));
+        request.add(permission);
 
-        if(permission < 2){
+        if(Integer.valueOf(permission) < 2){
             sessionRepo.delete(); //will delete all data as cannot only pass new data based on table size as we are filtering
+            sessionRepo.createTable();
             request.add(MyClientID.myID);
         }
 
@@ -397,6 +433,57 @@ public class NetworkService extends IntentService {
                 }
             }
         }
+
+        System.out.println(">>>>>>>>>>>>>>>> session updated");
+
+    }
+
+    private void updateKPI(String permission){
+        KPIRepo kpiRepo = new KPIRepo();
+
+        ArrayList<String> request = new ArrayList<>();
+        request.add("CODE:4808:UPDATEKPI");
+        request.add(permission);
+
+        if(Integer.valueOf(permission) < 2){
+            kpiRepo.delete(); //will delete all data as cannot only pass new data based on table size as we are filtering
+            kpiRepo.createtable();
+            request.add(MyClientID.myID);
+        }
+
+        ArrayList<String> sessionData = serviceRequest(request, "KPI", kpiRepo.getTableSize());
+
+        if(!sessionData.isEmpty()){
+            if(!sessionData.get(0).equals("CODE:4809:NOKPIS")){
+                for(String s: sessionData){
+                    String[] splitter = s.split("4h4f");
+                    KPI kpi = new KPI();
+                    kpi.setMemberID(splitter[1]);
+                    kpi.setFixtureID(splitter[2]);
+                    kpi.setsTackles(splitter[3]);
+                    kpi.setuTackles(splitter[4]);
+                    kpi.setsCarries(splitter[5]);
+                    kpi.setuCarries(splitter[6]);
+                    kpi.setsPasses(splitter[7]);
+                    kpi.setuPasses(splitter[8]);
+                    kpi.setHandlingErrors(splitter[9]);
+                    kpi.setPenalties(splitter[10]);
+                    kpi.setYellowCards(splitter[11]);
+                    kpi.setTriesScored(splitter[12]);
+                    kpi.setTurnoversWon(splitter[13]);
+                    kpi.setsThrowIns(splitter[14]);
+                    kpi.setuThrowIns(splitter[15]);
+                    kpi.setsLineOutTakes(splitter[16]);
+                    kpi.setuLineOutTakes(splitter[17]);
+                    kpi.setsKicks(splitter[18]);
+                    kpi.setuKicks(splitter[19]);
+                    kpiRepo.insert(kpi);
+                }
+            }
+        }
+
+        System.out.println(">>>>>>>>>>>>>>>> kpi updated");
+
     }
 
 }
