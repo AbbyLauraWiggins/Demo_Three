@@ -11,11 +11,15 @@ public class TeamFixtures {
     public static final String KEY_FixtureId = "FixtureId"; //PRIMARY KEY
     public static final String KEY_TeamFixtureDate = "TeamFixtureDate";
     public static final String KEY_TeamFixtureLocation = "TeamFixtureLocation";
+    public static final String KEY_HomeTeam = "HomeTeam";
+    public static final String KEY_AwayTeam = "AwayTeam";
 
 
     private String fixtureID;
     private String fixtureDate;
     private String fixtureLocation;
+    private String homeTeam;
+    private String awayTeam;
 
 
     public String getFixtureId() {
@@ -40,5 +44,20 @@ public class TeamFixtures {
 
     public void setFixtureLocation(String fixtureLocation) {
         this.fixtureLocation = fixtureLocation;
+    }
+
+    public void setHomeTeam(String homeTeamID) {
+        this.homeTeam = homeTeamID;
+    }
+
+    public String getHomeTeam() {
+        return homeTeam;
+    }
+
+    public void setAwayTeam(String awayTeamID) {
+        this.awayTeam = awayTeamID;
+    }
+    public String getAwayTeam() {
+        return awayTeam;
     }
 }

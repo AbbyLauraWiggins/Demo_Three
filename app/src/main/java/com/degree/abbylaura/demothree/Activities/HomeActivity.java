@@ -164,7 +164,7 @@ public class HomeActivity extends Activity {
         GridLayout buttonGrid = findViewById(R.id.grid_layout);
         layoutParams = buttonGrid.getLayoutParams();
         layoutParams.width = screenWidth;
-        layoutParams.height = (int) (screenHeight/2.5);
+        layoutParams.height = (int) (screenHeight/2);
         buttonGrid.setLayoutParams(layoutParams);
 
 

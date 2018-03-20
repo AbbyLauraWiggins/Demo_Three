@@ -43,6 +43,7 @@ public class TeamStatsLeaderboard extends Activity {
 
         setContentView(R.layout.team_stats_tab_leaderboard);
 
+        System.out.println("leaderboard on create 1");
 
         overview = findViewById(R.id.teamStatOverviewButton);
         game = findViewById(R.id.teamStatGameButton);
@@ -51,22 +52,35 @@ public class TeamStatsLeaderboard extends Activity {
 
         setLayout();
 
-        setSpinner();
+        System.out.println("leaderboard on create 2");
+
+        try {
+            System.out.println("leaderboard on create 3");
+
+            setSpinner();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            System.out.println("CAUGHT PARSE EXCEPTION E");
+        }
         setView();
     }
 
-    private void setSpinner(){
+    private void setSpinner() throws ParseException {
         TeamFixturesRepo tfRepo = new TeamFixturesRepo();
 
-        ArrayList<ArrayList<String>> fixturesList = tfRepo.getSpinnerList();
+        /*ArrayList<ArrayList<String>> fixturesList = tfRepo.getSpinnerList();
         ArrayList<String> spinnerList = new ArrayList<String>();
         final HashMap<String, String> spinnerItemAndFixtureID = new HashMap<String, String>();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         for(ArrayList<String> row : fixturesList){ //0=name1, 1=name2, 2=date
+            System.out.println("SetSpinner, row: " + row.toString());
+
 
             //must be one my MyTeams games
+            System.out.println(MyClientID.myTeamID + " < my team id | fixturesList teamID > " + row.get(5));
+
             if(row.get(4).equals(MyClientID.myTeamID) || row.get(5).equals(MyClientID.myTeamID)){
                 //must be a game that has already occured
 
@@ -85,10 +99,20 @@ public class TeamStatsLeaderboard extends Activity {
 
             }
 
-        }
+        }*/
+
+        System.out.println("leaderboard on create set spinner 1");
+
+
+        final HashMap<String, ArrayList<String>> spinnerItemAndFixtureID = tfRepo.getQuickSpinnerList(MyClientID.myTeamID);
+
+        System.out.println("leaderboard on create set spinner 2");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, spinnerList);
+                this, android.R.layout.simple_spinner_item, spinnerItemAndFixtureID.get("list"));
+
+        System.out.println("leaderboard on create set spinner 3");
+
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner fixtureSpinner = (Spinner) findViewById(R.id.fixtureSpinner);
@@ -99,7 +123,8 @@ public class TeamStatsLeaderboard extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String itemSelectedInSpinner = adapterView.getItemAtPosition(i).toString();
-                fixtureID = (spinnerItemAndFixtureID.get(itemSelectedInSpinner)); //returns FixtureID of selected item
+
+                fixtureID = (spinnerItemAndFixtureID.get(itemSelectedInSpinner)).get(0); //returns FixtureID of selected item
                 System.out.println(fixtureID + " " + spinnerItemAndFixtureID.get(itemSelectedInSpinner));
                 setView();
 

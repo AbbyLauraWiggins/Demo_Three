@@ -6,10 +6,14 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.degree.abbylaura.demothree.Database.Repo.FixtureRepo;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.Database.Repo.NoticeRepo;
+import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
+import com.degree.abbylaura.demothree.Database.Schema.Fixture;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
 import com.degree.abbylaura.demothree.Database.Schema.Notice;
+import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -68,6 +72,9 @@ public class NetworkService extends IntentService {
                 updateNotices(response);
             }
             else if(typeSending.equals("LOGIN")){
+                //refresh all necessary tables when log in
+                startUpGetFixtures();
+                startUpGetTeamFixtures();
                 String valid = updateMembers(response, passedList);
                 i.putExtra("VALIDATION", valid);
             }
@@ -218,6 +225,73 @@ public class NetworkService extends IntentService {
         }else{
             return id + "4h4f" + team;
         }
+    }
+
+    private void startUpGetFixtures(){
+        ArrayList<String> request = new ArrayList<>();
+        request.add("CODE:4800:UPDATEFIXTURES");
+
+        FixtureRepo fixtureRepo = new FixtureRepo();
+        fixtureRepo.delete();
+
+        ArrayList<String> fixtures = serviceRequest(request, "FIXTURES", 0);
+        if(!fixtures.isEmpty()){
+            if(!(fixtures.get(0).equals("CODE:4702:NOFIXTURES"))){
+                for(String f: fixtures){
+                    String[] splitter = f.split("4h4f");
+                    Fixture fixture = new Fixture();
+                    fixture.setTeamId(splitter[1]);
+                    fixture.setFixtureId(splitter[2]);
+                    fixture.setFixturePoints(splitter[3]);
+                    fixture.setForward(splitter[4]);
+                    fixture.setBack(splitter[5]);
+                    fixture.setPlayer(splitter[6]);
+                    fixture.setTriesScored(splitter[7]);
+                    fixture.setTriesSucceeded(splitter[8]);
+                    fixture.setConversions(splitter[9]);
+                    fixture.setConversionsSucceeded(splitter[10]);
+                    fixture.setScrumsWon(splitter[11]);
+                    fixture.setScrumsLost(splitter[12]);
+                    fixture.setMaulsWon(splitter[13]);
+                    fixture.setMaulsLost(splitter[14]);
+                    fixture.setLineOutsWon(splitter[15]);
+                    fixture.setLineOutsLost(splitter[16]);
+                    fixture.setDropGoals(splitter[17]);
+                    fixture.setPenaltyKicks(splitter[18]);
+
+                    fixtureRepo.insert(fixture);
+                }
+
+            }
+        }
+
+    }
+
+    private void startUpGetTeamFixtures(){
+        ArrayList<String> request = new ArrayList<>();
+        request.add("CODE:4801:UPDATETEAMFIXTURES");
+
+        TeamFixturesRepo tfRepo = new TeamFixturesRepo();
+        tfRepo.delete();
+
+        ArrayList<String> fixtures = serviceRequest(request, "TEAMFIXTURES", 0);
+        if(!fixtures.isEmpty()){
+            if(!(fixtures.get(0).equals("CODE:4702:NOFIXTURES"))){
+                for(String f: fixtures){
+                    String[] splitter = f.split("4h4f");
+
+                    TeamFixtures tf = new TeamFixtures();
+                    tf.setFixtureId(splitter[0]);
+                    tf.setFixtureDate(splitter[1]);
+                    tf.setFixtureLocation(splitter[2]);
+                    tf.setHomeTeam(splitter[3]);
+                    tf.setAwayTeam(splitter[4]);
+                    tfRepo.insert(tf);
+                }
+
+            }
+        }
+
     }
 
 }

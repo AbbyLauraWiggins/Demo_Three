@@ -1,4 +1,4 @@
-package com.degree.abbylaura.demothree.Activities;
+package com.degree.abbylaura.demothree.Test;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.degree.abbylaura.demothree.Activities.NetworkService;
 import com.degree.abbylaura.demothree.R;
 
 import java.util.ArrayList;

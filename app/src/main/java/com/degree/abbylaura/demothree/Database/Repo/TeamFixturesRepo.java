@@ -9,9 +9,13 @@ import android.util.Log;
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 
+import com.degree.abbylaura.demothree.Database.Schema.Team;
 import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -31,9 +35,12 @@ public class TeamFixturesRepo {
 
     public static String createTable(){
         return "CREATE TABLE " + TeamFixtures.TABLE  + "("
-                + TeamFixtures.KEY_FixtureId  + "   PRIMARY KEY,"
+                + TeamFixtures.KEY_FixtureId  + " PRIMARY KEY,"
                 + TeamFixtures.KEY_TeamFixtureDate + " TEXT,"
-                + TeamFixtures.KEY_TeamFixtureLocation + " TEXT)";
+                + TeamFixtures.KEY_TeamFixtureLocation + " TEXT,"
+                + TeamFixtures.KEY_HomeTeam + " TEXT,"
+                + TeamFixtures.KEY_AwayTeam + " TEXT)"
+                ;
     }
 
 
@@ -45,6 +52,8 @@ public class TeamFixturesRepo {
         values.put(TeamFixtures.KEY_FixtureId, teamFixtures.getFixtureId());
         values.put(TeamFixtures.KEY_TeamFixtureDate, teamFixtures.getFixtureDate());
         values.put(TeamFixtures.KEY_TeamFixtureLocation, teamFixtures.getFixtureLocation());
+        values.put(TeamFixtures.KEY_HomeTeam, teamFixtures.getHomeTeam());
+        values.put(TeamFixtures.KEY_AwayTeam, teamFixtures.getAwayTeam());
 
 
         // Inserting Row
@@ -68,7 +77,7 @@ public class TeamFixturesRepo {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         int count = (int) DatabaseUtils.queryNumEntries(db, TeamFixtures.TABLE);
 
-        String[][] tfArray = new String[3][count];
+        String[][] tfArray = new String[5][count];
 
         String selectQuery = " SELECT * FROM " + TeamFixtures.TABLE + " " + whereClause;
 
@@ -81,6 +90,9 @@ public class TeamFixturesRepo {
                 tfArray[0][iterator] = cursor.getString(cursor.getColumnIndex(TeamFixtures.KEY_FixtureId));
                 tfArray[1][iterator] = cursor.getString(cursor.getColumnIndex(TeamFixtures.KEY_TeamFixtureDate));
                 tfArray[2][iterator] = cursor.getString(cursor.getColumnIndex(TeamFixtures.KEY_TeamFixtureLocation));
+                tfArray[3][iterator] = cursor.getString(cursor.getColumnIndex(TeamFixtures.KEY_HomeTeam));
+                tfArray[4][iterator] = cursor.getString(cursor.getColumnIndex(TeamFixtures.KEY_AwayTeam));
+
                 iterator++;
             } while (cursor.moveToNext());
         }
@@ -105,6 +117,68 @@ public class TeamFixturesRepo {
 
         return result;
 
+    }
+
+    public HashMap<String, ArrayList<String>> getQuickSpinnerList(String myTeamID) throws ParseException {
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        String selectQuery = "SELECT TeamFixtures.TeamFixtureDate, HomeTeam, AwayTeam, FixtureId " +
+                "FROM TeamFixtures " +
+                "WHERE HomeTeam = '" + myTeamID + "' OR AwayTeam = '" + myTeamID + "'";
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        HashMap<String, ArrayList<String>> result = new HashMap<>();
+        ArrayList<String> list = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date fixtureDate = sdf.parse(cursor.getString(cursor.getColumnIndex(TeamFixtures.KEY_TeamFixtureDate)));
+                if(new Date().after(fixtureDate)){
+                    String str =
+                            cursor.getString(cursor.getColumnIndex(TeamFixtures.KEY_HomeTeam))
+                                    + " vs "
+                                    + getTeamName(cursor.getString(cursor.getColumnIndex(TeamFixtures.KEY_AwayTeam)))
+                                    + ": "
+                                    + getTeamName(cursor.getString(cursor.getColumnIndex(TeamFixtures.KEY_TeamFixtureDate)));
+
+                    ArrayList<String> fixIDlist = new ArrayList<>();
+                    String fixID = cursor.getString(cursor.getColumnIndex(TeamFixtures.KEY_FixtureId));
+                    fixIDlist.add(fixID);
+
+                    System.out.println("getQuickSpinnerList: " + str);
+
+                    list.add(str);
+                    result.put(str, fixIDlist);
+
+                }
+            } while (cursor.moveToNext());
+        } else{
+            System.out.println("EMPTY TEAM FIXTURES TABLE");
+
+        }
+
+        result.put("list", list);
+
+        return result;
+    }
+
+    public String getTeamName(String id){
+        String name = "";
+
+        String selectQuery = "SELECT TeamName FROM Team WHERE TeamId = '" + id + "'";
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToNext()){
+            do{
+                name = cursor.getString(cursor.getColumnIndex("TeamName"));
+            }while(cursor.moveToNext());
+        }
+
+        return name;
     }
 
     public ArrayList<ArrayList<String>> getSpinnerList(){

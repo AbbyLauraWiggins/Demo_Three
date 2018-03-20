@@ -5,10 +5,8 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.IntentFilter;
-import android.net.Network;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import android.content.SharedPreferences;
@@ -16,9 +14,7 @@ import android.content.Intent;
 
 import com.degree.abbylaura.demothree.Activities.HomeActivity;
 import com.degree.abbylaura.demothree.Activities.NetworkService;
-import com.degree.abbylaura.demothree.Activities.TestingNetworkActivity;
 import com.degree.abbylaura.demothree.Client.MyClientID;
-import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.R;
 import com.degree.abbylaura.demothree.Test.TestDatabaseActivity;
 
@@ -147,6 +143,7 @@ public class LoginActivity extends Activity {
                 " AND Password = '" + passwordEditText.getText().toString() + "'";
         memberRepo.setWhereClause(where);
         String[][] result = memberRepo.getMembers();*/
+
 
         ArrayList<String> logInDetails = new ArrayList<>();
         logInDetails.add(emailEditText.getText().toString());
