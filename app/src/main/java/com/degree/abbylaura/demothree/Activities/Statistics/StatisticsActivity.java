@@ -20,6 +20,8 @@ import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.R;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by abbylaura on 09/02/2018.
  */
@@ -67,10 +69,7 @@ public class StatisticsActivity extends Activity {
 
         iconSize = screenHeight/5;
 
-        tsTV.setTextSize(iconSize/10);
-        System.out.println(String.valueOf(iconSize));
-        msTV.setTextSize(iconSize/10);
-        aTV.setTextSize(iconSize/10);
+
 
 
         android.view.ViewGroup.LayoutParams layoutParams;
@@ -121,6 +120,7 @@ public class StatisticsActivity extends Activity {
         draw = barresize(draw);
         barLog.setImageDrawable(draw);
 
+        System.out.println("my permissions: " + MyClientID.myPermissions);
         if(MyClientID.myPermissions > 1){ //LEADER or above - so can view stat analysis
             analyse.setVisibility(View.VISIBLE);
 
@@ -131,14 +131,12 @@ public class StatisticsActivity extends Activity {
                 teamstats.setLayoutParams(layoutParams);
                 teamstats.setVisibility(View.VISIBLE);
 
-                /*layoutParams = team.getLayoutParams();
-                layoutParams.width = (int) (teamstats.getHeight() * 0.6);
-                layoutParams.height = (int) (teamstats.getHeight() * 0.6);
-                team.setLayoutParams(layoutParams);
-                team.setVisibility(View.VISIBLE);*/
+                iconSize = (int) (screenHeight/4);
+
+                mystats.removeAllViews();
 
                 team.setImageResource(0);
-                draw = getResources().getDrawable(R.drawable.ic_people_black_48dp);
+                draw = getResources().getDrawable(R.drawable.teamicon);
                 draw = resize(draw);
                 team.setImageDrawable(draw);
 
@@ -156,34 +154,36 @@ public class StatisticsActivity extends Activity {
 
 
             }else{
+
+
                 mystats.setVisibility(View.VISIBLE); //show my, teams and analysis
 
                 layoutParams = mystats.getLayoutParams();
                 layoutParams.width = screenWidth;
-                layoutParams.height = screenHeight/4;
+                layoutParams.height = screenHeight/5;
                 mystats.setLayoutParams(layoutParams);
                 mystats.setVisibility(View.VISIBLE);
 
                 my.setImageResource(0);
-                draw = getResources().getDrawable(R.drawable.ic_person_black_48dp);
+                draw = getResources().getDrawable(R.drawable.personicon);
                 draw = resize(draw);
                 my.setImageDrawable(draw);
 
 
                 layoutParams = teamstats.getLayoutParams();
                 layoutParams.width = screenWidth;
-                layoutParams.height = screenHeight/4;
+                layoutParams.height = screenHeight/5;
                 teamstats.setLayoutParams(layoutParams);
                 teamstats.setVisibility(View.VISIBLE);
 
                 team.setImageResource(0);
-                draw = getResources().getDrawable(R.drawable.ic_people_black_48dp);
+                draw = getResources().getDrawable(R.drawable.teamicon);
                 draw = resize(draw);
                 team.setImageDrawable(draw);
 
                 layoutParams = analyse.getLayoutParams();
                 layoutParams.width = screenWidth;
-                layoutParams.height = screenHeight/4;
+                layoutParams.height = screenHeight/5;
                 analyse.setLayoutParams(layoutParams);
                 analyse.setVisibility(View.VISIBLE);
 
@@ -195,6 +195,10 @@ public class StatisticsActivity extends Activity {
 
 
         }else{ //show just my and team
+            analyse.removeAllViews();
+
+            iconSize = (int) (screenHeight/3.5);
+
             layoutParams = mystats.getLayoutParams();
             layoutParams.width = screenWidth;
             layoutParams.height = screenHeight/3;
@@ -202,7 +206,7 @@ public class StatisticsActivity extends Activity {
             mystats.setVisibility(View.VISIBLE);
 
             my.setImageResource(0);
-            draw = getResources().getDrawable(R.drawable.ic_person_black_48dp);
+            draw = getResources().getDrawable(R.drawable.personicon);
             draw = resize(draw);
             my.setImageDrawable(draw);
 
@@ -214,11 +218,19 @@ public class StatisticsActivity extends Activity {
             teamstats.setVisibility(View.VISIBLE);
 
             team.setImageResource(0);
-            draw = getResources().getDrawable(R.drawable.ic_people_black_48dp);
+            draw = getResources().getDrawable(R.drawable.teamicon);
             draw = resize(draw);
             team.setImageDrawable(draw);
 
         }
+
+        tsTV.setTextSize(iconSize/15);
+        System.out.println(String.valueOf(iconSize));
+        msTV.setTextSize(iconSize/15);
+        aTV.setTextSize(iconSize/15);
+
+        TextView title = findViewById(R.id.stats_title);
+        title.setTextSize(iconSize/10);
 
     }
 

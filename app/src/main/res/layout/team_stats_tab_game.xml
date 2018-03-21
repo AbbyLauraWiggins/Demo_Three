@@ -27,7 +27,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="goToGameTS"
-                android:text="Game" />
+                android:text="Game"
+                android:textStyle="bold"/>
 
             <Button
                 android:id="@+id/teamStatLeaderboardButton"

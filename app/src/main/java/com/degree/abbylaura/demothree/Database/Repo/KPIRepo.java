@@ -182,7 +182,7 @@ public class KPIRepo {
             list.add(array[i]); //TODO look to change using array[i] to cursor.getColumnName(i)
             list.add(fName);
             list.add(String.valueOf(max));
-            System.out.println("name:" + array[i] + " | result: " + fName + " | value: " + String.valueOf(max));
+            //System.out.println("name:" + array[i] + " | result: " + fName + " | value: " + String.valueOf(max));
 
             leaderboard.add(list);
         }

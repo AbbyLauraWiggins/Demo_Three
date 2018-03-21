@@ -157,7 +157,7 @@ public class SessionRepo {
                     double totalValue = 0;
                     for(int i = 0; i < values.length; i++){
                         String strVal = values[i].substring(values[i].lastIndexOf(":") + 1);
-                        System.out.println("strVal = " + strVal);
+                        //System.out.println("strVal = " + strVal);
                         if(!strVal.equals(null)){
                             totalValue = totalValue + Double.parseDouble(strVal);
 
@@ -172,7 +172,7 @@ public class SessionRepo {
 
                     data.add(row);
 
-                    System.out.println(row.get(0) + " -> " + row.get(1));
+                    //System.out.println(row.get(0) + " -> " + row.get(1));
                 }
 
             } while (cursor.moveToNext());
@@ -181,7 +181,7 @@ public class SessionRepo {
         cursor.close();
         DatabaseManager.getInstance().closeDatabase();
 
-        System.out.println("get graph stats data: " + data.toString());
+        //System.out.println("get graph stats data: " + data.toString());
         return data;
     }
 

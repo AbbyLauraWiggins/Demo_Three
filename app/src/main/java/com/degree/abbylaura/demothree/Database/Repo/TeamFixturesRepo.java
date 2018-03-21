@@ -236,7 +236,7 @@ public class TeamFixturesRepo {
                      *  (4) TEAM ID 1
                      *  (5) TEAM ID 2      <^  so can check if we belong to any of these teams
                      */
-                    System.out.println("row: " + row.toString());
+                    //System.out.println("row: " + row.toString());
                     table.add(row);
 
                 } else {
@@ -250,7 +250,7 @@ public class TeamFixturesRepo {
         //FOR TESTING
         for(int i = 0; i < table.size(); i++){
             ArrayList<String> row = table.get(i);
-            System.out.println(row.get(0) + " | " + row.get(1) + " | " + row.get(2));
+            //System.out.println(row.get(0) + " | " + row.get(1) + " | " + row.get(2));
         }
 
         cursor.close();

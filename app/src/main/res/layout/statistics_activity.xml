@@ -14,7 +14,7 @@
         android:id="@+id/stats_title"
         android:textSize="20sp"
         android:layout_centerHorizontal="true"
-        android:paddingBottom="10dp"
+        android:padding="10dp"
         />
 
     <LinearLayout
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/teamStatsButton"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:clickable="true"
             android:onClick="goTeamStats"
             >
@@ -36,18 +36,19 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_people_black_48dp"
-                android:tint="#ffffff"
-                android:id="@+id/teamStatsImage"/>
+                android:src="@drawable/teamicon"
+                android:id="@+id/teamStatsImage"
+                android:layout_gravity="center_horizontal"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|right"
+                android:layout_gravity="center_horizontal"
                 android:text="Team Statistics"
                 android:textSize="20dp"
                 android:id="@+id/tsTV"
-                android:textColor="#ffffff"/>
+                />
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
@@ -57,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/myStatsButton"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:clickable="true"
             android:onClick="goMyStats"
             >
@@ -65,19 +66,19 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_person_black_48dp"
-                android:layout_gravity="center_vertical"
+                android:src="@drawable/personicon"
+                android:layout_gravity="center_horizontal"
                 android:id="@+id/myStatsImage"
-                android:tint="#ffffff"/>
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|right"
+                android:layout_gravity="center_horizontal"
                 android:text="My Statistics"
                 android:textSize="20dp"
                 android:id="@+id/msTV"
-                android:textColor="#ffffff"/>
+                />
         </LinearLayout>
 
         <TextView
@@ -88,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/analyseButton"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:clickable="true"
             android:onClick="goAnalyseStats"
             >
@@ -98,16 +99,17 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_poll_black_48dp"
                 android:id="@+id/analyseImage"
-                android:tint="#ffffff"/>
+                android:layout_gravity="center_horizontal"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|right"
+                android:layout_gravity="center_horizontal"
                 android:text="Analyse Statistics"
                 android:textSize="20dp"
                 android:id="@+id/aTV"
-                android:textColor="#ffffff"/>
+                />
 
         </LinearLayout>
 

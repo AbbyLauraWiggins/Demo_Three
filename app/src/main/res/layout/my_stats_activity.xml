@@ -5,7 +5,7 @@
     android:background="@drawable/background">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="MY STATS AND LOGS"
         android:textStyle="bold"
@@ -28,11 +28,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/scStatsLayout"
+
+
             >
 
             <TextView
                 android:id="@+id/scSubTitle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
                 android:text="Strength and Conditioning"
                 android:textSize="20sp"
@@ -48,19 +51,18 @@
                 android:layout_below="@id/scSubTitle"
                 android:layout_alignParentLeft="true"
                 android:orientation="vertical"
-                android:background="#ffffff">
+                >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:background="#ffc400">
+                    >
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/scViewStatsIV"
                         android:src="@drawable/ic_trending_up_black_48dp"
-                        android:tint="#ffffff"
                         android:layout_gravity="center_horizontal"/>
                 </LinearLayout>
 
@@ -81,20 +83,19 @@
                 android:onClick="onLogSC"
                 android:layout_below="@id/scSubTitle"
                 android:layout_alignParentRight="true"
-                android:background="#ffffff"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:background="#ffc400">
+                    >
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/scLogStatsIV"
                         android:src="@drawable/ic_note_add_black_48dp"
-                        android:tint="#ffffff"
+
                         android:layout_gravity="center_horizontal"/>
                 </LinearLayout>
 
@@ -112,17 +113,20 @@
         </RelativeLayout>
 
 
+
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/gameStatsLayout"
-
+            android:paddingTop="20dp"
             >
 
             <TextView
                 android:id="@+id/gameSubTitle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:paddingTop="20dp"
                 android:text="Game Statistics"
                 android:textSize="20sp"
@@ -138,19 +142,19 @@
                 android:layout_below="@id/gameSubTitle"
                 android:layout_alignParentLeft="true"
                 android:orientation="vertical"
-                android:background="#ffffff">
+                >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:background="#d50000">
+
+                    >
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/gameViewStatsIV"
                         android:src="@drawable/ic_trending_up_black_48dp"
-                        android:tint="#ffffff"
                         android:layout_gravity="center_horizontal"/>
 
                 </LinearLayout>
@@ -173,20 +177,19 @@
                 android:layout_below="@id/gameSubTitle"
                 android:layout_alignParentRight="true"
                 android:orientation="vertical"
-                android:background="#ffffff">
+                >
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="#d50000">
+                >
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/gameFeedbackIV"
                     android:src="@drawable/ic_feedback_black_48dp"
-                    android:tint="#ffffff"
                     android:layout_gravity="center_horizontal"/>
 
             </LinearLayout>

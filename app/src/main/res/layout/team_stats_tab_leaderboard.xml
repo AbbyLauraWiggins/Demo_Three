@@ -35,7 +35,8 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:onClick="goToLeaderboardTS"
-               android:text="Leaderboard" />
+               android:text="Leaderboard"
+               android:textStyle="bold"/>
        </android.support.v7.widget.ButtonBarLayout>
        <TextView
            android:layout_width="match_parent"
