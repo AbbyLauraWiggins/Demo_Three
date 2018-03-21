@@ -222,14 +222,14 @@ public class MySCStats extends Activity {
         ArrayList<ArrayList<String>> data =
                 sessionRepo.getGraphStats(MyClientID.myID, chosenExerciseForGraph);
 
-        /*SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+        //SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
 
         for(ArrayList al : data){
             strPoints.add(String.valueOf(al.get(0)));
-            dates.add(df.parse(String.valueOf(al.get(1))));
+            //dates.add(df.parse(String.valueOf(al.get(1))));
             sessionID.add(String.valueOf(al.get(2)));
-            System.out.println("date: " + String.valueOf(al.get(1)) + " value: " + String.valueOf(al.get(0)));
-        }*/
+            System.out.println("id: " + String.valueOf(al.get(2)) + " value: " + String.valueOf(al.get(0)));
+        }
 
 
         //Create graph and set size

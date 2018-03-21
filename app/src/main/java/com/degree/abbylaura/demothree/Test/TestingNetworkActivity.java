@@ -42,7 +42,7 @@ public class TestingNetworkActivity extends Activity{
         //INTENT RESPONSE FROM onSendClicked
         //track when an intent with the id TRANSACTION_DONE is executed then prep the main thread to receive a broadcast and act on it
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(NetworkService.TRANSACTION_DONE);
+        intentFilter.addAction(NetworkService.TRANSACTION_DONE_NOTICE);
         registerReceiver(clientReceiver, intentFilter);
     }
 

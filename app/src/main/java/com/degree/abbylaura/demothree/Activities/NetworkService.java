@@ -43,7 +43,10 @@ import java.util.HashMap;
 public class NetworkService extends IntentService {
 
     // Used to identify when the IntentService finishes
-    public static final String TRANSACTION_DONE = "TRANSACTION_DONE";
+    public static final String TRANSACTION_DONE_NOTICE = "TRANSACTION_DONE_NOTICE";
+    public static final String TRANSACTION_DONE_VALID = "TRANSACTION_DONE_VALID";
+    public static final String TRANSACTION_VOID = "TRANSACTION_VOID";
+
 
     // Validates resource references inside Android XML files
     public NetworkService() {
@@ -63,7 +66,8 @@ public class NetworkService extends IntentService {
 
         //so send response back to activity that requested it
         System.out.println("JUST BEFORE INTENT");
-        Intent i = new Intent(TRANSACTION_DONE);
+
+        Intent i = new Intent(TRANSACTION_VOID);
 
         Log.e("NetworkService", "Service Started");
 
@@ -77,7 +81,7 @@ public class NetworkService extends IntentService {
                 String permission = intent.getStringExtra("PERMISSION");
 
                 updateScSession(permission);
-
+                i = new Intent(TRANSACTION_DONE_VALID);
                 String valid = "updated";
                 i.putExtra("VALIDATION", valid);
 
@@ -85,14 +89,19 @@ public class NetworkService extends IntentService {
                 String permission = intent.getStringExtra("PERMISSION");
 
                 updateKPI(permission);
+                i = new Intent(TRANSACTION_DONE_VALID);
 
                 String valid = "updated";
                 i.putExtra("VALIDATION", valid);
             }else{
+
+                i = new Intent(TRANSACTION_VOID);
+
                 NetworkService.this.sendBroadcast(i);
             }
 
         }else{
+
             String typeSending = intent.getStringExtra("typeSending");
             int size = Integer.parseInt(intent.getStringExtra("TABLESIZE"));
 
@@ -101,6 +110,9 @@ public class NetworkService extends IntentService {
                 ArrayList<String> response = serviceRequest(passedList, typeSending, size);
 
                 updateNotices(response);
+
+                i = new Intent(TRANSACTION_DONE_NOTICE);
+
             }
             else if(typeSending.equals("LOGIN")){
                 //refresh all necessary tables when log in
@@ -111,7 +123,7 @@ public class NetworkService extends IntentService {
 
                 ArrayList<String> response = serviceRequest(passedList, typeSending, size);
 
-
+                i = new Intent(TRANSACTION_DONE_VALID);
                 String valid = updateMembers(response, passedList);
                 i.putExtra("VALIDATION", valid);
             }

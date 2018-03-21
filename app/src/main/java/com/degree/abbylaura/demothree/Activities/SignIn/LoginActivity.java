@@ -90,7 +90,7 @@ public class LoginActivity extends Activity {
          * We can call for an intent to execute something and then tell use when it finishes
          */
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(NetworkService.TRANSACTION_DONE);
+        intentFilter.addAction(NetworkService.TRANSACTION_DONE_VALID);
         registerReceiver(clientReceiver, intentFilter);
 
     }

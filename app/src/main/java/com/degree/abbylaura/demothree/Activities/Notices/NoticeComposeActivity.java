@@ -119,6 +119,7 @@ public class NoticeComposeActivity extends Activity {
         // 1. Get the text
         EditText user_input_edit_text = findViewById(R.id.compose_user_input_text);
         String user_input = String.valueOf(user_input_edit_text.getText());
+        System.out.println("compose notice, on done button: " + user_input);
 
         // 2. Send it back to D2NoticeActivity using an intent
         Intent sendContent = new Intent();

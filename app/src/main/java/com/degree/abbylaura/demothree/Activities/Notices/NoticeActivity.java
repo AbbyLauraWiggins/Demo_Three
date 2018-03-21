@@ -65,6 +65,8 @@ public class NoticeActivity extends Activity {
         setContentView(R.layout.notice_activity);
         usersMessage = findViewById(R.id.input_text_view);
 
+        //refreshForTesting();
+
         this.noticeIdNum = 0;
         this.winningNoticeId = "";
 
@@ -92,7 +94,7 @@ public class NoticeActivity extends Activity {
          * We can call for an intent to execute something and then tell use when it finishes
          */
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(NetworkService.TRANSACTION_DONE);
+        intentFilter.addAction(NetworkService.TRANSACTION_DONE_NOTICE);
         registerReceiver(clientReceiver, intentFilter);
 
     }
@@ -164,7 +166,7 @@ public class NoticeActivity extends Activity {
         Intent getReturnUserInput = new Intent(this, NoticeComposeActivity.class);
 
 
-        startActivity(getReturnUserInput);
+        startActivityForResult(getReturnUserInput, 1);
     }
 
     @Override
@@ -178,7 +180,7 @@ public class NoticeActivity extends Activity {
         updateContent(composeText);
     }
 
-    public void updateContent(String addition) {
+    private void updateContent(String addition) {
         System.out.println("updateContent: " + addition);
 
         //add addition to Database Notice table
@@ -329,8 +331,14 @@ public class NoticeActivity extends Activity {
         System.out.println("onResume BroadcastReceiver");
 
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(NetworkService.TRANSACTION_DONE);
+        intentFilter.addAction(NetworkService.TRANSACTION_DONE_NOTICE);
         registerReceiver(clientReceiver, intentFilter);
+    }
+
+    private void refreshForTesting(){
+        NoticeRepo noticeRepo = new NoticeRepo();
+        noticeRepo.delete();
+        noticeRepo.createTable();
     }
 
 }
