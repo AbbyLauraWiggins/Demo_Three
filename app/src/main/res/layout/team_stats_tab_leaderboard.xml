@@ -1,82 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+
+       <android.support.v7.widget.ButtonBarLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/buttonBarLayout"
+           android:layout_below="@+id/teamStatsTitle"
+           android:background="@android:color/darker_gray">
+
+           <Button
+               android:id="@+id/teamStatOverviewButton"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:onClick="goToOverviewTS"
+               android:text="Overview" />
+
+           <Button
+               android:id="@+id/teamStatGameButton"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:onClick="goToGameTS"
+               android:text="Game" />
+
+           <Button
+               android:id="@+id/teamStatLeaderboardButton"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:onClick="goToLeaderboardTS"
+               android:text="Leaderboard" />
+       </android.support.v7.widget.ButtonBarLayout>
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Team Statistics Leaderboard"
+           android:textSize="20sp"
+           android:textStyle="bold"
+           android:id="@+id/teamStatsTitle"
+           android:padding="10dp"
+           />
+
+
+
+       <Spinner
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/fixtureSpinner"
+           android:padding="10dp">
+
+       </Spinner>
+
+
+
+       <ScrollView
+           android:padding="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/scrollView">
+
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               android:id="@+id/tableContainer">
+
+               <TableLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/tableLayout">
+
+
+               </TableLayout>
+
+           </LinearLayout>
+
+
+       </ScrollView>
+   </LinearLayout>
+
     <android.support.v7.widget.ButtonBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonBarLayout"
-        android:layout_below="@+id/teamStatsTitle"
-        android:background="@android:color/darker_gray">
-
-        <Button
-            android:id="@+id/teamStatOverviewButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="goToOverviewTS"
-            android:text="Overview" />
-
-        <Button
-            android:id="@+id/teamStatGameButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="goToGameTS"
-            android:text="Game" />
-
-        <Button
-            android:id="@+id/teamStatLeaderboardButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="goToLeaderboardTS"
-            android:text="Leaderboard" />
-    </android.support.v7.widget.ButtonBarLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Team Statistics Leaderboard"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:id="@+id/teamStatsTitle"
-        android:padding="10dp"
-        />
-
-
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/fixtureSpinner"
-        android:padding="10dp">
-
-    </Spinner>
-
-
-
-    <ScrollView
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView">
+        android:id="@+id/bottomBarLayout"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/black">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/tableContainer">
+            android:id="@+id/homeBBLL"
+            android:orientation="vertical">
 
-            <TableLayout
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tableLayout">
+                android:id="@+id/homeBarButton"
+                android:src="@drawable/ic_chat_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
 
 
-            </TableLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/noticeBBLL"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/noticesBarButton"
+                android:src="@drawable/ic_chat_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/profileBBLL"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/profileBarButton"
+                android:src="@drawable/ic_chat_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/logBBLL"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/logBarButton"
+                android:src="@drawable/ic_note_add_black_48dp"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
 
         </LinearLayout>
 
 
-    </ScrollView>
+    </android.support.v7.widget.ButtonBarLayout>
 
-</LinearLayout>
+</RelativeLayout>

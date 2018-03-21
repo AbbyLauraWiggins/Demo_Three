@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.SessionRepo;
+import com.degree.abbylaura.demothree.Database.Repo.StrengthAndConditioningRepo;
+import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
 import com.degree.abbylaura.demothree.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
@@ -202,20 +204,32 @@ public class MySCStats extends Activity {
         dates = new ArrayList<>();
         sessionID = new ArrayList<>();
 
-        //Get all the data for the graph
 
         SessionRepo sessionRepo = new SessionRepo();
+
+        StrengthAndConditioningRepo scRepo = new StrengthAndConditioningRepo();
+        String[][] table = scRepo.getTableData();
+        System.out.println("sc tablelength: " + String.valueOf(table[0].length));
+
+        for(int i = 0; i < table[0].length; i++){
+            for(int j = 0; j < 3; j++){
+                System.out.print(table[j][i] + " / ");
+            }
+            System.out.println("");
+        }
+
+
         ArrayList<ArrayList<String>> data =
                 sessionRepo.getGraphStats(MyClientID.myID, chosenExerciseForGraph);
 
-        SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+        /*SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
 
         for(ArrayList al : data){
             strPoints.add(String.valueOf(al.get(0)));
             dates.add(df.parse(String.valueOf(al.get(1))));
             sessionID.add(String.valueOf(al.get(2)));
             System.out.println("date: " + String.valueOf(al.get(1)) + " value: " + String.valueOf(al.get(0)));
-        }
+        }*/
 
 
         //Create graph and set size
