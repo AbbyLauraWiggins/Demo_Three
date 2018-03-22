@@ -66,7 +66,6 @@ public class NoticeActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.notice_activity);
-        usersMessage = findViewById(R.id.input_text_view);
 
         //refreshForTesting();
 
@@ -139,7 +138,7 @@ public class NoticeActivity extends Activity {
         barNotice.setImageDrawable(draw);
 
         barHome.setImageResource(0);
-        draw = getResources().getDrawable(R.drawable.ic_chat_black_48dp);
+        draw = getResources().getDrawable(R.drawable.ic_home_black_48dp);
         draw = barresize(draw);
         barHome.setImageDrawable(draw);
 

@@ -68,7 +68,6 @@ public class ProfileActivity extends AppCompatActivity {
         profilePicture.setLayoutParams(layoutParams);
         profilePicture.setVisibility(View.VISIBLE);
 
-        back = findViewById(R.id.back_button);
         addPos = findViewById(R.id.addPosition);
         addRes = findViewById(R.id.addResponsibilty);
 
@@ -97,6 +96,62 @@ public class ProfileActivity extends AppCompatActivity {
         //TODO add new positions and responsibilities to database
 
     }
+
+
+    private void setBottomBar(){
+
+        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels - 30; //room for title
+        int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels - 30;
+
+        android.view.ViewGroup.LayoutParams layoutParams = bbl.getLayoutParams();
+        layoutParams.width = screenWidth + 30;
+        layoutParams.height = screenHeight/10;
+        bbl.setLayoutParams(layoutParams);
+
+        layoutParams = homebbll.getLayoutParams();
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenHeight/10;
+        homebbll.setLayoutParams(layoutParams);
+
+        layoutParams = noticebbll.getLayoutParams();
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenHeight/10;
+        noticebbll.setLayoutParams(layoutParams);
+
+        layoutParams = profilebbll.getLayoutParams();
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenHeight/10;
+        profilebbll.setLayoutParams(layoutParams);
+
+        layoutParams = logbbll.getLayoutParams();
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenHeight/10;
+        logbbll.setLayoutParams(layoutParams);
+
+        barSize = screenHeight/12;
+        barNotice.setImageResource(0);
+        Drawable draw = getResources().getDrawable(R.drawable.ic_chat_black_48dp);
+        draw = barresize(draw);
+        barNotice.setImageDrawable(draw);
+
+        barHome.setImageResource(0);
+        draw = getResources().getDrawable(R.drawable.ic_home_black_48dp);
+        draw = barresize(draw);
+        barHome.setImageDrawable(draw);
+
+        barProfile.setImageResource(0);
+        draw = getResources().getDrawable(R.drawable.profileiconempty);
+        draw = barresize(draw);
+        barProfile.setImageDrawable(draw);
+
+        barLog.setImageResource(0);
+        draw = getResources().getDrawable(R.drawable.trend_arrow);
+        draw = barresize(draw);
+        barLog.setImageDrawable(draw);
+
+    }
+
+
 
     public void setProfile(){
         Member member = new Member();

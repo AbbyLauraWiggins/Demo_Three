@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.degree.abbylaura.demothree.Activities.HomeActivity;
@@ -20,6 +21,7 @@ import com.degree.abbylaura.demothree.Activities.Notices.NoticeActivity;
 import com.degree.abbylaura.demothree.Activities.ProfileActivity;
 import com.degree.abbylaura.demothree.Activities.Statistics.MyStats;
 import com.degree.abbylaura.demothree.Activities.Statistics.StatisticsActivity;
+import com.degree.abbylaura.demothree.Activities.Statistics.TeamStatsOverview;
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.R;
 
@@ -30,6 +32,9 @@ import com.degree.abbylaura.demothree.R;
 public class LogActivity extends Activity {
 
     Button mystats;
+
+    LinearLayout trackLL, trainingLL, feedbackLL, myORteamLL;
+    ImageView trackIV, trainingIV, feedbackIV, myORteamIV;
 
     LinearLayout homebbll, noticebbll, profilebbll, logbbll;
     ImageView barNotice, barHome, barLog, barProfile;
@@ -43,11 +48,15 @@ public class LogActivity extends Activity {
 
         setContentView(R.layout.log_activity);
 
-        mystats = findViewById(R.id.myStatsAndLogs);
+        trackLL = findViewById(R.id.trackGameStatsLL);
+        feedbackLL = findViewById(R.id.logFeedbackLL);
+        trainingLL = findViewById(R.id.setUpSessionLL);
+        myORteamLL = findViewById(R.id.myORteamLL);
 
-        if(MyClientID.myPermissions != 3){
-            mystats.setVisibility(View.VISIBLE);
-        }
+        trackIV = findViewById(R.id.trackImg);
+        trainingIV = findViewById(R.id.trainingImg);
+        feedbackIV = findViewById(R.id.feedbackImg);
+        myORteamIV = findViewById(R.id.mORtImg);
 
         homebbll = findViewById(R.id.homeBBLL);
         noticebbll = findViewById(R.id.noticeBBLL);
@@ -62,6 +71,76 @@ public class LogActivity extends Activity {
         barProfile = findViewById(R.id.profileBarButton);
 
         setBottomBar();
+        setButtons();
+
+    }
+
+    private void setButtons(){
+        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        screenWidth = screenWidth - (screenWidth/40);
+        int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels - 30;
+
+        int perm = MyClientID.myPermissions;
+
+
+        android.view.ViewGroup.LayoutParams layoutParams = trackLL.getLayoutParams();
+        layoutParams.width = screenWidth/2;
+        layoutParams.height = (int) (screenHeight/3);
+        trackLL.setLayoutParams(layoutParams);
+        trackLL.setVisibility(View.VISIBLE);
+
+        iconSize = (int) (screenHeight/4);
+
+        trackIV.setImageResource(0);
+        Drawable draw = getResources().getDrawable(R.drawable.ic_poll_black_48dp);
+        draw = barresize(draw);
+        trainingIV.setImageDrawable(draw);
+
+        layoutParams = feedbackLL.getLayoutParams();
+        layoutParams.width = screenWidth/2;
+        layoutParams.height = (int) (screenHeight/3);
+        feedbackLL.setLayoutParams(layoutParams);
+        feedbackLL.setVisibility(View.VISIBLE);
+
+        feedbackIV.setImageResource(0);
+        draw = getResources().getDrawable(R.drawable.feedbackicon);
+        draw = barresize(draw);
+        feedbackIV.setImageDrawable(draw);
+
+        layoutParams = trainingLL.getLayoutParams();
+        layoutParams.width = screenWidth/2;
+        layoutParams.height = (int) (screenHeight/3);
+        trainingLL.setLayoutParams(layoutParams);
+        trainingLL.setVisibility(View.VISIBLE);
+
+        trainingIV.setImageResource(0);
+        draw = getResources().getDrawable(R.drawable.ic_fitness_center_black_48dp);
+        draw = barresize(draw);
+        trainingIV.setImageDrawable(draw);
+
+        layoutParams = myORteamLL.getLayoutParams();
+        layoutParams.width = screenWidth/2;
+        layoutParams.height = (int) (screenHeight/3);
+        myORteamLL.setLayoutParams(layoutParams);
+        myORteamLL.setVisibility(View.VISIBLE);
+
+        TextView mORt = findViewById(R.id.mORt);
+
+        if(perm == 3){
+            mORt.setText("Team Statistics");
+            myORteamIV.setImageResource(0);
+            draw = getResources().getDrawable(R.drawable.teamicon);
+            draw = barresize(draw);
+            myORteamIV.setImageDrawable(draw);
+        }else{ //CAL = perm 3: has no personal logs
+            mORt.setText("My Statistics");
+            myORteamIV.setImageResource(0);
+            draw = getResources().getDrawable(R.drawable.personicon);
+            draw = barresize(draw);
+            myORteamIV.setImageDrawable(draw);
+        }
+
+
     }
 
     private void setBottomBar(){
@@ -131,25 +210,6 @@ public class LogActivity extends Activity {
 
 
 
-    public void onBackButton(View view) {
-        Intent goBack = new Intent();
-        setResult(RESULT_OK, goBack);
-        finish();
-    }
-
-    public void goMyStats(View view) {
-        Intent goToLog = new Intent(this, MyStats.class);
-        startActivity(goToLog);
-    }
-
-    public void goToSetTrainingSession(View view) {
-    }
-
-    public void goLogGameStats(View view) {
-        Intent goToLog = new Intent(this, GameTeamListSetUp.class);
-        startActivity(goToLog);
-    }
-
     public void onHomeButtonClick(View view) {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
@@ -168,5 +228,28 @@ public class LogActivity extends Activity {
     public void onLogButtonClick(View view) {
         Intent intent = new Intent(this, StatisticsActivity.class);
         startActivity(intent);
+    }
+
+    public void onTrackClick(View view) {
+        Intent goToLog = new Intent(this, GameTeamListSetUp.class);
+        startActivity(goToLog);
+    }
+
+    public void onFeedbackClick(View view) {
+        //TODO
+    }
+
+    public void onSetUpClick(View view) {
+        //TODO
+    }
+
+    public void onMyStatsClick(View view) {
+        Intent goToLog = new Intent(this, MyStats.class);
+        startActivity(goToLog);
+    }
+
+    public void onTeamStatsClick(View view) {
+        Intent goToTS = new Intent(this, TeamStatsOverview.class);
+        startActivity(goToTS);
     }
 }

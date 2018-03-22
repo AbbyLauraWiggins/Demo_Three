@@ -45,6 +45,30 @@ public class MyClientID {
         }else if(permission.equals("PAL")) {
             myPermissions = 4;
         }
+
+        /*
+         * Permissions dictate the permission level of that user for the system.
+         * Levels are:
+         * BASIC = basic user, see own data, no extra permissions
+         *         + can add notices, pictures
+         *         + can request to add events to calender //TODO request cal events
+         * ADMIN = same as a basic user but also
+         *         + can delete other users notifications, change other users permissions, accept new users
+         *         + can see only their own rugby data
+         *         + can add and accept events to the calendar //TODO accept cal events
+         * LEADER = same as basic user does not have permissions of an admin
+         *         + but can see all users rugby data
+         *         + can decide and add KPIs and player feedback //TODO player feedback
+         *         + can add to calendar without needing a request to admin
+         *         + can set SC and training sheets
+         *         + can log game stats
+         *
+         * CAL = Coach + Admin + Leader = all priviledges of admin and leader, but doesnt have personal logs/stats
+         *
+         * PAL = Player + admin + leader = all priviledges of admin and leader, AND has personal logs/stats
+         *
+         *
+         */
     }
 
 

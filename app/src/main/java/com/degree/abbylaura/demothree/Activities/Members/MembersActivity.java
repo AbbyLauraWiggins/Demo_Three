@@ -99,7 +99,7 @@ public class MembersActivity extends Activity {
         barNotice.setImageDrawable(draw);
 
         barHome.setImageResource(0);
-        draw = getResources().getDrawable(R.drawable.ic_chat_black_48dp);
+        draw = getResources().getDrawable(R.drawable.ic_home_black_48dp);
         draw = barresize(draw);
         barHome.setImageDrawable(draw);
 

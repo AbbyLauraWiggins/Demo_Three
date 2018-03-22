@@ -2,47 +2,136 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/stats_title"
-        android:text="Log"
-        android:textSize="30sp"
+        android:text="LOG"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
         android:textStyle="bold"
         android:padding="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/stats_title"
-        android:padding="10dp">
+        android:orientation="horizontal"
+        android:id="@+id/topLL"
+        android:layout_below="@id/stats_title"
+        android:padding="5dp">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Go to My Stats and Logs"
-            android:id="@+id/myStatsAndLogs"
-            android:onClick="goMyStats"
-            android:visibility="invisible"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/trackGameStatsLL"
+            android:orientation="vertical"
+            android:background="@drawable/divlight"
+            android:visibility="invisible"
+            android:clickable="true"
+            android:paddingRight="10dp"
+            android:onClick="onTrackClick">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Set Up Training Session"
-            android:onClick="goToSetTrainingSession"
-            android:id="@+id/trainingSessionButton"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/trackImg"/>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Log game statistics"
-            android:id="@+id/logGameStatsButton"
-            android:onClick="goLogGameStats"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:text="Track Game Statistics"
+                android:paddingLeft="10dp"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/logFeedbackLL"
+            android:orientation="vertical"
+            android:background="@drawable/divlight"
+            android:visibility="invisible"
+            android:clickable="true"
+            android:onClick="onFeedbackClick">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/feedbackImg"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:text="Log Player Feedback"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/middleLL"
+        android:layout_below="@+id/topLL"
+        android:padding="5dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/setUpSessionLL"
+            android:orientation="vertical"
+            android:background="@drawable/divlight"
+            android:visibility="invisible"
+            android:clickable="true"
+            android:paddingRight="10dp"
+            android:onClick="onSetUpClick">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/trainingImg"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:text="Set Up Training Session"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/myORteamLL"
+            android:orientation="vertical"
+            android:background="@drawable/divlight"
+            android:visibility="invisible"
+            android:clickable="true"
+            android:onClick="onTeamStatsClick">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/mORtImg"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:text="my or team"
+                android:id="@+id/mORt"/>
+        </LinearLayout>
+
+
 
     </LinearLayout>
+
+
+
 
     <android.support.v7.widget.ButtonBarLayout
         android:layout_width="match_parent"

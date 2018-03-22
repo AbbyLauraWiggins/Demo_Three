@@ -76,30 +76,30 @@ public class MyStats extends Activity {
 
         android.view.ViewGroup.LayoutParams layoutParams = scStat.getLayoutParams();
         layoutParams.width = screenWidth/2;
-        layoutParams.height = screenHeight/3;
+        layoutParams.height = (int) (screenHeight/3.2);
         scStat.setLayoutParams(layoutParams);
         scStat.setVisibility(View.VISIBLE);
 
         layoutParams = scLog.getLayoutParams();
         layoutParams.width = screenWidth/2;
-        layoutParams.height = screenHeight/3;
+        layoutParams.height = (int) (screenHeight/3.2);
         scLog.setLayoutParams(layoutParams);
         scLog.setVisibility(View.VISIBLE);
 
         layoutParams = gameStat.getLayoutParams();
         layoutParams.width = screenWidth/2;
-        layoutParams.height = screenHeight/3;
+        layoutParams.height = (int) (screenHeight/3.2);
         gameStat.setLayoutParams(layoutParams);
         gameStat.setVisibility(View.VISIBLE);
 
         layoutParams = gameFeedback.getLayoutParams();
         layoutParams.width = screenWidth/2;
-        layoutParams.height = screenHeight/3;
+        layoutParams.height = (int) (screenHeight/3.2);
         gameFeedback.setLayoutParams(layoutParams);
         gameFeedback.setVisibility(View.VISIBLE);
 
         //iconSize = screenHeight/5;
-        iconSize = (int) (screenHeight/3.5);
+        iconSize = (int) (screenHeight/4.2);
 
         scLogIV.setImageResource(0);
         Drawable draw = getResources().getDrawable(R.drawable.newlogicon);
@@ -107,11 +107,11 @@ public class MyStats extends Activity {
         scLogIV.setImageDrawable(draw);
 
 
-
         gameFeedbackIV.setImageResource(0);
         draw = getResources().getDrawable(R.drawable.feedbackicon);
         draw = logsize(draw);
         gameFeedbackIV.setImageDrawable(draw);
+
 
         scStatIV.setImageResource(0);
         draw = getResources().getDrawable(R.drawable.ic_trending_up_black_48dp);
