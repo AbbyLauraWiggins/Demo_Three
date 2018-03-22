@@ -158,9 +158,11 @@ public class StatisticsActivity extends Activity {
 
                 mystats.setVisibility(View.VISIBLE); //show my, teams and analysis
 
+                iconSize = screenHeight/5;
+
                 layoutParams = mystats.getLayoutParams();
                 layoutParams.width = screenWidth;
-                layoutParams.height = screenHeight/5;
+                layoutParams.height = screenHeight/4;
                 mystats.setLayoutParams(layoutParams);
                 mystats.setVisibility(View.VISIBLE);
 
@@ -172,7 +174,7 @@ public class StatisticsActivity extends Activity {
 
                 layoutParams = teamstats.getLayoutParams();
                 layoutParams.width = screenWidth;
-                layoutParams.height = screenHeight/5;
+                layoutParams.height = screenHeight/4;
                 teamstats.setLayoutParams(layoutParams);
                 teamstats.setVisibility(View.VISIBLE);
 
@@ -183,7 +185,7 @@ public class StatisticsActivity extends Activity {
 
                 layoutParams = analyse.getLayoutParams();
                 layoutParams.width = screenWidth;
-                layoutParams.height = screenHeight/5;
+                layoutParams.height = screenHeight/4;
                 analyse.setLayoutParams(layoutParams);
                 analyse.setVisibility(View.VISIBLE);
 
@@ -191,6 +193,12 @@ public class StatisticsActivity extends Activity {
                 draw = getResources().getDrawable(R.drawable.ic_poll_black_48dp);
                 draw = resize(draw);
                 an.setImageDrawable(draw);
+
+                tsTV.setVisibility(View.VISIBLE);
+                msTV.setVisibility(View.VISIBLE);
+                aTV.setVisibility(View.VISIBLE);
+
+
             }
 
 

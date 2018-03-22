@@ -234,7 +234,7 @@
                     android:layout_gravity="center_horizontal"
                     android:id="@+id/statpng"
                     android:tint="#ffffff"
-                    android:src="@drawable/ic_trending_up_black_48dp"/>
+                    android:src="@drawable/trend_arrow"/>
 
                 <TextView
                     android:layout_width="wrap_content"

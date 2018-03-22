@@ -21,6 +21,7 @@ public class DatabaseManager {
             instance = new DatabaseManager();
             mDatabaseHelper = helper;
         }
+        //for TESTING only
     }
 
     public static synchronized DatabaseManager getInstance() {

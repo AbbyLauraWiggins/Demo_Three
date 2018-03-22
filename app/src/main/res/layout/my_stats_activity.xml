@@ -35,12 +35,13 @@
             <TextView
                 android:id="@+id/scSubTitle"
                 android:layout_width="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
                 android:text="Strength and Conditioning"
                 android:textSize="20sp"
 
                 />
+
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -88,14 +89,14 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:orientation="vertical"
                     >
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/scLogStatsIV"
-                        android:src="@drawable/ic_note_add_black_48dp"
-
+                        android:src="@drawable/newlogicon"
                         android:layout_gravity="center_horizontal"/>
                 </LinearLayout>
 
@@ -119,19 +120,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/gameStatsLayout"
-            android:paddingTop="20dp"
             >
 
             <TextView
                 android:id="@+id/gameSubTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:paddingTop="20dp"
                 android:text="Game Statistics"
                 android:textSize="20sp"
 
                 />
+
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -155,7 +156,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/gameViewStatsIV"
                         android:src="@drawable/ic_trending_up_black_48dp"
-                        android:layout_gravity="center_horizontal"/>
+                        android:layout_gravity="center_horizontal|bottom"/>
 
                 </LinearLayout>
 
@@ -200,7 +201,7 @@
                     android:id="@+id/gameFeedbackTV"
                     android:text="Feedback"
                     android:padding="5dp"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal|bottom"/>
             </LinearLayout>
 
 

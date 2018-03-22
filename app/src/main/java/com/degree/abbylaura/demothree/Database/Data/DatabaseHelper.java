@@ -35,10 +35,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper( ) {
         super(App.getContext(), DATABASE_NAME, null, DATABASE_VERSION);
+
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL("DROP TABLE IF EXISTS " + Fixture.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Member.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Session.TABLE);

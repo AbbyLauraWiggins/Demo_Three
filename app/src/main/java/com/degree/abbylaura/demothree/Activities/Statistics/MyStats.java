@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.ButtonBarLayout;
@@ -64,12 +65,12 @@ public class MyStats extends Activity {
 
     private void setLayout(){
 
-        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels - 30; //room for title
+        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        screenWidth = screenWidth - (screenWidth/50);
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels - 30;
 
-        iconSize = screenHeight/2;
 
-        /*android.view.ViewGroup.LayoutParams layoutParams = scStat.getLayoutParams();
+        android.view.ViewGroup.LayoutParams layoutParams = scStat.getLayoutParams();
         layoutParams.width = screenWidth/2;
         layoutParams.height = screenHeight/3;
         scStat.setLayoutParams(layoutParams);
@@ -91,29 +92,34 @@ public class MyStats extends Activity {
         layoutParams.width = screenWidth/2;
         layoutParams.height = screenHeight/3;
         gameFeedback.setLayoutParams(layoutParams);
-        gameFeedback.setVisibility(View.VISIBLE);*/
+        gameFeedback.setVisibility(View.VISIBLE);
 
         iconSize = screenHeight/5;
 
+        scLogIV.setImageResource(0);
+        Drawable draw = getResources().getDrawable(R.drawable.newlogicon);
+        draw = logsize(draw);
+        scLogIV.setImageDrawable(draw);
+
+
+        iconSize = (int) (screenHeight/3.5);
+
+        gameFeedbackIV.setImageResource(0);
+        draw = getResources().getDrawable(R.drawable.feedbackicon);
+        draw = logsize(draw);
+        gameFeedbackIV.setImageDrawable(draw);
+
         scStatIV.setImageResource(0);
-        Drawable draw = getResources().getDrawable(R.drawable.ic_trending_up_black_48dp);
+        draw = getResources().getDrawable(R.drawable.ic_trending_up_black_48dp);
         draw = resize(draw);
         scStatIV.setImageDrawable(draw);
 
-        scLogIV.setImageResource(0);
-        draw = getResources().getDrawable(R.drawable.ic_note_add_black_48dp);
-        draw = resize(draw);
-        scLogIV.setImageDrawable(draw);
 
         gameStatIV.setImageResource(0);
         draw = getResources().getDrawable(R.drawable.ic_trending_up_black_48dp);
         draw = resize(draw);
         gameStatIV.setImageDrawable(draw);
 
-        gameFeedbackIV.setImageResource(0);
-        draw = getResources().getDrawable(R.drawable.ic_feedback_black_48dp);
-        draw = resize(draw);
-        gameFeedbackIV.setImageDrawable(draw);
 
 
     }
@@ -182,6 +188,18 @@ public class MyStats extends Activity {
         Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
         Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap,
                 iconSize, iconSize, false);
+        return new BitmapDrawable(getResources(), bitmapResized);
+    }
+
+    private Drawable logsize(Drawable image) {
+        Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
+        float height = bitmap.getHeight();
+        float width = bitmap.getWidth();
+        float scaleFactor = height/width;
+        int setwidth = (int) (iconSize * scaleFactor);
+        System.out.println(height + " " + width + " " + setwidth);
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap,
+                iconSize, setwidth, false);
         return new BitmapDrawable(getResources(), bitmapResized);
     }
 
