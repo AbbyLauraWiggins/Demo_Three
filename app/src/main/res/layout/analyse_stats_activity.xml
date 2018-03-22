@@ -91,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/homeBarButton"
-                android:src="@drawable/ic_chat_black_48dp"
+                android:onClick="onHomeButtonClick"
                 android:tint="#ffc400"
                 android:layout_gravity="center_horizontal"/>
 
@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/noticesBarButton"
-                android:src="@drawable/ic_chat_black_48dp"
+                android:onClick="onNoticeButtonClick"
                 android:tint="#ffc400"
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
@@ -123,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/profileBarButton"
-                android:src="@drawable/ic_chat_black_48dp"
+                android:onClick="onProfileButtonClick"
                 android:tint="#ffc400"
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
@@ -137,7 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/logBarButton"
-                android:src="@drawable/ic_note_add_black_48dp"
+                android:onClick="onLogButtonClick"
                 android:tint="#ffc400"
                 android:layout_gravity="center_horizontal"/>
 

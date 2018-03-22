@@ -1,6 +1,7 @@
 package com.degree.abbylaura.demothree.Activities.Statistics;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,6 +20,10 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.degree.abbylaura.demothree.Activities.HomeActivity;
+import com.degree.abbylaura.demothree.Activities.Log.LogActivity;
+import com.degree.abbylaura.demothree.Activities.Notices.NoticeActivity;
+import com.degree.abbylaura.demothree.Activities.ProfileActivity;
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.SessionRepo;
 import com.degree.abbylaura.demothree.Database.Repo.StrengthAndConditioningRepo;
@@ -145,12 +150,12 @@ public class MySCStats extends Activity {
         barNotice.setImageDrawable(draw);
 
         barHome.setImageResource(0);
-        draw = getResources().getDrawable(R.drawable.ic_chat_black_48dp);
+        draw = getResources().getDrawable(R.drawable.ic_home_black_48dp);
         draw = barresize(draw);
         barHome.setImageDrawable(draw);
 
         barProfile.setImageResource(0);
-        draw = getResources().getDrawable(R.drawable.ic_person_black_48dp);
+        draw = getResources().getDrawable(R.drawable.profileiconempty);
         draw = barresize(draw);
         barProfile.setImageDrawable(draw);
 
@@ -163,8 +168,13 @@ public class MySCStats extends Activity {
 
     private Drawable barresize(Drawable image) {
         Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
+        float height = bitmap.getHeight();
+        float width = bitmap.getWidth();
+        float scaleFactor = width/height;
+        int setwidth = (int) (barSize * scaleFactor);
+        System.out.println(height + " " + width + " " + setwidth);
         Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap,
-                barSize, barSize, false);
+                setwidth, barSize, false);
         return new BitmapDrawable(getResources(), bitmapResized);
     }
 
@@ -318,5 +328,23 @@ public class MySCStats extends Activity {
 
     }
 
+    public void onHomeButtonClick(View view) {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
 
+    public void onNoticeButtonClick(View view) {
+        Intent intent = new Intent(this, NoticeActivity.class);
+        startActivity(intent);
+    }
+
+    public void onProfileButtonClick(View view) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+    }
+
+    public void onLogButtonClick(View view) {
+        Intent intent = new Intent(this, LogActivity.class);
+        startActivity(intent);
+    }
 }

@@ -347,7 +347,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:id="@+id/mempng"
-                    android:src="@drawable/ic_people_black_48dp"
+                    android:src="@drawable/personicon"
                     android:tint="#ffffff"
                     />
 
