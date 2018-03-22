@@ -135,17 +135,17 @@ public class AnalyseStats extends Activity {
         barNotice.setImageDrawable(draw);
 
         barHome.setImageResource(0);
-        draw = getResources().getDrawable(R.drawable.ic_chat_black_48dp);
+        draw = getResources().getDrawable(R.drawable.ic_home_black_48dp);
         draw = barresize(draw);
         barHome.setImageDrawable(draw);
 
         barProfile.setImageResource(0);
-        draw = getResources().getDrawable(R.drawable.ic_person_black_48dp);
+        draw = getResources().getDrawable(R.drawable.profileiconempty);
         draw = barresize(draw);
         barProfile.setImageDrawable(draw);
 
         barLog.setImageResource(0);
-        draw = getResources().getDrawable(R.drawable.ic_note_add_black_48dp);
+        draw = getResources().getDrawable(R.drawable.trend_arrow);
         draw = barresize(draw);
         barLog.setImageDrawable(draw);
 
@@ -328,7 +328,7 @@ public class AnalyseStats extends Activity {
     }
 
     public void onLogButtonClick(View view) {
-        Intent intent = new Intent(this, LogActivity.class);
+        Intent intent = new Intent(this, StatisticsActivity.class);
         startActivity(intent);
     }
 }

@@ -5,15 +5,22 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.degree.abbylaura.demothree.Activities.Notices.NoticeActivity;
+import com.degree.abbylaura.demothree.Activities.Statistics.StatisticsActivity;
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
@@ -30,6 +37,12 @@ public class ProfileActivity extends AppCompatActivity {
     TextView name, teamName, email, positionsPlayed, responsibilities;
     ImageView profilePicture;
     private String thisID;
+
+    LinearLayout homebbll, noticebbll, profilebbll, logbbll;
+    ImageView barNotice, barHome, barLog, barProfile;
+    int iconSize, barSize;
+    ButtonBarLayout bbl;
+
 
 
     Button back, addPos, addRes;
@@ -59,8 +72,24 @@ public class ProfileActivity extends AppCompatActivity {
         addPos = findViewById(R.id.addPosition);
         addRes = findViewById(R.id.addResponsibilty);
 
+        homebbll = findViewById(R.id.homeBBLL);
+        noticebbll = findViewById(R.id.noticeBBLL);
+        profilebbll = findViewById(R.id.profileBBLL);
+        logbbll = findViewById(R.id.logBBLL);
+
+        bbl = findViewById(R.id.buttonBarLayout);
+
+        barNotice = findViewById(R.id.noticesBarButton);
+        barHome = findViewById(R.id.homeBarButton);
+        barLog = findViewById(R.id.logBarButton);
+        barProfile = findViewById(R.id.profileBarButton);
+
+        setBottomBar();
+
         Intent activityThatCalled = getIntent();
         thisID = (String) activityThatCalled.getSerializableExtra("MemberID");
+
+
 
         setProfile();
 
@@ -165,9 +194,35 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    public void onBackButton(View view) {
-        Intent goBack = new Intent();
-        setResult(RESULT_OK, goBack);
-        finish();
+    private Drawable barresize(Drawable image) {
+        Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
+        float height = bitmap.getHeight();
+        float width = bitmap.getWidth();
+        float scaleFactor = width/height;
+        int setwidth = (int) (barSize * scaleFactor);
+        System.out.println(height + " " + width + " " + setwidth);
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap,
+                setwidth, barSize, false);
+        return new BitmapDrawable(getResources(), bitmapResized);
+    }
+
+    public void onHomeButtonClick(View view) {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
+
+    public void onNoticeButtonClick(View view) {
+        Intent intent = new Intent(this, NoticeActivity.class);
+        startActivity(intent);
+    }
+
+    public void onProfileButtonClick(View view) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+    }
+
+    public void onLogButtonClick(View view) {
+        Intent intent = new Intent(this, StatisticsActivity.class);
+        startActivity(intent);
     }
 }

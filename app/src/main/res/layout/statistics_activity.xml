@@ -155,6 +155,21 @@
                 android:onClick="onNoticeButtonClick"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/logBBLL"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/logBarButton"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onLogButtonClick"/>
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -171,20 +186,7 @@
                 android:onClick="onProfileButtonClick"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/logBBLL"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/logBarButton"
-                android:tint="#ffc400"
-                android:layout_gravity="center_horizontal"
-                android:onClick="onLogButtonClick"/>
 
-        </LinearLayout>
 
 
     </android.support.v7.widget.ButtonBarLayout>

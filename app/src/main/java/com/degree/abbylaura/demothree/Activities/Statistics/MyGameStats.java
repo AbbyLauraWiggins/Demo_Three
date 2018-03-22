@@ -171,8 +171,9 @@ public class MyGameStats extends Activity {
         draw = barresize(draw);
         barProfile.setImageDrawable(draw);
 
+
         barLog.setImageResource(0);
-        draw = getResources().getDrawable(R.drawable.ic_note_add_black_48dp);
+        draw = getResources().getDrawable(R.drawable.trend_arrow);
         draw = barresize(draw);
         barLog.setImageDrawable(draw);
 
@@ -189,6 +190,7 @@ public class MyGameStats extends Activity {
                 setwidth, barSize, false);
         return new BitmapDrawable(getResources(), bitmapResized);
     }
+
 
     public void onShowGame(View view) {
 
@@ -348,7 +350,7 @@ public class MyGameStats extends Activity {
     }
 
     public void onLogButtonClick(View view) {
-        Intent intent = new Intent(this, LogActivity.class);
+        Intent intent = new Intent(this, StatisticsActivity.class);
         startActivity(intent);
     }
 }

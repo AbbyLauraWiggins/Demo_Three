@@ -116,6 +116,21 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/logBBLL"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/logBarButton"
+                android:onClick="onLogButtonClick"
+                android:tint="#ffc400"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/profileBBLL"
             android:orientation="vertical">
 
@@ -128,20 +143,7 @@
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/logBBLL"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/logBarButton"
-                android:onClick="onLogButtonClick"
-                android:tint="#ffc400"
-                android:layout_gravity="center_horizontal"/>
 
-        </LinearLayout>
 
 
     </android.support.v7.widget.ButtonBarLayout>
