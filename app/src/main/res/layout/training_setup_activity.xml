@@ -14,40 +14,49 @@
         android:textStyle="bold"
         android:padding="10dp"/>
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:paddingLeft="10dp"
+        android:id="@+id/dateEditText"
+        android:hint="Choose date"
+        android:layout_below="@+id/stats_title"
+        android:editable="false"
+        android:clickable="true"
+        android:onClick="onChooseDate"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dp"
+        android:layout_alignParentRight="true"
+        android:textSize="15dp"
+        android:id="@+id/timeEditText"
+        android:hint="Choose time"
+        android:layout_below="@+id/stats_title"
+        android:editable="false"
+        android:clickable="true"
+        android:onClick="onChooseTime"/>
+
+
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:id="@+id/relativeLayoutTop"
-        android:layout_below="@id/stats_title"
+        android:layout_below="@id/dateEditText"
         android:background="@drawable/divlight">
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:id="@+id/dateEditText"
-            android:hint="Choose session date"
-            android:editable="false"
-            android:onClick="onChooseDate"/>
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:textSize="15dp"
-            android:id="@+id/timeEditText"
-            android:hint="Choose session time"
-            android:editable="false"
-            android:onClick="onChooseTime"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Select exercise:"
-            android:layout_below="@id/timeEditText"
             android:paddingTop="10dp"
             android:paddingLeft="10dp"
+            android:paddingBottom="10dp"
             android:textSize="15dp"
             android:id="@+id/textView" />
 
@@ -55,7 +64,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/timeEditText"
             android:layout_alignRight="@+id/textView"
             android:textSize="15dp"
             android:paddingLeft="5dp"
@@ -83,26 +91,34 @@
             android:hint="Number of reps"
             android:inputType="number" />
 
-        <LinearLayout
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignRight="@id/repsEditText"
             android:layout_below="@+id/setsEditText"
+            android:id="@+id/addButton"
+            android:layout_alignBaseline="@id/repsEditText"
             android:layout_alignParentRight="true"
-            android:id="@+id/addButtonLL"
-            android:clickable="true"
-            android:onClick="onAddSession">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/addButtonIV"
-                android:src="@drawable/add_button_empty"
-                />
-        </LinearLayout>
+            android:onClick="onAddClick"
+            android:text="Add"/>
     </RelativeLayout>
 
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding = "10dp"
+        android:id="@+id/tableLayout"
+        android:layout_below="@id/relativeLayoutTop">
+
+
+    </TableLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tableLayout"
+        android:text="Submit"
+        android:layout_alignParentRight="true"
+        android:onClick="onSubmitClick"/>
 
     <android.support.v7.widget.ButtonBarLayout
         android:layout_width="match_parent"

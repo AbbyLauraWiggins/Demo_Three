@@ -2,6 +2,7 @@ package com.degree.abbylaura.demothree.Activities.Log;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -11,11 +12,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 
 import com.degree.abbylaura.demothree.Database.Schema.Session;
 import com.degree.abbylaura.demothree.R;
@@ -28,11 +32,11 @@ import java.util.Calendar;
 
 public class TrainingSetUp extends Activity{
 
-    ImageView addButton;
+    Button addButton;
     EditText dateET, timeET, setsET, repsET;
     Spinner exerciseSpinner;
 
-
+    String strDate, strTime;
     LinearLayout homebbll, noticebbll, profilebbll, logbbll;
     ImageView barNotice, barHome, barLog, barProfile;
     int iconSize, barSize;
@@ -43,7 +47,7 @@ public class TrainingSetUp extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.training_setup_activity);
 
-        addButton = findViewById(R.id.addButtonIV);
+        addButton = findViewById(R.id.addButton);
         dateET = findViewById(R.id.dateEditText);
         timeET = findViewById(R.id.timeEditText);
         setsET = findViewById(R.id.setsEditText);
@@ -121,42 +125,42 @@ public class TrainingSetUp extends Activity{
 
     }
 
-
     public void setLayout(){
         int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
         screenWidth = screenWidth - (screenWidth/30);
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels - 30;
 
+        RelativeLayout rl = findViewById(R.id.relativeLayoutTop);
+        android.view.ViewGroup.LayoutParams layoutParams = rl.getLayoutParams();
+        layoutParams.height = (int) (screenHeight/5);
+        rl.setLayoutParams(layoutParams);
+        rl.setVisibility(View.VISIBLE);
+
         barSize = screenHeight/20;
 
-        android.view.ViewGroup.LayoutParams layoutParams = setsET.getLayoutParams();
-        layoutParams.width = (int) (screenWidth/2);
+        layoutParams = setsET.getLayoutParams();
+        layoutParams.width = (int) (screenWidth/2.2);
         setsET.setLayoutParams(layoutParams);
         setsET.setVisibility(View.VISIBLE);
 
         layoutParams = repsET.getLayoutParams();
-        layoutParams.width = (int) (screenWidth/2);
+        layoutParams.width = (int) (screenWidth/2.2);
         repsET.setLayoutParams(layoutParams);
         repsET.setVisibility(View.VISIBLE);
 
         layoutParams = dateET.getLayoutParams();
-        layoutParams.width = (int) (screenWidth/2);
+        layoutParams.width = (int) (screenWidth/2.2);
         dateET.setLayoutParams(layoutParams);
         dateET.setVisibility(View.VISIBLE);
 
         layoutParams = timeET.getLayoutParams();
-        layoutParams.width = (int) (screenWidth/2);
+        layoutParams.width = (int) (screenWidth/2.2);
         timeET.setLayoutParams(layoutParams);
         timeET.setVisibility(View.VISIBLE);
 
-        addButton.setImageResource(0);
-        Drawable draw = getResources().getDrawable(R.drawable.add_button_empty);
-        draw = barresize(draw);
-        addButton.setImageDrawable(draw);
-
 
         layoutParams = exerciseSpinner.getLayoutParams();
-        layoutParams.width = (int) (screenWidth/2);
+        layoutParams.width = (int) (screenWidth/1.6);
         exerciseSpinner.setLayoutParams(layoutParams);
         exerciseSpinner.setVisibility(View.VISIBLE);
     }
@@ -183,19 +187,17 @@ public class TrainingSetUp extends Activity{
         final int[] monthSetArr = new int[1];
         final int[] daySetArr = new int[1];
 
-        DatePickerDialog mDatePicker;
-        mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePicker;
+        datePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                // TODO Auto-generated method stub
-                    /*      Your code   to get date and time    */
                 System.out.println(selectedday + "/" + selectedmonth + "/" + selectedyear);
                 yearSetArr[0] = selectedyear;
                 monthSetArr[0] = selectedmonth;
                 daySetArr[0] = selectedday;
             }
         }, yearNow, monthNow, dayNow);
-        mDatePicker.setTitle("Select date");
-        mDatePicker.show();
+        datePicker.setTitle("Select date");
+        datePicker.show();
 
         String strDay = String.valueOf(daySetArr[0]);
         String strMonth = String.valueOf(monthSetArr[0]);
@@ -208,10 +210,39 @@ public class TrainingSetUp extends Activity{
             strMonth = "0" + strMonth;
         }
 
-        String strDate = strDay + "/" + strMonth + "/" + strYear;
+        strDate = strDay + "/" + strMonth + "/" + strYear;
 
     }
 
-    public void onAddSession(View view) {
+    public void onChooseTime(View view) {
+        Calendar curTime = Calendar.getInstance();
+        final int hour = curTime.get(Calendar.HOUR_OF_DAY);
+        int minute = curTime.get(Calendar.MINUTE);
+
+        final int[] setHour = new int[1];
+        final int[] setMin = new int[1];
+
+
+        TimePickerDialog timePicker;
+        timePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker tim, int hourOfDay, int minute) {
+                System.out.println(minute + ":" + hourOfDay);
+                setHour[0] = hourOfDay;
+                setMin[0] = minute;
+            }
+        }, hour, minute, true);
+        timePicker.setTitle("Select Time");
+        timePicker.show();
+
+        strTime = String.valueOf(setMin[0]) + ":" + String.valueOf(setHour[0]);
     }
+
+
+    public void onAddClick(View view) {
+    }
+    public void onSubmitClick(View view) {
+    }
+
+
 }
