@@ -99,11 +99,13 @@ public class LoginActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
-        //TODO ensure correct registration rather than just come back
-        emailEditText.setText(data.getStringExtra("Email"));
-        passwordEditText.setText(data.getStringExtra("Password"));
+        if(data.getStringExtra("Email") != null){
+            emailEditText.setText(data.getStringExtra("Email"));
+            passwordEditText.setText(data.getStringExtra("Password"));
 
-        Toast.makeText(this, "Registration successful, please log in.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Registration successful, please log in.", Toast.LENGTH_LONG).show();
+
+        }
 
     }
 

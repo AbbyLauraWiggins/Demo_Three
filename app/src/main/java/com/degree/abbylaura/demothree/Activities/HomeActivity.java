@@ -67,15 +67,13 @@ public class HomeActivity extends Activity {
         notice = findViewById(R.id.notice_home_button);
         stats = findViewById(R.id.stats_home_button);
         log = findViewById(R.id.log_home_button);
-        calendar = findViewById(R.id.calendar_home_button);
-        gallery = findViewById(R.id.gallery_home_button);
+
         members = findViewById(R.id.members_home_button);
 
         noticeIV = findViewById(R.id.noticepng);
         statsIV = findViewById(R.id.statpng);
         logIV = findViewById(R.id.logpng);
-        calendarIV = findViewById(R.id.calpng);
-        galleryIV = findViewById(R.id.galpng);
+
         membersIV = findViewById(R.id.mempng);
 
         nextGameLL = findViewById(R.id.next_game_ll);
@@ -83,76 +81,49 @@ public class HomeActivity extends Activity {
         nextSocialLL = findViewById(R.id.next_social_ll);
 
         android.view.ViewGroup.LayoutParams layoutParams = notice.getLayoutParams();
-        layoutParams.width = screenWidth/3;
+        layoutParams.width = screenWidth/2;
         layoutParams.height = screenWidth/3;
         notice.setLayoutParams(layoutParams);
         notice.setVisibility(View.VISIBLE);
 
         layoutParams = noticeIV.getLayoutParams();
-        layoutParams.width = screenWidth/5;
-        layoutParams.height = screenWidth/5;
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenWidth/4;
         noticeIV.setLayoutParams(layoutParams);
 
         layoutParams = stats.getLayoutParams();
-        layoutParams.width = screenWidth/3;
+        layoutParams.width = screenWidth/2;
         layoutParams.height = screenWidth/3;
         stats.setLayoutParams(layoutParams);
         stats.setVisibility(View.VISIBLE);
 
         layoutParams = statsIV.getLayoutParams();
-        layoutParams.width = screenWidth/5;
-        layoutParams.height = screenWidth/5;
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenWidth/4;
         statsIV.setLayoutParams(layoutParams);
 
         layoutParams = log.getLayoutParams();
-        layoutParams.width = screenWidth/3;
-        layoutParams.height = screenWidth/3;
+        layoutParams.width = screenWidth/2;
+        layoutParams.height = screenWidth/2;
         log.setLayoutParams(layoutParams);
         log.setVisibility(View.VISIBLE);
 
         layoutParams = logIV.getLayoutParams();
-        layoutParams.width = screenWidth/5;
-        layoutParams.height = screenWidth/5;
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenWidth/3;
         logIV.setLayoutParams(layoutParams);
 
-        layoutParams = calendar.getLayoutParams();
-        layoutParams.width = screenWidth/3;
-        layoutParams.height = screenWidth/3;
-        calendar.setLayoutParams(layoutParams);
-        calendar.setVisibility(View.VISIBLE);
-
-        layoutParams = calendarIV.getLayoutParams();
-        layoutParams.width = screenWidth/5;
-        layoutParams.height = screenWidth/5;
-        calendarIV.setLayoutParams(layoutParams);
-
-        layoutParams = gallery.getLayoutParams();
-        layoutParams.width = screenWidth/3;
-        layoutParams.height = screenWidth/3;
-        gallery.setLayoutParams(layoutParams);
-        gallery.setVisibility(View.VISIBLE);
-
-        layoutParams = galleryIV.getLayoutParams();
-        layoutParams.width = screenWidth/5;
-        layoutParams.height = screenWidth/5;
-        galleryIV.setLayoutParams(layoutParams);
-
         layoutParams = members.getLayoutParams();
-        layoutParams.width = screenWidth/3;
-        layoutParams.height = screenWidth/3;
+        layoutParams.width = screenWidth/2;
+        layoutParams.height = screenWidth/2;
         members.setLayoutParams(layoutParams);
         members.setVisibility(View.VISIBLE);
 
         layoutParams = membersIV.getLayoutParams();
-        layoutParams.width = screenWidth/5;
-        layoutParams.height = screenWidth/5;
+        layoutParams.width = screenWidth/4;
+        layoutParams.height = screenWidth/3;
         membersIV.setLayoutParams(layoutParams);
 
-        ImageView img = findViewById(R.id.homepagepic);
-        layoutParams = img.getLayoutParams();
-        layoutParams.width = screenWidth;
-        img.setLayoutParams(layoutParams);
-        img.setVisibility(View.VISIBLE);
 
         LinearLayout top = findViewById(R.id.top_linear);
         layoutParams = top.getLayoutParams();
@@ -263,15 +234,6 @@ public class HomeActivity extends Activity {
 
     }
 
-    public void onGoToCalendar(View view) {
-        Intent goToCalendar = new Intent(this, CalendarActivity.class);
-        startActivity(goToCalendar);
-    }
-
-    public void onGoToGallery(View view) {
-        Intent goToGallery = new Intent(this, GalleryActivity.class);
-        startActivity(goToGallery);
-    }
 
     public void onGoToMembers(View view) {
         Intent goToMembers = new Intent(this, MembersActivity.class);

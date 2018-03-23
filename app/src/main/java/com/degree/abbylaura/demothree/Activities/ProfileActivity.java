@@ -57,7 +57,6 @@ public class ProfileActivity extends AppCompatActivity {
         positionsPlayed = findViewById(R.id.positions_played);
         responsibilities = findViewById(R.id.responsibilities);
 
-        profilePicture = findViewById(R.id.imageView);
 
         int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;

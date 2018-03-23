@@ -10,29 +10,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <Button
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:text="Profile"
-            android:textSize="10sp"
-            android:layout_alignParentRight="true"
-            android:padding="10dp"
-            android:id="@+id/profilebutton"
-            android:onClick="onGoToProfile"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/top_linear"
+            android:orientation="vertical"
             >
 
-            <ImageView
-                android:id="@+id/homepagepic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/darker_gray"
-                android:cropToPadding="true"
-                android:src="@drawable/home_page_pic" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -117,7 +104,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="#ffffff"
                         android:id="@+id/next_training_month_home_tv"
-                        android:text="03"
+                        android:text="05"
                         android:layout_gravity="center_horizontal"
                         />
 
@@ -157,7 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/next_social_month_home_tv"
-                        android:text="03"
+                        android:text="04"
                         android:textColor="#ffffff"
                         android:layout_gravity="center_horizontal"
                         android:paddingRight="25dp"
@@ -179,6 +166,9 @@
         </LinearLayout>
 
 
+
+
+
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -186,7 +176,7 @@
             android:layout_alignParentBottom="true"
             android:id="@+id/grid_layout"
             android:rowCount="2"
-            android:columnCount="3"
+            android:columnCount="2"
             android:paddingBottom="10dp"
             android:paddingTop="20dp"
             android:background="#ffc400">
@@ -199,7 +189,8 @@
                 android:clickable="true"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -223,6 +214,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/stats_home_button"
                 android:clickable="true"
+                android:layout_gravity="center_horizontal"
                 android:layout_row="0"
                 android:layout_column="1"
                 android:onClick="onGoToStats"
@@ -248,97 +240,11 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/log_home_button"
-                android:clickable="true"
-                android:layout_row="0"
-                android:layout_column="2"
-                android:onClick="onGoToLog"
-                android:orientation="vertical"
-                >
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/logpng"
-                    android:tint="#ffffff"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/ic_note_add_black_48dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Log"
-                    android:textColor="#ffffff"
-                    android:textSize="15sp"/>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/calendar_home_button"
+                android:id="@+id/members_home_button"
+                android:layout_gravity="center_horizontal"
                 android:clickable="true"
                 android:layout_row="1"
                 android:layout_column="0"
-                android:onClick="onGoToCalendar"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:id="@+id/calpng"
-                    android:src="@drawable/ic_today_black_48dp"
-                    android:tint="#ffffff"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Calendar"
-                    android:textSize="15sp"
-                    android:textColor="#ffffff"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/gallery_home_button"
-                android:clickable="true"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:onClick="onGoToGallery"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/galpng"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/ic_collections_black_48dp"
-                    android:tint="#ffffff"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Gallery"
-                    android:textSize="15sp"
-                    android:textColor="#ffffff"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/members_home_button"
-                android:clickable="true"
-                android:layout_row="1"
-                android:layout_column="2"
                 android:onClick="onGoToMembers"
                 android:orientation="vertical">
 
@@ -358,8 +264,50 @@
                     android:text="Members"
                     android:textColor="#ffffff"
                     android:textSize="15sp"/>
+
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/log_home_button"
+                android:clickable="true"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onGoToLog"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/logpng"
+                    android:tint="#ffffff"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_note_add_black_48dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Log"
+                    android:textColor="#ffffff"
+                    android:textSize="15sp"/>
+
+            </LinearLayout>
+
+
+
+
+
+
+
         </GridLayout>
+
+
+
+
     </RelativeLayout>
 
 
