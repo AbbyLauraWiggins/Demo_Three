@@ -41,6 +41,7 @@ public class LogActivity extends Activity {
     int iconSize, barSize;
     ButtonBarLayout bbl;
 
+    TextView mORt;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class LogActivity extends Activity {
 
         setContentView(R.layout.log_activity);
 
+        mORt = findViewById(R.id.mORt);
         trackLL = findViewById(R.id.trackGameStatsLL);
         feedbackLL = findViewById(R.id.logFeedbackLL);
         trainingLL = findViewById(R.id.setUpSessionLL);
@@ -82,6 +84,7 @@ public class LogActivity extends Activity {
 
         int perm = MyClientID.myPermissions;
 
+        barSize = screenHeight/4;
 
         android.view.ViewGroup.LayoutParams layoutParams = trackLL.getLayoutParams();
         layoutParams.width = screenWidth/2;
@@ -94,7 +97,7 @@ public class LogActivity extends Activity {
         trackIV.setImageResource(0);
         Drawable draw = getResources().getDrawable(R.drawable.ic_poll_black_48dp);
         draw = barresize(draw);
-        trainingIV.setImageDrawable(draw);
+        trackIV.setImageDrawable(draw);
 
         layoutParams = feedbackLL.getLayoutParams();
         layoutParams.width = screenWidth/2;
@@ -114,7 +117,7 @@ public class LogActivity extends Activity {
         trainingLL.setVisibility(View.VISIBLE);
 
         trainingIV.setImageResource(0);
-        draw = getResources().getDrawable(R.drawable.ic_fitness_center_black_48dp);
+        draw = getResources().getDrawable(R.drawable.trainingicon);
         draw = barresize(draw);
         trainingIV.setImageDrawable(draw);
 
@@ -124,7 +127,7 @@ public class LogActivity extends Activity {
         myORteamLL.setLayoutParams(layoutParams);
         myORteamLL.setVisibility(View.VISIBLE);
 
-        TextView mORt = findViewById(R.id.mORt);
+
 
         if(perm == 3){
             mORt.setText("Team Statistics");
@@ -133,7 +136,7 @@ public class LogActivity extends Activity {
             draw = barresize(draw);
             myORteamIV.setImageDrawable(draw);
         }else{ //CAL = perm 3: has no personal logs
-            mORt.setText("My Statistics");
+            mORt.setText("My Statistics and Logs");
             myORteamIV.setImageResource(0);
             draw = getResources().getDrawable(R.drawable.personicon);
             draw = barresize(draw);
@@ -240,7 +243,8 @@ public class LogActivity extends Activity {
     }
 
     public void onSetUpClick(View view) {
-        //TODO
+        Intent goToLog = new Intent(this, TrainingSetUp.class);
+        startActivity(goToLog);
     }
 
     public void onMyStatsClick(View view) {
@@ -249,7 +253,13 @@ public class LogActivity extends Activity {
     }
 
     public void onTeamStatsClick(View view) {
-        Intent goToTS = new Intent(this, TeamStatsOverview.class);
-        startActivity(goToTS);
+        if(mORt.equals("Team Statistics")){
+            Intent goToTS = new Intent(this, TeamStatsOverview.class);
+            startActivity(goToTS);
+        }else{
+            Intent goToTS = new Intent(this, MyStats.class);
+            startActivity(goToTS);
+        }
+
     }
 }

@@ -1,140 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    >
+    android:background="@drawable/background">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/stats_title"
-        android:text="LOG"
+        android:text="SET UP SESSION"
         android:textSize="20sp"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
         android:padding="10dp"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/topLL"
+        android:padding="10dp"
+        android:id="@+id/relativeLayoutTop"
         android:layout_below="@id/stats_title"
-        android:padding="5dp">
+        android:background="@drawable/divlight">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:id="@+id/dateEditText"
+            android:hint="Choose session date"
+            android:editable="false"
+            android:onClick="onChooseDate"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="15dp"
+            android:id="@+id/timeEditText"
+            android:hint="Choose session time"
+            android:editable="false"
+            android:onClick="onChooseTime"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select exercise:"
+            android:layout_below="@id/timeEditText"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:textSize="15dp"
+            android:id="@+id/textView" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/timeEditText"
+            android:layout_alignRight="@+id/textView"
+            android:textSize="15dp"
+            android:paddingLeft="5dp"
+            android:id="@+id/exerciseSpinner"></Spinner>
+
+        <EditText
+            android:id="@+id/setsEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView"
+            android:ems="10"
+            android:textSize="15dp"
+            android:hint="Number of sets"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/repsEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/setsEditText"
+            android:layout_alignParentLeft="true"
+            android:ems="10"
+            android:textSize="15dp"
+            android:hint="Number of reps"
+            android:inputType="number" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/trackGameStatsLL"
-            android:orientation="vertical"
-            android:background="@drawable/divlight"
-            android:visibility="invisible"
+            android:orientation="horizontal"
+            android:layout_alignRight="@id/repsEditText"
+            android:layout_below="@+id/setsEditText"
+            android:layout_alignParentRight="true"
+            android:id="@+id/addButtonLL"
             android:clickable="true"
-            android:paddingRight="10dp"
-            android:onClick="onTrackClick"
-            >
+            android:onClick="onAddSession">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/trackImg"
-                android:layout_gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Track Game Statistics"
-                android:textSize="15dp"/>
+                android:id="@+id/addButtonIV"
+                android:src="@drawable/add_button_empty"
+                />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/logFeedbackLL"
-            android:orientation="vertical"
-            android:background="@drawable/divlight"
-            android:visibility="invisible"
-            android:clickable="true"
-            android:onClick="onFeedbackClick">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/feedbackImg"
-                android:layout_gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Log Player Feedback"/>
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/middleLL"
-        android:layout_below="@+id/topLL"
-        android:padding="5dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/setUpSessionLL"
-            android:orientation="vertical"
-            android:background="@drawable/divlight"
-            android:visibility="invisible"
-            android:clickable="true"
-            android:paddingRight="10dp"
-            android:onClick="onSetUpClick">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/trainingImg"
-                android:layout_gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Set Up Training Session"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/myORteamLL"
-            android:orientation="vertical"
-            android:background="@drawable/divlight"
-            android:visibility="invisible"
-            android:clickable="true"
-            android:onClick="onTeamStatsClick">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/mORtImg"
-                android:layout_gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="my or team"
-                android:id="@+id/mORt"/>
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-
-
+    </RelativeLayout>
 
 
     <android.support.v7.widget.ButtonBarLayout
@@ -209,6 +176,5 @@
 
 
     </android.support.v7.widget.ButtonBarLayout>
-
 
 </RelativeLayout>

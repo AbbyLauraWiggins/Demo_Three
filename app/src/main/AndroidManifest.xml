@@ -132,6 +132,11 @@
             android:name=".Activities.Log.FixtureStatsSummary"
            />
 
+        <activity
+            android:name=".Activities.Log.TrainingSetUp"
+            />
+
+
         <service android:name=".Activities.NetworkService"/>
     </application>
 
