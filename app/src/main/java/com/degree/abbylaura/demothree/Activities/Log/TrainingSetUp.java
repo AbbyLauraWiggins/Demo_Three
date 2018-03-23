@@ -11,7 +11,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.ButtonBarLayout;
+import android.text.Editable;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -19,11 +22,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
-import com.degree.abbylaura.demothree.Database.Schema.Session;
+import com.degree.abbylaura.demothree.Activities.HomeActivity;
+import com.degree.abbylaura.demothree.Activities.Notices.NoticeActivity;
+import com.degree.abbylaura.demothree.Activities.ProfileActivity;
+import com.degree.abbylaura.demothree.Activities.Statistics.StatisticsActivity;
 import com.degree.abbylaura.demothree.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -36,17 +45,25 @@ public class TrainingSetUp extends Activity{
     EditText dateET, timeET, setsET, repsET;
     Spinner exerciseSpinner;
 
-    String strDate, strTime;
+    String strDate, strTime, selectedExercise;
     LinearLayout homebbll, noticebbll, profilebbll, logbbll;
     ImageView barNotice, barHome, barLog, barProfile;
     int iconSize, barSize;
     ButtonBarLayout bbl;
+
+    TextView tableText;
+
+    ArrayList<String> exercisesSelected, repsNsets;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.training_setup_activity);
 
+        exercisesSelected = new ArrayList<>();
+        repsNsets = new ArrayList<>();
+
+        tableText = findViewById(R.id.tableLayout);
         addButton = findViewById(R.id.addButton);
         dateET = findViewById(R.id.dateEditText);
         timeET = findViewById(R.id.timeEditText);
@@ -68,9 +85,44 @@ public class TrainingSetUp extends Activity{
 
         setLayout();
         setBottomBar();
-
+        setSpinner();
     }
 
+    private void setSpinner(){
+        String[] scExercises = new String[13];
+        scExercises[0] = "Deadlifts";
+        scExercises[1] = "DeadliftJumps";
+        scExercises[2] = "BackSquat";
+        scExercises[3] = "BackSquatJumps";
+        scExercises[4] = "GobletSquat";
+        scExercises[5] = "BenchPress";
+        scExercises[6] = "MilitaryPress";
+        scExercises[7] = "SupineRow";
+        scExercises[8] = "ChinUps";
+        scExercises[9] = "Trunk";
+        scExercises[10] = "RDL";
+        scExercises[11] = "SplitSquat";
+        scExercises[12] = "FourWayArms";
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, scExercises);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        exerciseSpinner.setAdapter(adapter);
+
+        exerciseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedExercise = (exerciseSpinner.getSelectedItem().toString());
+                System.out.println("spinner selected: " + selectedExercise);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
 
     private void setBottomBar(){
 
@@ -212,6 +264,9 @@ public class TrainingSetUp extends Activity{
 
         strDate = strDay + "/" + strMonth + "/" + strYear;
 
+        System.out.println("strdate = " + strDate);
+
+        dateET.setText(strDate);
     }
 
     public void onChooseTime(View view) {
@@ -227,7 +282,7 @@ public class TrainingSetUp extends Activity{
         timePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker tim, int hourOfDay, int minute) {
-                System.out.println(minute + ":" + hourOfDay);
+                System.out.println(hourOfDay + ":" + minute);
                 setHour[0] = hourOfDay;
                 setMin[0] = minute;
             }
@@ -235,13 +290,70 @@ public class TrainingSetUp extends Activity{
         timePicker.setTitle("Select Time");
         timePicker.show();
 
-        strTime = String.valueOf(setMin[0]) + ":" + String.valueOf(setHour[0]);
-    }
+        System.out.print("set hour: set min" + setHour[0] + ": " + setMin[0]);
 
+        strTime = String.valueOf(setHour[0]) + ":" + String.valueOf(setMin[0]);
+
+        System.out.println("strTime = " + strTime);
+
+        timeET.setText(strTime);
+    }
 
     public void onAddClick(View view) {
+
+
+
+        if(dateET.getText().equals("Choose date")){
+            Toast.makeText(this, "Please select valid date.", Toast.LENGTH_SHORT).show();
+        } else if(timeET.getText().equals("Choose date")){
+            Toast.makeText(this, "Please select valid time.", Toast.LENGTH_SHORT).show();
+        } else if(setsET.getText().equals("Number of sets")){
+            Toast.makeText(this, "Please select valid number of sets.", Toast.LENGTH_SHORT).show();
+        } else if(repsET.getText().equals("Number of reps")){
+            Toast.makeText(this, "Please select valid number of reps.", Toast.LENGTH_SHORT).show();
+        } else{
+            exercisesSelected.add(selectedExercise);
+
+            String strSets = String.valueOf(setsET.getText());
+            int sets = Integer.valueOf(strSets);
+            String strReps = String.valueOf(repsET.getText());
+
+            String toAdd = "";
+            for(int i = 0; i < sets; i ++){
+                toAdd = toAdd + strReps + ":/,";
+            }
+
+            repsNsets.add(toAdd);
+
+            String toShow = selectedExercise + ": " + strSets + " x " + strReps;
+            tableText.append(toShow + "\n");
+
+            selectedExercise = "";
+
+        }
+
+
     }
     public void onSubmitClick(View view) {
+    }
+    public void onHomeButtonClick(View view) {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
+
+    public void onNoticeButtonClick(View view) {
+        Intent intent = new Intent(this, NoticeActivity.class);
+        startActivity(intent);
+    }
+
+    public void onProfileButtonClick(View view) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+    }
+
+    public void onLogButtonClick(View view) {
+        Intent intent = new Intent(this, StatisticsActivity.class);
+        startActivity(intent);
     }
 
 
