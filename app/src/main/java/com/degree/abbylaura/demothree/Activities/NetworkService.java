@@ -93,7 +93,14 @@ public class NetworkService extends IntentService {
 
                 String valid = "updated";
                 i.putExtra("VALIDATION", valid);
-            }else{
+            }
+            else if(typeSending.equals("SCADD")){
+                //first item in this array will be SC details, all other for session setup
+                ArrayList<String> sessionInsert = intent.getStringArrayListExtra("SESSIONinsert");
+
+                insertSession(sessionInsert);
+            }
+            else{
 
                 i = new Intent(TRANSACTION_VOID);
 
@@ -502,6 +509,52 @@ public class NetworkService extends IntentService {
 
         System.out.println(">>>>>>>>>>>>>>>> kpi updated");
 
+    }
+
+    private void insertSession(ArrayList<String> insert){
+        ArrayList<String> toUpdate = serviceRequest(insert, "SCADD", 0);
+
+        StrengthAndConditioningRepo scRepo = new StrengthAndConditioningRepo();
+        scRepo.delete();
+
+        SessionRepo sessionRepo = new SessionRepo();
+        sessionRepo.delete();
+
+        int seen = 0;
+        for(String s: toUpdate){
+            if(!s.equals("session")){
+                seen = 1;
+            }
+            if(seen == 0){
+                String[] splitter = s.split("4h4f");
+                StrengthAndConditioning sc = new StrengthAndConditioning();
+                sc.setSessionID(splitter[0]);
+                sc.setSessionDate(splitter[1]);
+                sc.setSessionTime(splitter[2]);
+                scRepo.insert(sc);
+            }
+            else{
+                String[] splitter = s.split("4h4f");
+                Session scs = new Session();
+
+                scs.setSessionID(splitter[0]);
+                scs.setMemberID(splitter[1]);
+                scs.setDeadlifts(splitter[1]);
+                scs.setDeadliftJumps(splitter[3]);
+                scs.setBackSquat(splitter[4]);
+                scs.setBackSquatJumps(splitter[5]);
+                scs.setGobletSquat(splitter[6]);
+                scs.setBenchPress(splitter[7]);
+                scs.setMilitaryPress(splitter[8]);
+                scs.setSupineRow(splitter[9]);
+                scs.setChinUps(splitter[10]);
+                scs.setTrunk(splitter[11]);
+                scs.setRdl(splitter[12]);
+                scs.setSplitSquat(splitter[13]);
+                scs.setFourWayArms(splitter[14]);
+                sessionRepo.insert(scs);
+            }
+        }
     }
 
 }

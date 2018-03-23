@@ -3,9 +3,13 @@ package com.degree.abbylaura.demothree.Activities.Log;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -18,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -27,9 +32,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.degree.abbylaura.demothree.Activities.HomeActivity;
+import com.degree.abbylaura.demothree.Activities.NetworkService;
 import com.degree.abbylaura.demothree.Activities.Notices.NoticeActivity;
 import com.degree.abbylaura.demothree.Activities.ProfileActivity;
 import com.degree.abbylaura.demothree.Activities.Statistics.StatisticsActivity;
+import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.R;
 
 import java.util.ArrayList;
@@ -51,7 +58,7 @@ public class TrainingSetUp extends Activity{
     int iconSize, barSize;
     ButtonBarLayout bbl;
 
-    TextView tableText;
+    LinearLayout grid;
 
     ArrayList<String> exercisesSelected, repsNsets;
 
@@ -62,8 +69,7 @@ public class TrainingSetUp extends Activity{
 
         exercisesSelected = new ArrayList<>();
         repsNsets = new ArrayList<>();
-
-        tableText = findViewById(R.id.tableLayout);
+        grid = findViewById(R.id.grid_layout);
         addButton = findViewById(R.id.addButton);
         dateET = findViewById(R.id.dateEditText);
         timeET = findViewById(R.id.timeEditText);
@@ -86,6 +92,10 @@ public class TrainingSetUp extends Activity{
         setLayout();
         setBottomBar();
         setSpinner();
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(NetworkService.TRANSACTION_DONE_SCADD);
+        registerReceiver(clientReceiver, intentFilter);
     }
 
     private void setSpinner(){
@@ -243,30 +253,30 @@ public class TrainingSetUp extends Activity{
         datePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                 System.out.println(selectedday + "/" + selectedmonth + "/" + selectedyear);
-                yearSetArr[0] = selectedyear;
-                monthSetArr[0] = selectedmonth;
-                daySetArr[0] = selectedday;
+                String strDay = String.valueOf(selectedday);
+                String strMonth = String.valueOf(selectedmonth);
+                String strYear = String.valueOf(selectedyear);
+
+                if(strDay.length() < 2){
+                    strDay = "0" + strDay;
+                }
+                if(strMonth.length() < 2){
+                    strMonth = "0" + strMonth;
+                }
+
+                strDate = strDay + "/" + strMonth + "/" + strYear;
+
+                System.out.println("strdate = " + strDate);
+
+                dateET.setText(strDate);
             }
         }, yearNow, monthNow, dayNow);
         datePicker.setTitle("Select date");
         datePicker.show();
 
-        String strDay = String.valueOf(daySetArr[0]);
-        String strMonth = String.valueOf(monthSetArr[0]);
-        String strYear = String.valueOf(yearSetArr[0]);
 
-        if(strDay.length() < 2){
-            strDay = "0" + strDay;
-        }
-        if(strMonth.length() < 2){
-            strMonth = "0" + strMonth;
-        }
 
-        strDate = strDay + "/" + strMonth + "/" + strYear;
 
-        System.out.println("strdate = " + strDate);
-
-        dateET.setText(strDate);
     }
 
     public void onChooseTime(View view) {
@@ -283,33 +293,39 @@ public class TrainingSetUp extends Activity{
             @Override
             public void onTimeSet(TimePicker tim, int hourOfDay, int minute) {
                 System.out.println(hourOfDay + ":" + minute);
-                setHour[0] = hourOfDay;
-                setMin[0] = minute;
+                String strMin = String.valueOf(minute);
+                if(strMin.length() == 1){
+                    strMin = "0" + strMin;
+                }
+                String strHour = String.valueOf(hourOfDay);
+                if(strHour.length() == 1){
+                    strHour = "0" + strHour;
+                }
+                strTime = strHour + ":" + strMin;
+
+                System.out.println("strTime = " + strTime);
+
+                timeET.setText(strTime);
             }
         }, hour, minute, true);
         timePicker.setTitle("Select Time");
         timePicker.show();
 
-        System.out.print("set hour: set min" + setHour[0] + ": " + setMin[0]);
 
-        strTime = String.valueOf(setHour[0]) + ":" + String.valueOf(setMin[0]);
 
-        System.out.println("strTime = " + strTime);
-
-        timeET.setText(strTime);
     }
 
     public void onAddClick(View view) {
 
 
 
-        if(dateET.getText().equals("Choose date")){
+        if(dateET.getText().equals(null)){
             Toast.makeText(this, "Please select valid date.", Toast.LENGTH_SHORT).show();
-        } else if(timeET.getText().equals("Choose date")){
+        } else if(timeET.getText().equals(null)){
             Toast.makeText(this, "Please select valid time.", Toast.LENGTH_SHORT).show();
-        } else if(setsET.getText().equals("Number of sets")){
+        } else if(setsET.getText().equals(null)){
             Toast.makeText(this, "Please select valid number of sets.", Toast.LENGTH_SHORT).show();
-        } else if(repsET.getText().equals("Number of reps")){
+        } else if(repsET.getText().equals(null)){
             Toast.makeText(this, "Please select valid number of reps.", Toast.LENGTH_SHORT).show();
         } else{
             exercisesSelected.add(selectedExercise);
@@ -326,7 +342,37 @@ public class TrainingSetUp extends Activity{
             repsNsets.add(toAdd);
 
             String toShow = selectedExercise + ": " + strSets + " x " + strReps;
-            tableText.append(toShow + "\n");
+            TextView tv = new TextView(this);
+            tv.setText(toShow);
+            grid.addView(tv);
+
+            /*GridLayout gl = new GridLayout(this);
+            gl.setColumnCount(3);
+            gl.setRowCount(1);
+
+            LinearLayout exLL = new LinearLayout(this);
+            TextView exTV = new TextView(this);
+            exTV.setText(selectedExercise);
+            exLL.setBackgroundColor(Color.LTGRAY);
+            exLL.addView(exTV);
+            gl.addView(exLL, 0);
+
+            LinearLayout repLL = new LinearLayout(this);
+            TextView repTV = new TextView(this);
+            repTV.setText(strSets + " x " + strReps);
+            repLL.setBackgroundColor(Color.LTGRAY);
+            repLL.addView(repTV);
+            gl.addView(repLL, 1);
+
+            LinearLayout test = new LinearLayout(this);
+            TextView testTV = new TextView(this);
+            testTV.setText("tester");
+            testTV.setBackgroundColor(Color.LTGRAY);
+            test.addView(testTV);
+            gl.addView(test, 2);
+
+            grid.addView(gl);*/
+
 
             selectedExercise = "";
 
@@ -334,8 +380,41 @@ public class TrainingSetUp extends Activity{
 
 
     }
+
+
     public void onSubmitClick(View view) {
+        //TODO send this to server and then receive back and add into database
+
+        ArrayList<String> sessionInsert = new ArrayList<>();
+        sessionInsert.add(strDate);
+        sessionInsert.add(strTime);
+
+        for(int i = 0; i < exercisesSelected.size(); i++){
+            String string = exercisesSelected.get(i) + "4h4f" + repsNsets.get(i);
+            sessionInsert.add(string);
+        }
+
+
+
+        Intent intent = new Intent(this, NetworkService.class);
+        intent.putExtra("typeSending", "SCADD");
+        intent.putExtra("SESSIONinsert", sessionInsert);
+        this.startService(intent);
     }
+
+    /*
+     * Is alerted when the IntentService broadcasts TRANSACTION_DONE_SCADD
+     */
+    private BroadcastReceiver clientReceiver = new BroadcastReceiver() {
+
+        public void onReceive(Context context, Intent intent) {
+
+            //TODO
+        }
+
+    };
+
+
     public void onHomeButtonClick(View view) {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
