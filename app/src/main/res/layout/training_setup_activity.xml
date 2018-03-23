@@ -106,8 +106,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="4"
-        android:id="@+id/gridlayout"
+        android:orientation="vertical"
+        android:id="@+id/outputLL"
         android:layout_below="@+id/relativeLayoutTop"></LinearLayout>
 
 
@@ -115,7 +115,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tableLayout"
+        android:layout_below="@+id/outputLL"
         android:text="Submit"
         android:layout_alignParentRight="true"
         android:onClick="onSubmitClick"/>

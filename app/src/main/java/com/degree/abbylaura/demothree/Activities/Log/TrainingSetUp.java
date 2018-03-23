@@ -69,7 +69,7 @@ public class TrainingSetUp extends Activity{
 
         exercisesSelected = new ArrayList<>();
         repsNsets = new ArrayList<>();
-        grid = findViewById(R.id.grid_layout);
+        grid = findViewById(R.id.outputLL);
         addButton = findViewById(R.id.addButton);
         dateET = findViewById(R.id.dateEditText);
         timeET = findViewById(R.id.timeEditText);
@@ -344,34 +344,9 @@ public class TrainingSetUp extends Activity{
             String toShow = selectedExercise + ": " + strSets + " x " + strReps;
             TextView tv = new TextView(this);
             tv.setText(toShow);
+            tv.setTextSize(15);
             grid.addView(tv);
 
-            /*GridLayout gl = new GridLayout(this);
-            gl.setColumnCount(3);
-            gl.setRowCount(1);
-
-            LinearLayout exLL = new LinearLayout(this);
-            TextView exTV = new TextView(this);
-            exTV.setText(selectedExercise);
-            exLL.setBackgroundColor(Color.LTGRAY);
-            exLL.addView(exTV);
-            gl.addView(exLL, 0);
-
-            LinearLayout repLL = new LinearLayout(this);
-            TextView repTV = new TextView(this);
-            repTV.setText(strSets + " x " + strReps);
-            repLL.setBackgroundColor(Color.LTGRAY);
-            repLL.addView(repTV);
-            gl.addView(repLL, 1);
-
-            LinearLayout test = new LinearLayout(this);
-            TextView testTV = new TextView(this);
-            testTV.setText("tester");
-            testTV.setBackgroundColor(Color.LTGRAY);
-            test.addView(testTV);
-            gl.addView(test, 2);
-
-            grid.addView(gl);*/
 
 
             selectedExercise = "";
@@ -409,11 +384,17 @@ public class TrainingSetUp extends Activity{
 
         public void onReceive(Context context, Intent intent) {
 
-            //TODO
+            Toast.makeText(context, "Server database updated.", Toast.LENGTH_SHORT).show();
+
+            goToLog();
         }
 
     };
 
+    public void goToLog(){
+        Intent goToLog = new Intent(this, LogActivity.class);
+        startActivity(goToLog);
+    }
 
     public void onHomeButtonClick(View view) {
         Intent intent = new Intent(this, HomeActivity.class);
@@ -435,5 +416,20 @@ public class TrainingSetUp extends Activity{
         startActivity(intent);
     }
 
+    protected void onPause() {
+        super.onPause();
+        System.out.println("onPause BroadcastReceiver");
+
+        unregisterReceiver(clientReceiver);
+    }
+
+    protected void onResume() {
+        super.onResume();
+        System.out.println("onResume BroadcastReceiver");
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(NetworkService.TRANSACTION_DONE_NOTICE);
+        registerReceiver(clientReceiver, intentFilter);
+    }
 
 }

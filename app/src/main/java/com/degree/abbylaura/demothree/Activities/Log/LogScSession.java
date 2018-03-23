@@ -1,4 +1,4 @@
-package com.degree.abbylaura.demothree.Activities.Statistics;
+package com.degree.abbylaura.demothree.Activities.Log;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,42 +6,50 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.degree.abbylaura.demothree.Activities.HomeActivity;
-import com.degree.abbylaura.demothree.Activities.Log.LogActivity;
-import com.degree.abbylaura.demothree.Activities.Log.LogScSession;
 import com.degree.abbylaura.demothree.Activities.Notices.NoticeActivity;
 import com.degree.abbylaura.demothree.Activities.ProfileActivity;
+import com.degree.abbylaura.demothree.Activities.Statistics.StatisticsActivity;
+import com.degree.abbylaura.demothree.Database.Repo.SessionRepo;
+import com.degree.abbylaura.demothree.Database.Repo.StrengthAndConditioningRepo;
 import com.degree.abbylaura.demothree.R;
 
+import java.util.ArrayList;
+
 /**
- * Created by abbylaura on 07/03/2018.
+ * Created by abbylaura on 23/03/2018.
  */
 
-public class MyStats extends Activity {
+public class LogScSession extends Activity {
 
-    LinearLayout scStat, scLog, gameStat, gameFeedback;
     LinearLayout homebbll, noticebbll, profilebbll, logbbll;
     ImageView barNotice, barHome, barLog, barProfile;
     int iconSize, barSize;
     ButtonBarLayout bbl;
-    ImageView scStatIV, scLogIV, gameStatIV, gameFeedbackIV;
-
+    Spinner sessionSpinner;
+    String selectedDate, selectedID;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.my_stats_activity);
-
+        setContentView(R.layout.log_sc_session);
+        selectedDate = "";
+        selectedID = "";
+        sessionSpinner = findViewById(R.id.sessionSpinner);
         homebbll = findViewById(R.id.homeBBLL);
         noticebbll = findViewById(R.id.noticeBBLL);
         profilebbll = findViewById(R.id.profileBBLL);
@@ -54,76 +62,108 @@ public class MyStats extends Activity {
         barLog = findViewById(R.id.logBarButton);
         barProfile = findViewById(R.id.profileBarButton);
 
-        scStat = findViewById(R.id.scViewStats);
-        scLog = findViewById(R.id.scLogStats);
-        gameStat = findViewById(R.id.gameViewStats);
-        gameFeedback = findViewById(R.id.feedbackLayout);
-
-        scStatIV = findViewById(R.id.scViewStatsIV);
-        scLogIV = findViewById(R.id.scLogStatsIV);
-        gameStatIV = findViewById(R.id.gameViewStatsIV);
-        gameFeedbackIV = findViewById(R.id.gameFeedbackIV);
-
-        setLayout();
         setBottomBar();
+        setSpinner();
+        //setPermLayout();
+    }
+
+    private void setPermLayout(){
+        LinearLayout platform = findViewById(R.id.platform);
+
+
     }
 
     private void setLayout(){
 
-        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-        screenWidth = screenWidth - (screenWidth/50);
+        String[] scExercises = new String[13];
+        scExercises[0] = "Deadlifts";
+        scExercises[1] = "Deadlift Jumps";
+        scExercises[2] = "Back Squat";
+        scExercises[3] = "Back Squat Jumps";
+        scExercises[4] = "Goblet Squat";
+        scExercises[5] = "Bench Press";
+        scExercises[6] = "Military Press";
+        scExercises[7] = "Supine Row";
+        scExercises[8] = "Chin Ups";
+        scExercises[9] = "Trunk";
+        scExercises[10] = "RDL";
+        scExercises[11] = "Split Squat";
+        scExercises[12] = "Four Way Arms";
+
+        LinearLayout platform = findViewById(R.id.platform);
+        platform.removeAllViews();
+
+        SessionRepo sessionRepo = new SessionRepo();
+        ArrayList<String> sessionFormat = sessionRepo.getSessionExercises(selectedID);
+
+
+        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels - 30; //room for title
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels - 30;
 
 
-        android.view.ViewGroup.LayoutParams layoutParams = scStat.getLayoutParams();
-        layoutParams.width = screenWidth/2;
-        layoutParams.height = (int) (screenHeight/3.2);
-        scStat.setLayoutParams(layoutParams);
-        scStat.setVisibility(View.VISIBLE);
-
-        layoutParams = scLog.getLayoutParams();
-        layoutParams.width = screenWidth/2;
-        layoutParams.height = (int) (screenHeight/3.2);
-        scLog.setLayoutParams(layoutParams);
-        scLog.setVisibility(View.VISIBLE);
-
-        layoutParams = gameStat.getLayoutParams();
-        layoutParams.width = screenWidth/2;
-        layoutParams.height = (int) (screenHeight/3.2);
-        gameStat.setLayoutParams(layoutParams);
-        gameStat.setVisibility(View.VISIBLE);
-
-        layoutParams = gameFeedback.getLayoutParams();
-        layoutParams.width = screenWidth/2;
-        layoutParams.height = (int) (screenHeight/3.2);
-        gameFeedback.setLayoutParams(layoutParams);
-        gameFeedback.setVisibility(View.VISIBLE);
-
-        //iconSize = screenHeight/5;
-        iconSize = (int) (screenHeight/4.2);
-
-        scLogIV.setImageResource(0);
-        Drawable draw = getResources().getDrawable(R.drawable.newlogicon);
-        draw = logsize(draw);
-        scLogIV.setImageDrawable(draw);
+        for(int i = 0; i < sessionFormat.size(); i++){
+            if(!sessionFormat.get(i).equals("null")){
+                String[] splitter = sessionFormat.get(i).split(":");
+                String amount = splitter[0] + "x" + String.valueOf(splitter.length);
+                if(amount.equals("14h4fx1") || amount.equals("null4h4fx1")){
+                    System.out.println(amount);
+                }
+                else if(!(amount.contains("null")) || !(amount.contains("4h4f")) || !(amount.contains("null4h4f")) || !(amount.contains("14h4f")) || splitter.length < 2){
 
 
-        gameFeedbackIV.setImageResource(0);
-        draw = getResources().getDrawable(R.drawable.feedbackicon);
-        draw = logsize(draw);
-        gameFeedbackIV.setImageDrawable(draw);
+                    LinearLayout exerciseBox = new LinearLayout(this);
+                    exerciseBox.setOrientation(LinearLayout.HORIZONTAL);
+                    TextView tv = new TextView(this);
+                    tv.setText(scExercises[i] + ": " + amount);
+                    exerciseBox.addView(tv);
+
+                    for(int j = 0; j < splitter.length; j++){
+                        EditText input = new EditText(this);
+                        input.setWidth(screenWidth/10);
+                        exerciseBox.addView(input);
+                    }
+
+                    platform.addView(exerciseBox);
+                }
+            }
+        }
+
+    }
 
 
-        scStatIV.setImageResource(0);
-        draw = getResources().getDrawable(R.drawable.ic_trending_up_black_48dp);
-        draw = resize(draw);
-        scStatIV.setImageDrawable(draw);
+    private void setSpinner(){
+        StrengthAndConditioningRepo scRepo = new StrengthAndConditioningRepo();
+        String[][] scData = scRepo.getTableData();
+        ArrayList<String> sessionDates = new ArrayList<>();
+
+        for(int i = 0; i < scData[0].length; i++){
+            sessionDates.add(scData[0][i] + ": " + scData[1][i]);
+        }
 
 
-        gameStatIV.setImageResource(0);
-        draw = getResources().getDrawable(R.drawable.ic_trending_up_black_48dp);
-        draw = resize(draw);
-        gameStatIV.setImageDrawable(draw);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, sessionDates);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sessionSpinner.setAdapter(adapter);
+
+
+        sessionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedDate = (sessionSpinner.getSelectedItem().toString());
+                System.out.println("spinner selected: " + selectedDate);
+                String[] splitter = selectedDate.split(":");
+                selectedID = splitter[0];
+                setLayout();
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
 
@@ -194,41 +234,6 @@ public class MyStats extends Activity {
         return new BitmapDrawable(getResources(), bitmapResized);
     }
 
-    private Drawable resize(Drawable image) {
-        Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap,
-                iconSize, iconSize, false);
-        return new BitmapDrawable(getResources(), bitmapResized);
-    }
-
-    private Drawable logsize(Drawable image) {
-        Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
-        float height = bitmap.getHeight();
-        float width = bitmap.getWidth();
-        float scaleFactor = width/height;
-        int setwidth = (int) (iconSize * scaleFactor);
-        System.out.println(height + " " + width + " " + setwidth);
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap,
-                setwidth, iconSize, false);
-        return new BitmapDrawable(getResources(), bitmapResized);
-    }
-
-
-    public void goBack(View view) {
-        Intent goingBack = new Intent();
-        setResult(RESULT_OK, goingBack);
-        finish();
-    }
-
-    public void onViewSC(View view) {
-        Intent intent = new Intent(this, MySCStats.class);
-        startActivity(intent);
-    }
-
-    public void onViewGameStats(View view) {
-        Intent intent = new Intent(this, MyGameStats.class);
-        startActivity(intent);
-    }
 
     public void onHomeButtonClick(View view) {
         Intent intent = new Intent(this, HomeActivity.class);
@@ -247,11 +252,6 @@ public class MyStats extends Activity {
 
     public void onLogButtonClick(View view) {
         Intent intent = new Intent(this, StatisticsActivity.class);
-        startActivity(intent);
-    }
-
-    public void onLogSC(View view) {
-        Intent intent = new Intent(this, LogScSession.class);
         startActivity(intent);
     }
 }

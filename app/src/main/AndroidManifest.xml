@@ -136,6 +136,8 @@
             android:name=".Activities.Log.TrainingSetUp"
             />
 
+        <activity android:name=".Activities.Log.LogScSession"/>
+
 
         <service android:name=".Activities.NetworkService"/>
     </application>

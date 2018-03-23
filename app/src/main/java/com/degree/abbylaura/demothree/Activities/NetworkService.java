@@ -46,6 +46,8 @@ public class NetworkService extends IntentService {
     public static final String TRANSACTION_DONE_NOTICE = "TRANSACTION_DONE_NOTICE";
     public static final String TRANSACTION_DONE_VALID = "TRANSACTION_DONE_VALID";
     public static final String TRANSACTION_VOID = "TRANSACTION_VOID";
+    public static final String TRANSACTION_DONE_SCADD = "TRANSACTION_DONE_SCADD";
+
 
 
     // Validates resource references inside Android XML files
@@ -99,6 +101,9 @@ public class NetworkService extends IntentService {
                 ArrayList<String> sessionInsert = intent.getStringArrayListExtra("SESSIONinsert");
 
                 insertSession(sessionInsert);
+                i = new Intent(TRANSACTION_DONE_SCADD);
+                NetworkService.this.sendBroadcast(i);
+
             }
             else{
 
@@ -515,12 +520,16 @@ public class NetworkService extends IntentService {
         ArrayList<String> toUpdate = serviceRequest(insert, "SCADD", 0);
 
         StrengthAndConditioningRepo scRepo = new StrengthAndConditioningRepo();
-        scRepo.delete();
 
         SessionRepo sessionRepo = new SessionRepo();
-        sessionRepo.delete();
 
-        int seen = 0;
+        startUpGetSC();
+
+        updateScSession("4");
+
+        System.out.println("SCADD worked!");
+
+        /*int seen = 0;
         for(String s: toUpdate){
             if(!s.equals("session")){
                 seen = 1;
@@ -539,7 +548,7 @@ public class NetworkService extends IntentService {
 
                 scs.setSessionID(splitter[0]);
                 scs.setMemberID(splitter[1]);
-                scs.setDeadlifts(splitter[1]);
+                scs.setDeadlifts(splitter[2]);
                 scs.setDeadliftJumps(splitter[3]);
                 scs.setBackSquat(splitter[4]);
                 scs.setBackSquatJumps(splitter[5]);
@@ -554,7 +563,7 @@ public class NetworkService extends IntentService {
                 scs.setFourWayArms(splitter[14]);
                 sessionRepo.insert(scs);
             }
-        }
+        }*/
     }
 
 }

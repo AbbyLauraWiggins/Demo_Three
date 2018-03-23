@@ -199,4 +199,36 @@ public class SessionRepo {
     public void setWhereclause(String whereclause){
         this.whereclause = whereclause;
     }
+
+
+    public ArrayList<String> getSessionExercises(String sessionID){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        String selectQuery = "SELECT * FROM Session WHERE " + Session.KEY_SessionID + " = '" + sessionID + "'";
+
+        Log.d(Session.TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        ArrayList<String> result = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                for(int i = 2; i < 15; i++){
+                    if(cursor.getString(i) == null){
+                        result.add("null4h4f");
+                    }else{
+                        result.add(cursor.getString(i) + "4h4f");
+
+                    }
+                }
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        System.out.println(result);
+
+        return result;
+    }
 }
