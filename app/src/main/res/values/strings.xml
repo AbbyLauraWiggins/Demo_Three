@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DemoThree</string>
+    <string name="app_name">RUMMA</string>
 
     <!-- Strings for home activity -->
     <string name="skip_login_button_text">Skip for testing</string>

@@ -68,7 +68,7 @@ public class PopUpFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        //TODO add that item to returning array
+        //add that item to returning array
         selected.add(position);
     }
 

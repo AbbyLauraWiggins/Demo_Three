@@ -95,4 +95,15 @@ public class RegisterActivity extends Activity {
         setResult(RESULT_OK, goingBack);
         finish();
     }
+
+    public void onHelpClick(View view) {
+        Intent intent = new Intent(this, RegisterHelp.class);
+        startActivity(intent);
+    }
+
+    public void onNewTeamClick(View view) {
+        Intent intent = new Intent(this, CreateNewTeam.class);
+        intent.putExtra("PRECEDING", "new");
+        startActivity(intent);
+    }
 }

@@ -58,7 +58,7 @@ public class TestDatabaseActivity extends Activity {
 
 
         //insertTestData();
-        insertRealTestData();
+        //insertRealTestData();
     }
 
     private void insertTestData(){

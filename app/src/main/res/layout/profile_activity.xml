@@ -3,117 +3,159 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:background="@drawable/background"
+    >
+
+
 
     <TextView
         android:id="@+id/member_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
+        android:layout_centerHorizontal="true"
         android:textStyle="bold"
-        android:text="@string/membername" />
+        android:text="MEMBER NAME"
+        android:padding="10dp"
+        />
 
-
-
-    <TextView
-        android:id="@+id/team_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_below="@id/member_name"
-        android:text="@string/teamname"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/email"
-        android:layout_below="@id/team_name"
-        android:text="@string/email_address"
-        android:textSize="20sp"
-        android:paddingBottom="30dp"/>
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/email">
+        android:id="@+id/ll"
+        android:orientation="vertical"
+        android:layout_below="@id/member_name"
+        >
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:id="@+id/teamNameLL"
+            android:orientation="horizontal"
+            android:background="@drawable/border"
+            android:paddingLeft="10dp"
+            >
 
             <TextView
-                android:id="@+id/pos_played_title"
+                android:id="@+id/team_name"
                 android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_below="@id/email"
-                android:text="@string/positions_played_title"
+                android:text="@string/teamname"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/emailLL"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/email"
+                android:text="@string/email_address"
+                android:textSize="20sp"
                 />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dobLL"
+            android:orientation="horizontal"
+            android:background="@drawable/border"
+            android:paddingLeft="10dp"
+            >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dob"
+                android:text="Date of birth: "
+                android:layout_gravity="center_vertical"
+                android:textSize="20sp"
+               />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/positionsLL"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/positions_played"
-                android:layout_below="@id/pos_played_title"
+                android:text="Positions: "
+                android:textSize="20sp"
+                android:layout_gravity="center_vertical"
                 />
 
-
-            <Button
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/addPosition"
-                android:text="@string/add_position"
-                android:layout_below="@id/positions_played"
+                android:id="@+id/addPositionIV"
+                android:clickable="true"
                 android:onClick="addPosition"
+                android:visibility="visible"
                 />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/addNewPostitionFragmentContainer"
-                android:orientation="vertical">
+        </LinearLayout>
 
-            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/resp_title"
-                android:text="@string/responsibilities_title"
-                android:layout_below="@id/addPosition"
-                android:paddingTop="30dp"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/responsibilitiesLL"
+            android:orientation="vertical"
+            android:background="@drawable/border"
+            android:paddingLeft="10dp"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:id="@+id/responsibilities"
-                android:layout_below="@id/resp_title"
+                android:text="Responsibilities: "
+                android:textSize="20sp"
                 />
 
-            <Button
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/addResponsibilty"
-                android:text="@string/add_responsibility"
-                android:layout_below="@id/responsibilities"
-                android:onClick="addResponsibility"/>
+                android:onClick="addResponsibility"
+                android:clickable="true"
+                />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/addNewResponsibilityFragmentContainer"
-                android:orientation="vertical">
 
-            </LinearLayout>
 
 
 
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll"
+        android:text="Edit Positions"
+        android:onClick="addPosition"/>
 
     <android.support.v7.widget.ButtonBarLayout
         android:layout_width="match_parent"

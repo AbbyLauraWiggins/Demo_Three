@@ -2,6 +2,9 @@ package com.degree.abbylaura.demothree.Activities;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import com.degree.abbylaura.demothree.Activities.Log.LogActivity;
 import com.degree.abbylaura.demothree.Activities.Members.MembersActivity;
 import com.degree.abbylaura.demothree.Activities.Notices.NoticeActivity;
+import com.degree.abbylaura.demothree.Activities.SignIn.CreateNewTeam;
 import com.degree.abbylaura.demothree.Activities.Statistics.MyStats;
 import com.degree.abbylaura.demothree.Activities.Statistics.StatisticsActivity;
 import com.degree.abbylaura.demothree.Client.MyClientID;
@@ -37,7 +41,7 @@ public class HomeActivity extends Activity {
 
     TextView nextGameDate, nextGameMonth;
     LinearLayout notice, stats, log, calendar, members, gallery, nextGameLL, nextTrainingLL, nextSocialLL;
-    ImageView noticeIV, statsIV, logIV, calendarIV, membersIV, galleryIV;
+    ImageView noticeIV, statsIV, logIV, calendarIV, membersIV, galleryIV, settingsIV;
 
 
     @Override
@@ -73,6 +77,7 @@ public class HomeActivity extends Activity {
         noticeIV = findViewById(R.id.noticepng);
         statsIV = findViewById(R.id.statpng);
         logIV = findViewById(R.id.logpng);
+        settingsIV = findViewById(R.id.settingsButton);
 
         membersIV = findViewById(R.id.mempng);
 
@@ -158,6 +163,20 @@ public class HomeActivity extends Activity {
         nextSocialLL.setLayoutParams(layoutParams);
         nextSocialLL.setVisibility(View.VISIBLE);
 
+
+        settingsIV.setImageResource(0);
+        Drawable draw = getResources().getDrawable(R.drawable.settings);
+        draw = barresize(draw);
+        settingsIV.setImageDrawable(draw);
+    }
+
+    private Drawable barresize(Drawable image) {
+        Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
+        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap,
+                screenWidth/10, screenWidth/10, false);
+        return new BitmapDrawable(getResources(), bitmapResized);
     }
 
     public void setNextGame() throws ParseException {
@@ -244,5 +263,11 @@ public class HomeActivity extends Activity {
         Intent goToProfile = new Intent(this, ProfileActivity.class);
         goToProfile.putExtra("MemberID", MyClientID.myID); //send my own ID as this button is to view own profile
         startActivity(goToProfile);
+    }
+
+    public void onSettingsClick(View view) {
+        Intent intent = new Intent(this, CreateNewTeam.class);
+        intent.putExtra("PRECEDING", "not new");
+        startActivity(intent);
     }
 }

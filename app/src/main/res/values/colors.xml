@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="holo_light_primary">#72d1fc</color>
-    <color name="bright_foreground_holo_light">#e70b0b</color>
-    <color name="accent_material_dark">#e90a12</color>
+    <color name="colorPrimary">#ffc400</color>
+    <color name="colorPrimaryDark">#ffc400</color>
+    <color name="colorAccent">#ffc400</color>
+    <color name="holo_light_primary">#ffc400</color>
+    <color name="bright_foreground_holo_light">#ffc400</color>
+    <color name="accent_material_dark">#ffc400</color>
 </resources>

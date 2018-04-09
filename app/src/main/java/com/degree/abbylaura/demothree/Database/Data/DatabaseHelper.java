@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.degree.abbylaura.demothree.App.App;
+import com.degree.abbylaura.demothree.Database.Repo.FeedbackRepo;
 import com.degree.abbylaura.demothree.Database.Repo.FixtureRepo;
 import com.degree.abbylaura.demothree.Database.Repo.KPIRepo;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
@@ -13,6 +14,7 @@ import com.degree.abbylaura.demothree.Database.Repo.SessionRepo;
 import com.degree.abbylaura.demothree.Database.Repo.StrengthAndConditioningRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamRepo;
+import com.degree.abbylaura.demothree.Database.Schema.Feedback;
 import com.degree.abbylaura.demothree.Database.Schema.Fixture;
 import com.degree.abbylaura.demothree.Database.Schema.KPI;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
@@ -29,7 +31,7 @@ import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     //note: remember each time if you Add, Edit table, you need to change the version number.
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "clientDatabase4.db";
     private static final String TAG = DatabaseHelper.class.getSimpleName();
 
@@ -50,6 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("DROP TABLE IF EXISTS " + Notice.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + KPI.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Feedback.TABLE);
 
 
         //All necessary tables you like to create will create here
@@ -62,6 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(NoticeRepo.createTable());
         db.execSQL(KPIRepo.createtable());
+        db.execSQL(FeedbackRepo.createTable());
 
     }
 
@@ -79,6 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("DROP TABLE IF EXISTS " + Notice.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + KPI.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Feedback.TABLE);
 
         onCreate(db);
     }
@@ -97,6 +102,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("DROP TABLE IF EXISTS " + Notice.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + KPI.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Feedback.TABLE);
 
     }
 }

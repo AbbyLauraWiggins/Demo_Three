@@ -23,6 +23,7 @@ import com.degree.abbylaura.demothree.Activities.Notices.NoticeActivity;
 import com.degree.abbylaura.demothree.Activities.Statistics.StatisticsActivity;
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
+import com.degree.abbylaura.demothree.Database.Repo.TeamRepo;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
 import com.degree.abbylaura.demothree.R;
 
@@ -32,10 +33,11 @@ import com.degree.abbylaura.demothree.R;
  * In the Intent that called this activity, you must put the MEMBERID of the member whose profile you wish to see
  */
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends Activity{
 
-    TextView name, teamName, email, positionsPlayed, responsibilities;
-    ImageView profilePicture;
+    TextView name, teamName, email, dob, positionsPlayed, responsibilities;
+    LinearLayout  teamNameLL, emailLL, dobLL, positionsLL, responsibilitiesLL;
+    ImageView profilePicture, addResponsibility, addPosition;
     private String thisID;
 
     LinearLayout homebbll, noticebbll, profilebbll, logbbll;
@@ -56,36 +58,30 @@ public class ProfileActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         positionsPlayed = findViewById(R.id.positions_played);
         responsibilities = findViewById(R.id.responsibilities);
-
-
-        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-        int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-
-        android.view.ViewGroup.LayoutParams layoutParams = profilePicture.getLayoutParams();
-        layoutParams.width = screenWidth/4;
-        layoutParams.height = screenHeight/4;
-        profilePicture.setLayoutParams(layoutParams);
-        profilePicture.setVisibility(View.VISIBLE);
-
-        addPos = findViewById(R.id.addPosition);
-        addRes = findViewById(R.id.addResponsibilty);
+        dob = findViewById(R.id.dob);
+        teamNameLL = findViewById(R.id.teamNameLL);
+        emailLL = findViewById(R.id.emailLL);
+        positionsLL = findViewById(R.id.positionsLL);
+        responsibilitiesLL = findViewById(R.id.responsibilitiesLL);
+        addPosition = findViewById(R.id.addPositionIV);
+        addResponsibility = findViewById(R.id.addResponsibilty);
+        dobLL = findViewById(R.id.dobLL);
 
         homebbll = findViewById(R.id.homeBBLL);
         noticebbll = findViewById(R.id.noticeBBLL);
         profilebbll = findViewById(R.id.profileBBLL);
         logbbll = findViewById(R.id.logBBLL);
-
         bbl = findViewById(R.id.buttonBarLayout);
-
         barNotice = findViewById(R.id.noticesBarButton);
         barHome = findViewById(R.id.homeBarButton);
         barLog = findViewById(R.id.logBarButton);
         barProfile = findViewById(R.id.profileBarButton);
 
         setBottomBar();
+        setLayout();
 
         Intent activityThatCalled = getIntent();
-        thisID = (String) activityThatCalled.getSerializableExtra("MemberID");
+        thisID = MyClientID.myID;//(String) activityThatCalled.getSerializableExtra("MemberID");
 
 
 
@@ -93,6 +89,55 @@ public class ProfileActivity extends AppCompatActivity {
 
         //TODO set it so only if this profile is YOUR profile, show the add new buttons
         //TODO add new positions and responsibilities to database
+
+    }
+
+    private void setLayout(){
+        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+
+        android.view.ViewGroup.LayoutParams layoutParams;
+
+        layoutParams = teamNameLL.getLayoutParams();
+        layoutParams.width = screenWidth - 10;
+        layoutParams.height = screenHeight/10;
+        teamNameLL.setLayoutParams(layoutParams);
+
+        layoutParams = emailLL.getLayoutParams();
+        layoutParams.width = screenWidth - 10;
+        layoutParams.height = screenHeight/10;
+        emailLL.setLayoutParams(layoutParams);
+
+        layoutParams = dobLL.getLayoutParams();
+        layoutParams.width = screenWidth - 10;
+        layoutParams.height = screenHeight/10;
+        dobLL.setLayoutParams(layoutParams);
+
+        layoutParams = responsibilitiesLL.getLayoutParams();
+        layoutParams.width = screenWidth - 10;
+        layoutParams.height = screenHeight/10;
+        responsibilitiesLL.setLayoutParams(layoutParams);
+
+        layoutParams = positionsLL.getLayoutParams();
+        layoutParams.width = screenWidth - 10;
+        layoutParams.height = screenHeight/10;
+        positionsPlayed.setLayoutParams(layoutParams);
+
+
+
+
+        barSize = screenHeight/15;
+
+        addResponsibility.setImageResource(0);
+        Drawable draw = getResources().getDrawable(R.drawable.addbtn);
+        draw = barresize(draw);
+        addResponsibility.setImageDrawable(draw);
+
+        addPosition.setImageResource(0);
+        draw = getResources().getDrawable(R.drawable.addbtn);
+        draw = barresize(draw);
+        addPosition.setImageDrawable(draw);
+
 
     }
 
@@ -166,16 +211,20 @@ public class ProfileActivity extends AppCompatActivity {
             name.setText(profileDetails[1][0]);
         }
         if(profileDetails[2][0]!= null){
-            email.setText(profileDetails[2][0]);
+            email.setText("Email: " + profileDetails[2][0]);
+        }
+        if(profileDetails[4][0]!= null){
+            dob.setText("Date of birth: " + profileDetails[2][0]);
         }
         if(profileDetails[7][0]!= null) {
-            teamName.setText(profileDetails[7][0]);
+            TeamRepo teamRepo = new TeamRepo();
+            teamName.setText("Team: " + teamRepo.getTeam(profileDetails[7][0]).get(0));
         }
         if(profileDetails[5][0]!= null) {
-            positionsPlayed.setText(profileDetails[5][0]);
+            positionsPlayed.setText("Positions: " + profileDetails[5][0]);
         }
         if(profileDetails[6][0]!= null && !profileDetails[6][0].equals("None")) {
-            responsibilities.setText(profileDetails[6][0]);
+            responsibilities.setText("Responsibilities: " + profileDetails[6][0]);
         }
 
 
@@ -200,7 +249,7 @@ public class ProfileActivity extends AppCompatActivity {
                 positionsPlayed.append(input.getText().toString() + " \n ");
                 MemberRepo memberRepo = new MemberRepo();
 
-                String allPositions = positionsPlayed.getText().toString();
+                String allPositions = positionsPlayed.getText().toString().substring(10);
 
                 memberRepo.updatePosition(MyClientID.myID, allPositions);
             }
@@ -230,7 +279,7 @@ public class ProfileActivity extends AppCompatActivity {
                 responsibilities.append(input.getText().toString() + "\n");
                 MemberRepo memberRepo = new MemberRepo();
 
-                String allRes = responsibilities.getText().toString();
+                String allRes = responsibilities.getText().toString().substring(18);
 
                 memberRepo.updateResponsibility(MyClientID.myID, allRes);
             }

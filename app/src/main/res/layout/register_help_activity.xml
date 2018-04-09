@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REGISTER HELP"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:id="@+id/title"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/prompts"
+        android:text="prompts"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:ems="10"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/next_button"
+        android:text="Next"
+        android:layout_gravity="right"
+        android:onClick="next"
+        />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivLL"
+        android:layout_gravity="left"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/iv"
+            android:src="@drawable/empty"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"/>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

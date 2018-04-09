@@ -16,7 +16,7 @@
             android:layout_weight="0"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Compose"
+            android:text="COMPOSE"
             android:textSize="20sp"
             android:textStyle="bold"
             />

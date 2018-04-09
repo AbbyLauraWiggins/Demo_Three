@@ -15,6 +15,7 @@ public class MyClientID {
     public MyClientID(){
         super();
     }
+    public static String serverIP = "";//"10.0.2.2"; //"192.168.1.223";
 
     public String getMyID(String email, String password){
         //TODO start client to access server
@@ -22,6 +23,10 @@ public class MyClientID {
 
         return myID;
 
+    }
+
+    public static void setIP(String ip){
+        serverIP = ip;
     }
 
     public String getMyUsername(){
@@ -74,6 +79,7 @@ public class MyClientID {
 
     public static void setMyTeamID(String id){
         myTeamID = id;
+        System.out.println("MY TEAM ID IS " + myTeamID);
     }
 
     public static void setMyPermissions(int perm){ //FOR TESTING ONLY

@@ -7,8 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
+import com.degree.abbylaura.demothree.Database.Schema.Session;
 import com.degree.abbylaura.demothree.Database.Schema.Team;
 import com.degree.abbylaura.demothree.Database.Schema.TeamFixtures;
+
+import java.util.ArrayList;
 
 /**
  * Created by abbylaura on 02/03/2018.
@@ -60,6 +63,30 @@ public class TeamRepo {
         DatabaseManager.getInstance().closeDatabase();
     }
 
+    public ArrayList<String> getTeam(String id){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        ArrayList<String> teamArray = new ArrayList<>();
+
+        String selectQuery = " SELECT * FROM " + Team.TABLE + " WHERE TeamId = '" + id  + "'";
+
+        Log.d(Team.TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        int iterator = 0;
+        if (cursor.moveToFirst()) {
+            do {
+
+                teamArray.add(cursor.getString(cursor.getColumnIndex(Team.KEY_TeamName)));
+                teamArray.add(cursor.getString(cursor.getColumnIndex(Team.KEY_TeamLocation)));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return teamArray;
+    }
 
 
     public String[][] getTableData() {

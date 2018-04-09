@@ -38,6 +38,7 @@ public class LoginActivity extends Activity {
 
 
         /**** ensure there is data to retrieve ****/
+        EditText ipIn = findViewById(R.id.ipET);
 
         emailEditText = findViewById(R.id.signin_email);
         passwordEditText = findViewById(R.id.signin_password);
@@ -45,9 +46,11 @@ public class LoginActivity extends Activity {
         if(savedInstanceState != null) { //there is data saved
             String emailInput = savedInstanceState.getString("EMAIL");
             String passwordInput = savedInstanceState.getString("PASSWORD");
+            String serverIP = savedInstanceState.getString("IP");
 
             emailEditText.setText(emailInput);
             passwordEditText.setText(passwordInput);
+            ipIn.setText(serverIP);
         }
 
 
@@ -66,6 +69,11 @@ public class LoginActivity extends Activity {
             passwordEditText.setText(savedPassword);
         }
 
+        String savedIP = getPreferences(Context.MODE_PRIVATE).getString("IP", "EMPTY");
+
+        if(!savedIP.equals("EMPTY")){
+            ipIn.setText(savedPassword);
+        }
 
         //creating register button here (rather than in function below)
         //as will come back to this screen after
@@ -192,6 +200,7 @@ public class LoginActivity extends Activity {
             }else{
                 String[] splitter = valid.split("4h4f");
                 String id = splitter[0];
+                System.out.println("CLIENT ID -------------------> " + id);
                 MyClientID.setID(id);//, result[0][7]);
 
                 String teamId = splitter[1];
@@ -229,6 +238,29 @@ public class LoginActivity extends Activity {
     public void onSkipForDatabase(View view) {
         Intent goToTestDB = new Intent(this, TestDatabaseActivity.class);
         startActivity(goToTestDB);
+    }
+
+    public void onIPClick(View view) {
+        EditText ipIn = findViewById(R.id.ipET);
+        String ip = ipIn.getText().toString();
+        MyClientID.setIP(ip);
+
+    }
+
+    protected void onPause() {
+        super.onPause();
+        System.out.println("onPause BroadcastReceiver");
+
+        unregisterReceiver(clientReceiver);
+    }
+
+    protected void onResume() {
+        super.onResume();
+        System.out.println("onResume BroadcastReceiver");
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(NetworkService.TRANSACTION_DONE_NOTICE);
+        registerReceiver(clientReceiver, intentFilter);
     }
 }
 

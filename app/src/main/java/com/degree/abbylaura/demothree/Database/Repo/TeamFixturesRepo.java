@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.TableRow;
 
 import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
@@ -71,6 +72,35 @@ public class TeamFixturesRepo {
         DatabaseManager.getInstance().closeDatabase();
     }
 
+    public String getFixText(String id){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        String selectQuery = " SELECT " +  TeamFixtures.KEY_HomeTeam + ", " +
+                TeamFixtures.KEY_AwayTeam + ", " + TeamFixtures.KEY_TeamFixtureDate +
+                " FROM " + TeamFixtures.TABLE;
+
+        String homeTeam = "";
+        String awayTeam = "";
+        String date = "";
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+               homeTeam = cursor.getString(0);
+               awayTeam = cursor.getString(1);
+               date = cursor.getString(2);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        TeamRepo teamRepo = new TeamRepo();
+        homeTeam = getTeamName(homeTeam);
+        awayTeam = getTeamName(awayTeam);
+
+        String ret = homeTeam + " vs " + awayTeam + ": " + date;
+        return ret;
+    }
 
     public String[][] getTableData() {
 

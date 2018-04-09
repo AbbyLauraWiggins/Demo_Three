@@ -239,7 +239,8 @@ public class LogActivity extends Activity {
     }
 
     public void onFeedbackClick(View view) {
-        //TODO
+        Intent goToLog = new Intent(this, LogFeedback.class);
+        startActivity(goToLog);
     }
 
     public void onSetUpClick(View view) {

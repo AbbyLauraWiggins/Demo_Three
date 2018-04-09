@@ -6,8 +6,11 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.degree.abbylaura.demothree.Client.MyClientID;
 import com.degree.abbylaura.demothree.Database.Data.DatabaseManager;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
+import com.degree.abbylaura.demothree.Database.Schema.Session;
+import com.degree.abbylaura.demothree.Database.Schema.StrengthAndConditioning;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -110,7 +113,32 @@ public class MemberRepo {
 
     }
 
+    public ArrayList<ArrayList<String>> getMyTeam(String teamID){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
+        ArrayList<ArrayList<String>> response = new ArrayList<>();
+
+        String selectQuery = " SELECT MemberId, Name FROM Member WHERE TeamId = '" + teamID + "'";
+
+        Log.d(Member.TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                ArrayList<String> row = new ArrayList<>();
+                row.add(cursor.getString(0));
+                row.add(cursor.getString(1));
+
+                System.out.println(cursor.getString(0) + " ||| " + cursor.getString(1));
+
+                response.add(row);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return response;
+    }
 
     public void setWhereClause(String where) {
         this.whereClause = where;
@@ -194,5 +222,23 @@ public class MemberRepo {
         }
 
         return names;
+    }
+
+    public String getID(String name){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        String id = "";
+
+
+        String selectQuery = " SELECT " + Member.KEY_MemberId + " FROM " + Member.TABLE +
+                " WHERE " + Member.KEY_Name + " = '" + name + "'";
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            id = cursor.getString(0);
+        }
+
+        return id;
     }
 }

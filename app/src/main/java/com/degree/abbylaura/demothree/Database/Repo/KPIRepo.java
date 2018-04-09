@@ -166,9 +166,11 @@ public class KPIRepo {
                     //System.out.println(name + " | " + result + " | " + fixture);
 
                     if(fixture.equals(teamFixtureID)){
-                        if(Integer.parseInt(result) > max){ //TODO deal with equals
-                            max = Integer.parseInt(result);
-                            fName = name;
+                        if(!(result == null)){
+                            if(Integer.parseInt(result) > max) { //TODO deal with equals
+                                max = Integer.parseInt(result);
+                                fName = name;
+                            }
                         }
                     }
 
@@ -275,9 +277,11 @@ public class KPIRepo {
 
         if (cursor.moveToFirst()) {
             do {
-                name = (cursor.getString(0));
-                total = total + Integer.parseInt(cursor.getString(1));//add total
-                //System.out.println("name: " + name + ", value: " + cursor.getString(1) + ", total: " + String.valueOf(total));
+                if(cursor.getString(0) != null && cursor.getString(1) != null){
+                    name = (cursor.getString(0));
+                    total = total + Integer.parseInt(cursor.getString(1));//add total
+                }
+
             } while (cursor.moveToNext());
         }
 

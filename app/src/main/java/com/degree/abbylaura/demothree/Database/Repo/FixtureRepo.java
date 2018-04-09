@@ -78,8 +78,6 @@ public class FixtureRepo {
         values.put(Fixture.KEY_PenaltyKicks, fixture.getPenaltyKicks());
 
 
-        //TODO auto insert into fixture repo when teamfixtures updated
-
         // Inserting Row
         db.insert(Fixture.TABLE, null, values);
         DatabaseManager.getInstance().closeDatabase();

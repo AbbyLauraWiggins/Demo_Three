@@ -254,4 +254,9 @@ public class MyStats extends Activity {
         Intent intent = new Intent(this, LogScSession.class);
         startActivity(intent);
     }
+
+    public void onGameFeedback(View view) {
+        Intent intent = new Intent(this, MyFeedback.class);
+        startActivity(intent);
+    }
 }

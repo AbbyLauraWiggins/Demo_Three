@@ -8,15 +8,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="REGISTER"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
+        android:padding="10dp"
         android:textStyle="bold"
-        android:textSize="30sp"/>
+        android:id="@+id/title"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/register_email_text"
-        android:id="@+id/register_email"/>
+        android:id="@+id/register_email"
+        android:inputType="textEmailAddress"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -42,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/register_teamID"
-        android:hint="Team ID Number"/>
+        android:hint="Team ID"/>
 
 
     <Button
@@ -51,6 +55,20 @@
         android:layout_height="wrap_content"
         android:onClick="onFinishRegistrationClick"
         android:text="Register" />
+
+    <Button
+        android:id="@+id/help_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onHelpClick"
+        android:text="Help" />
+
+    <Button
+        android:id="@+id/new_team_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onNewTeamClick"
+        android:text="Create New Team" />
 
 
 </LinearLayout>

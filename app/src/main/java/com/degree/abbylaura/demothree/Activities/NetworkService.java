@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import android.util.Log;
 
 import com.degree.abbylaura.demothree.Client.MyClientID;
+import com.degree.abbylaura.demothree.Database.Repo.FeedbackRepo;
 import com.degree.abbylaura.demothree.Database.Repo.FixtureRepo;
 import com.degree.abbylaura.demothree.Database.Repo.KPIRepo;
 import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
@@ -15,6 +16,7 @@ import com.degree.abbylaura.demothree.Database.Repo.SessionRepo;
 import com.degree.abbylaura.demothree.Database.Repo.StrengthAndConditioningRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamFixturesRepo;
 import com.degree.abbylaura.demothree.Database.Repo.TeamRepo;
+import com.degree.abbylaura.demothree.Database.Schema.Feedback;
 import com.degree.abbylaura.demothree.Database.Schema.Fixture;
 import com.degree.abbylaura.demothree.Database.Schema.KPI;
 import com.degree.abbylaura.demothree.Database.Schema.Member;
@@ -31,6 +33,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -47,7 +50,12 @@ public class NetworkService extends IntentService {
     public static final String TRANSACTION_DONE_VALID = "TRANSACTION_DONE_VALID";
     public static final String TRANSACTION_VOID = "TRANSACTION_VOID";
     public static final String TRANSACTION_DONE_SCADD = "TRANSACTION_DONE_SCADD";
-
+    public static final String TRANSACTION_DONE_FIXTURE = "TRANSACTION_DONE_FIXTURE";
+    public static final String TRANSACTION_DONE_FEEDBACK = "TRANSACTION_DONE_FEEDBACK";
+    public static final String TRANSACTION_DONE_UPDATEFEEDBACK = "TRANSCATION_DONE_UPDATEFEEDBACK";
+    public static final String TRANSACTION_DONE_ADDTEAM = "TRANSCATION_DONE_ADDTEAM";
+    public static final String TRANSACTION_DONE_PERMISSIONS = "TRANSCATION_DONE_PERMISSIONS";
+    public static final String TRANSACTION_DONE_TEAMFIXTURES = "TRANSCATION_DONE_TEAMFIXTURES";
 
 
     // Validates resource references inside Android XML files
@@ -58,7 +66,6 @@ public class NetworkService extends IntentService {
     public NetworkService(String name) {
         super(name);
     }
-
 
 
     //Runs when called from an activity
@@ -104,6 +111,20 @@ public class NetworkService extends IntentService {
                 i = new Intent(TRANSACTION_DONE_SCADD);
                 NetworkService.this.sendBroadcast(i);
 
+            }else if(typeSending.equals("updateBasicFEEDBACK")){
+                int size = Integer.parseInt(intent.getStringExtra("TABLESIZE"));
+
+                updateFeedback(MyClientID.myID, size);
+                i = new Intent(TRANSACTION_DONE_UPDATEFEEDBACK);
+                NetworkService.this.sendBroadcast(i);
+
+            }else if(typeSending.equals("updateAdvancedFEEDBACK")){
+                int size = Integer.parseInt(intent.getStringExtra("TABLESIZE"));
+
+                updateFeedback("ADVANCED", size);
+                i = new Intent(TRANSACTION_DONE_UPDATEFEEDBACK);
+                NetworkService.this.sendBroadcast(i);
+
             }
             else{
 
@@ -138,6 +159,37 @@ public class NetworkService extends IntentService {
                 i = new Intent(TRANSACTION_DONE_VALID);
                 String valid = updateMembers(response, passedList);
                 i.putExtra("VALIDATION", valid);
+            } else if(typeSending.equals("FIXTURES")){
+
+                FixtureRepo fixtureRepo = new FixtureRepo();
+                ArrayList<String> response = serviceRequest(passedList, typeSending, fixtureRepo.getTableSize());
+
+                i = new Intent(TRANSACTION_DONE_FIXTURE);
+                updateFixture(response);
+            } else if(typeSending.equals("ADDFEEDBACK")){
+                //if you can add feedback then you need to hold a copy of all your team's feedback
+                //so response will be all the feedback of all players that you dont hold
+                ArrayList<String> response = serviceRequest(passedList, typeSending,
+                        Integer.parseInt(intent.getStringExtra("TABLESIZE")));
+
+                System.out.println("network service, adding feedback. repsonse = " + response);
+
+                serviceAddFeedback(response);
+
+                i = new Intent(TRANSACTION_DONE_FEEDBACK);
+            } else if(typeSending.equals("ADDTEAM")){
+
+                ArrayList<String> response = serviceRequest(passedList, typeSending,0);
+
+                i = new Intent(TRANSACTION_DONE_ADDTEAM);
+
+            } else if(typeSending.equals("PERMISSIONS")){
+                ArrayList<String> response = serviceRequest(passedList, typeSending,0);
+                servicePermissions(response);
+                i = new Intent(TRANSACTION_DONE_PERMISSIONS);
+            } else if(typeSending.equals("TEAMFIXTURES")){
+                ArrayList<String> response = serviceRequest(passedList, typeSending,0);
+                i = new Intent(TRANSACTION_DONE_TEAMFIXTURES);
             }
 
 
@@ -150,6 +202,35 @@ public class NetworkService extends IntentService {
         }
 
 
+    }
+
+    private void servicePermissions(ArrayList<String> response) {
+        if(!response.isEmpty()){
+            if(!response.get(0).equals("CODE:4699:NOMEMBERS")){
+                System.out.println("updateMembers: " + response.toString());
+
+                MemberRepo memberRepo = new MemberRepo();
+                memberRepo.delete();
+
+                for(String al: response){
+                    String[] splitter = al.split("4h4f");
+
+                    Member member = new Member();
+                    member.setMemberId((String) splitter[0]);
+                    member.setName((String) splitter[1]);
+                    member.setEmail((String) splitter[2]);
+                    member.setPassword((String) splitter[3]);
+                    member.setDOB((String) splitter[4]);
+                    member.setPositions((String) splitter[5]);
+                    member.setResponsibilities((String) splitter[6]);
+                    member.setTeamId((String) splitter[7]);
+                    member.setPermissions((String) splitter[8]);
+
+                    memberRepo.insert(member);
+
+                }
+            }
+        }
     }
 
     protected ArrayList<String> serviceRequest(ArrayList<String> passedRequest, String typeSending, int size) {
@@ -182,12 +263,12 @@ public class NetworkService extends IntentService {
             try{
                 System.out.println("5: Try block of TalkToServer NestedClient");
 
-                socket = new Socket("192.168.0.18", 9002); //192.168.0.18
+                //System.out.println(InetAddress.getLocalHost().getHostAddress().toString());
+
+                socket = new Socket(MyClientID.serverIP, 9002); //192.168.0.18
 
                 outToServer = new ObjectOutputStream(socket.getOutputStream());
                 inFromServer = new ObjectInputStream(socket.getInputStream());
-
-
 
                 outToServer.writeObject(typeSending);   //DATABASE TABLE TYPE
                 outToServer.writeObject(size);          //SIZE OF CLIENT TABLE
@@ -215,7 +296,40 @@ public class NetworkService extends IntentService {
 
     }
 
+    private void updateFeedback(String myId, int size){
+        ArrayList<String> toPass = new ArrayList<>();
+        toPass.add(myId);
+        ArrayList<String> response = serviceRequest(toPass, "updateBasicFEEDBACK", size);
 
+        serviceAddFeedback(response);
+    }
+
+    private void serviceAddFeedback(ArrayList<String> response){
+        if(!response.isEmpty()){
+            if(!(response.get(0).equals("CODE:4900:NOFEEDBACK"))){
+                System.out.println("updateFeedback: " + response.toString());
+
+                FeedbackRepo feedbackRepo = new FeedbackRepo();
+
+                for(String al: response){
+                    String[] splitter = al.split("4h4f");
+                    Feedback feedback = new Feedback();
+                    feedback.setMemberId((String) splitter[1]);
+                    feedback.setFixtureId((String) splitter[2]);
+                    feedback.setFeedbackText((String) splitter[3]);
+                    feedback.setAttack((String) splitter[4]);
+                    feedback.setDefence((String) splitter[5]);
+                    feedback.setEffort((String) splitter[6]);
+                    feedback.setOverall((String) splitter[7]);
+
+                    feedbackRepo.insert(feedback);
+                }
+            }
+
+        }
+
+        System.out.println(">>>>>>>>>>>>>>>> feedback updated");
+    }
 
     private void updateNotices(ArrayList<String> response){
 
@@ -564,6 +678,42 @@ public class NetworkService extends IntentService {
                 sessionRepo.insert(scs);
             }
         }*/
+    }
+
+    private void updateFixture(ArrayList<String> fixtures){
+        FixtureRepo fixtureRepo = new FixtureRepo();
+
+        if(!fixtures.isEmpty()){
+            if(!(fixtures.get(0).equals("CODE:4702:NOFIXTURES"))){
+                for(String f: fixtures){
+                    String[] splitter = f.split("4h4f");
+                    Fixture fixture = new Fixture();
+                    fixture.setTeamId(splitter[1]);
+                    fixture.setFixtureId(splitter[2]);
+                    fixture.setFixturePoints(splitter[3]);
+                    fixture.setForward(splitter[4]);
+                    fixture.setBack(splitter[5]);
+                    fixture.setPlayer(splitter[6]);
+                    fixture.setTriesScored(splitter[7]);
+                    fixture.setTriesSucceeded(splitter[8]);
+                    fixture.setConversions(splitter[9]);
+                    fixture.setConversionsSucceeded(splitter[10]);
+                    fixture.setScrumsWon(splitter[11]);
+                    fixture.setScrumsLost(splitter[12]);
+                    fixture.setMaulsWon(splitter[13]);
+                    fixture.setMaulsLost(splitter[14]);
+                    fixture.setLineOutsWon(splitter[15]);
+                    fixture.setLineOutsLost(splitter[16]);
+                    fixture.setDropGoals(splitter[17]);
+                    fixture.setPenaltyKicks(splitter[18]);
+
+                    fixtureRepo.insert(fixture);
+                }
+
+            }
+        }
+
+        System.out.println(">>>>>>>>>>>>>>>> fixtures updated");
     }
 
 }

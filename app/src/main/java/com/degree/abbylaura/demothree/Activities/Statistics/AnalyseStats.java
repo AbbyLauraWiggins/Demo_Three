@@ -23,19 +23,42 @@ import com.degree.abbylaura.demothree.Activities.Log.LogActivity;
 import com.degree.abbylaura.demothree.Activities.Notices.NoticeActivity;
 import com.degree.abbylaura.demothree.Activities.ProfileActivity;
 import com.degree.abbylaura.demothree.Database.Repo.KPIRepo;
+import com.degree.abbylaura.demothree.Database.Repo.MemberRepo;
+import com.degree.abbylaura.demothree.Database.Repo.SessionRepo;
+import com.degree.abbylaura.demothree.Database.Schema.Session;
 import com.degree.abbylaura.demothree.R;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.PointsGraphSeries;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 
 /**
  * Created by abbylaura on 12/03/2018.
+ *
+ GraphView
+
+ Copyright 2018 Abbygayle Wiggins
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
  */
 
 public class AnalyseStats extends Activity {
@@ -44,12 +67,13 @@ public class AnalyseStats extends Activity {
     Switch toggle;
     Boolean switchState;
     String indicator;
-    PointsGraphSeries<DataPoint> graphSeries;
+    LineGraphSeries<DataPoint> graphSeries;
 
     LinearLayout homebbll, noticebbll, profilebbll, logbbll;
     ImageView barNotice, barHome, barLog, barProfile;
     int iconSize, barSize;
     ButtonBarLayout bbl;
+    HashMap<String, String> scExercises;
 
 
 
@@ -96,6 +120,23 @@ public class AnalyseStats extends Activity {
         barProfile = findViewById(R.id.profileBarButton);
 
         setBottomBar();
+
+        scExercises = new HashMap<>();
+        scExercises.put("Deadlifts", "Deadlifts");
+        scExercises.put("Deadlift Jumps", "DeadliftJumps");
+        scExercises.put("BackSquats", "BackSquat");
+        scExercises.put("BackSquat Jumps", "BackSquat");
+        scExercises.put("GobletSquat", "GobletSquat");
+        scExercises.put("Bench Press", "BenchPress");
+        scExercises.put("Military Press", "MilitaryPress");
+        scExercises.put("Supine Row", "SupineRow");
+        scExercises.put("Chin Ups", "ChinUps");
+        scExercises.put("Trunk", "Trunk");
+        scExercises.put("RDL", "RDL");
+        scExercises.put("Split Squat", "SplitSquat");
+        scExercises.put("Four Way Arms", "FourWayArms");
+
+
     }
 
     private void setBottomBar(){
@@ -241,6 +282,8 @@ public class AnalyseStats extends Activity {
 
     public void onShowGraph(View view) throws ParseException {
         LinearLayout ll = findViewById(R.id.ll);
+        ll.removeAllViews();
+
         GraphView graph = new GraphView(this);//(GraphView) findViewById(R.id.graphView);
 
         int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
@@ -258,8 +301,6 @@ public class AnalyseStats extends Activity {
         if(indicator.equals("KPI")){ //KPIS toggle
             System.out.println("in show graph 2: " + selectedKPIs.toString());
             if(selectedKPIs != null){ //KPIs chosen
-                //TODO plot graphs of KPIS over time for each person
-
 
                 System.out.println("in show graph 3: " + memberIDs.toString());
                 for(String member : memberIDs){ //for each member
@@ -271,18 +312,37 @@ public class AnalyseStats extends Activity {
 
                         System.out.println("in show graph 5: " + graphData.toString());
 
-                        SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+                        //SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
 
                         for(int i =0; i<graphData.size(); i++) {
 
                             //Date x = dates.get(i);
-                            Date x = df.parse(graphData.get(i).get(1));
+                            Double x = Double.parseDouble(graphData.get(i).get(2));
                             Double y = Double.parseDouble(graphData.get(i).get(0));
 
                             System.out.println("generate data: " + String.valueOf(x) + " : " + String.valueOf(y));
                             DataPoint v = new DataPoint(x, y);
                             dps.add(v);
                         }
+
+                        DataPoint[] values = new DataPoint[dps.size()];
+                        for(int i = 0; i < dps.size(); i++){
+                            values[i] = dps.get(i);
+                        }
+                        graph.removeAllSeries();
+                        graphSeries = new LineGraphSeries<DataPoint>(values);
+                        graph.addSeries(graphSeries);
+
+                        String legend = "";
+                        MemberRepo memberRepo = new MemberRepo();
+                        ArrayList<String> getname = new ArrayList<>();
+                        getname.add(member);
+
+                        legend = memberRepo.getNames(getname).get(0) + ", " + kpi;
+
+                       /* graphSeries.setTitle(graphSeries.getTitle() + legend);
+                        graph.getLegendRenderer().setVisible(true);
+                        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);*/
 
                     }
                 }
@@ -293,23 +353,56 @@ public class AnalyseStats extends Activity {
         }
         else{
             if(selectedSCs != null){ //SCs chosen
+                for(String member : memberIDs){ //for each member
 
+                    for(String sc1 : selectedSCs){ //for each KPI
+                        SessionRepo sessionRepo = new SessionRepo();
+                        String sc = scExercises.get(sc1);
+                        ArrayList<ArrayList<String>> graphData = sessionRepo.getGraphStats(member, sc);
+
+
+                        for(int i =0; i<graphData.size(); i++) {
+
+                            //Date x = dates.get(i);
+                            Double x = Double.parseDouble(graphData.get(i).get(2));
+                            Double y = Double.parseDouble(graphData.get(i).get(0));
+
+                            System.out.println("generate data: " + String.valueOf(x) + " : " + String.valueOf(y));
+                            DataPoint v = new DataPoint(x, y);
+                            dps.add(v);
+                        }
+
+                        DataPoint[] values = new DataPoint[dps.size()];
+                        for(int i = 0; i < dps.size(); i++){
+                            values[i] = dps.get(i);
+                        }
+                        graph.removeAllSeries();
+                        graphSeries = new LineGraphSeries<DataPoint>(values);
+                        graph.addSeries(graphSeries);
+
+                        String legend = "";
+                        MemberRepo memberRepo = new MemberRepo();
+                        ArrayList<String> getname = new ArrayList<>();
+                        getname.add(member);
+
+                        /*legend = memberRepo.getNames(getname).get(0) + ", " + sc1;
+                        graphSeries.setTitle(graphSeries.getTitle() + legend);
+                        graph.getLegendRenderer().setVisible(true);
+                        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);*/
+
+                    }
+                }
             }
             else {
                 Toast.makeText(this, "Please select exercises to view.", Toast.LENGTH_SHORT).show();
             }
         }
 
-        DataPoint[] values = new DataPoint[dps.size()];
-        for(int i = 0; i < dps.size(); i++){
-            values[i] = dps.get(i);
-        }
-        graph.removeAllSeries();
-        graphSeries = new PointsGraphSeries<DataPoint>(values);
-        graph.addSeries(graphSeries);
-
-        ll.removeAllViews();
         ll.addView(graph);
+
+        memberIDs = new ArrayList<>();
+        selectedKPIs = new ArrayList<>();
+        selectedSCs = new ArrayList<>();
     }
 
     public void onHomeButtonClick(View view) {

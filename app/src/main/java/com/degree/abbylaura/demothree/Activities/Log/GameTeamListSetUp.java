@@ -41,7 +41,7 @@ import java.util.HashMap;
 
 public class GameTeamListSetUp extends Activity {
 
-    Button upload, create, createAndLog;
+    Button create, createAndLog;
     HashMap<Integer, String> playerAssignment;
     TextView fixtureDate;
     String fixtureID;
@@ -57,7 +57,6 @@ public class GameTeamListSetUp extends Activity {
 
         setContentView(R.layout.gam_team_list_setup_activity);
 
-        upload = findViewById(R.id.uploadTeamSheet);
         create = findViewById(R.id.createTeamSheet);
         createAndLog = findViewById(R.id.createAndLog);
         fixtureDate = findViewById(R.id.nextFixtureDate);
@@ -73,6 +72,8 @@ public class GameTeamListSetUp extends Activity {
         barHome = findViewById(R.id.homeBarButton);
         barLog = findViewById(R.id.logBarButton);
         barProfile = findViewById(R.id.profileBarButton);
+
+
 
         setBottomBar();
 
@@ -153,7 +154,6 @@ public class GameTeamListSetUp extends Activity {
     }
 
     public void onCreateClick(View view) {
-        upload.setVisibility(View.INVISIBLE);
 
         LinearLayout ll = findViewById(R.id.ll);
         ll.removeAllViews();
@@ -205,13 +205,18 @@ public class GameTeamListSetUp extends Activity {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                playerAssignment.put(pos, adapterView.getItemAtPosition(i).toString());
+                playerAssignment.put(pos, getID(adapterView.getItemAtPosition(i).toString()));
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
+    }
+
+    public String getID(String name){
+        MemberRepo memberRepo = new MemberRepo();
+        return memberRepo.getID(name);
     }
 
     public void onCreateAndLogClick(View view) {
@@ -240,7 +245,7 @@ public class GameTeamListSetUp extends Activity {
                     if (new Date().before(fixtureDate)) { //if NOW is before fixtureDate
                         if(fixtureDate.before(farAway)){ //if it closer to now than current closest date
                             farAway = fixtureDate;
-                            fixtureID = row.get(0);
+                            fixtureID = row.get(3);
                         }
                     }
                 } catch (ParseException e) {

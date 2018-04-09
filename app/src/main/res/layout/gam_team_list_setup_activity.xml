@@ -42,13 +42,6 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/uploadTeamSheet"
-                    android:text="Upload Team Sheet"
-                    />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:text="Create Team Sheet"
                     android:id="@+id/createTeamSheet"
                     android:onClick="onCreateClick"/>
